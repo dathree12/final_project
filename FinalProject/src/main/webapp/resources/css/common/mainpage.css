@@ -1,0 +1,491 @@
+
+#main_container{
+   display: block;
+   width: 80%;
+   margin: auto;  
+   font-family: 'Source Sans Pro';
+}
+a {
+    text-decoration: none;
+}
+
+
+#high_div{
+    border: 1px solid #f1f1f1;
+    display: flex;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    
+}
+
+#inner_img_div{
+    background-color: white;
+    border: 1px solid red;
+    width: 55%;
+    margin: 20px auto 20px;
+  
+}
+#inner_reco_div{
+    background-color: white;
+    width: 45%;
+    margin: auto 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+.reco_div{
+   
+    width: 95%;
+    margin: auto 15px;
+    margin-top: 10px;
+    margin-bottom: 13px;
+    display: flex;
+}
+
+.reco_img_div{
+    width: 30%;
+    margin: 10px auto 10px;
+}
+
+.img_size{
+    width: 68%;  
+}
+
+.reco_content{
+    text-align: left;
+    width: 65%;
+    margin: 5px auto 5px;
+    
+}
+
+.reco_content_title{
+ border-bottom : 1px solid #f1f1f1; 
+ margin: auto 10px;
+ color: #f26722;
+ text-align: center;
+}
+
+
+.reco_content_ctt{
+    margin: 10px auto 10px;
+    font-size: 11pt;
+    width: 100%; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    /* 여러 줄 자르기 추가 스타일 */
+     white-space: normal; 
+     line-height: 1.3; height: 57%; 
+     word-wrap: break-word;
+    display: -webkit-box; 
+    -webkit-line-clamp: 5; 
+    -webkit-box-orient: vertical;
+    color: #999999;
+    word-break: break-all;
+}
+.reco_content_ctt span{ 
+    overflow: hidden;
+    white-space:pre-line;
+    text-overflow: ellipsis;
+}
+
+.reco_content strong{ 
+font-size: 13px;
+margin: auto 5px;
+}
+
+
+
+#inner_reco_div_span{
+    font-size: 20px;
+}
+
+
+#inner_reco_div a{
+    text-decoration: none;
+    color: #555555;
+}
+
+/* 달의 베스트 추천 도서 css  left  */
+#middle_div{
+    border: 1px solid #f1f1f1;
+    background: #fff;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+}
+
+#middle_div_text{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 900;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+#innner_container{
+    display: flex;
+}
+
+#l_inner_cont{
+    width: 35%;
+    margin: 10px auto 10px;  
+   
+}
+
+#l_inner_cont_div{
+   
+    width: 65%;
+    position: relative;
+    margin: auto;
+
+}
+
+#l_inner_cont_count{
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background-color:#f26722;
+    color: #fff;
+    text-align: center;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    z-index: 10;
+}
+
+#l_cont_img{
+    width: 100%;
+
+}
+
+#l_text_con{
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 11pt;
+    width: 95%; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    /* 여러 줄 자르기 추가 스타일 */
+    white-space: normal; 
+    line-height: 1.3; height: 55%; 
+    word-wrap: break-word;
+    display: -webkit-box; 
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    color: #555555;
+    text-indent: 5px;
+    word-break: break-all;
+}
+
+
+.l_text_tw{
+    text-align: center;
+    color: #f26722;
+}
+
+#l_text_title{
+    font-size: 18px;
+    font-weight: 900;
+}
+
+#l_text_writer{
+    font-size: 16PX;
+}
+
+#l_text_con{
+    text-indent: 10px;
+    font-size: 15px;
+    color: #555555;
+    text-overflow: ellipsis;
+}
+
+/* 달의 베스트 추천 도서 css  right  */
+#r_inner_cont_se{
+    width: 50%;
+    margin: 1px auto 1px;
+}
+
+.r_inner_cont{
+    width: 100%;
+    margin: 30px auto;
+    display: flex;
+}
+
+.r_inner_img{
+    width: 23.3%;
+    position: relative;
+    }
+
+.r_inner_cont_count{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background-color:#f26722;
+    color: #fff;
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    z-index: 10;
+}
+
+.r_inner_img img{
+ width: 100%;
+}
+
+.r_inner_con{
+ width: 75%;
+ height: 100%;
+ margin: auto 15px;
+ 
+}
+
+.r_text_tw{
+    text-align: center;
+    color: #f26722;
+    margin-top: 2px;
+}
+.r_text_title{
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.r_text_writer{
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.r_text_text{
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 11pt;
+    width: 95%; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    /* 여러 줄 자르기 추가 스타일 */
+    white-space: normal; 
+    line-height: 1.3; height: 55%; 
+    word-wrap: break-word;
+    display: -webkit-box; 
+    -webkit-line-clamp: 6; 
+    -webkit-box-orient: vertical;
+    color: #555555;
+    text-indent: 5px;
+    word-break: break-all;
+}
+
+
+/* 장르별 추천 css  */
+
+.nav{
+    width: 100%;
+}
+
+.nav_menu{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 8px auto 12px;
+    list-style: none;
+}
+
+
+.nav_menu a{
+    font-size: 1em;
+    color: #f26722;
+}
+
+.nav_menu li:hover{
+    font-weight: 900;
+    font-size: 1.3em;
+}
+
+#row_div{
+    background: #fff;
+    width: 100%;
+    margin-top: 50px;
+}
+
+#row_genre{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+}
+
+#row_div_text{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 900;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.me_genre_div{
+    display: flex;
+    width: 100%
+}
+
+
+.genre{
+    width: 35%;
+    margin: auto;
+}
+
+
+
+.genre_title{
+    text-align: center;
+    color: #f26722;
+    border-bottom: 1px solid #f1f1f1;
+}
+.genre_img{
+    width: 100%;
+}
+
+.genre_content{
+    font-size: 12px;
+    margin: 8px 8px;
+    text-indent: 4px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    /* 여러 줄 자르기 추가 스타일 */
+    white-space: normal; 
+    line-height: 1.3; height: 11.5%; 
+    word-wrap: break-word;
+    display: -webkit-box; 
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    color: #555555;
+    word-break: break-all;
+}
+
+#genre_btn{
+    margin: 30px auto;
+    width: 200px;
+    border: 1px solid #f26722;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#genre_btn span{
+    font-size: 0.9em;
+    color: #f26722;
+    
+}
+
+#genre_btn:hover{
+    background-color: #f26722;
+}
+#genre_btn span:hover{
+    color: white;
+}
+
+
+@media screen  and (max-width: 768px){
+    
+    #high_div {
+        flex-direction: column;
+    }
+
+    .reco_div{
+        flex-direction: column;
+
+        margin: 5px auto;
+    }
+    
+    #inner_reco_div{
+        width: 100%;
+    }
+    .img_size{
+        width: 100%;
+    }    
+
+
+    #innner_container{
+        flex-direction: column;
+        width: 80%;
+        margin: auto;
+    }
+
+   #l_inner_cont{
+       width: 100%;
+   }
+
+   #r_inner_cont_se{
+        width: 100%;
+   }
+
+
+    #row_genre {
+        flex-direction: column;
+        width: 100%;
+    
+    }
+
+    .genre{
+        width: 35%;
+        margin: 20px auto;
+    }
+    .nav_menu a{
+        font-size: 0.8em;
+        color: #f26722;
+    }
+    
+
+    #genre_btn{
+        width: 200px;
+        margin: 20px auto;
+        height: 10%;
+    }
+    .genre_content{
+        font-size: 12px;
+        margin: 8px 8px;
+        text-indent: 4px;
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        /* 여러 줄 자르기 추가 스타일 */
+        white-space: normal; 
+        line-height: 1.3; height: 12%; 
+        word-wrap: break-word;
+        display: -webkit-box; 
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical;
+        color: #555555;
+    }
+    
+}
+
+
+@media screen  and (max-width: 500px){
+    .genre_content{
+        font-size: 12px;
+        margin: 8px 8px;
+        text-indent: 4px;
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        /* 여러 줄 자르기 추가 스타일 */
+        white-space: normal; 
+        line-height: 1.3; height: 11.5%; 
+        word-wrap: break-word;
+        display: -webkit-box; 
+        -webkit-line-clamp: 2; 
+        -webkit-box-orient: vertical;
+        color: #555555;
+    }
+ 
+}
