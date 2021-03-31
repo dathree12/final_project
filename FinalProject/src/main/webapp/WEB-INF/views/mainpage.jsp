@@ -197,5 +197,5 @@
         </div>
          <br>
     </section>
-</body>
-</html>
+    
+<%@ include file="../views/common/footer.jsp" %>

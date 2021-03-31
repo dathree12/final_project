@@ -480,7 +480,7 @@ margin: auto 5px;
         text-overflow: ellipsis; 
         /* 여러 줄 자르기 추가 스타일 */
         white-space: normal; 
-        line-height: 1.3; height: 11.5%; 
+        line-height: 1.3; height: 11.2%; 
         word-wrap: break-word;
         display: -webkit-box; 
         -webkit-line-clamp: 2; 
