@@ -1,0 +1,319 @@
+* {
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+body {
+    margin-top: -16px;
+}
+div, form {
+    display: block;
+}
+#checks-logo {
+    border: none;
+    vertical-align: top;
+    width: auto;
+    max-width: 140px;
+    max-height: 78px;
+}
+li {
+    list-style: none;
+}
+.-logo {
+    width: 30%;
+}
+
+.nav_header {
+    padding: 0;
+    font-family: 'Source Sans Pro';
+    /* border: 1px solid black; */
+    color: #353535;
+    background: #fff;
+    display: block;
+    margin: 0;
+}
+#banner_action, #keyword {
+    color: #353535;
+    vertical-align: middle;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: start;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+h1 {
+    padding: 0;
+    margin: 0;
+}
+.nav_anbArea {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #e7e7e7;
+    /* border: 1px solid black; */
+    margin: 0;
+    padding: 0;
+    height: 30px;
+}
+.nav-c-width {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /* border: 1px solid black; */
+}
+.nav-anb {
+    line-height: 0;
+    text-align: right;
+    border-right: 1px solid #e7e7e7;
+}
+.nav-anb li {
+    border-left: 1px solid #e7e7e7;
+    position: relative;
+}
+.nav-anb li, .nav-anb li a {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 11px;
+    line-height: 30px;
+}
+.nav-anb li a {
+    padding: 0 10px;
+}
+.topArea {
+    clear: both;
+    position: relative;
+    padding: 0;
+    font-size: 11px;
+    border-bottom: 1px solid #e7e7e7;
+    transition: 1s;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    /* text-align: center; */
+}
+.nav-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -17px;
+    margin-left: -150px;
+    width: 300px;
+    height: 34px;
+    /* border: 1px solid black; */
+    border-bottom: 1px solid #353535;
+}
+fieldset {
+    display: block;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border: none;
+    /* vertical-align: top; */
+}
+#searchBarForm {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+.btn_h_search {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+    height: 32px;
+    padding: 0 5px 0 0;
+    text-align: right;
+    cursor: pointer;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+    line-height: 3.2;
+
+    /* border: 1px solid black; */
+
+}
+.inputTypeText {
+    width: 260px;
+    height: 32px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    border: none;
+}
+#banner_action {
+    width: 260px;
+    height: 32px;
+    position: absolute;
+    border: none;
+}
+.menuArea {
+    position: relative;
+    height: 57px;
+    border-bottom: 1px solid #e7e7e7;
+    margin: 0;
+    padding: 0;
+    /* border: 1px solid #e7e7e7; */
+    transition: 1s;
+    /* border: 1px solid black; */
+}
+.-menu {
+    line-height: 0;
+    text-align: left;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1260px;
+}
+.position {
+    height: 57px;
+}
+.position > ul {
+    line-height: 0;
+    width: 100%;
+}
+.position > ul > li {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    z-index: 70;
+    margin-left: 50px;
+}
+.position > ul > li > a {
+    display: inline-block;
+    vertical-align: top;
+    height: 57px;
+    /* border: 1px solid black; */
+    line-height: 57px;
+    color: #000;
+    font-size: 12px;
+    word-spacing: -1px;
+}
+
+.-board-2th li {
+    margin-left: 30px;
+}
+.-board-2th, .-board-2th li, .-board-2th li a {
+    display: inline-block;
+    vertical-align: top;
+}
+._bul {
+    font-size: 10px;
+    color: #999;
+    line-height: 57px;
+}
+.position {
+    /* border: 1px solid black; */
+    /* float: left; */
+    display: flex;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+.-board-1th {
+    /* border: 1px solid black; */
+    /* float: left; */
+    margin-right: 300px;
+    display: block;
+}
+.-board-2th {
+    /* float: right; */
+    /* border: 1px solid black; */
+    margin-left: 100px;
+}
+.-category {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 57px;
+    /* border: 1px solid black; */
+}
+.navbar__toggleBtn {
+    /* border: 1px solid black; */
+    display: none;
+    position: absolute;
+    right: 32px;
+    /* font-size: 24px; */
+    width: 24px;
+    height: 24px;
+    color: var(--accent-color);
+}
+.navbar__toggleBtn img {
+    width: 24px;
+    height: 24px;
+}
+
+@media screen and (max-width: 768px) { 
+    .nav-anb {
+        visibility: hidden;
+        display: none;
+    }
+    .topArea {
+        background-color: #fff;
+    }
+    .-logo {
+        margin: auto;
+        position: absolute;
+        left: 40%;
+        height: auto !important;
+        max-width: 100%;
+        top: 30px;
+    }
+    .nav-center {
+        position: absolute;
+        top: 150px;
+        left: 340px;
+        width: 45%;
+    }    
+    .topArea {
+        border: none;
+    }
+    .menuArea {
+        position: absolute;
+        top: 190px;
+        border: none;
+    }
+    .position {
+        /* border: 1px solid black; */
+        flex-direction: column;
+    }
+    .position ul {
+        position: absolute;
+        top: -10px;
+        right: 15px;
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid black; */
+    }
+    .position li:hover {
+        background-color: #e7e7e7;
+    }
+    .position .-board-2th {
+        display: none;
+    }
+    .-board-1th {
+        /* display: block; */
+        border: 1px solid #e7e7e7;
+        transition: 1s;
+    }
+    .-board-1th.active {
+        display: none;
+        /* border-top: 1px solid #e7e7e7; */
+    }
+    .navbar__toggleBtn {
+        display: block;
+    }
+}
