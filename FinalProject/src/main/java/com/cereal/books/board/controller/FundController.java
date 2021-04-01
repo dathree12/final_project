@@ -28,4 +28,16 @@ public class FundController {
 		
 		return "board/bf_board/bf_payment";
 	}
+	
+	@RequestMapping("board/bf_board/bf_payFailure")
+	public String payFailure() {
+		
+		return "board/bf_board/bf_payFailure";
+	}
+	
+	@RequestMapping("board/bf_board/bf_paySuccess")
+	public String paySuccess() {
+		
+		return "board/bf_board/bf_paySuccess";
+	}
 }
