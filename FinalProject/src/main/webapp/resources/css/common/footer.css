@@ -1,7 +1,8 @@
+
 #footer_div {
-padding: 10px;
-width: 100%;
-font-family: 'Source Sans Pro';
+    width: 90%;
+    font-family: 'Source Sans Pro';
+    margin: auto;
 }
 
 
@@ -63,11 +64,33 @@ padding-left: 0;
 @media screen and (max-width: 768px){
     #footer_div div {
         flex-direction: column;
-        margin: 20px;
+        margin: auto;
         padding: 10px 0px;
         width: 100%;
+        text-align: center;
     }
 
-   
+    .f_body h3{
+        margin: auto 10px;
+    }
+    .f_body h4{
+        margin: auto 10px;
+        
+    }
 
+    .inner_f_company span{
+        margin: auto 10px;
+        
+    }
+    .inner_f_help span{
+        margin: auto 10px;
+        
+    }
+    .inner_f_bank span{
+        margin: auto 10px;
+        
+    }
+
+
+    
 }

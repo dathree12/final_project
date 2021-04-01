@@ -1,0 +1,397 @@
+* {
+  font-family: "Source Sans Pro";
+  -webkit-font-smoothing: antialiased;
+}
+:root {
+  /* size */
+  --title-size: 18px;
+  --sub-size: 15px;
+  --category-size: 14px;
+  /* <a>, btn font size */
+  --small-size: 11px;
+
+  /* color */
+  --title-color: #555555;
+  --pagebarborder-color: #e7e7e7;
+}
+a {
+  text-decoration: none;
+  color: #353535;
+}
+
+hr {
+  margin: 15px 0 15px 0;
+}
+
+form {
+  display: block;
+  margin-top: 0em;
+  height: 100%;
+}
+
+.brboard-body {
+  padding: 5%;
+}
+
+.brboard-top {
+  font-size: 11px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.brboard-top-title {
+  font-size: 20px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 30px 0 50px;
+  text-align: center;
+}
+
+.brboard-top-menu {
+  box-sizing: border-box;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+  margin: 0 0 50px;
+  text-align: center;
+  position: relative;
+  display: block;
+}
+
+.brboard-top-menu li {
+  box-sizing: border-box;
+  list-style: none;
+  display: inline-block;
+  width: auto;
+  margin: 15px 10px 15px 10px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 14px;
+  zoom: 1;
+  vertical-align: top;
+}
+
+.brboard-top-button {
+  margin-right: 1%;
+  text-align: right;
+}
+.write-button {
+  background-color: #b4caf0;
+  padding: 3px 5px;
+  font-size: 12px;
+  transition-duration: 0.3s;
+}
+
+.write-button:hover {
+  background-color: #89a2cc;
+}
+
+.brboard-review-header p {
+  margin: 0px;
+}
+#reviewheader-bookclass {
+  font-size: 10px;
+  color: #fa558c;
+}
+
+#reviewheader-reviewtitle {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+#reviewheader-reviewwriter {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+#reviewheader-reviewdate {
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+
+#bookcover-pic {
+  width: 90px;
+  height: 135px;
+}
+
+.brboard-review-book {
+  display: flex;
+}
+
+.review-book-cover {
+  margin: 1%;
+}
+
+.review-book-description p {
+  font-size: 10px;
+  margin: 0.3;
+}
+
+.brboard-review-content {
+  font-size: 12px;
+}
+
+.brboard-review-contentlower {
+  padding: 3px;
+}
+
+.recoicon {
+  height: 12px;
+  width: 12px;
+}
+#review-recommend-btn {
+  font-size: 12px;
+}
+
+.blind {
+  overflow: hidden;
+  position: absolute;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+}
+#brbotreview-list {
+  text-align: left;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+#review-edit-btn {
+  float: right;
+  font-size: 12px;
+}
+
+#edit-button {
+  background-color: #b4caf0;
+  padding: 3px 5px;
+  font-size: 12px;
+  transition-duration: 0.3s;
+}
+
+#edit-button:hover {
+  background-color: #89a2cc;
+}
+
+#delete-button {
+  background-color: #f59393;
+  padding: 3px 5px;
+  font-size: 12px;
+  transition-duration: 0.3s;
+}
+
+#delete-button:hover {
+  background-color: #d97c7c;
+}
+
+.comment-block {
+  width: 100%;
+  margin: 0;
+  position: relative;
+}
+
+textarea {
+  font-family: inherit;
+  line-height: inherit;
+  margin: 30px 10px;
+  width: 98%;
+  resize: none;
+  overflow-y: hidden;
+  padding: 1.1em;
+  padding-bottom: 0.2em;
+  line-height: 1.6;
+  height: 100%;
+  max-height: 100%;
+}
+.custom-textarea {
+  border: 1px solid rgba(1, 1, 1, 0.15);
+}
+
+.comment_textarea {
+  margin-top: 80px;
+  height: 100%;
+}
+
+.board_txt_area p {
+  font-size: 11px;
+}
+
+.btn-group-wrap {
+  height: 30px;
+  padding: 0; /*border: 1px solid black;*/
+  float: left;
+  border-bottom: 1px solid rgba(1, 1, 1, 0.15);
+  width: 100%;
+}
+.write {
+  position: relative;
+  display: block;
+  font-size: 14px;
+  line-height: 2.4;
+}
+.write_button {
+  padding: 6.5px 12px;
+  text-align: center;
+  width: 50px;
+  background-color: #747474;
+  border: 1px solid #4f4f4f;
+  border-color: #4f4f4f;
+  color: #ffffff;
+  font-size: var(--small-size);
+  bottom: 15px;
+  margin: 10px;
+}
+.write_button_wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.propose-read-section-1th {
+  margin: 0 auto;
+}
+.propose-write-section-1th {
+  max-width: 1250px;
+  padding-left: 130px;
+  margin: 90px auto 80px;
+}
+
+.avatar-image {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.write {
+  font-size: 10px;
+}
+
+.propose-list-section-3th table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.propose-list-section-3th thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+.propose-list-section-3th tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+.propose-list-section-3th tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+.propose-list-section-3th td {
+  text-align: center;
+}
+th,
+td {
+  /* border: 0; */
+  padding: 5px;
+  font-weight: normal;
+  height: 15px;
+  font-size: 12px;
+}
+td:nth-child(3),
+td:nth-child(4),
+td:nth-child(5),
+th:nth-child(3),
+th:nth-child(4),
+th:nth-child(5) {
+  padding: 0px;
+}
+
+thead {
+  background-color: rgb(247, 247, 247);
+}
+
+.reviewbot-list-head {
+  margin-bottom: 12px;
+}
+
+.brboard-bot {
+  margin: 3%;
+  text-align: center;
+}
+.brboard-pagination {
+  display: inline-block;
+  font-size: 12px;
+}
+
+@media all and (max-width: 768px) {
+  .brboard-top {
+    font-size: 11px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .brboard-top-title {
+    font-size: 20px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 30px 0 50px;
+    text-align: center;
+  }
+
+  .brboard-top-menu {
+    box-sizing: border-box;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    margin: 0 0 50px;
+    text-align: center;
+    position: relative;
+    display: block;
+  }
+
+  .brboard-top-menu li {
+    box-sizing: border-box;
+    list-style: none;
+    display: inline-block;
+    width: auto;
+    margin: 15px 10px 15px 10px;
+    padding: 0;
+    font-size: 14px;
+    line-height: 10px;
+    zoom: 1;
+    vertical-align: top;
+  }
+
+  .brboard-top-button {
+    margin-right: 1%;
+    text-align: right;
+  }
+  .write-button {
+    background-color: #b4caf0;
+    padding: 3px 5px;
+    font-size: 9px;
+    transition-duration: 0.3s;
+  }
+
+  .write-button:hover {
+    background-color: #89a2cc;
+  }
+
+  th,
+  td {
+    /* border: 0; */
+    padding: 5px;
+    font-weight: normal;
+    height: 15px;
+    font-size: 10px;
+  }
+
+  #blind {
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+  }
+}
