@@ -1,0 +1,271 @@
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+div {
+    display: block;
+}
+a {
+    text-decoration: none;
+}
+.cp_board_wrap {
+    position: relative;
+    width: 100%;
+    min-width: 1200px;
+    /* margin: auto; */
+    margin-top: 170px;
+}
+.cp_board_container {
+    /* width: 100%; */
+    width: 1280px;
+    /* zoom: 1; */
+    margin: 0 auto;
+    /* border: 1px solid black; */
+}
+.cp_board_contents {
+    width: 100%;
+    min-height: 500px;
+    padding: 0 0 50px;
+    position: relative;
+}
+.product-menupackage {
+    padding: 0;
+}
+h2 {
+    display: inline-block;
+    vertical-align: middle;
+    color: #000;
+    font-size: 18px;
+    letter-spacing: 0;
+    margin: 20px 0 0;
+}
+
+.title {
+    padding: 30px 0 20px;
+    text-align: center;
+}
+.title span {
+    font-weight: normal; 
+    color: #000; 
+    font-size: 18px; 
+    letter-spacing: 0; 
+    margin: 20px 0 0;
+}
+.menuCategory li {
+    display: inline-block;
+    width: 10%;
+    margin: 15px 0 15px 0;
+    padding: 0;
+    font-size: 13px;
+    line-height: 14px;
+    /* zoom: 1; */
+    vertical-align: top;
+    /* display: inline; */
+}
+.menuCategory {
+    display: block;
+    list-style-type: disc;
+    margin: 0 0 40px;
+    text-align: center;
+    position: relative;
+    line-height: 0;
+}
+._catelist_best {
+    background: #f7f7f7;
+    margin: 0;
+    padding: 60px 0 30px;
+}
+.prdList li {
+    position: relative;
+    display: inline-block;
+    /* display: inline; */
+    /* zoom: 1; */
+    margin: 0 0 40px;
+    color: #757575;
+    vertical-align: top;
+}
+.box {
+    margin: 0 10px;
+    /* zoom: 1; */
+}
+.prdList .thumbnail {
+    position: relative;
+    margin: 0;
+    text-align: center;
+    padding: 0;
+}
+.prdList a {
+    display: block;
+    text-decoration: none;
+}
+.prdList img {
+    vertical-align: middle;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.prdImg {
+    position: relative;
+}
+img {
+    width: 293px;
+    height: 293px;
+    /* position: relative; */
+}
+.description {
+    background: #fff;
+    width: 293px;
+    height: 158px;
+}
+
+.prdList .description {
+    padding: 7px 20px 0px;
+    position: relative;
+    font-size: 12px;
+    line-height: 1.6em;
+    text-align: left;
+}
+strong.name {
+    display: block;
+    font-weight: normal;
+    border-bottom: 1px solid #f1f1f1;
+    line-height: 30px;
+}
+
+.prdList {
+    /* border: 1px solid black; */
+    padding: 0;
+    margin: 0;
+}
+.price_rate {
+    position: absolute;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    z-index: 10;
+}
+
+
+/* second cont */
+._c_width {
+    width: 1280px;
+    margin: auto;
+    /* zoom: 1; */
+}
+.normalmenu {
+    width: 98.5%;
+    margin: 0 auto 20px;
+}
+.function {
+    overflow: hidden;
+    text-align: right;
+    line-height: 34px;
+    font-size: 11px;
+    border-top: 1px solid #e7e7e7;
+    padding: 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+.function .prdCount {
+    float: left;
+    color: #000;
+}
+#type {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0;
+    line-height: 0;
+}
+
+.ec-base-product {
+    margin: 0;
+}
+.ec-base-product .prdList {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+    position: relative;
+    display: inline-block;
+    margin: 0 0 40px;
+    color: #757575;
+    vertical-align: top;
+}
+.spec {
+    padding: 0;
+    margin-top: 5px;
+}
+.spec li {
+    margin: 0;
+}
+.description p {
+    text-align: left;
+}
+.ec-base-product span {
+    margin-top: 10px;
+}
+.ec-base-product .title {
+    line-height: 15px;
+}
+.deadline-club {
+    /* border: 1px solid black; */
+    font-size: 18px;
+    display: flex;
+}
+._catelist_best h2 {
+    /* border: 1px solid black; */
+    margin: auto;
+    display: flex;
+}
+#deadline_club {
+    margin: auto;
+}
+._catelist_best > h2 {
+    /* border: 1px solid black; */
+    margin-top: -30px;
+    margin-bottom: 30px;
+}
+.recruiting_club {
+    margin: auto;
+}
+._c_width .description  {
+    background: #f7f7f7;
+}
+
+/* pageBar */
+.pageBar { font-size: 25px; /*border: 1px solid black;*/ text-align: center; }
+.pageBar a { width: 30px; height: 30px; margin: 10px; }
+.pageBar a:nth-child(3) { font-size: 20px; }
+
+@media screen and (max-width: 768px){
+    .product-menupackage {
+        display: none;
+    }
+    .cp_board_wrap {
+        position: absolute;
+        top: 250px;
+        /* border: 1px solid black; */
+        width: 50%;
+    }
+    #deadline_club {
+        position: absolute;
+        left: 25%;
+    }
+    .prdList li:nth-child(1), .prdList li:nth-child(2) {
+        position: flex;
+    }
+    .prdList li:nth-child(3), .prdList li:nth-child(4) {
+        
+    }
+
+}
+
+@media screen and (max-width: 479px){
+
+}
