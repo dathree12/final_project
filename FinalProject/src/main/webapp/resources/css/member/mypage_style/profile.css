@@ -1,0 +1,78 @@
+/* body { padding: 50px; background-color: #eaeaea;} */
+body { background-color: #eaeaea; margin: 0; font-family: 'Source Sans Pro'; display: flex; align-items: center; justify-content: center;}
+
+/* 회원정보수정 */
+.profile_wrap { width: 1000px; margin: 0 auto;}
+.info{ 
+    width: 70%;
+    height: 600px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+span { color: red;}
+.user_info{
+    text-align: center;
+    padding: 20px;
+}
+
+.info_table {
+    /* border: 1px solid black; */
+    width: 70%;
+    height: 450px;
+    text-align: left;
+    margin: 0 auto;
+}
+/* 전화번호 */
+.phone { width: 50px;}
+
+/* 버튼 */
+.button{
+    height: 25px;
+    border-style: none;
+    color: white;
+    margin: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#withdrawal{
+    float: right; background-color: brown;
+}
+/* 회원탈퇴 */
+.withdrawal{ 
+    width: 70%;
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.user_withdrawal{
+    text-align: center;
+    padding: 20px;
+}
+
+/* 반응형 */
+@media (min-width:0px) and (max-width:768px) {
+    body { padding: 0px;}
+    .profile_wrap { width: 100%; margin:0 auto;}
+    .title { margin-top: 20px;}
+    .info { height: 90%; margin-bottom: 20px;}
+    .user_info { padding: 0px; padding-top: 20px;}
+    .info_table tr {
+        display: block;
+        margin-bottom: 15px;
+    }
+      .info_table th {
+        display: block;
+        width: 100%;
+      }
+      .info_table td {
+        display: list-item;
+        list-style: none;
+      }
+    #withdrawal {
+        float: none;
+    }
+}
