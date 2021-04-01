@@ -1,0 +1,73 @@
+#footer_div {
+padding: 10px;
+width: 100%;
+font-family: 'Source Sans Pro';
+}
+
+
+.f_body{
+    display: flex;
+    background: #f3f1f1;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 12px;
+}
+
+.inner_f_company{
+    padding: 0px 50px;
+    width: 40%;
+}
+
+.inner_f_company ul{
+    padding: 0;
+    
+}
+
+.inner_f_company li{
+    list-style: none;
+    
+}
+
+.inner_f_help{
+    width: 30%;
+    padding: 0px 50px;
+}
+
+.inner_f_bank{
+   
+    width: 30%;
+    padding: 0px 50px;
+}
+
+.f_footer_menu ul{
+display: flex;
+list-style: none;
+padding-left: 0;
+
+}
+
+.f_footer_menu li{
+ margin: auto 2px;
+}
+
+.f_a {
+ text-decoration: none;
+ color: black;
+
+}
+
+#kakao{
+    color: #ffba00;
+}
+
+@media screen and (max-width: 768px){
+    #footer_div div {
+        flex-direction: column;
+        margin: 20px;
+        padding: 10px 0px;
+        width: 100%;
+    }
+
+   
+
+}

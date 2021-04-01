@@ -1,0 +1,48 @@
+.terms_agree{
+    text-align: center;
+    font-family: 'Source Sans Pro';
+}
+li{
+    list-style: none;
+}
+
+.agree_div{
+    width: 75%;
+    margin: 50px auto;
+    font-size: 0.8em;
+    font-family: 'Source Sans Pro';
+}
+
+
+.agree_btn_div{
+    display: flex;
+    justify-content: center;
+    font-family: 'Source Sans Pro';
+}
+
+.agree_btn{
+    background-color:  #222;
+    color: white;
+    display: inline-block;
+    width: 10%;
+    height: 35px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    text-align: center;
+    line-height: 18px;
+    
+}
+.agree_btn:hover{
+    background-color: white;
+    border: 1px solid #222;
+    color: #222;
+}
+
+@media screen  and (max-width: 768px){
+
+
+    .agree_btn{
+        width:  25%;
+    }
+
+}
