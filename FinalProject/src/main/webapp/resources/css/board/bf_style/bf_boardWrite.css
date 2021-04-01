@@ -1,0 +1,84 @@
+* {
+    -webkit-font-smoothing: antialiased;
+}
+.fdboard_write_body a {
+    text-decoration: none;
+    color: #353535;
+}
+.fdboard_write_body {
+    margin: 0 auto;
+    padding: 10%;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro';
+}
+.fdboard_write_body h2 {
+    text-align: center;
+}
+
+.fdboard_write_body table {
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    width: 100%;
+    margin: auto;
+    margin-top: 5%;
+}
+.fdboard_write_body table th {
+    width: 30%;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #efefef;
+}
+.fdboard_write_body table td {
+    width: 70%;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+.fdboard_write_body table input {
+    border: none;
+}
+
+.fdboard_write_body h4 {
+    position: relative;
+    text-align: left;
+    margin-top: 5%;
+}
+
+.ck-editor__editable {
+    min-height: 500px;
+    width: 100%;
+}
+
+.write_btn a { 
+    padding: 6.5px 12px; 
+    float: right; 
+    margin-right: 5px; 
+    margin-top: 5%;}
+.write_btn a:first-child { 
+    background: #fff; 
+    border: 1px solid #d3d3d3; 
+    color: #4a4a4a; 
+    margin-right: 5px; }
+.write_btn a:last-child { 
+    background-color: #747474; 
+    border: 1px solid #4f4f4f; 
+    border-color: #4f4f4f; 
+    color: #ffffff; }
+:root {
+    /* size /
+    --title-size: 18px;
+    --sub-size: 15px;
+    --category-size: 14px;
+    --small-size: 11px;
+
+    / color */
+    --title-color: #555555;
+    --pagebarborder-color: #e7e7e7;
+}
+
+
