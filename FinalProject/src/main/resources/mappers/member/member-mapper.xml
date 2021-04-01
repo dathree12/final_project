@@ -2,8 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="member">
+<mapper namespace="com.cereal.books.member.model.dao.MemberDao">
 	<select id="selectCount" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 	</select>
+	
+	
+	
+	<insert id="insertMember" parameterType="Member"
+	useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
+	INSERT INTO MEMBER (
+			USER_NO,
+			USER_ID,
+			USER_PWD,
+			USER_NAME,
+			USER_NNAME,
+			USER_ROLE,
+			USER_PHONE,
+			USER_EMAIL,
+			USER_ADDRESS,
+			USER_GENRE,
+			USER_AGREEMENT,
+			USER_ENROLL_DATE,
+			USER_MODIFY_DATE,		
+			STATUS
+		)
+		VALUES(
+			SEQ_UNO.NEXTVAL, 
+			#{userId}, 
+			#{userPwd}, 
+			#{userName}, 
+			#{userNname}, 
+			DEFAULT, 
+			#{userPhone}, 
+			#{userEmail}, 
+			#{userAddress}, 
+			#{userGenre}, 
+			#{userAgreement}, 
+			SYSDATE, 
+			SYSDATE,
+			DEFAULT
+		)
+	</insert>
 </mapper>

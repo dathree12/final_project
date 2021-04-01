@@ -21,11 +21,10 @@
 	
 		<hr>
 	         <div class="terms_container">
-	                <form action="${path}/member/enroll">
 	            <h2>전체 동의 </h2>
 	            <br>
 	            <div id="terms_check">
-	                <input type="checkbox" id="allCheck" value="Y">
+	                <input type="checkbox" name="checkbox" id="allCheck" value="Y" >
 	                <label for="allCheck"  ><span>이용약관 및 개인정보수집 및 이용, 쇼핑정보 수신(선택)에 모두 동의합니다.</span></label>
 	            </div>
 	            <div class="terms_box">
@@ -112,11 +111,9 @@
 	            </div>
 	        
 	            <div id="terms_btn_div">
-	                <button id="terms_btn" >다음으로</button>
+	                <button id="terms_btn" type="button" >다음으로</button>
 	            </div>
 	          
-	            
-	            </form>
 			</div>
 	</section>
 		  <%@ include file="/WEB-INF/views/common/footer.jsp" %>
@@ -156,6 +153,18 @@
 			  		$('#allCheck').prop("checked", false);
 			  	}	
 		  });
+		  
+		  $('#terms_btn').on('click',() => {
+			  var check;
+			  
+			  if($('#allCheck').is(":checked") == false){
+					
+			  	alert('약관을 읽고 모두 동의 해주세요');	
+			  }
+			 	location.href='${path}/member/enroll';
+			  });
+		  
+		
 		 
 		});
 	</script>

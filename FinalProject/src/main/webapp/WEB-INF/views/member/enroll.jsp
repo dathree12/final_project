@@ -39,13 +39,13 @@
                         <br>    
                         <div class="div_id">
                              <div class="en_title"><span>비밀번호</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
-                             <div class="en_ck"><input class="en_input" id="userPwd" name="userPwd"  type="text" placeholder="(영문소문자/숫자, 4~10자)" required> </div>
+                             <div class="en_ck"><input class="en_input" id="userPwd" name="userPwd"  type="password" placeholder="(영문소문자/숫자, 4~10자)" required> </div>
                              <div class="en_text"><span></span></div>
                         </div>   
                         <br>    
                         <div class="div_id">
                              <div class="en_title"><span>비밀번호 확인</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
-                             <div class="en_ck"><input class="en_input" id="userPwdCk"   type="text" required> </div>
+                             <div class="en_ck"><input class="en_input" id="userPwdCk"   type="password" required> </div>
                              <div class="en_text"><span></span></div>
                         </div>       
                  
@@ -60,10 +60,10 @@
                              <div class="en_title"><span>관심장르</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
                              <div class="en_genre">   
                                 <label class="en_label"><input type="checkbox" name="userGenre" id="Genre0" value="소설">소설</label> &nbsp;&nbsp;
-                                <label class="en_label"><input type="checkbox" name="userGenre" id="Genre1" value="어린이,청소년">어린이 / 청소년</label>&nbsp;&nbsp;
-                                <label class="en_label"><input type="checkbox" name="userGenre" id="Genre2" value="경제,경영">경제 / 경영</label> <br><br>
-                                <label class="en_label"><input type="checkbox" name="userGenre" id="Genre3" value="인문,사회 ,역사">인문 / 사회 / 역사</label> &nbsp;&nbsp;
-                                <label class="en_label"><input type="checkbox" name="userGenre" id="Genre4" value="종교,역학">종교 / 역학</label> <br><br> 
+                                <label class="en_label"><input type="checkbox" name="userGenre" id="Genre1" value="어린이/청소년">어린이 / 청소년</label>&nbsp;&nbsp;
+                                <label class="en_label"><input type="checkbox" name="userGenre" id="Genre2" value="경제/경영">경제 / 경영</label> <br><br>
+                                <label class="en_label"><input type="checkbox" name="userGenre" id="Genre3" value="인문/사회/역사">인문 / 사회 / 역사</label> &nbsp;&nbsp;
+                                <label class="en_label"><input type="checkbox" name="userGenre" id="Genre4" value="종교/역학">종교 / 역학</label> <br><br> 
                                 <label class="en_label"><input type="checkbox" name="userGenre" id="Genre5" value="자기개발">자기개발 (요리 / 뷰티 / 자격증 / 여행...)</label> &nbsp;&nbsp;</div>
                                <div class="genre_text"><span></span></div>
                         </div>

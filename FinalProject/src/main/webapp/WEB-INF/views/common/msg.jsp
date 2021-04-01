@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <%--
 	security 사용시 
 		<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
@@ -10,7 +11,6 @@
 	path
 		<c:set var="path" value="${pageContext.request.contextPath }"/>
 --%>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +18,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+	<script>
+		alert('${msg}')
+		
+		location.replace("${path}${location}")	
+	</script>
 </body>
 </html>
