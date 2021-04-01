@@ -15,15 +15,17 @@
      <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">'
      <script src="${path}/js/jquery-3.5.1.js"></script>
 </head>
-<body>
+
+<%@ include file="../views/common/header.jsp" %>
     
     <section id="main_container">
+    
         <div id="high_div">
 
             <div id="inner_img_div">
+			
                
             </div>
-
             <div id="inner_reco_div">
                 <span id="inner_reco_div_span">111 님 추천 도서</span>
                 <a href=""> 
@@ -196,6 +198,7 @@
             </div>    
         </div>
          <br>
+         <button type="button" onclick="location.href='${path}/member/enrollTerms'">회원가입</button>
     </section>
     
 <%@ include file="../views/common/footer.jsp" %>
