@@ -1,0 +1,39 @@
+.fd_body {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    font-family: 'Source Sans Pro';
+}
+
+.fd_body a {
+    text-decoration: none;
+}
+
+.fd_pay_btn a { 
+    padding: 6.5px 12px; 
+    margin-right: 5px; 
+}
+.fd_pay_btn a:first-child { 
+    background: #fff; 
+    border: 1px solid #d3d3d3; 
+    color: #4a4a4a; 
+    margin-right: 5px; }
+.fd_pay_btn a:last-child { 
+    background-color: #747474; 
+    border: 1px solid #4f4f4f; 
+    border-color: #4f4f4f; 
+    color: #ffffff; }
+:root {
+    /* size /
+    --title-size: 18px;
+    --sub-size: 15px;
+    --category-size: 14px;
+    --small-size: 11px;
+
+    / color */
+    --title-color: #555555;
+    --pagebarborder-color: #e7e7e7;
+}

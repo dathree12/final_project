@@ -1,0 +1,237 @@
+#en_top{
+    text-align: center;
+    font-family: 'Source Sans Pro';
+}
+
+
+.en-container{
+    width: 45%;
+    padding: 10px 10px;
+    margin: auto;
+    
+}
+
+.en-container input{
+    height: 25px;
+}
+
+.en_label input{
+   height: auto;
+   margin: auto 10px;
+  
+}
+
+
+#en_div {
+    font-family: 'Source Sans Pro';
+    width: 100%; 
+    margin: auto;
+    border-top: 0;
+    margin-top: 5px;
+    border: 1px solid #f1f1f1;
+    border-top: 0;
+    border-spacing: 3px;
+
+}
+
+.div_id{
+    display: flex;
+    margin: auto;
+}
+
+.en_title{
+    width: 22%;
+    text-align: center;
+    border: 1px solid #f1f1f1;
+    border-bottom-width: 0;
+    color: #353535;
+    font-weight: bolder;
+    background-color: #f7f7f7;
+}
+
+.id_text{
+    width: 23%;
+    margin: auto;
+}
+
+.en_table_input{
+    width: 100%;
+  
+}
+
+.id_ck{
+    width: 45%;
+    margin: auto 5px;
+}
+
+.en_table_input{
+   width: 100%;
+   margin: auto;
+}
+
+.pwd_ck{
+    width: 28%;
+    margin: auto;
+
+}
+.pwd_text{
+    width: 33%;
+    margin: auto;
+} 
+
+.pwd_input{
+    width:82%;
+}
+
+.en_ck{
+    width: 28%;
+    margin: auto;
+
+}
+.en_text{
+    width: 33%;
+    margin: auto;
+} 
+
+.en_input{
+    width:82%;
+}
+
+.en_genre label{
+    font-size: 0.8em;
+}
+
+.en_genre{
+    margin: auto 20px;
+}
+
+.en_email{
+    width: 45%;
+    margin: auto;
+    display: flex;
+}
+
+.mail_select{
+   width: 50%;
+}
+.mail_text{
+    width: 25%;
+}
+
+.en_text_phone{
+    width: 20%;
+    margin: auto;
+}
+
+.en_input_phone{
+    width: 20%;
+}
+
+.phone_ck{
+    width: 43%;
+    margin: auto;
+}
+
+.en_adress{
+    width: 54%;
+    margin: auto;
+}
+
+.en_text_ad{
+    width: 16%;
+}
+
+.en_input_ad{
+  width: 82%;
+}
+
+#en_btn_div{
+    display: flex;
+    justify-content: center;
+    font-family: 'Source Sans Pro';
+}
+
+#en_btn{
+    background-color:  #222;
+    color: white;
+    display: inline-block;
+    width: 15%;
+    height: 35px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    text-align: center;
+    line-height: 18px;
+    
+}
+#en_btn:hover{
+    background-color: white;
+    border: 1px solid #222;
+    color: #222;
+}
+@media screen and (max-width: 768px){
+    .en-container{
+      width: 100%;
+        
+    }
+
+    .en_table_input::placeholder{
+        font-size: 0.1em;
+    }
+    .en_input{
+        font-size: 0.1em;
+    }
+
+    .en_title{
+        font-size: 0.8em;
+    }
+
+    .mail_text{
+        display: none;
+    }
+    
+    .en_email{
+        width: 70%;
+    }
+
+    
+    .en_text{
+        width: 20%;
+    }
+    
+    .en_ck{
+        width: 40%;
+    }
+    .en_adress{
+        width: 67%;
+    }
+    .en_input_ad{
+        width: 100%;
+    }
+    .en_text_ad{
+        width: 3%;
+    }
+
+    .en_input_phone{
+        width: 20%;
+    }
+
+    .en_text_phone{
+        width: 22%;
+    }
+
+    .en_genre label{
+        font-size: 0.7em;
+    }
+
+    .id_text{
+        width: 27%;
+    }
+    .id_ck{
+        width: 40%;
+    }
+
+    #en_btn{
+        width: 20%;
+    }
+
+}
