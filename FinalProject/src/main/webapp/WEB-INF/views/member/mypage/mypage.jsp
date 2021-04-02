@@ -16,7 +16,7 @@
             <p class="title">profile</p>
             <div class="profile">
                 <p style="padding-left: 10px;">ㅇㅇㅇ님 환영합니다.</p>
-                <button class="info_btn"><a href="${path}/profile" style="color: white;">회원정보수정</a></button>
+                <button class="info_btn" onclick="profile();">회원정보수정</button>
             </div>
             
             <!-- 스크랩 -->
@@ -144,7 +144,7 @@
                   if (cnt % 7 == 1) {/*일요일 계산*/
                       //1주일이 7일 이므로 일요일 구하기
                       //월화수목금토일을 7로 나눴을때 나머지가 1이면 cnt가 1번째에 위치함을 의미한다
-                    cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img'><img class=calendar_image src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU></div>"
+                    cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img'><img class=calendar_image onclick='bookreview();' src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU></div>"
                     //1번째의 cell에만 색칠
                 }    
                   if (cnt%7 == 0){/* 1주일이 7일 이므로 토요일 구하기*/
@@ -200,15 +200,15 @@
                     <div class="content">
                         <a><img class="btn_img" src="./images/left.png" style="margin-right: 5%;"></a>
                         <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="club_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+                            <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                             <p>클럽이름</p>
                         </div>
                         <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="club_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+                            <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                             <p>클럽이름</p>
                         </div>
                         <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="club_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+                            <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                             <p>클럽이름</p>
                         </div>
                         <a><img class="btn_img" src="./images/right.png" style="margin-left: 5%;"></a>
@@ -286,7 +286,7 @@
                     <div class="content">
                         <a><img class="btn_img" src="./images/left.png" style="margin-right: 5%;"></a>
                         <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+                            <a href="#" name="thumbnailbox"><img class="image" onclick="bookfunding();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                             <p>클럽이름</p>
                         </div>
                         <div class="book_info" id="book1">
@@ -364,4 +364,20 @@
             </div>
         </div>
     </section>
+    
+    <script type="text/javascript">
+            	function profile() {
+            		location.href = "${path}/profile";
+				}
+            	function bookclub() {
+            		location.href = "${path}/bcBoardDetail";
+				}
+            	function bookfunding() {
+            		location.href = "${path}/board/bf_board/bf_boardList";
+				}
+            	function bookreview() {
+            		location.href = "${path}/brReviewDetail";
+				}
+	</script>
+	
 <%@ include file="../../../views/common/footer.jsp" %>
