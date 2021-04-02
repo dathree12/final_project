@@ -30,7 +30,7 @@
                         <a href="#">로그인</a>
                     </li>
                     <li>
-                        <a href="#">회원가입</a>
+                        <a href="${path}/member/enrollTerms">회원가입</a>
                     </li>
                     <li>
                         <a href="#">마이쇼핑</a>

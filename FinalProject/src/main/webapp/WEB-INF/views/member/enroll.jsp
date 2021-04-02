@@ -71,9 +71,9 @@
                         <div class="div_id">
                             <div class="en_title"><span>이메일</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
                             <div class="en_email">
-                                <input class="en_input" id="userEmail" name="userEmail"  type="text" required> 
+                                <input class="en_input" id="Email1"  type="text" required> 
                                 &nbsp;&nbsp;&nbsp;
-                                <select id="" name="" class="mail_select">
+                                <select id="Email2" class="mail_select">
                                     <option value="@naver.com">@naver.com</option>
                                     <option value="@gmail.com">@gmail.com</option>
                                     <option value="@daum.net">@daum.net</option>
@@ -87,12 +87,12 @@
                        <div class="div_id">
                             <div class="en_title"><span>휴대전화</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
                             <div class="phone_ck">
-                            <select id="phone1" name="phone1"  style="width: 60px; height: 31px;">
+                            <select id="phone1"  style="width: 60px; height: 31px;">
                                 <option value="010">010</option>
                                 <option value="011">011</option>
                                 <option value="016">016</option>
                                 <option value="019">019</option>
-                            </select> - <input  class="en_input_phone" id="phone2" name="phone2" maxlength="4"  type="text" /> - <input class="en_input_phone" id="phone3" name="phone3" maxlength="4"  type="text" />  </div>
+                            </select> - <input  class="en_input_phone" id="phone2" maxlength="4"  type="text" /> - <input class="en_input_phone" id="phone3" maxlength="4"  type="text" />  </div>
                             <div class="en_text_phone"><span></span></div>
                        </div>
                         
@@ -102,14 +102,16 @@
                             <div class="en_adress"><input class="en_input_ad" id="userAddress" name="userAddress"  type="text" required> </div>
                             <div class="en_text_ad"><span></span></div>
                        </div>
-             
-               
+             				<input type ="hidden" name="userPhone" id="userPhone">
+             				<input type ="hidden" name="userEmail" id="userEmail">
+             				<input type ="hidden" name="userAgreement" value="Y">
+                        
             <br><br><br>
             <div id="en_btn_div">
-                <button id="en_btn" type="submit" value="회원가입"  >회원가입</button>
+                <button class="en_btn" id="en_btn" type="submit" value="회원가입"  >회원가입</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;   
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <button id="en_btn" type="reset" value="취소하기" >취소하기</button>
+                <button class="en_btn" id="en_cancle" >취소하기</button>
             </div>
 
 			</form>
@@ -117,3 +119,46 @@
      </section>
      
   <%@ include file="/WEB-INF/views/common/footer.jsp" %>
+  
+  <script>
+  $(document).ready(() => {
+	  $("#userPwdCk").blur((e) => {
+			let pass1 = $("#userPwd").val();
+			let pass2 = $(e.target).val();
+			if(pass1.trim() != pass2.trim()){
+				alert("비밀번호가 일치하지 않습니다.");
+				$("#userPwd").val("");
+				$(e.target).val("");
+				$("#userPwd").focus();
+			}
+		});		
+	  
+	  $("#phone3").blur((e) => {
+		  var phone1 = $("#phone1").val();
+		  var phone2 = $("#phone2").val();
+		  var phone3 = $("#phone3").val();
+		  
+		  $("#userPhone").val(phone1 + '-' +  phone2 + '-' + phone3);
+  
+	  });
+	  
+	  $("#Email2").blur((e) => {
+		  var Email1 = $("#Email1").val();
+		  var Email2 = $("#Email2").val();
+	
+		  $("#userEmail").val(Email1 + Email2);
+  
+	  });
+	  
+		/* 취소하기*/
+		 $('#en_cancle').on('click',() => {
+
+			  if(confirm("정말로 취소하시겠습니까?")){
+					
+				  location.replace("${path}/");
+			  }
+			 
+		});
+		  
+  });
+  </script>

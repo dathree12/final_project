@@ -151,7 +151,7 @@
     font-family: 'Source Sans Pro';
 }
 
-#en_btn{
+.en_btn{
     background-color:  #222;
     color: white;
     display: inline-block;
@@ -163,7 +163,7 @@
     line-height: 18px;
     
 }
-#en_btn:hover{
+.en_btn:hover{
     background-color: white;
     border: 1px solid #222;
     color: #222;
@@ -230,7 +230,7 @@
         width: 40%;
     }
 
-    #en_btn{
+    .en_btn{
         width: 20%;
     }
 

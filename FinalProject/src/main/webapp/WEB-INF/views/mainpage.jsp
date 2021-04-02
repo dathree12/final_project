@@ -198,7 +198,6 @@
             </div>    
         </div>
          <br>
-         <button type="button" onclick="location.href='${path}/member/enrollTerms'">회원가입</button>
     </section>
     
 <%@ include file="../views/common/footer.jsp" %>

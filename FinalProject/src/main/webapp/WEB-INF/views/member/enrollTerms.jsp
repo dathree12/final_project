@@ -160,12 +160,16 @@
 			  if($('#allCheck').is(":checked") == false){
 					
 			  	alert('약관을 읽고 모두 동의 해주세요');	
+			  }else{
+				  
+			 	location.href=('${path}/member/enroll');
 			  }
-			 	location.href='${path}/member/enroll';
 			  });
 		  
 		
 		 
 		});
+		
+		
 	</script>
 		
