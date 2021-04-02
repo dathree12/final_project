@@ -23,7 +23,7 @@
     ></script>
     
 </head>
-<body>
+<%@ include file="../../common/header.jsp" %>
 <div id="wrap">
 <section class="brboard-body">    
     <section class = "brboard-top">
@@ -40,7 +40,7 @@
             <li><a href="#">자기개발</a></li>
         </div>
         <div class = "brboard-top-button">
-            <a href="#" class="write-button">글쓰기</a>
+            <a href="${path}/board/br_board/brBoardWrite" class="write-button">글쓰기</a>
         </div>
         <hr id="line">
     </section>
@@ -100,6 +100,4 @@
     </section>
 </div>    
 </div>    
-</body>
-
 <%@ include file="../../common/footer.jsp" %>
