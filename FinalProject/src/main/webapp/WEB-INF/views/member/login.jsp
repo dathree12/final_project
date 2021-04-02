@@ -39,7 +39,9 @@
             <div class="check_div">
                 <input type="checkbox"> <span>아이디 저장</span>
             </div>
+            
     	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+       
         </form>   
             <div class="btn_div">
                 <button type="button" onclick="location.href=('${path}/member/enrollTerms')">회원가입</button>
