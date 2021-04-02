@@ -18,17 +18,18 @@ public class MemberController {
 	
 	
 	/*로그인 페이지 이동*/
-	@GetMapping("member/login")
-	public void loginViews() {
+	@RequestMapping("member/login")
+	public String loginViews() {
 		
-	
+		
+		return "member/login";
 	}
 	
 	/*로그인*/
-	@RequestMapping(value = "/login", method = {RequestMethod.POST})
-	public ModelAndView login(ModelAndView model) {
+	@RequestMapping(value = "member/login", method = {RequestMethod.POST})
+	public String login() {
 	
-	 return model;	
+	 return "member/login";	
 	}
 	
 	

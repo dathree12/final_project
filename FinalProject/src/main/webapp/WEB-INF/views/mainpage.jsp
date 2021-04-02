@@ -3,7 +3,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>     
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
@@ -13,18 +14,17 @@
      <link rel="stylesheet" href="${path}/css/common/mainpage.css" type="text/css">
      <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
      <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">'
-     <script src="${path}/js/jquery-3.5.1.js"></script>
 </head>
 
+
 <%@ include file="../views/common/header.jsp" %>
-    
     <section id="main_container">
     
         <div id="high_div">
 
             <div id="inner_img_div">
 			
-               
+          
             </div>
             <div id="inner_reco_div">
                 <span id="inner_reco_div_span">111 님 추천 도서</span>

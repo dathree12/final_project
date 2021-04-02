@@ -3,7 +3,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>    
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html lang="ko">
@@ -16,7 +17,8 @@
     <link rel="stylesheet" href="${path}/css/common/header.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="./js/jquery-3.5.1.min.js"></script>
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+
     <title>nav</title>
 </head>
 <body>
@@ -44,7 +46,7 @@
                     <div class="nav-c-width">
                         <h1 class="-logo">
                             <a href="/" class="this">
-                                <img id="checks-logo" src="./images/head-logo.png" alt="책스초코">
+                                <img id="checks-logo" src="${path}/images/head-logo.png" alt="책스초코">
                             </a>
                         </h1>
                         <div class="nav-center">
