@@ -24,6 +24,7 @@
     
 </head>
 <body>
+<%@ include file="../../common/header.jsp" %>
 	<div id="wrap">
 		<section class="brboard-body">    
 		    <section class = "brboard-top">
@@ -31,7 +32,7 @@
 		            <a href="#">Q&A</a>
 		        </div>
 		        <div class = "brboard-top-button">
-		            <a href="#" class="write-button">글쓰기</a>
+		            <a href="${path}/board/cs_board/qnaBoardWrite" class="write-button">글쓰기</a>
 		            <a href="#" class="delete-button">삭제</a>
 		        </div>
 		        <hr id="line">

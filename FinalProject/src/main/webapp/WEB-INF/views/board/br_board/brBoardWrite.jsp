@@ -21,9 +21,10 @@
     src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"
     ></script>
-     <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+    <script src = "${path}/js/ckeditor/ckeditor.js"></script>
+
 </head>
-<body>
+<%@ include file="../../common/header.jsp" %>
 	 <div class="wrap">
     	<section class="brboard-write">    
 	        <section class = "brboard-top">
@@ -40,7 +41,7 @@
 	                <li><a href="#">자기개발</a></li>
 	            </div>
 	            <div class = "brboard-top-button">
-	                <a href="#" class="write-button">글쓰기</a>
+	                <a href="${path}/board/br_board/brBoardWrite" class="write-button">글쓰기</a>
 	            </div>
 	            <hr id="line">
 	        </section>
@@ -69,6 +70,10 @@
 	                    </div>
 	                </div>
 	                <textarea name="content" id="ckeditor"></textarea>
+	                <script>CKEDITOR.replace('ckeditor', { 
+	                	height: 1000, // ckeditor 최소크기
+	                	
+	                	});</script>
 	            </form>
 	        </section>
         <section class="brboard-write-bottom">
@@ -76,15 +81,6 @@
             <a href="#" id="write-bottom-enrollbtn">등록</a>
         </section>
     </div>    
-    <script>
-    // 3. CKEditor5를 생성할 textarea 지정
-    ClassicEditor
-        .create( document.querySelector( '#ckeditor' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-    </script>
     </div>
-</body>
 
 <%@ include file="../../common/footer.jsp" %>
