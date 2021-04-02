@@ -1,0 +1,115 @@
+.login{
+    width: 30%; 
+    margin: 100px auto;
+    font-family: 'Source Sans Pro';
+}
+
+.logo_div{
+    width: 40%;
+    margin: auto;
+}
+.login_logo{
+    width: 100%;
+}
+
+.input_div{
+    display: flex;
+    width: 100%;
+}
+
+.login h3{
+    text-align: center;
+    font-size: 0.8em;
+}
+.input_text input::placeholder{
+    color: #8F8F91;
+}
+
+.input_div input{ 
+    border: 1px solid #eeeef1;
+    width: 80%;
+    margin: auto 5px;
+    height: 25px;
+}
+
+.input_text{
+   width: 64%;
+}
+
+.input_text input{
+    margin: 5px auto;
+ }
+.input_btn{
+    width: 35%; 
+
+
+    margin: 5px auto;
+}
+.input_btn button{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.check_div span{
+    font-size: 0.9em;
+    margin: 5px 5px;
+}
+
+.check_div{
+    border-bottom: 1px solid #eeeef1;
+    margin: 3px auto;
+}
+
+.btn_div{
+    margin: 10px auto 5px;
+    text-align: center;
+}
+
+.btn_div button{
+    margin: 7px auto 3px;
+    width: 30%;
+    color: white;
+    background-color: #555555;
+    cursor: pointer;
+}
+
+.input_btn button:hover{
+    color: black;
+    background-color: white;
+}
+.btn_div button:hover{
+    color: #555555;
+    background-color: white;
+}
+
+@media screen  and (max-width: 768px){
+
+    .input_div{
+        flex-direction: column;
+    }
+    
+    .input_text{
+        width: 100%;
+    }
+
+    .input_btn button{
+        width: 130%;
+       
+    }
+
+    .input_text input{
+        width: 100%;
+    }
+    
+    .btn_div button{
+        display: block;
+        width: 100%;
+    }
+
+    .login_logo{
+        width: 110%;
+    }
+}    

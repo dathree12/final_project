@@ -2,6 +2,7 @@ package com.cereal.books.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,22 @@ import com.cereal.books.member.model.vo.Member;
 public class MemberController {
 	@Autowired
 	private MemberService service;
+	
+	
+	/*로그인 페이지 이동*/
+	@GetMapping("member/login")
+	public void loginViews() {
+		
+	
+	}
+	
+	/*로그인*/
+	@RequestMapping(value = "/login", method = {RequestMethod.POST})
+	public ModelAndView login(ModelAndView model) {
+	
+	 return model;	
+	}
+	
 	
 	
 	/*회원가입 약관*/

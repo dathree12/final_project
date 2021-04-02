@@ -18,6 +18,8 @@
 
 </head>
 <body>
+<%@ include file="../header.jsp" %>
+
          <h1 class="terms_agree">이용 안내</h1>
 	    <hr>
         <div class="agree_div">

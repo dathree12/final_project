@@ -16,7 +16,7 @@
 
 
 </head>
-
+<%@ include file="/WEB-INF/views/common/header.jsp" %>   
 <section>
     <h1 id="en_top">회원 가입</h1>
 
