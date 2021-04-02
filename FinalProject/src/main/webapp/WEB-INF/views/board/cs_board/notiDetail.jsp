@@ -31,7 +31,7 @@
                     <a href="#">공지사항</a>
                 </div>
                 <div class = "brboard-top-button">
-                    <a href="#" class="write-button">글쓰기</a>
+                    <a href="${path}/board/cs_board/notiBoardWrite" class="write-button">글쓰기</a>
                 </div>
                 <hr id="line">
             </section>    

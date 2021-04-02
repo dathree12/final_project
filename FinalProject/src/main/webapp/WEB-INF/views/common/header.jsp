@@ -70,7 +70,7 @@
                         <div id="category" class="-category">
                             <div class="position">
                                 <ul class="-board-1th">
-                                    <li class="xans-record-"><a href="#">Review</a></li>
+                                    <li class="xans-record-"><a href="${path}/board/br_board/brBoardMain">Review</a></li>
                                     <li class="xans-record-"><a href="#">Funding</a></li>
                                     <li class="xans-record-"><a href="#">Clubs</a></li>
                                     <li class="xans-record-"><a href="#">Locations</a></li>
@@ -78,10 +78,10 @@
                                 <ul class="-board-2th">
                                     <li class="_bul">|</li>
                                     <li class="xans-record-">
-                                        <a href="#">공지사항</a>
+                                        <a href="${path}/board/cs_board/notiBoardMain">공지사항</a>
                                     </li>
                                     <li class="xans-record-">
-                                        <a href="#">Q&A</a>
+                                        <a href="${path}/board/cs_board/qnaBoardMain">Q&A</a>
                                     </li>
                                     <li class="xans-record-">
                                         <a href="#">사용후기</a>
