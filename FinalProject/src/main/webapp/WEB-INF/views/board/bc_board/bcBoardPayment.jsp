@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="${ path }/css/board/bc_board/bcBoardPayment.css" type="text/css">
+    <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardMain.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="js/jquery-3.5.1.js"></script>
@@ -21,6 +21,7 @@
     crossorigin="anonymous"
     ></script>
 </head>
+<%@ include file="../../common/header.jsp" %>
     <section class="payment-list-section-1th">
         <div class="shop-title">
             결제하기
@@ -33,7 +34,7 @@
                         <div class="shop_item_thumb">
                             <a href="#">
                                 <div class="product_img_wrap">
-                                    <img src="./images/test-img.jpg" alt="주문상품 이미지">
+                                    <img src="${ path }/images/test-img.jpg" alt="주문상품 이미지">
                                 </div>
                                 <div class="product_info_wrap">
                                     <span class="shop_item_title">[온라인] 드로잉 클럽 풍경 편 10기  - 그림 작가와 함께 라인 드로잉</span>
@@ -126,5 +127,4 @@
             </div>
         </div>
     </section>
-
 <%@ include file="../../common/footer.jsp" %>

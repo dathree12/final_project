@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="${ path }/css/board/bc_board/bcBoardMain.css" type="text/css">
+    <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardMain.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="js/jquery-3.5.1.js"></script>
@@ -21,6 +21,7 @@
     crossorigin="anonymous"
     ></script>
 </head>
+<%@ include file="../../common/header.jsp" %>
     <section class="cp_board_wrap">
         <div class="cp_board_container">
             <div class="cp_board_contents">
@@ -34,6 +35,7 @@
                         <li class="headcategory">클럽 제안하기</li>
                     </ul>
                 </div>
+                <!-- 진행중인 클럽은 마감 날짜가되면 마감되었습니다 표시와 동시에 무한 슬라이드  -->
                 <div class="_catelist_best">
                     <h2><span id="deadline_club">진행중인 클럽</span></h2>
                     <ul class="prdList">
@@ -173,7 +175,6 @@
                                 </div>
                             </div>
                         </li>
-
                     </ul>
                 </div>
                 <div class="_c_width">
@@ -748,6 +749,5 @@
                 </div>
             </div>
         </div>
-    </section>
-    
+    </section>    
 <%@ include file="../../common/footer.jsp" %>
