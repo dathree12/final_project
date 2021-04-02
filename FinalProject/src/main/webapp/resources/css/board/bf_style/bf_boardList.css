@@ -7,7 +7,9 @@ a {
     text-decoration: none;
     color: #353535;
 }
-body {
+.fd_boardList_body {
+	box-sizing: border-box;
+	position: relative;
     width: 100%;
     margin: 0 auto;
     font-family: 'Source Sans Pro';

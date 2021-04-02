@@ -20,7 +20,10 @@
 	<script src="${path}/js/jquery-3.5.1.js"></script>
 </head>
 
-<body>
+<%@ include file="../../common/header.jsp" %>
+
+	<div class="fd_boardList_body">
+	
     <div class="fdboard_top">
         <div class="fdboard_top_title">
             <a href="#">책스초코 펀딩 프로젝트</a>
@@ -238,6 +241,8 @@
             <a href="#">&gt;&gt;</a>
         </div>
     </div>	
+	
+	</div>
 	
 <%@ include file="../../common/footer.jsp" %>
 

@@ -44,7 +44,7 @@
                     <div class="nav-c-width">
                         <h1 class="-logo">
                             <a href="/" class="this">
-                                <img id="checks-logo" src="./images/head-logo.png" alt="책스초코">
+                                <img id="checks-logo" src="${path}/images/head-logo.png" alt="책스초코">
                             </a>
                         </h1>
                         <div class="nav-center">

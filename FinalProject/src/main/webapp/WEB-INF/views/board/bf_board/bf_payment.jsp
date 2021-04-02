@@ -21,6 +21,8 @@
 </head>
 
 <body>
+<%@ include file="../../common/header.jsp" %>
+
     <div class="fd_payment_body">
         <section class="payment-list-section-1th">
             <div class="shop-title">
