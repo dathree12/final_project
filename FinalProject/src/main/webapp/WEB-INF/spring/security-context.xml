@@ -12,4 +12,50 @@
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
 	
+	<security:http pattern="/resources/**" security="none" ></security:http>
+	<security:http pattern="/js/**" security="none" ></security:http>
+	<security:http pattern="/css/**" security="none" ></security:http>
+	<security:http pattern="/images/**" security="none" ></security:http>
+	<security:http pattern="/views/**" security="none" ></security:http>
+	
+	
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/member/login" access="permitAll" />
+		<security:intercept-url pattern="/member/enrollTerms" access="permitAll" />
+		<security:intercept-url pattern="/member/enroll" access="permitAll" />
+		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/member/**" access="hasAnyRole('ADMIN', 'USER')" />
+		<security:intercept-url pattern="/**" access="permitAll" />
+		<security:access-denied-handler error-page="/accessError"/>
+		
+		<security:headers>
+		</security:headers>
+	
+		<security:form-login
+			login-page="/member/login"
+			username-parameter="userId"
+			password-parameter="userPwd"
+			default-target-url="/"
+			authentication-failure-url="/member/login?err=ture"	
+		/>
+<!-- 		<security:csrf disabled="true"/> -->
+	
+	</security:http>
+	
+	
+	
+		
+	<security:authentication-manager>
+		<security:authentication-provider>
+		
+			<security:user-service>
+			 <security:user name="user"  password="{noop}1234" authorities="ROLE_USER"/>
+			 <security:user name="admin"  password="$2a$10$6PmEBefFH/RwMBHD3Zz72OjPlhT/MwdCK77sQwloK5BPkHy9PDAd2" authorities="ROLE_ADMIN,ROLE_USER"/>
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+
+	
+	
 </beans>
