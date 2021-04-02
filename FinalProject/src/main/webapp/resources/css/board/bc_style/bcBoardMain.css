@@ -13,7 +13,6 @@ a {
     width: 100%;
     min-width: 1200px;
     /* margin: auto; */
-    margin-top: 170px;
 }
 .cp_board_container {
     /* width: 100%; */
@@ -225,6 +224,10 @@ strong.name {
 }
 #deadline_club {
     margin: auto;
+}
+.cp_board_wrap img:hover {
+    opacity: 0.5;
+    transition: .2s;
 }
 ._catelist_best > h2 {
     /* border: 1px solid black; */
