@@ -18,7 +18,7 @@
 
 </head>
 <body>
-
+<%@ include file="../header.jsp" %>
       <section>
          <h2 class="terms_agree">개인정보 취급 방침</h2>
 	    <hr>

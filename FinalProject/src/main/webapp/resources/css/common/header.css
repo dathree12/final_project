@@ -25,11 +25,11 @@ li {
 .nav_header {
     padding: 0;
     font-family: 'Source Sans Pro';
-    /* border: 1px solid black; */
     color: #353535;
     background: #fff;
     display: block;
     margin: 0;
+    height: 219px;
 }
 #banner_action, #keyword {
     color: #353535;
@@ -230,6 +230,7 @@ fieldset {
     /* float: right; */
     /* border: 1px solid black; */
     margin-left: 100px;
+    display: block;
 }
 .-category {
     align-items: center;
@@ -257,6 +258,9 @@ fieldset {
 }
 
 @media screen and (max-width: 768px) { 
+    .nav_header {
+        /* border: 1px solid black; */
+    }
     .nav-anb {
         visibility: hidden;
         display: none;
@@ -282,19 +286,16 @@ fieldset {
         border: none;
     }
     .menuArea {
-        position: absolute;
-        top: 190px;
+        position: relative;
+        margin-top: 120px;
         border: none;
-    }
-    .position {
-        /* border: 1px solid black; */
-        flex-direction: column;
+        display: block;
     }
     .position ul {
         position: absolute;
-        top: -10px;
+        top: -30px;
         right: 15px;
-        display: flex;
+        /* display: flex; */
         flex-direction: column;
         /* border: 1px solid black; */
     }
@@ -316,4 +317,5 @@ fieldset {
     .navbar__toggleBtn {
         display: block;
     }
+
 }

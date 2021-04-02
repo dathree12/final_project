@@ -15,8 +15,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
 	<script src="${path}/js/jquery-3.5.1.js"></script>
 </head>
-
+	   <%@ include file="/WEB-INF/views/common/header.jsp" %>   
 	<section>
+	
 	    <h1 id="terms_top">이용 약관</h1>
 	
 		<hr>

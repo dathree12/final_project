@@ -18,7 +18,7 @@
 
 </head>
 <body>
-
+<%@ include file="../header.jsp" %>
 		<section>	
         <h2 class="terms_agree">이용 약관</h2>
 	    <hr>
