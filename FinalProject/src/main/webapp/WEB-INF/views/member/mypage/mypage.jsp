@@ -1,29 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script 
-    src="https://kit.fontawesome.com/2d323a629b.js" 
-    crossorigin="anonymous"
-    ></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="./js/jquery-3.5.1.min.js"></script>
-    <title>nav</title>
-</head>
-<body>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/mypage_style/mypage.css">
+<%@ include file="../../../views/common/header.jsp" %>
+    <link rel="stylesheet" href="${path}/css/member/mypage_style/mypage.css">
     <section class="mypage">
-        <h3 style="text-align: center;">My page</h3>
+        <h3 style="text-align: center; margin: 50px;">My page</h3>
     
         <hr>
 
@@ -32,7 +16,7 @@
             <p class="title">profile</p>
             <div class="profile">
                 <p style="padding-left: 10px;">ㅇㅇㅇ님 환영합니다.</p>
-                <button class="info_btn">회원정보수정</button>
+                <button class="info_btn"><a href="${path}/profile" style="color: white;">회원정보수정</a></button>
             </div>
             
             <!-- 스크랩 -->
@@ -380,5 +364,4 @@
             </div>
         </div>
     </section>
-</body>
-</html>
+<%@ include file="../../../views/common/footer.jsp" %>

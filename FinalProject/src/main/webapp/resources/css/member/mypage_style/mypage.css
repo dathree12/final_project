@@ -5,10 +5,13 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
 } */
-body { margin: 0; font-family: 'Source Sans Pro'; min-width: 1000px; display: flex; align-items: center; justify-content: center;}
-
 /* 회원정보 */
-.mypage { width: 1000px; margin: 0 auto;}
+.mypage {
+    width: 1000px;
+    margin: auto;
+    display: block;
+    padding-bottom: 900px;
+    }
 .title { margin-top: 50px;}
 .info{ float: left; width: 500px;}
 .profile {
@@ -59,7 +62,7 @@ body { margin: 0; font-family: 'Source Sans Pro'; min-width: 1000px; display: fl
 .btn_img {
     width: 5%;
     vertical-align: middle;
-    margin-bottom: 160px;
+    margin-bottom: 180px;
     display: none;
 }
 /* 캘린더 */
@@ -199,8 +202,8 @@ div#pageBar button {
 }
 
 /* 반응형 */
-@media (min-width:0px) and (max-width:768px) {
-    body { width: 100%; padding: 0; min-width: 300px;}
+@media screen and (max-width:768px) {
+    body {padding: 0;}
     .mypage { width: 100%; margin:auto;}
     .title { margin-top: 20px;}
     .btn_img { display: inline;}

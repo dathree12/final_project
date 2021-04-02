@@ -1,6 +1,4 @@
-body { margin: 0; font-family: 'Source Sans Pro'; display: flex; align-items: center; justify-content: center;}
-
-.mypage { width: 1000px; margin: 0 auto;}
+.mypage { width: 1000px; margin: 0 auto; display: block; padding-bottom: 2400px;}
 .menu{ text-align: center; padding: 10px;}
 .title { margin-top: 50px;}
 a { text-decoration: none; color: black;}
@@ -120,7 +118,7 @@ div#pageBar span.cPage {
 }
 
 /* 반응형 */
-@media (min-width:0px) and (max-width:768px) {
+@media screen and (max-width:768px) {
     body { padding: 0;}
     .mypage { width: 100%; margin:auto;}
     .title { margin-top: 20px;}

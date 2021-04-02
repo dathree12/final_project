@@ -5,16 +5,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/board/map_style.css">
-</head>
-<body>
+<%@ include file="../../views/common/header.jsp" %>
+<link rel="stylesheet" href="${path}/css/board/map_style.css">
     <section class="map">
-        <h3 style="text-align: center;">책지도</h3>
+        <h3 style="text-align: center; margin: 50px;">책지도</h3>
 
         <hr>
 
@@ -259,5 +253,4 @@
         }
     }
     </script>
-</body>
-</html>
+<%@ include file="../../views/common/footer.jsp" %>
