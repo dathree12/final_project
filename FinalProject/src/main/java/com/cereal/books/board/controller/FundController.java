@@ -40,4 +40,10 @@ public class FundController {
 		
 		return "board/bf_board/bf_paySuccess";
 	}
+	
+	@RequestMapping("board/bf_board/bf_viewDetail")
+	public String viewDetail() {
+		
+		return "board/bf_board/bf_viewDetail";
+	}
 }

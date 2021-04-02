@@ -20,6 +20,8 @@
 </head>
 
 <body>
+<%@ include file="../../common/header.jsp" %>
+
     <h1 id="terms_top">책스초코 펀딩 프로젝트 이용약관</h1>
 
 	<hr>

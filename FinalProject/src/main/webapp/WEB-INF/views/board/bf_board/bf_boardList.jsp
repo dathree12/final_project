@@ -20,7 +20,10 @@
 	<script src="${path}/js/jquery-3.5.1.js"></script>
 </head>
 
-<body>
+<%@ include file="../../common/header.jsp" %>
+
+	<div class="fd_boardList_body">
+	
     <div class="fdboard_top">
         <div class="fdboard_top_title">
             <a href="#">책스초코 펀딩 프로젝트</a>
@@ -63,7 +66,7 @@
                 <div class="fdboard_thumbnail">
                     <div class="fdboard_attainRate">달성%</div>
                     <a href="#" class="fdboard_img" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
+                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
                     </a>
                 </div>
                 <div class="fdboard_contants">
@@ -77,7 +80,7 @@
                 <div class="fdboard_thumbnail">
                     <div class="fdboard_attainRate">달성%</div>
                     <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
+                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
                     </a>
                 </div>
                 <div class="fdboard_contants">
@@ -238,6 +241,8 @@
             <a href="#">&gt;&gt;</a>
         </div>
     </div>	
+	
+	</div>
 	
 <%@ include file="../../common/footer.jsp" %>
 
