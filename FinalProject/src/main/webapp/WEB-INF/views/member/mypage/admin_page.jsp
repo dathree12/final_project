@@ -5,17 +5,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/mypage_style/adminpage.css">
-</head>
-<body>
-    
+<%@ include file="../../../views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/mypage_style/adminpage.css">
     <section class="mypage">
-        <h3 style="text-align: center;">My page</h3>
+        <h3 style="text-align: center; margin: 50px;">My page</h3>
     
         <div class="menu">
             <span><a href="#bookclub">북클럽</a></span>
@@ -596,5 +589,4 @@
             </div>
         </div>
     </section>
-</body>
-</html>
+<%@ include file="../../../views/common/footer.jsp" %>

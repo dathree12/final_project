@@ -5,20 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/mypage_style/profile.css">
-</head>
-<body>
-    
+<%@ include file="../../../views/common/header.jsp" %>
+<link rel="stylesheet" href="${path}/css/member/mypage_style/profile.css">
     <section class="profile_wrap">
-        <h3 style="text-align: center;">Profile</h3>
+        <h3 style="text-align: center; margin: 50px;">Profile</h3>
     
+        <div class="wrap">
         <hr>
-
         <div class="withdrawal">
             <form class="user_withdrawal">
                 <h3>회원탈퇴</h3>
@@ -31,7 +24,6 @@
                <button class="button" style="background-color: white; border: 1px solid darkgray; color: black;">취소</button>
             </form>
         </div>
-          
+        </div>
     </section>
-</body>
-</html>
+<%@ include file="../../../views/common/footer.jsp" %>
