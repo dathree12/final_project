@@ -13,7 +13,7 @@
     <title>메인페이지</title>
      <link rel="stylesheet" href="${path}/css/common/mainpage.css" type="text/css">
      <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
-     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">'
+     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
 </head>
 
 
@@ -24,7 +24,6 @@
 
             <div id="inner_img_div">
 			
-          
             </div>
             <div id="inner_reco_div">
                 <span id="inner_reco_div_span">111 님 추천 도서</span>
