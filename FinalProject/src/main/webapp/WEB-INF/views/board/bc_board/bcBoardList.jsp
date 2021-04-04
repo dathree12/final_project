@@ -71,7 +71,7 @@
                     <tr>
                         <td>1</td>
                         <td>
-                            <a>네이버/페이스북/카카오톡등 SNS로그인 가능합니다!</a>
+                            <a href="#">네이버/페이스북/카카오톡등 SNS로그인 가능합니다!</a>
                         </td>
                         <td>대표 관리자</td>
                         <td>2019-04-15</td>
@@ -81,9 +81,9 @@
             </table>
 
         </article>
-        <article>
+        <article class="pageAndBtn" style="width: 1100px; margin: auto;">
             <div class="btn-block-right">
-                <a href="#">글쓰기</a>
+                <a href="${ path }/board/bc_board/bcBoardWrite">글쓰기</a>
             </div>
             <div class="pageBar">
                 <a href="#" class="first">«</a>
