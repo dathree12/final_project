@@ -30,7 +30,7 @@
                 <span id="inner_reco_div_span">111 님 추천 도서</span>
                 <a href=""> 
                    <div class="reco_div">
-                    <div class="reco_img_div">
+                    <div class="reco_img_div">mfjflTjqjfla
                         <img src="${path}/images/바다.jpg" alt="" class="img_size">
                     </div>
                     <div class="reco_content">

@@ -72,7 +72,7 @@
                                 <ul class="-board-1th">
                                     <li class="xans-record-"><a href="${path}/board/br_board/brBoardMain">Review</a></li>
                                     <li class="xans-record-"><a href="#">Funding</a></li>
-                                    <li class="xans-record-"><a href="#">Clubs</a></li>
+                                    <li class="xans-record-"><a href="${ path }/board/bc_board/bcBoardMain">Clubs</a></li>
                                     <li class="xans-record-"><a href="#">Locations</a></li>
                                 </ul>
                                 <ul class="-board-2th">
