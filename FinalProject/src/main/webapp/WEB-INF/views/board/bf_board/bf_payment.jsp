@@ -21,6 +21,8 @@
 </head>
 
 <body>
+<%@ include file="../../common/header.jsp" %>
+
     <div class="fd_payment_body">
         <section class="payment-list-section-1th">
             <div class="shop-title">
@@ -34,7 +36,7 @@
                             <div class="shop_item_thumb">
                                 <a href="#">
                                     <div class="product_img_wrap">
-                                        <img src="./image/book.jpg" alt="주문상품 이미지" width="100px" height="150px">
+                                        <img src="${ path }/images/bf_testBook.jpg" alt="주문상품 이미지" width="100px" height="150px">
                                     </div>
                                     <div class="product_info_wrap">
                                         <br>

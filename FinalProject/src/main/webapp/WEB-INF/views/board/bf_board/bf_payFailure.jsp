@@ -19,6 +19,8 @@
 </head>
 
 <body>
+<%@ include file="../../common/header.jsp" %>
+
 	<div class="fd_body">
 	    <div class="fd_pay">
 	        <h3>북펀딩 프로젝트 책 제목명</h3>

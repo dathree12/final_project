@@ -1,29 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script 
-    src="https://kit.fontawesome.com/2d323a629b.js" 
-    crossorigin="anonymous"
-    ></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="./js/jquery-3.5.1.min.js"></script>
-    <title>nav</title>
-</head>
-<body>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/mypage_style/mypage.css">
+<%@ include file="../../../views/common/header.jsp" %>
+    <link rel="stylesheet" href="${path}/css/member/mypage_style/mypage.css">
     <section class="mypage">
-        <h3 style="text-align: center;">My page</h3>
+        <h3 style="text-align: center; margin: 50px;">My page</h3>
     
         <hr>
 
@@ -32,7 +16,7 @@
             <p class="title">profile</p>
             <div class="profile">
                 <p style="padding-left: 10px;">ㅇㅇㅇ님 환영합니다.</p>
-                <button class="info_btn">회원정보수정</button>
+                <button class="info_btn" onclick="profile();">회원정보수정</button>
             </div>
             
             <!-- 스크랩 -->
@@ -160,7 +144,7 @@
                   if (cnt % 7 == 1) {/*일요일 계산*/
                       //1주일이 7일 이므로 일요일 구하기
                       //월화수목금토일을 7로 나눴을때 나머지가 1이면 cnt가 1번째에 위치함을 의미한다
-                    cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img'><img class=calendar_image src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU></div>"
+                    cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img'><img class=calendar_image onclick='bookreview();' src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU></div>"
                     //1번째의 cell에만 색칠
                 }    
                   if (cnt%7 == 0){/* 1주일이 7일 이므로 토요일 구하기*/
@@ -216,15 +200,15 @@
                     <div class="content">
                         <a><img class="btn_img" src="./images/left.png" style="margin-right: 5%;"></a>
                         <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="club_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+                            <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                             <p>클럽이름</p>
                         </div>
                         <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="club_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+                            <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                             <p>클럽이름</p>
                         </div>
                         <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="club_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+                            <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                             <p>클럽이름</p>
                         </div>
                         <a><img class="btn_img" src="./images/right.png" style="margin-left: 5%;"></a>
@@ -302,7 +286,7 @@
                     <div class="content">
                         <a><img class="btn_img" src="./images/left.png" style="margin-right: 5%;"></a>
                         <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+                            <a href="#" name="thumbnailbox"><img class="image" onclick="bookfunding();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                             <p>클럽이름</p>
                         </div>
                         <div class="book_info" id="book1">
@@ -380,5 +364,20 @@
             </div>
         </div>
     </section>
-</body>
-</html>
+    
+    <script type="text/javascript">
+            	function profile() {
+            		location.href = "${path}/profile";
+				}
+            	function bookclub() {
+            		location.href = "${path}/bcBoardDetail";
+				}
+            	function bookfunding() {
+            		location.href = "${path}/board/bf_board/bf_boardList";
+				}
+            	function bookreview() {
+            		location.href = "${path}/brReviewDetail";
+				}
+	</script>
+	
+<%@ include file="../../../views/common/footer.jsp" %>

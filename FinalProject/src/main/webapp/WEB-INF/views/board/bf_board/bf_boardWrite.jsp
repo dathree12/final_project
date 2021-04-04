@@ -19,6 +19,8 @@
 </head>
 
 <body>
+<%@ include file="../../common/header.jsp" %>
+
     <div class="fdboard_write_body">
         <form class="fdboard_write_form" action="test" method="POST">
             <h2>책스초코 펀딩 프로젝트 신청하기</h2>

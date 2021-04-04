@@ -34,4 +34,11 @@ public class ClubController {
 
 		return "board/bc_board/bcBoardWrite";
 	}
+	
+	// 북 클럽 결제페이지
+	@RequestMapping("/bcBoardPayment")
+	public String payment() {
+		
+		return "board/bc_board/bcBoardPayment";
+	}
 }

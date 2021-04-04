@@ -20,7 +20,7 @@ body {
 .fdboard_top_enroll {
     display: inline-block;
     position: fixed;
-    top: 48%;
+    top: 38%;
     right: 4%;
     z-index: 11;
     border: 1px black solid;
@@ -172,6 +172,9 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+	.fdboard_top_title {
+		margin-top: 15px;
+	}
     .fdboard_mid_box {
         box-sizing: border-box;
         float: left;
@@ -180,6 +183,6 @@ body {
         margin-left: 15%;
     }
     .fdboard_top_enroll {
-        top: 40%;
+        top: 39%;
     }
 }
