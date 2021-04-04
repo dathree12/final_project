@@ -3,6 +3,9 @@ package com.cereal.books.board.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/board/bc_board")
 public class ClubController {
@@ -49,6 +52,6 @@ public class ClubController {
 		
 		return "board/bc_board/bcBoardPayment";
 	}
-	
+
 	
 }
