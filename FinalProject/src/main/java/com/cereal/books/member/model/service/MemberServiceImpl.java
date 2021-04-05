@@ -1,6 +1,9 @@
 package com.cereal.books.member.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +25,13 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public int saveMember(Member member) {
 		int result = 0;
-		
-		
+
 		member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
 		result = memberDao.insertMember(member);
 		return result;
 	}
+
+
 	
 }
 
