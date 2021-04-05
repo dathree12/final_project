@@ -21,9 +21,14 @@
                 <label>비밀번호 : <input type="password"></label><br>
                <br><br><br>
                <button class="button" type="submit" style="background-color: black;">회원탈퇴</button>
-               <button class="button" style="background-color: white; border: 1px solid darkgray; color: black;">취소</button>
+               <button class="button" type="button" onclick="back();" style="background-color: white; border: 1px solid darkgray; color: black;">취소</button>
             </form>
         </div>
         </div>
     </section>
+    <script type="text/javascript">
+            	function back() {
+            		location.href = "${path}/profile";
+				}
+	</script>
 <%@ include file="../../../views/common/footer.jsp" %>

@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
 <%@ include file="../../../views/common/header.jsp" %>
 <link rel="stylesheet" href="${path}/css/member/mypage_style/profile.css">
@@ -13,7 +14,8 @@
 		<div class="wrap">
         <hr>
         <div class="info">
-            <form class="user_info">
+            <form class="user_info"  id="memberFrm" action="${path}/profile" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <table class="info_table">
                     <tr>
                         <th style="width: 30%;">이름</th>
@@ -50,10 +52,9 @@
                         <td>
                             <select class="phone" name="phone">
                                 <option value="ko">010</option>
-                                <option value="ch">070</option>
-                                <option value="jp">02</option>
-                                <option value="en">031</option>
-                                <option value="fr">050</option>
+                                <option value="ch">011</option>
+                                <option value="jp">016</option>
+                                <option value="en">019</option>
                             </select> - 
                             <input class="phone" type="tel" required> - <input class="phone" type="tel" required></label>
                         </td>
@@ -67,10 +68,18 @@
                 <br><br><br>
                <button class="button" id="pwd" style="background-color: rgb(141, 133, 133);">비밀번호변경</button>
                <button class="button" type="submit" style="background-color: black;">정보수정</button>
-               <button class="button" style="background-color: white; color: black; border: 1px solid darkgray;">취소</button>
-               <button class="button" id="withdrawal">회원탈퇴</button>
+               <button class="button" onclick="backto_mypage();" style="background-color: white; color: black; border: 1px solid darkgray;">취소</button>
+               <button class="button" onclick="deleteMember();" id="withdrawal">회원탈퇴</button>
             </form>
         </div>
         </div>
     </section>
+    <script type="text/javascript">
+            	function backto_mypage() {
+            		location.href = "${path}/mypage";
+				}
+            	function deleteMember() {
+            		location.href = "${path}/member/mypage/withdrawal";
+				}
+	</script>
 <%@ include file="../../../views/common/footer.jsp" %>

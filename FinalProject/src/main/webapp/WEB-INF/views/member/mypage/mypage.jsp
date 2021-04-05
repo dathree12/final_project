@@ -367,7 +367,7 @@
     
     <script type="text/javascript">
             	function profile() {
-            		location.href = "${path}/profile";
+            		location.href = "${path}/member/mypage/profile";
 				}
             	function bookclub() {
             		location.href = "${path}/bcBoardDetail";
