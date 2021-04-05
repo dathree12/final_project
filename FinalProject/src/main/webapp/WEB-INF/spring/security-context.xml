@@ -11,6 +11,8 @@
 	
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
+	<bean id="coustomHandler" class="com.kh.security.handler.CustomLoginSuccesHandler"/>
+	
 	
 	<security:http pattern="/resources/**" security="none" ></security:http>
 	<security:http pattern="/js/**" security="none" ></security:http>
@@ -27,34 +29,29 @@
 		<security:intercept-url pattern="/member/**" access="hasAnyRole('ADMIN', 'USER')" />
 		<security:intercept-url pattern="/**" access="permitAll" />
 		<security:access-denied-handler error-page="/accessError"/>
-		
-		<security:headers>
-		</security:headers>
 	
 		<security:form-login
 			login-page="/member/login"
 			username-parameter="userId"
 			password-parameter="userPwd"
-			default-target-url="/"
+			authentication-success-handler-ref="coustomHandler"
 			authentication-failure-url="/member/login?err=ture"	
 		/>
-<!-- 		<security:csrf disabled="true"/> -->
-	
+
+		<security:logout
+			logout-url="/logout"
+			logout-success-url="/"
+		
+		/>
+
 	</security:http>
-	
-	
-	
-		
-	<security:authentication-manager>
-		<security:authentication-provider>
-		
-			<security:user-service>
-			 <security:user name="user"  password="{noop}1234" authorities="ROLE_USER"/>
-			 <security:user name="admin"  password="$2a$10$6PmEBefFH/RwMBHD3Zz72OjPlhT/MwdCK77sQwloK5BPkHy9PDAd2" authorities="ROLE_ADMIN,ROLE_USER"/>
-			</security:user-service>
-		</security:authentication-provider>
+
+	<security:jdbc-user-service data-source-ref="dataSource" id="jdbcUserService"/>
+	 	<security:authentication-manager>
+		 	<security:authentication-provider user-service-ref="jdbcUserService">
+		 		<security:password-encoder ref="bcryptPasswordEncoder"/>
+		 	</security:authentication-provider>
 	</security:authentication-manager>
-	
 
 	
 	
