@@ -11,7 +11,7 @@
 	
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
-	<bean id="coustomHandler" class="com.cereal.security.handler.CustomLoginSuccesHandler"/>
+	
 	
 	
 	<security:http pattern="/resources/**" security="none" ></security:http>
@@ -34,7 +34,7 @@
 			login-page="/member/login"
 			username-parameter="userId"
 			password-parameter="userPwd"
-			authentication-success-handler-ref="coustomHandler"
+			default-target-url="/"
 			authentication-failure-url="/member/login?err=ture"	
 		/>
 
@@ -43,16 +43,17 @@
 			logout-success-url="/"
 		
 		/>
-
-	</security:http>
-
-	<security:jdbc-user-service data-source-ref="dataSource" id="jdbcUserService"/>
-	 	<security:authentication-manager>
-		 	<security:authentication-provider user-service-ref="jdbcUserService">
-		 		<security:password-encoder ref="bcryptPasswordEncoder"/>
-		 	</security:authentication-provider>
+		
+		</security:http>
+		
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+			<security:user-service>
+				<security:user name="user" password="$2a$10$Pywg5eglqummj9A4KLlQWuK4faWtFLFSwwkrfxEj3wSNRBKj4lWY2" authorities="ROLE_USER"/>
+				<security:user name="admin" password="$2a$10$Pywg5eglqummj9A4KLlQWuK4faWtFLFSwwkrfxEj3wSNRBKj4lWY2" authorities="ROLE_ADMIN,ROLE_USER"/>
+			</security:user-service>
+		</security:authentication-provider>	
 	</security:authentication-manager>
-
-	
 	
 </beans>
