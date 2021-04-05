@@ -31,9 +31,9 @@
                 </h2>
             </div>
             <ul class="menuCategory">
-                <li><a href="#">전체 클럽</a></li>
-                <li><a href="#">모집 중인 클럽</a></li>
-                <li><a href="#">클럽 제안하기</a></li>
+                <li><a href="${ path }/board/bc_board/bcBoardMain">전체 클럽</a></li>
+                <li><a href="${ path }/board/bc_board/bcBoardMain">모집 중인 클럽</a></li>
+                <li><a href="${ path }/board/bc_board/bcBoardList">클럽 제안하기</a></li>
             </ul>
         </article>
 
