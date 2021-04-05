@@ -26,10 +26,9 @@ public class MemberController {
 	private  CustomUserDetailService customservice;
 	
 	/*로그인 페이지 이동*/
-	@GetMapping("member/login")
+	@RequestMapping(value = "member/login" , method = {RequestMethod.GET,RequestMethod.POST})
 	public String loginViews() {
 		
-
 		
 		return "member/login";
 	}
@@ -57,9 +56,17 @@ public class MemberController {
 		
 		int result =service.saveMember(member);
 		
+		if(result > 0) {
+			model.addObject("msg", "회원가입이 정상적으로 완료되었습니다.");
+			model.addObject("location", "/member/login");
+		} else {
+			model.addObject("msg", "회원가입을 실패하였습니다.");
+			model.addObject("location", "/member/enroll");
+		}
+		
+		model.setViewName("common/msg");		
 		
 		return model;
-		
 	}
 
 }
