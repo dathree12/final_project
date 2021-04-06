@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
 <%@ include file="../../../views/common/header.jsp" %>
     <link rel="stylesheet" href="${path}/css/member/mypage_style/mypage.css">
@@ -12,10 +13,17 @@
         <hr>
 
         <div class="info">
+        <security:authorize access="isAnonymous()">
+                	
+                	<li>
+                        <a href="${path}/member/login">로그인</a>
+                    </li>
+        </security:authorize>
+        <security:authorize access="hasRole('USER')">
             <!-- 회원정보 -->
             <p class="title">profile</p>
             <div class="profile">
-                <p style="padding-left: 10px;">ㅇㅇㅇ님 환영합니다.</p>
+                <p style="padding-left: 10px;"><span><security:authentication property="principal.name"/></span>님 환영합니다.</p>
                 <button class="info_btn" onclick="profile();">회원정보수정</button>
             </div>
             
@@ -362,6 +370,7 @@
                     </div>
                 </div>
             </div>
+            </security:authorize>
         </div>
     </section>
     

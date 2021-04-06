@@ -6,4 +6,6 @@ public interface MemberService {
 
 	int saveMember(Member member);
 
+	int deleteMember(String userId, String userPwd);
+
 }

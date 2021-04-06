@@ -14,18 +14,20 @@
 		<div class="wrap">
         <hr>
         <div class="info">
-            <form class="user_info"  id="memberFrm" action="${path}/profile" method="post">
+            <form class="user_info"  id="memberFrm" action="${path}/update" method="post">
+            <security:authorize access="hasRole('USER')"> 
+			<security:authentication property="principal" var="user"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <table class="info_table">
                     <tr>
-                        <th style="width: 30%;">이름</th>
-                        <td><input type="text" readonly value="초코"></td>
+                        <th style="width: 30%;">이름 ${ user.userEmail }</th>
+                        <td><input type="text" name="name" readonly value="${user.name }"></td>
                     </tr>
                     <tr><td colspan=2><hr></td></tr>
                     <tr>
                         <th>닉네임 <span>*</span></th>
                         <td>
-                            <input type="text" name="userName" id="userName" required>
+                            <input type="text" name="userNname" id="userName" required value="${user.userNname }">
                             <button class="button" style="background-color: black;">중복검사</button>
                         </td>
                     </tr>
@@ -33,18 +35,19 @@
                     <tr>
                         <th>관심분야 <span>*</span></th>
                         <td>
-                            <label><input type="checkbox" name="hobby" value="baseball" checked>소설</label>&nbsp;
-                <label><input type="checkbox" name="hobby" value="baseball" checked>어린이 / 청소년</label>&nbsp;
-                <label><input type="checkbox" name="hobby" value="baseball" checked>경제 / 경영</label>&nbsp;<br>
-                <label><input type="checkbox" name="hobby" value="baseball" checked>인문 / 사회 / 역사</label>&nbsp;
-                <label><input type="checkbox" name="hobby" value="baseball" checked>종교 / 역학</label>&nbsp;<br>
-                <label><input type="checkbox" name="hobby" value="baseball" checked>자기개발(ex 요리, 뷰티, 여행)</label>&nbsp;<br>
+                            <label><input type="checkbox" name="userGenre" value="baseball">소설</label>&nbsp;
+                <label><input type="checkbox" name="userGenre" value="baseball">어린이 / 청소년</label>&nbsp;
+                <label><input type="checkbox" name="userGenre" value="baseball">경제 / 경영</label>&nbsp;<br>
+                <label><input type="checkbox" name="userGenre" value="baseball">인문 / 사회 / 역사</label>&nbsp;
+                <label><input type="checkbox" name="userGenre" value="baseball">종교 / 역학</label>&nbsp;<br>
+                <label><input type="checkbox" name="userGenre" value="baseball">자기개발(ex 요리, 뷰티, 여행)</label>&nbsp;<br>
                         </td>
                     </tr>
                     <tr><td colspan=2><hr></td></tr>
                     <tr>
                         <th>이메일 <span>*</span></th>
-                        <td><input type="email" placeholder="abc@abc.com" name="email" id="email" required></td>
+                        <td><input type="email" placeholder="abc@abc.com" name="email" id="email" required
+                        	value="${userEmail }"></td>
                     </tr>
                     <tr><td colspan=2><hr></td></tr>
                     <tr>
@@ -70,16 +73,17 @@
                <button class="button" type="submit" style="background-color: black;">정보수정</button>
                <button class="button" onclick="backto_mypage();" style="background-color: white; color: black; border: 1px solid darkgray;">취소</button>
                <button class="button" onclick="deleteMember();" id="withdrawal">회원탈퇴</button>
+               </security:authorize>
             </form>
         </div>
         </div>
     </section>
     <script type="text/javascript">
             	function backto_mypage() {
-            		location.href = "${path}/mypage";
+            		location.href = "${path}/member/mypage/mypage";
 				}
             	function deleteMember() {
-            		location.href = "${path}/member/mypage/withdrawal";
+            		location.href = "${path}/member/withdrawal";
 				}
 	</script>
 <%@ include file="../../../views/common/footer.jsp" %>

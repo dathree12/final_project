@@ -1,9 +1,12 @@
 package com.cereal.books.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -28,9 +31,17 @@ public class MyPageController {
 	}
 	
 	// 회원정보 수정
-	@RequestMapping("/profile")
+	@RequestMapping(value="member/mypage/profile", method = RequestMethod.GET)
+	public String profile(Model model, @AuthenticationPrincipal Member member) {
+		
+//		System.out.println(member);
+		
+		return "/member/mypage/profile";
+	}
+	
+	@RequestMapping("member/mypage/profile")
 	public ModelAndView update(@ModelAttribute Member member,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@AuthenticationPrincipal Member loginMember,
 			ModelAndView model) {
 		
 //		System.out.println(member);
@@ -41,7 +52,7 @@ public class MyPageController {
 		if(loginMember.getUserId().equals(member.getUserId())) {
 			member.setUserNo(loginMember.getUserNo());
 			
-//			result = service.saveMember(member);
+			result = service.saveMember(member);
 			
 			if(result > 0) {
 //				model.addObject("loginMember", service.findMemberByUserId(loginMember.getUserId()));
@@ -62,22 +73,29 @@ public class MyPageController {
 	}
 	
 	// 회원탈퇴
-	@RequestMapping("withdrawal")
-	public ModelAndView withdrawal(ModelAndView model,
-			@SessionAttribute(name="loginMember", required = false) Member loginMember,
-			@RequestParam("userId")String userId) {
+	@RequestMapping("member/withdrawal")
+	public String withdrawal(@AuthenticationPrincipal Member member) {
 		
+		return "/member/mypage/withdrawal";
+	}
+	
+	@RequestMapping("member/delete")
+	public ModelAndView withdrawal(ModelAndView model, @AuthenticationPrincipal Member member,
+			 @RequestParam("userPwd") String userPwd) {
+		
+//		System.out.println(member);
+//		System.out.println(member.getUserId());
 		int result = 0;
 		
-		if(loginMember.getUserId().equals(userId)) {
-//			result = service.deleteMember(userId);
+		if(member.getUserId().equals(member.getUserId())) {
+			result = service.deleteMember(member.getUserId(), userPwd);
 			
 			if(result > 0) {
 				model.addObject("msg", "정상적으로 탈퇴되었습니다.");
-//				model.addObject("location", "/logout");
+				model.addObject("location", "/");
 			} else {
 				model.addObject("msg", "회원 탈퇴 실패하였습니다.");
-				model.addObject("location", "/myPage");
+				model.addObject("location", "/member/withdrawal");
 			}
 		} else {
 			model.addObject("msg", "잘못된 접근입니다.");
@@ -88,12 +106,4 @@ public class MyPageController {
 		
 		return model;
 	}
-	
-	// 관리자 페이지
-	@RequestMapping("admin")
-	public String admin() {
-		
-		return "member/mypage/admin_page";
-	}
-	
 }
