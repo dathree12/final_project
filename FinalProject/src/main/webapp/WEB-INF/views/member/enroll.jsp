@@ -29,13 +29,13 @@
                         <div class="div_id">
                              <div class="en_title"><span>아이디</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
                              <div class="id_text"><input class="en_table_input" id="userId" name="userId"  type="text" placeholder="(영문소문자/숫자, 4~10자)"  required></div>
-                             <div class="id_ck"><span id="idck"></span> </div>
+                             <div class="id_ck"><span id="idck1" style="font-size: 0.8em; color: green;" ></span><span id="idck2" style="font-size: 0.8em; color: red;" ></span> </div>
                         </div>       
                         <br>
                         <div class="div_id">
                              <div class="en_title"><span>닉네임</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
                              <div class="id_text"><input class="en_table_input" id="userNname" name="userNname"  type="text" required></div>
-                             <div class="id_ck"><span id="nameck"></span></div>
+                             <div class="id_ck"><span id="nameck1" style="font-size: 0.8em; color: green;" ></span><span id="nameck2" style="font-size: 0.8em; color: red;" ></span></div>
                         </div>   
                         <br>    
                         <div class="div_id">
@@ -132,7 +132,8 @@
 			
 			if (id.length < 4) {
 				alert("아이디는 최소 4글자 이상 입력하셔요.")
-				$("#idck").html(" ")
+				$("#idck1").html(" ")
+				$("#idck2").html(" ")
 			}else{
 				$.ajax({
 					type: "get",
@@ -145,13 +146,16 @@
 						console.log(data);
 						
 						if(data.validate !== true) {
+						
 							result ="사용 가능한 아이디 입니다.";
-							
+							$("#idck1").html(result)
+							$("#idck2").html(" ")
 						} else {
 							result ="이미 사용중인 아이디 입니다.";	
+							$("#idck2").html(result)
+							$("#idck1").html(" ")
 						}
-						
-							$("#idck").html(result)
+					
 					},
 					error: function(e) {
 						console.log(e);
@@ -177,11 +181,14 @@
 					
 					if(data.validate !== true) {
 						result ="사용 가능한 닉네임 입니다.";
-						
+						$("#nameck1").html(result)
+						$("#nameck2").html(" ")
 					} else {
 						result ="이미 사용중인 닉네임 입니다.";	
+						$("#nameck2").html(result)
+						$("#nameck1").html(" ")
 					}
-					$("#nameck").html(result)
+				
 				},
 				error: function(e) {
 					console.log(e);
