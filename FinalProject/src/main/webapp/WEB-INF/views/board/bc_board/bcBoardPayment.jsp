@@ -116,7 +116,7 @@
                 </div>
                 <div class="_payment_type_wrap">
                     <h6>결제방법</h6>
-                    <a href="#" id="apibtn"><img src="${ path }/images/payment_icon_yellow_small.png" alt="임시버튼"></img></a>
+                    <a href="${ path }/common/payment"><img src="${ path }/images/payment_icon_yellow_small.png" alt="임시버튼"></img></a>
                 </div>
                 <div class="_agree_wrap">
                     <input type="checkbox" name="checkbox" id="checkbox">
@@ -128,20 +128,4 @@
             </div>
         </div>
     </section>
-    <script>
-    	// kakao account api ajax
-    	$('#apibtn').click(function() {
-    		$.ajax({
-    			url:'/cls/jq/kakaopay.cls',
-    			dataType:'json',
-    			success:function(data) {
-    				var box = data.next_redirect_pc_url;
-    				window.open(box);
-    			},
-    			error:function(error) {
-    				alert(error);
-    			}
-    		});
-    	});
-    </script>
 <%@ include file="../../common/footer.jsp" %>
