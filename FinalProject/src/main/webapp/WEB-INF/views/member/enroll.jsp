@@ -53,7 +53,7 @@
                         <br>    
                         <div class="div_id">
                              <div class="en_title"><span>이름</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
-                             <div class="en_ck"><input class="en_input" id="userName" name="userName"  type="text" required> </div>
+                             <div class="en_ck"><input class="en_input" id="name" name="name"  type="text" required> </div>
                              <div class="en_text"><span></span></div>
                         </div>
                         <br>

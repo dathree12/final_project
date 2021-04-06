@@ -53,5 +53,4 @@ public class ClubController {
 		return "board/bc_board/bcBoardPayment";
 	}
 
-	
 }

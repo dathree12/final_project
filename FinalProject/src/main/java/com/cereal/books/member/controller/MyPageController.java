@@ -21,7 +21,7 @@ public class MyPageController {
 	@Autowired
 	private MemberService service;
 	
-	@RequestMapping("mypage")
+	@RequestMapping("member/mypage/mypage")
 	public String mypage() {
 		
 		return "member/mypage/mypage";
