@@ -14,6 +14,9 @@ public interface MemberDao {
 	int insertMember(Member member);
 
 
+	Member selectUserNname(@Param("userNname")String userNname);
+
+
 	
 
 }

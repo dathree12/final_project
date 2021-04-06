@@ -29,6 +29,21 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	@Override
+	public boolean validate(String userId) {
+		Member member = memberDao.selectUserInfoOne(userId);
+		
+		return member != null;
+	}
+
+
+	@Override
+	public boolean NnameValidate(String userNname) {
+		Member member = memberDao.selectUserNname(userNname);
+		
+		return member != null;
+	}
+
 	
 }
 

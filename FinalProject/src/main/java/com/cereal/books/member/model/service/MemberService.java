@@ -6,4 +6,8 @@ public interface MemberService {
 
 	int saveMember(Member member);
 
+	boolean validate(String userId);
+
+	boolean NnameValidate(String userNname);
+
 }

@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>    
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
 <%@ include file="../../../views/common/header.jsp" %>
     <link rel="stylesheet" href="${path}/css/member/mypage_style/mypage.css">
@@ -10,7 +11,7 @@
         <h3 style="text-align: center; margin: 50px;">My page</h3>
     
         <hr>
-
+			
         <div class="info">
             <!-- 회원정보 -->
             <p class="title">profile</p>

@@ -29,13 +29,13 @@
                         <div class="div_id">
                              <div class="en_title"><span>아이디</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
                              <div class="id_text"><input class="en_table_input" id="userId" name="userId"  type="text" placeholder="(영문소문자/숫자, 4~10자)"  required></div>
-                             <div class="id_ck"> <input type="button" id="" value="아이디 중복검사" > <span></span></div>
+                             <div class="id_ck"><span id="idck"> </span> </div>
                         </div>       
                         <br>
                         <div class="div_id">
                              <div class="en_title"><span>닉네임</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
                              <div class="id_text"><input class="en_table_input" id="userNname" name="userNname"  type="text" required></div>
-                             <div class="id_ck"> <input type="button" id="" value="닉네임 중복검사" ></div>
+                             <div class="id_ck"> <input type="button" id="NnameDuplicate" value="닉네임 중복검사"  ></div>
                         </div>   
                         <br>    
                         <div class="div_id">
@@ -93,7 +93,7 @@
                                 <option value="011">011</option>
                                 <option value="016">016</option>
                                 <option value="019">019</option>
-                            </select> - <input  class="en_input_phone" id="phone2" maxlength="4"  type="text" /> - <input class="en_input_phone" id="phone3" maxlength="4"  type="text" />  </div>
+                            </select> - <input  class="en_input_phone" id="phone2" maxlength="4"  type="text" required/> - <input class="en_input_phone" id="phone3" maxlength="4"  type="text" required />  </div>
                             <div class="en_text_phone"><span></span></div>
                        </div>
                         
@@ -106,6 +106,8 @@
              				<input type ="hidden" name="userPhone" id="userPhone">
              				<input type ="hidden" name="userEmail" id="userEmail">
              				<input type ="hidden" name="userAgreement" value="Y">
+             				<input type ="hidden"  id="" >
+             				<input type ="hidden"  id="nameck">
                         
             <br><br><br>
             <div id="en_btn_div">
@@ -123,7 +125,71 @@
   
   <script>
   $(document).ready(() => {
-	  $("#userPwdCk").blur((e) => {
+	  
+	 	/*아이디 체크*/
+	 	$("#userId").blur((e) => { 
+			let id = $(e.target).val().trim();
+			
+			if (id.length < 4) {
+				alert("아이디는 최소 4글자 이상 입력하셔요.")
+				$("#idck").html(" ")
+			}else{
+				$.ajax({
+					type: "get",
+					url: "${path}/member/idCheck",
+					dataType: "json",
+					data: {
+						id
+					},
+					success: function(data) {
+						console.log(data);
+						
+						if(data.validate !== true) {
+							result ="사용 가능한 아이디 입니다.";
+							
+						} else {
+							result ="이미 사용중인 아이디 입니다.";	
+						}
+						
+							$("#idck").html(result)
+					},
+					error: function(e) {
+						console.log(e);
+					}				
+				});
+			}	
+	 	});
+	 	
+	 	
+	 	/*닉네임 중복*/
+		$("#NnameDuplicate").on("click", () => {
+			let Nname = $("#userNname").val().trim();
+			
+			$.ajax({
+				type: "get",
+				url: "${path}/member/NnameCheck",
+				dataType: "json",
+				data: {
+					Nname
+				},
+				success: function(data) {
+					console.log(data);
+					
+					if(data.validate !== true) {
+						alert("사용 가능한 닉네임 입니다.");
+					} else {
+						alert("이미 사용중인 닉네임 입니다.");						
+					}
+				},
+				error: function(e) {
+					console.log(e);
+				}				
+			});
+		});
+	  
+	  
+		  /*비밀번호 체크*/
+		$("#userPwdCk").blur((e) => {
 			let pass1 = $("#userPwd").val();
 			let pass2 = $(e.target).val();
 			if(pass1.trim() != pass2.trim()){
@@ -134,32 +200,35 @@
 			}
 		});		
 	  
-	  $("#phone3").blur((e) => {
-		  var phone1 = $("#phone1").val();
-		  var phone2 = $("#phone2").val();
-		  var phone3 = $("#phone3").val();
-		  
-		  $("#userPhone").val(phone1 + '-' +  phone2 + '-' + phone3);
-  
-	  });
 	  
-	  $("#Email2").blur((e) => {
-		  var Email1 = $("#Email1").val();
-		  var Email2 = $("#Email2").val();
-	
-		  $("#userEmail").val(Email1 + Email2);
+	  
+	  /*핸드폰 번호 조합*/
+		 $("#en_btn").on("click", () => {
+			var phone1 = $("#phone1").val();
+		    var phone2 = $("#phone2").val();
+		    var phone3 = $("#phone3").val();
+		    
+			$("#userPhone").val(phone1 + '-' +  phone2 + '-' + phone3);
   
-	  });
+	  	});
+	  
+	  
+	  /*이메일 조합.*/
+	  	$("#en_btn").on("click", () => {
+			var Email1 = $("#Email1").val();
+		 	var Email2 = $("#Email2").val();
+		 	
+		  	$("#userEmail").val(Email1 + Email2);
+  
+	  	});
+	  
 	  
 		/* 취소하기*/
-		 $('#en_cancle').on('click',() => {
-
-			  if(confirm("정말로 취소하시겠습니까?")){
-					
-				  location.replace("${path}/");
+		$('#en_cancle').on('click',() => {
+			 if(confirm("정말로 취소하시겠습니까?")){
+				 location.replace("${path}/");
 			  }
-			 
 		});
 		  
-  });
+	});
   </script>

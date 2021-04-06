@@ -37,7 +37,7 @@
             </div>
     	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         </form>   
-            <span style="color: red"><c:out value="${loginFailMsg}"/></span>
+            <span id="errspan" style="color: red"><c:out value="${loginFailMsg}"/></span>
             <br>
             <div class="check_div">
                 <input type="checkbox"> <span>아이디 저장</span>
