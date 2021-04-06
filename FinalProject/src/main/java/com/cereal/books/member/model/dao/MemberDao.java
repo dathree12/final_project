@@ -20,6 +20,9 @@ public interface MemberDao {
 	int updateMember(Member member);
 
 
+    int deleteMember(@Param("userId") String userId);
+
+
 	
 
 }
