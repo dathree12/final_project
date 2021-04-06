@@ -10,4 +10,6 @@ public interface MemberService {
 
 	boolean NnameValidate(String userNname);
 
+	int deleteMember(String userId, String userPwd);
+
 }

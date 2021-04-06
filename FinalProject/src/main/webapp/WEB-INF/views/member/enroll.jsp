@@ -29,13 +29,13 @@
                         <div class="div_id">
                              <div class="en_title"><span>아이디</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
                              <div class="id_text"><input class="en_table_input" id="userId" name="userId"  type="text" placeholder="(영문소문자/숫자, 4~10자)"  required></div>
-                             <div class="id_ck"><span id="idck"> </span> </div>
+                             <div class="id_ck"><span id="idck"></span> </div>
                         </div>       
                         <br>
                         <div class="div_id">
                              <div class="en_title"><span>닉네임</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
                              <div class="id_text"><input class="en_table_input" id="userNname" name="userNname"  type="text" required></div>
-                             <div class="id_ck"> <input type="button" id="NnameDuplicate" value="닉네임 중복검사"  ></div>
+                             <div class="id_ck"><span id="nameck"></span></div>
                         </div>   
                         <br>    
                         <div class="div_id">
@@ -162,8 +162,8 @@
 	 	
 	 	
 	 	/*닉네임 중복*/
-		$("#NnameDuplicate").on("click", () => {
-			let Nname = $("#userNname").val().trim();
+		$("#userNname").blur((e) => {
+			let Nname = $(e.target).val().trim();
 			
 			$.ajax({
 				type: "get",
@@ -176,10 +176,12 @@
 					console.log(data);
 					
 					if(data.validate !== true) {
-						alert("사용 가능한 닉네임 입니다.");
+						result ="사용 가능한 닉네임 입니다.";
+						
 					} else {
-						alert("이미 사용중인 닉네임 입니다.");						
+						result ="이미 사용중인 닉네임 입니다.";	
 					}
+					$("#nameck").html(result)
 				},
 				error: function(e) {
 					console.log(e);

@@ -17,6 +17,9 @@ public interface MemberDao {
 	Member selectUserNname(@Param("userNname")String userNname);
 
 
+	int updateMember(Member member);
+
+
 	
 
 }
