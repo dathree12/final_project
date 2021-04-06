@@ -11,6 +11,12 @@
 	
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
+	<bean id="customUserService" class="com.cereal.books.member.model.service.CustomUserDetailService" />
+	
+	<bean id="customLoginSuccess" class="com.cereal.books.member.model.security.handler.CustomLoginSuccessHandler"/>
+	
+	<bean id="customLoginFailure" class="com.cereal.books.member.model.security.handler.CustomLoginFailureHandler"/>
+	
 	
 	<security:http pattern="/resources/**" security="none" ></security:http>
 	<security:http pattern="/js/**" security="none" ></security:http>
@@ -27,35 +33,27 @@
 		<security:intercept-url pattern="/member/**" access="hasAnyRole('ADMIN', 'USER')" />
 		<security:intercept-url pattern="/**" access="permitAll" />
 		<security:access-denied-handler error-page="/accessError"/>
-		
-		<security:headers>
-		</security:headers>
 	
 		<security:form-login
 			login-page="/member/login"
 			username-parameter="userId"
 			password-parameter="userPwd"
-			default-target-url="/"
-			authentication-failure-url="/member/login?err=ture"	
+		    authentication-success-handler-ref="customLoginSuccess"
+	        authentication-failure-handler-ref="customLoginFailure"
 		/>
-<!-- 		<security:csrf disabled="true"/> -->
-	
-	</security:http>
-	
-	
-	
+
+		<security:logout
+			logout-url="/logout"
+			logout-success-url="/"
+		
+		/>
+		
+		</security:http>
 		
 	<security:authentication-manager>
-		<security:authentication-provider>
-		
-			<security:user-service>
-			 <security:user name="user"  password="{noop}1234" authorities="ROLE_USER"/>
-			 <security:user name="admin"  password="$2a$10$6PmEBefFH/RwMBHD3Zz72OjPlhT/MwdCK77sQwloK5BPkHy9PDAd2" authorities="ROLE_ADMIN,ROLE_USER"/>
-			</security:user-service>
-		</security:authentication-provider>
+		<security:authentication-provider user-service-ref="customUserService">
+	  		<security:password-encoder ref="bcryptPasswordEncoder"/>
+	  	</security:authentication-provider>
 	</security:authentication-manager>
-	
-
-	
 	
 </beans>

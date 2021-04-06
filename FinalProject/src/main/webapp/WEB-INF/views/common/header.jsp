@@ -26,12 +26,34 @@
         <div class="nav_anbArea">
             <div class="nav-c-width">
                 <ul class="nav-anb">
+                	 <security:authorize access="isAnonymous()">
+                	
                 	<li>
                         <a href="${path}/member/login">로그인</a>
                     </li>
+                    
                     <li>
                         <a href="${path}/member/enrollTerms">회원가입</a>
                     </li>
+                     </security:authorize>
+                   <security:authorize access="hasRole('USER')">
+	 				<li>
+	 					<span><security:authentication property="principal.name"/></span>
+	 				</li>
+	 				 <li>
+                        <a href="${path}/member/mypage/mypage">마이페이지</a>
+                    </li>
+	 				</security:authorize>
+	 				<security:authorize access="isAuthenticated()">
+	 					<c:url var="logoutUrl" value="/logout" />
+	 						<li>
+	 					<form action="${logoutUrl}" method="post" id="logoutCk">
+	 							<a href="#" id="logout">로그아웃</a>
+	 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	 						</li>
+	 					
+	 					</form>	
+					</security:authorize>
                     <li>
                         <a href="#">마이쇼핑</a>
                     </li>
@@ -106,4 +128,13 @@
             /* menu에 classList 중 toggle이 되면 active가 적용되는 쿼리 */
             menu1.classList.toggle('active');
         });
+        
+        
+        $(document).ready(() => {
+        	$('#logout').on('click',() => {
+        		
+        		logoutCk.submit();
+        	});
+    	});	
+        
     </script>

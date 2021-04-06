@@ -3,11 +3,48 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.cereal.books.member.model.dao.MemberDao">
-	<select id="selectCount" resultType="_int">
-		SELECT COUNT(*) FROM MEMBER
-	</select>
+
+  <resultMap type="Member" id="memberResultSet">
+  	<id property="userNo" column="USER_NO"/>
+  	<result property="userId" column="USER_ID"/>
+  	<result property="userPwd" column="USER_PWD"/>
+  	<result property="name" column="USER_NAME"/>
+  	<result property="userNname" column="USER_NNAME"/>
+  	<result property="userRole" column="USER_ROLE"/>
+  	<result property="userPhone" column="USER_PHONE"/>
+  	<result property="userEmail" column="EMAIL"/>
+  	<result property="userAddress" column="ADDRESS"/>
+  	<result property="userGenre" column="USER_GENRE"/>
+  	<result property="userAgreement" column="USER_AGREEMENT"/>
+  	<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+  	<result property="userModifyDate" column="USER_MODIFY_DATE"/>
+  	<result property="status" column="STATUS"/>
+  </resultMap>
 	
 	
+	
+	<select id="selectUserInfoOne" parameterType="string" resultMap="memberResultSet"> 
+  	SELECT 
+  			USER_NO,
+			USER_ID,
+			USER_PWD,
+			USER_NAME,
+			USER_NNAME,
+			USER_ROLE,
+			USER_PHONE,
+			USER_EMAIL,
+			USER_ADDRESS,
+			USER_GENRE,
+			USER_AGREEMENT,
+			USER_ENROLL_DATE,
+			USER_MODIFY_DATE,		
+			STATUS  		 
+  	FROM MEMBER 
+  	WHERE 
+  		USER_ID = #{userId}
+  </select>
+	
+
 	
 	<insert id="insertMember" parameterType="Member"
 	useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
@@ -31,7 +68,7 @@
 			SEQ_UNO.NEXTVAL, 
 			#{userId}, 
 			#{userPwd}, 
-			#{userName}, 
+			#{name}, 
 			#{userNname}, 
 			DEFAULT, 
 			#{userPhone}, 

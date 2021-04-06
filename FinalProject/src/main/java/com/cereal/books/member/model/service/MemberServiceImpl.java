@@ -22,12 +22,13 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public int saveMember(Member member) {
 		int result = 0;
-		
-		
+
 		member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
 		result = memberDao.insertMember(member);
 		return result;
 	}
+
+
 	
 }
 
