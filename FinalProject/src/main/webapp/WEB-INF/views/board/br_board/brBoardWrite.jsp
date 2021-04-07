@@ -81,7 +81,6 @@
 					});
 					CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/br_board/brBoardWrite'; };
 
-					printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
 
 					</script>
 	                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
