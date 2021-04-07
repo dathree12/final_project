@@ -25,23 +25,9 @@
     <script>
     $(function(){
         CKEDITOR.replace( 'ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
-            width:'100%',
-            height:'400px',
-            filebrowserImageUploadUrl: '/upload' //여기 경로로 파일을 전달하여 업로드 시킨다.
-        });
-         
-        CKEDITOR.on('dialogDefinition', function( ev ){
-            var dialogName = ev.data.name;
-            var dialogDefinition = ev.data.definition;
-          
-            switch (dialogName) {
-                case 'image': //Image Properties dialog
-                    //dialogDefinition.removeContents('info');
-                    dialogDefinition.removeContents('Link');
-                    dialogDefinition.removeContents('advanced');
-                    break;
-            }
-        });
+        	getUploadUrl: type='image',
+            filebrowserUploadUrl: '${ path }/board/bc_board/bcBoardWrite'});
+         	//filebrowserImageUploadUrl: "<c:url value="${ path }/board/bc_board/bcBoardWrite"/>${_csrf.parameterName}=${_csrf.token}" });
     });
     </script>
 </head>
@@ -79,6 +65,7 @@
                     <input id="post_subject" class="post_subject" name="subject" value="" placeholder="제목" type="text">
                 </div>
                 <textarea name="ckeditor" id="ckeditor" rows="10" cols="80"></textarea>
+                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
             </form>
         </article>
     </section>

@@ -62,11 +62,6 @@ public class ClubController {
 		return "board/bc_board/bcBoardPayment";
 	}
 
-	@RequestMapping(value = "/bcBoardWrite", method = { RequestMethod.GET })
-	public void uploadView() {
-
-	}
-
 	@RequestMapping(value = "/bcBoardWrite", method = { RequestMethod.POST })
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
