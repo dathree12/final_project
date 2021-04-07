@@ -58,7 +58,7 @@
             <a href="">높은가격</a>
         </div>
         <div class="fdboard_top_enroll">
-            <a href="#">프로젝트 신청하기</a>
+            <a href="${path}/board/bf_board/bf_agreement">프로젝트 신청하기</a>
         </div>
 
         <div class="fdboard_mid_container">

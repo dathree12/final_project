@@ -7,9 +7,10 @@
 }
 .fdboard_write_body {
     margin: 0 auto;
-    padding: 10%;
+    padding: 3%;
     box-sizing: border-box;
     font-family: 'Source Sans Pro';
+    margin-bottom: 10%;
 }
 .fdboard_write_body h2 {
     text-align: center;
@@ -58,17 +59,20 @@
     padding: 6.5px 12px; 
     float: right; 
     margin-right: 5px; 
-    margin-top: 5%;}
+    margin-top: 5%;
+}
 .write_btn a:first-child { 
     background: #fff; 
     border: 1px solid #d3d3d3; 
     color: #4a4a4a; 
-    margin-right: 5px; }
+    margin-right: 5px; 
+}
 .write_btn a:last-child { 
     background-color: #747474; 
     border: 1px solid #4f4f4f; 
     border-color: #4f4f4f; 
-    color: #ffffff; }
+    color: #ffffff; 
+}
 :root {
     /* size /
     --title-size: 18px;
@@ -81,4 +85,9 @@
     --pagebarborder-color: #e7e7e7;
 }
 
+@media screen and (max-width: 768px) {
+	.fdboard_write_body {
+		margin-top: 30px;
+	}
 
+}
