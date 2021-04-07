@@ -1,13 +1,13 @@
-* {
+.fd_boardList_body * {
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
 }    
-a {
+.fd_boardList_body a {
     text-decoration: none;
     color: #353535;
 }
-body {
+.fd_boardList_body {
     width: 100%;
     margin: 0 auto;
     font-family: 'Source Sans Pro';
@@ -20,7 +20,7 @@ body {
 .fdboard_top_enroll {
     display: inline-block;
     position: fixed;
-    top: 38%;
+    top: 51%;
     right: 4%;
     z-index: 11;
     border: 1px black solid;
@@ -89,7 +89,7 @@ body {
     padding: 0;
     /* width: 960px; */
     text-align: center;
-    margin-top: 3%;
+    margin-top: 0%;
 }
 .fdboard_mid_box {
     float: left;
@@ -138,12 +138,12 @@ body {
     z-index: 10;
 }
 .fdboard_mid_bottom {
-    padding: 7%;
+    padding: 3%;
 }
 .fdboard_mid_pageCount {
     box-sizing: border-box;
     text-align: center;
-    margin-top: 5%;
+    margin-top: 0%;
     /* position: relative; */
 }
 
@@ -173,16 +173,16 @@ body {
 
 @media screen and (max-width: 768px) {
 	.fdboard_top_title {
-		margin-top: 15px;
+		margin-top: 30px;
 	}
     .fdboard_mid_box {
         box-sizing: border-box;
         float: left;
         width: 30%;
-        margin-top: 10px;
+        margin-top: 20px;
         margin-left: 15%;
     }
     .fdboard_top_enroll {
-        top: 39%;
+        top: 57%;
     }
 }

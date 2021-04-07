@@ -22,14 +22,6 @@
     ></script>
     <script src="${ path }/js/jquery-3.5.1.js"></script>
     <script src="${ path }/ckeditor/ckeditor.js"></script>
-    <script>
-    $(function(){
-        CKEDITOR.replace( 'ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
-        	getUploadUrl: type='image',
-            filebrowserUploadUrl: '${ path }/board/bc_board/bcBoardWrite'});
-         	//filebrowserImageUploadUrl: "<c:url value="${ path }/board/bc_board/bcBoardWrite"/>${_csrf.parameterName}=${_csrf.token}" });
-    });
-    </script>
 </head>
 <body style="height: auto;">
     <section class="propose-write-section-1th">
@@ -45,7 +37,7 @@
     </section>
     <section class="propose-write-section-2th">
         <article class="propose-write-article-2th" style="min-height: 600px;">
-            <form action="${ path }/board/bc_board/bcBoardWrite" method="post" id="post_form" enctype="multipart/form-data">
+            <form action="${ path }/board/bc_board/bcBoardWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
                 <div class="board_summary">
                     <div class="left">
                         <div class="avatar">
@@ -65,7 +57,19 @@
                     <input id="post_subject" class="post_subject" name="subject" value="" placeholder="제목" type="text">
                 </div>
                 <textarea name="ckeditor" id="ckeditor" rows="10" cols="80"></textarea>
-                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
+   	                <script>
+					CKEDITOR.replace( "ckeditor", {//해당 이름으로 된 textarea에 에디터를 적용
+						height: 1000,
+						getUploadUrl: type='image',
+						filebrowserUploadUrl: '<c:url value="/board/bc_board/bcBoardWrite" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
+							
+
+					});
+					CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/bc_board/bcBoardWrite'; };
+
+
+					</script>
+	                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
             </form>
         </article>
     </section>
