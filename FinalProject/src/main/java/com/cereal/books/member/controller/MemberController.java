@@ -77,7 +77,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("/member/idCheck")
 	public Object idCheck(@RequestParam("id")String userId) {		
-		log.info("UserId : {}", userId);
+
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -89,7 +89,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("/member/NnameCheck")
 	public Object NnameCheck(@RequestParam("Nname")String userNname) {		
-		log.info("userNname : {}", userNname);
+	
 		
 		Map<String, Object> map = new HashMap<>();
 		
