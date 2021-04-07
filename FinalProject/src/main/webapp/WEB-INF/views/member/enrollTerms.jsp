@@ -25,7 +25,7 @@
 	            <h2>전체 동의 </h2>
 	            <br>
 	            <div id="terms_check">
-	                <input type="checkbox" name="checkbox" id="allCheck" value="Y" >
+	            <input type="checkbox" name="checkbox" id="allCheck" value="Y">
 	                <label for="allCheck"  ><span>이용약관 및 개인정보수집 및 이용, 쇼핑정보 수신(선택)에 모두 동의합니다.</span></label>
 	            </div>
 	            <div class="terms_box">
@@ -130,6 +130,7 @@
 		  	}else{
 		  		$('#agree_service_check0').prop("checked", true);
 				$('#agree_service_check1').prop("checked", true);
+				terms_btn.focus();
 		  	}
 		  });
 		  
@@ -156,7 +157,6 @@
 		  });
 		  
 		  $('#terms_btn').on('click',() => {
-			  var check;
 			  
 			  if($('#allCheck').is(":checked") == false){
 					
