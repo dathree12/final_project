@@ -20,7 +20,7 @@
    <%@ include file="/WEB-INF/views/common/header.jsp" %>   
  <section>
     <div class="login">
-        <form method="post" action="${path}/login">
+        <form method="POST" action="${path}/login">
             <div class="logo_div">
                 <img src="${path}/images/head-logo.png" alt="" class="login_logo">
             </div>
@@ -35,14 +35,15 @@
                     <button type="submit">로그인</button>
                 </div>
             </div>
+    	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+        </form>   
+            <span id="errspan" style="color: red"><c:out value="${loginFailMsg}"/></span>
             <br>
             <div class="check_div">
                 <input type="checkbox"> <span>아이디 저장</span>
             </div>
             
-    	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
        
-        </form>   
             <div class="btn_div">
                 <button type="button" onclick="location.href=('${path}/member/enrollTerms')">회원가입</button>
                 <button>아이디 찾기</button>

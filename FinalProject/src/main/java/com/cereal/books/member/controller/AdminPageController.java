@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AdminPageController {
 	
-	@RequestMapping("admin")
+	@RequestMapping("member/admin/admin_page")
 	public String admin() {
 		
-		return "member/mypage/admin_page";
+		return "member/admin/admin_page";
 	}
 }
