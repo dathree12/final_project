@@ -16,12 +16,19 @@
     <link rel="stylesheet" href="${ path }/css/board/br_style/brBoardWrite.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="js/jquery-3.5.1.js"></script>
+    <script src="${ path }/js/jquery-3.5.1.js"></script>
     <script 
     src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"
     ></script>
-    <script src = "${path}/js/ckeditor/ckeditor.js"></script>
+    <script src = "${ path }/ckeditor/ckeditor.js"></script>
+ 	<script>
+		$(function(){
+			CKEDITOR.replace( 'ckeditor', {//해당 이름으로 된 textarea에 에디터를 적용
+			getUploadUrl: type='image',
+			filebrowserUploadUrl: '${ path }/board/br_board/brBoardWrite' //여기 경로로 파일을 전달하여 업로드 시킨다.
+			});
+	</script>
 
 </head>
 <%@ include file="../../common/header.jsp" %>
@@ -46,7 +53,7 @@
 	            <hr id="line">
 	        </section>
 	        <section class ="brboard-write-body">
-	            <form action="test" method="GET">
+	            <form action="${path}/board/br_board/brBoardWrite" method="post" id="post_form" enctype="multipart/form-data">
 	                <p>북리뷰 글쓰기</p>
 	                <div class="brboard-write-option">
 	                    <p>글제목</p>
@@ -69,11 +76,8 @@
 	                        <span id="bookfindbtn"><a href="#"/>책찾기</span>
 	                    </div>
 	                </div>
-	                <textarea name="content" id="ckeditor"></textarea>
-	                <script>CKEDITOR.replace('ckeditor', { 
-	                	height: 1000, // ckeditor 최소크기
-	                	
-	                	});</script>
+	                <textarea name="ckeditor" id="ckeditor" rows="10" cols="80"></textarea>
+
 	            </form>
 	        </section>
         <section class="brboard-write-bottom">
