@@ -56,4 +56,27 @@
         </div>
     </div>
 
+	<script>
+		$('#checkbox').on('click',() => {
+			
+		  	if($('#checkbox').is(":checked") == false){
+				$('#agree_service_check0').prop("checked", false);
+			 	$('#agree_service_check1').prop("checked", false);
+		  	} else {
+		  		$('#agree_service_check0').prop("checked", true);
+				$('#agree_service_check1').prop("checked", true);
+		  	}
+		});
+	  
+		$("#terms_btn").on("click", () => {
+			if(($("input:checkbox[id=agree_service_check0]:checked").length) + ($("input:checkbox[id=agree_service_check1]:checked").length) != 2){
+				alert("동의 후 버튼을 눌러주세요.~~");
+				
+				return false;
+			} else {
+				location.href=('${path}/board/bf_board/bf_boardWrite');
+			}
+		})
+	</script>
+
 <%@ include file="../../common/footer.jsp" %>
