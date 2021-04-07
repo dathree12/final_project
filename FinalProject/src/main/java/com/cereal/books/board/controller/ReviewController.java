@@ -2,26 +2,20 @@ package com.cereal.books.board.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.BoardService;
-import com.cereal.books.board.model.vo.Board;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,7 +45,8 @@ public class ReviewController {
 			throws Exception {
 
 		log.info("upload 들어온다! ");
-
+		
+		JSONObject json = new JSONObject();
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 
@@ -84,10 +79,11 @@ public class ReviewController {
 
 			printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl
 					+ "','이미지가 업로드되었습니다.')" + "</script>");
-
+			
 		}
-
+		
 		printWriter.flush();
+		
 
 	}
 
