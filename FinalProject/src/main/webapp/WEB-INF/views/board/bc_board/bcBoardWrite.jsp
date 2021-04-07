@@ -12,6 +12,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="${ _csrf.token }" name="csrf-token"/>
+    <meta content="${ _csrf.headerName }" name="csrf-headerName">
     <title>Document</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardWrite.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -29,6 +31,14 @@
             filebrowserUploadUrl: '${ path }/board/bc_board/bcBoardWrite'});
          	//filebrowserImageUploadUrl: "<c:url value="${ path }/board/bc_board/bcBoardWrite"/>${_csrf.parameterName}=${_csrf.token}" });
     });
+    
+    $(function() {
+        var csrfToken = $("meta[name='csrf-token']").attr('content');
+        var csrfHeader = $("meta[name='csrf-headerName}']").attr('content');
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(csrfHeader, csrfToken);
+        });
+    });
     </script>
 </head>
 <body style="height: auto;">
@@ -45,7 +55,7 @@
     </section>
     <section class="propose-write-section-2th">
         <article class="propose-write-article-2th" style="min-height: 600px;">
-            <form action="${ path }/board/bc_board/bcBoardWrite" method="post" id="post_form" enctype="multipart/form-data">
+            <form action="${ path }/board/bc_board/bcBoardWrite?${_csrf.token}=${_csrf.parameterName}" method="post" id="post_form" enctype="multipart/form-data">
                 <div class="board_summary">
                     <div class="left">
                         <div class="avatar">
@@ -65,7 +75,6 @@
                     <input id="post_subject" class="post_subject" name="subject" value="" placeholder="제목" type="text">
                 </div>
                 <textarea name="ckeditor" id="ckeditor" rows="10" cols="80"></textarea>
-                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
             </form>
         </article>
     </section>
