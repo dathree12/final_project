@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="${path}/css/member/enroll.css">
     <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-
-
 </head>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>   
  <section>

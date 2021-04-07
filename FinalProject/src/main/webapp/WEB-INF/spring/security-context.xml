@@ -27,11 +27,12 @@
 	
 	
 	<security:http auto-config="true" use-expressions="true">
-		<security:intercept-url pattern="/member/login" access="permitAll" />
-		<security:intercept-url pattern="/member/idCheck" access="permitAll" />
-		<security:intercept-url pattern="/member/NnameCheck" access="permitAll" />
-		<security:intercept-url pattern="/member/enrollTerms" access="permitAll" />
-		<security:intercept-url pattern="/member/enroll" access="permitAll" />
+		<security:intercept-url pattern="/member/login" access="isAnonymous()" />
+		<security:intercept-url pattern="/member/idCheck" access="isAnonymous()" />
+		<security:intercept-url pattern="/member/NnameCheck" access="isAnonymous()" />
+		<security:intercept-url pattern="/member/userIdSerch" access="isAnonymous()" />
+		<security:intercept-url pattern="/member/enrollTerms" access="isAnonymous()" />
+		<security:intercept-url pattern="/member/enroll" access="isAnonymous()" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/member/**" access="hasAnyRole('ADMIN', 'USER')" />
 		<security:intercept-url pattern="/board/**" access="permitAll" />

@@ -37,7 +37,6 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	
 	/*회원가입 약관*/
 	@RequestMapping("member/enrollTerms")
 	public String enrollTerms(){
@@ -46,7 +45,7 @@ public class MemberController {
 		
 	}
 	
-	/*회원가입 패이지 요청*/
+	/*회원가입 페이지 요청*/
 	@RequestMapping("member/enroll")
 	public String enrollViews(){
 		
@@ -54,7 +53,7 @@ public class MemberController {
 		
 	}
 	
-	/*회원가입페이지 작성 */
+	/*회원가입 페이지 작성 */
 	@RequestMapping(value = "member/enroll", method = {RequestMethod.POST})
 	public ModelAndView enroll(ModelAndView model, @ModelAttribute Member member){
 		
@@ -90,12 +89,18 @@ public class MemberController {
 	@RequestMapping("/member/NnameCheck")
 	public Object NnameCheck(@RequestParam("Nname")String userNname) {		
 	
-		
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("validate", service.NnameValidate(userNname));
 		
 		return map;
 	}
+	
+	@RequestMapping("/member/userIdSerch")
+	public ModelAndView userIdSerch(ModelAndView model) {
+		
+		return model;
+	}
+	
 
 }

@@ -46,7 +46,7 @@
        
             <div class="btn_div">
                 <button type="button" onclick="location.href=('${path}/member/enrollTerms')">회원가입</button>
-                <button>아이디 찾기</button>
+                <button type="button" onclick="location.href=('${path}/member/userIdSerch')">아이디 찾기</button>
                 <button>비밀번호 찾기</button>
             </div>
     </div>

@@ -166,8 +166,7 @@
 			 	location.href=('${path}/member/enroll');
 			  }
 			  });
-		  
-		
+
 		 
 		});
 		
