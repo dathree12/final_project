@@ -23,6 +23,7 @@
 	<security:http pattern="/css/**" security="none" ></security:http>
 	<security:http pattern="/images/**" security="none" ></security:http>
 	<security:http pattern="/views/**" security="none" ></security:http>
+	<security:http pattern="/ckeditor/**" security="none" ></security:http>
 	
 	
 	<security:http auto-config="true" use-expressions="true">
@@ -31,6 +32,7 @@
 		<security:intercept-url pattern="/member/enroll" access="permitAll" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/member/**" access="hasAnyRole('ADMIN', 'USER')" />
+		<security:intercept-url pattern="/board/**" access="permitAll" />
 		<security:intercept-url pattern="/**" access="permitAll" />
 		<security:access-denied-handler error-page="/accessError"/>
 	
