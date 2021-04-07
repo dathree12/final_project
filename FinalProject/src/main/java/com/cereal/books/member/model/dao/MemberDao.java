@@ -14,6 +14,15 @@ public interface MemberDao {
 	int insertMember(Member member);
 
 
+	Member selectUserNname(@Param("userNname")String userNname);
+
+
+	int updateMember(Member member);
+
+
+    int deleteMember(@Param("userId") String userId);
+
+
 	
 
 }

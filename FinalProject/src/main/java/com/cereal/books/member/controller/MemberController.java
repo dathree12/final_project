@@ -1,5 +1,8 @@
 package com.cereal.books.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.member.model.service.CustomUserDetailService;
@@ -67,6 +71,31 @@ public class MemberController {
 		model.setViewName("common/msg");		
 		
 		return model;
+	}
+	
+	/*아이디 중복 체크 */
+	@ResponseBody
+	@RequestMapping("/member/idCheck")
+	public Object idCheck(@RequestParam("id")String userId) {		
+		log.info("UserId : {}", userId);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("validate", service.validate(userId));
+						
+		return map;
+	}
+	/*닉네임 중복 체크 */
+	@ResponseBody
+	@RequestMapping("/member/NnameCheck")
+	public Object NnameCheck(@RequestParam("Nname")String userNname) {		
+		log.info("userNname : {}", userNname);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("validate", service.NnameValidate(userNname));
+		
+		return map;
 	}
 
 }

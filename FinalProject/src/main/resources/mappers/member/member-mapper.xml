@@ -4,6 +4,26 @@
 
 <mapper namespace="com.cereal.books.member.model.dao.MemberDao">
 
+	<sql id="selectMemberSql">
+	  	SELECT 
+  			USER_NO,
+			USER_ID,
+			USER_PWD,
+			USER_NAME,
+			USER_NNAME,
+			USER_ROLE,
+			USER_PHONE,
+			USER_EMAIL,
+			USER_ADDRESS,
+			USER_GENRE,
+			USER_AGREEMENT,
+			USER_ENROLL_DATE,
+			USER_MODIFY_DATE,		
+			STATUS  		 
+  		FROM MEMBER 
+	</sql>
+
+
   <resultMap type="Member" id="memberResultSet">
   	<id property="userNo" column="USER_NO"/>
   	<result property="userId" column="USER_ID"/>
@@ -22,30 +42,28 @@
   </resultMap>
 	
 	
-	
-	<select id="selectUserInfoOne" parameterType="string" resultMap="memberResultSet"> 
-  	SELECT 
-  			USER_NO,
-			USER_ID,
-			USER_PWD,
-			USER_NAME,
-			USER_NNAME,
-			USER_ROLE,
-			USER_PHONE,
-			USER_EMAIL,
-			USER_ADDRESS,
-			USER_GENRE,
-			USER_AGREEMENT,
-			USER_ENROLL_DATE,
-			USER_MODIFY_DATE,		
-			STATUS  		 
-  	FROM MEMBER 
-  	WHERE 
-  		USER_ID = #{userId}
-  </select>
-	
 
 	
+	
+	
+	
+	<select id="selectUserInfoOne" parameterType="string" resultMap="memberResultSet"> 
+		<include refid="selectMemberSql"></include>
+  		WHERE 
+  			USER_ID = #{userId}
+  	</select>
+  	
+  
+  	
+  	<select id="selectUserNname" parameterType="string" resultMap="memberResultSet"> 
+		<include refid="selectMemberSql"></include>
+  		WHERE 
+  			USER_NNAME = #{userNname}
+  	</select>
+  	
+  	
+  	
+  		
 	<insert id="insertMember" parameterType="Member"
 	useGeneratedKeys="true" keyProperty="userNo" keyColumn="USER_NO">
 	INSERT INTO MEMBER (
@@ -81,4 +99,25 @@
 			DEFAULT
 		)
 	</insert>
+	
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER 
+		SET
+		    USER_NNAME,
+			USER_PHONE,
+			USER_EMAIL,
+			USER_ADDRESS,
+			USER_GENRE,
+			USER_MODIFY_DATE
+		WHERE 
+		    USER_NO=#{userNo}	
+	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		UPDATE MEMBER 
+		SET
+		    STATUS='N'
+		WHERE
+		    USER_ID=#{userId}	
+	</delete>
 </mapper>

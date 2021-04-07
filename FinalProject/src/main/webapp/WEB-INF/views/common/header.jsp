@@ -38,7 +38,8 @@
                      </security:authorize>
                    <security:authorize access="hasRole('USER')">
 	 				<li>
-	 					<span><security:authentication property="principal.name"/></span>
+	 					<security:authentication property="principal" var="user"/> 
+	 					<span>${user.name}</span>
 	 				</li>
 	 				 <li>
                         <a href="${path}/member/mypage/mypage">마이페이지</a>
@@ -49,6 +50,7 @@
 	 						<li>
 	 					<form action="${logoutUrl}" method="post" id="logoutCk">
 	 							<a href="#" id="logout">로그아웃</a>
+	 							
 	 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	 						</li>
 	 					
@@ -67,7 +69,7 @@
                 <div class="topArea">
                     <div class="nav-c-width">
                         <h1 class="-logo">
-                            <a href="/" class="this">
+                            <a href="${path}/" class="this">
                                 <img id="checks-logo" src="${path}/images/head-logo.png" alt="책스초코">
                             </a>
                         </h1>
