@@ -1,13 +1,18 @@
 package com.cereal.books.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,6 +43,20 @@ public class MyPageController {
 		
 		return "/member/mypage/profile";
 	}
+	
+	// 닉네임 중복검사
+	@RequestMapping("member/mypage/NnameCheck")
+	@ResponseBody
+	public Object idCheck(@RequestParam("userNname") String userNname) {
+		
+		System.out.println("userNname : " + userNname);
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("validate", service.NnameValidate(userNname));
+		
+		return map;
+	}
+	
 	
 	@RequestMapping("member/mypage/profile")
 	public ModelAndView update(@ModelAttribute Member member,
@@ -83,7 +102,7 @@ public class MyPageController {
 	public ModelAndView withdrawal(ModelAndView model, @AuthenticationPrincipal Member member,
 			 @RequestParam("userPwd") String userPwd) {
 		
-//		System.out.println(member);
+//		System.out.println(userPwd);
 //		System.out.println(member.getUserId());
 		int result = 0;
 		

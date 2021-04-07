@@ -15,7 +15,6 @@
         <hr>
         <div class="info">
             <form class="user_info"  id="memberFrm" action="${path}/update" method="post">
-            <security:authorize access="hasRole('USER')"> 
 			<security:authentication property="principal" var="user"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <table class="info_table">
@@ -27,8 +26,8 @@
                     <tr>
                         <th>닉네임 <span>*</span></th>
                         <td>
-                            <input type="text" name="userNname" id="userName" required value="${user.userNname }">
-                            <button class="button" style="background-color: black;">중복검사</button>
+                            <input type="text" name="userNname" id="userNname" required value="${user.userNname }">
+                            <button class="button" id="checkDuplicate" style="background-color: black;">중복검사</button>
                         </td>
                     </tr>
                     <tr><td colspan=2><hr></td></tr>
@@ -73,7 +72,6 @@
                <button class="button" type="submit" style="background-color: black;">정보수정</button>
                <button class="button" onclick="backto_mypage();" style="background-color: white; color: black; border: 1px solid darkgray;">취소</button>
                <button class="button" onclick="deleteMember();" id="withdrawal">회원탈퇴</button>
-               </security:authorize>
             </form>
         </div>
         </div>
@@ -85,5 +83,40 @@
             	function deleteMember() {
             		location.href = "${path}/member/withdrawal";
 				}
+            	$(function() {
+                    var csrfToken = $("meta[name='csrf-token']").attr('content');
+                    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+                    $(document).ajaxSend(function (e, xhr, options) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    });
+            	// 아이디 중복 확인
+    			$("#checkDuplicate").on("click", () => {
+    				
+                        
+    				let userNname = $("#userNname").val().trim();
+    				
+    				$.ajax({
+    					type: "get",
+    					url: "${path}/member/mypage/NnameCheck",
+    					dataType: "json",
+    					data: {
+    						// id(파라미터 키값):id
+    						userNname // 파라미터의 키값과 변수명이 동일할 경우
+    					},
+    					success: function(data) {
+    						console.log(data);
+    						
+    						if(data.validate != true) {
+    							alert("사용 가능한 닉네임 입니다.");
+    						} else {
+    							alert("이미 사용중인 닉네임 입니다.");							
+    						}
+    					},
+    					error: function(e) {
+    						console.log(e);
+    					}
+    				});
+    			});
+    			});
 	</script>
 <%@ include file="../../../views/common/footer.jsp" %>
