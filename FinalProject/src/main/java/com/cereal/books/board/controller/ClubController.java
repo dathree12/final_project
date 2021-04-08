@@ -19,6 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/board/bc_board")
 public class ClubController {
+	
+//	@Autowired
+//	private ClubService service;
 
 	// 북 클럽 상세페이지
 	@RequestMapping("/bcBoardDetail")
@@ -78,7 +81,8 @@ public class ClubController {
 		byte[] bytes = upload.getBytes();
 
 		// 이미지를 업로드할 디렉토리를 정해준다
-		String uploadPath = "C:\\develop\\final_project\\FinalProject\\src\\main\\webapp\\resources\\upload\\";
+//		String uploadPath = "C:\\develop\\final_project\\FinalProject\\src\\main\\webapp\\resources\\upload\\";
+		String uploadPath = request.getServletContext().getRealPath("resources/upload/");
 		OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
 
 		// 서버에 write
@@ -90,7 +94,8 @@ public class ClubController {
 		// 클라이언트에 이벤트 추가 (자바스크립트 실행)
 		PrintWriter printWriter = response.getWriter(); // 자바스크립트 쓰기위한 도구
 
-		String fileUrl = "http://localhost:8088/books/resources/upload/" + fileName;
+//		String fileUrl = "http://localhost:8088/books/resources/upload/" + fileName;
+		String fileUrl = request.getContextPath() + "/upload/" + fileName;
 
 		if (!callback.equals("1")) { // callback이 1일 경우만 성공한 것
 			printWriter.println("<script>alert('이미지 업로드에 실패했습니다.');" + "</script>");
