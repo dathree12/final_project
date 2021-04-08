@@ -57,7 +57,8 @@ public class ReviewController {
 		byte[] bytes = upload.getBytes();
 
 		// 이미지를 업로드할 디렉토리를 정해준다
-		String uploadPath = "C:\\finalproject\\final_project\\FinalProject\\src\\main\\webapp\\resources\\upload\\";
+		//String uploadPath = "C:\\finalproject\\final_project\\FinalProject\\src\\main\\webapp\\resources\\upload\\";
+		String uploadPath = request.getServletContext().getRealPath("resources/upload/");
 		OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
 
 		// 서버에 write

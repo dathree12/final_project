@@ -14,9 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="js/jquery-3.5.1.min.js"></script>
     <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${ path }/css/board/bf_style/bf_viewDetail.css" type="text/css">
+    <script src="${path}/js/jquery-3.5.1.js"></script>
     <title>북 펀딩 상세페이지</title>
 </head>
 
@@ -146,7 +146,7 @@
                                     <tr class="xans-record-">
                                         <td>1</td>
                                         <td class="thumb_photo">
-                                            <img src="images/test-img.jpg" alt="">
+                                            <img src="${ path }/images/bf_testBook.jpg" alt="">
                                         </td>
                                         <td>
                                             <ul class="d_review_cont">
