@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
-    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="${path}/js/jquery-3.5.1.js"></script>
     <link rel="stylesheet" href="${ path }/css/board/bf_style/bf_payment.css">
     <title>책스초코 북펀딩 결제페이지</title>
 </head>
