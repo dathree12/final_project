@@ -11,8 +11,8 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="main.js" defer></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E" rel="stylesheet">
+    <!-- <script src="main.js" defer></script> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${ path }/css/board/bf_style/bf_boardList.css" type="text/css">
@@ -94,7 +94,7 @@
                 <div class="fdboard_thumbnail">
                     <div class="fdboard_attainRate">달성%</div>
                     <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
+                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
                     </a>
                 </div>
                 <div class="fdboard_contants">
@@ -108,7 +108,7 @@
                 <div class="fdboard_thumbnail">
                     <div class="fdboard_attainRate">달성%</div>
                     <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
+                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
                     </a>
                 </div>
                 <div class="fdboard_contants">
