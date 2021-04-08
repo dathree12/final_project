@@ -70,19 +70,21 @@
                               <br>
                               <div class="div_id">
                                   <div class="en_title"><span>이메일</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
-                                  <div class="en_email">
-                                      <input class="en_input" id="Email1"  type="text"  placeholder="(영문대소문자/숫자 6~16자)" required> 
-                                      &nbsp;&nbsp;&nbsp;
-                                      <select id="Email2" class="mail_select">
-                                          <option value="@naver.com">@naver.com</option>
-                                          <option value="@gmail.com">@gmail.com</option>
-                                          <option value="@daum.net">@daum.net</option>
-                                          <option value="@daum.net">@nate.net</option>
-                                          <option value="">직접 작성</option>
-                                      </select>
-                                  </div>
-                                  <div class="mail_text"><span id="mail1" style="font-size: 0.7em; color: green;" ></span><span id="mail2" style="font-size: 0.7em; color: red;" ></span></div>
+                               
+	                                  <div class="en_email">
+	                                      <input class="en_input" id="Email1"  type="text"  placeholder="(영문대소문자/숫자 6~16자)" required> 
+	                                      &nbsp;&nbsp;&nbsp;
+	                                      <select id="Email2" class="mail_select">
+	                                          <option value="@naver.com">@naver.com</option>
+	                                          <option value="@gmail.com">@gmail.com</option>
+	                                          <option value="@daum.net">@daum.net</option>
+	                                          <option value="@daum.net">@nate.net</option>
+	                                          <option value="">직접 작성</option>
+	                                      </select>
+	                                  </div>
+                                  	  <div class="mail_text"><span id="mail1" style="font-size: 0.7em; color: green;" ></span><span id="mail2" style="font-size: 0.7em; color: red;" ></span></div>
                              </div>
+                             
                              <br>    
                              <div class="div_id">
                                   <div class="en_title"><span>휴대전화</span> <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/member/ico_required.gif" class="" alt="필수"/></div>
@@ -260,13 +262,80 @@
 		 
 		 /*이메일 유효성 검사*/
 		 $("#Email1").keyup((e) => {
+			var Email1 = $("#Email1").val();
+			var Email2 = $("#Email2").val();
+			$("#userEmail").val(Email1 + Email2);
+			var email  = $("#userEmail").val();
 			var emailck = /^[\w\d]{6,16}$/;
+			
+			
 			if( emailck.test( $("#Email1").val() ) ) {
-				emailok ="유요한 이메일주소입니다.";
-				$("#mail1").html(emailok)
-				$("#mail2").html(" ")
+				$.ajax({
+					type: "get",
+					url: "${path}/member/emailCheck",
+					dataType: "json",
+					data: {
+						email
+					},
+					success: function(data) {
+						console.log(data);
+						
+						if(data.validate !== true) {
+							result ="사용 가능한 이메일 입니다.";
+							$("#mail1").html(result)
+							$("#mail2").html(" ")
+						} else {
+							result ="이미 사용중인 이메일 입니다.";	
+							$("#mail1").html(" ")
+							$("#mail2").html(result)
+						}
+					},
+					error: function(e) {
+						console.log(e);
+					}				
+				});			
 			}else{
-				emailfail ="영문대소문자/ 숫자를 포함한 6~16자를 입력해주세요.";
+				emailfail ="영문대소문자 / 숫자를 포함한 6~16자를 입력해주세요.";
+				$("#mail1").html(" ")
+				$("#mail2").html(emailfail)
+			}
+	
+		 });
+		 $("#Email2").change((e) => {
+			var Email1 = $("#Email1").val();
+			var Email2 = $("#Email2").val();
+			$("#userEmail").val(Email1 + Email2);
+			var email  = $("#userEmail").val();
+			var emailck = /^[\w\d]{6,16}$/;
+			
+			
+			if( emailck.test( $("#Email1").val() ) ) {
+				$.ajax({
+					type: "get",
+					url: "${path}/member/emailCheck",
+					dataType: "json",
+					data: {
+						email
+					},
+					success: function(data) {
+						console.log(data);
+						
+						if(data.validate !== true) {
+							result ="사용 가능한 이메일 입니다.";
+							$("#mail1").html(result)
+							$("#mail2").html(" ")
+						} else {
+							result ="이미 사용중인 이메일 입니다.";	
+							$("#mail1").html(" ")
+							$("#mail2").html(result)
+						}
+					},
+					error: function(e) {
+						console.log(e);
+					}				
+				});			
+			}else{
+				emailfail ="영문대소문자 / 숫자를 포함한 6~16자를 입력해주세요.";
 				$("#mail1").html(" ")
 				$("#mail2").html(emailfail)
 			}
@@ -279,7 +348,6 @@
 			 	var Email2 = $("#Email2").val();
 			 	
 			  	$("#userEmail").val(Email1 + Email2);
-	  
 		 });
 		  
 		 
@@ -300,7 +368,7 @@
 			 var phone3Reg = /^[0-9]{4}$/;
 
 			 if (!phone2Reg.test( $("#phone2").val()) || !phone3Reg.test( $("#phone3").val())) {
-				 	phonefail =  "숫자를 입력하세요.";
+				 	phonefail =  "번호를 입력하세요.";
 					$("#ph1").html(" ")
 					$("#ph2").html(phonefail)
 			 }else{
@@ -314,18 +382,51 @@
 		 $("#phone3").blur((e) => {
 			 var phone2Reg = /^[0-9]{4}$/;
 			 var phone3Reg = /^[0-9]{4}$/;
-
-			 if (!phone2Reg.test( $("#phone2").val()) || !phone3Reg.test( $("#phone3").val())) {
-				 	phonefail =  "숫자를 입력하세요.";
+			 var  phone1 = $("#phone1").val();
+			 var phone2 = $("#phone2").val();
+			 var phone3 = $("#phone3").val();   
+			 $("#userPhone").val(phone1 + '-' +  phone2 + '-' + phone3);
+			 var phone = $("#userPhone").val();      
+			 
+		 if (!phone2Reg.test( $("#phone2").val()) || !phone3Reg.test( $("#phone3").val())) {
+				 	phonefail =  "번호를 입력하세요.";
 					$("#ph1").html(" ")
 					$("#ph2").html(phonefail)
 			 }else{
-				 	phoneok = "사용 가능합니다.";
-					$("#ph1").html(phoneok)
-					$("#ph2").html(" ")
+				 $.ajax({
+						type: "get",
+						url: "${path}/member/phoneCheck",
+						dataType: "json",
+						data: {
+							phone
+						},
+						success: function(data) {
+							console.log(data);
+							
+							if(data.validate !== true) {
+								result ="사용 가능한 번호 입니다.";
+								$("#ph1").html(result)
+								$("#ph2").html(" ")
+							} else {
+								result ="이미 사용중인 번호 입니다.";	
+								$("#ph1").html(" ")
+								$("#ph2").html(result)
+							}
+						},
+						error: function(e) {
+							console.log(e);
+						}				
+					});			
 			 }
 			 
 		  });
+		 
+		 
+		 
+		 
+		 
+		 
+		 
 		 
 		 /*회원가입시 공란 체크*/
 		 $("#en_btn").on("click", () => {

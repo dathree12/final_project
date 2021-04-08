@@ -32,8 +32,8 @@
   	<result property="userNname" column="USER_NNAME"/>
   	<result property="userRole" column="USER_ROLE"/>
   	<result property="userPhone" column="USER_PHONE"/>
-  	<result property="userEmail" column="EMAIL"/>
-  	<result property="userAddress" column="ADDRESS"/>
+  	<result property="userEmail" column="USER_EMAIL"/>
+  	<result property="userAddress" column="USER_ADDRESS"/>
   	<result property="userGenre" column="USER_GENRE"/>
   	<result property="userAgreement" column="USER_AGREEMENT"/>
   	<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
@@ -41,11 +41,7 @@
   	<result property="status" column="STATUS"/>
   </resultMap>
 	
-	
 
-	
-	
-	
 	
 	<select id="selectUserInfoOne" parameterType="string" resultMap="memberResultSet"> 
 		<include refid="selectMemberSql"></include>
@@ -61,6 +57,17 @@
   			USER_NNAME = #{userNname}
   	</select>
   	
+  	<select id="selectUserEmail" parameterType="string" resultMap="memberResultSet"> 
+		<include refid="selectMemberSql"></include>
+  		WHERE 
+  			USER_EMAIL = #{userEmail}
+  	</select>
+  	
+  	<select id="selectUserPhone" parameterType="string" resultMap="memberResultSet"> 
+		<include refid="selectMemberSql"></include>
+  		WHERE 
+  			USER_PHONE =#{userPhone}
+  	</select>
   	
   	
   		
@@ -101,17 +108,16 @@
 	</insert>
 	
 	<update id="updateMember" parameterType="Member">
-		UPDATE MEMBER 
-		SET
-		    USER_NNAME,
-			USER_PHONE,
-			USER_EMAIL,
-			USER_ADDRESS,
-			USER_GENRE,
-			USER_MODIFY_DATE
-		WHERE 
-		    USER_NO=#{userNo}	
-	</update>
+        UPDATE MEMBER 
+        SET
+            USER_NNAME=#{userNname},
+            USER_PHONE=#{userPhone},
+            USER_EMAIL=#{userEmail},
+            USER_ADDRESS=#{userAddress},
+            USER_GENRE=#{userGenre}
+        WHERE 
+            USER_NO=#{userNo}
+    </update>
 	
 	<delete id="deleteMember" parameterType="string">
 		UPDATE MEMBER 
@@ -120,4 +126,17 @@
 		WHERE
 		    USER_ID=#{userId}	
 	</delete>
+	
+
+	<select id="userSerchIdE" parameterType="string" resultMap="memberResultSet"> 
+		<include refid="selectMemberSql"></include>
+  		WHERE 
+  			USER_NAME =#{name} AND USER_EMAIL =#{userEmail}
+  	</select>
+	<select id="userSerchIdP" parameterType="string" resultMap="memberResultSet"> 
+		<include refid="selectMemberSql"></include>
+  		WHERE 
+  			USER_NAME =#{name} AND USER_PHONE =#{userPhone}
+  	</select>
+  	
 </mapper>

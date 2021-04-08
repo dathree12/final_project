@@ -187,12 +187,11 @@
         font-size: 0.8em;
     }
 
-    .mail_text{
-        display: none;
-    }
+ 
     
     .en_email{
-        width: 70%;
+        width: 42%;
+       margin-left: 20px
     }
 
 

@@ -22,6 +22,10 @@
     font-size: 0.8em;
 }
 
+.idresult{
+	text-align: center;
+}
+
 .input_check{
     margin: 10px auto;
     display: flex;
@@ -63,6 +67,18 @@
     width: 100%;
 
 }
+
+#idresult1{
+	font-size: 0.9em; 
+	color: green; 
+}
+
+#idresult2{
+	font-size: 0.9em; 
+	color: red; 
+}
+
+
 
 
 .ck_btn_div{
@@ -125,4 +141,10 @@
     .ck_btn{
         width: 50%;
     }
+    
+    .idresult{
+	text-align: center;
+	font-size: 0.7em;
+}
+    
 }

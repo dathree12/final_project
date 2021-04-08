@@ -23,6 +23,18 @@ public interface MemberDao {
     int deleteMember(@Param("userId") String userId);
 
 
+	Member userSerchIdE(@Param("name") String name, @Param("userEmail") String userEmail);
+
+
+	Member userSerchIdP(@Param("name")String name,  @Param("userPhone") String userPhone);
+
+
+	Member selectUserEmail(@Param("userEmail")String userEmail);
+
+
+	Member selectUserPhone(@Param("userPhone") String userPhone);
+
+
 	
 
 }

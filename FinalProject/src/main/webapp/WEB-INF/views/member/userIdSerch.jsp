@@ -10,8 +10,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="${ _csrf.token }" name="csrf-token"/>
+    <meta content="${ _csrf.headerName }" name="csrf-headerName">
     <title>id찾기</title>
     <link rel="stylesheet" href="${path}/css/member/userIdSerch.css">
     <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
@@ -20,7 +20,7 @@
  <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <section>
     <div class="id_serch">
-        <form action="${path}/member/userIdSerch" method="POST">
+        <form action="${path}/member/userIdSerch" method="post">
             <fieldset class="field">
                 <legend>아이디 찾기</legend>
                     <div class="radio"> 
@@ -30,21 +30,27 @@
                      <br>
                      <div class="input_check">
                          <div class="ck_name"><strong>이름</strong></div>
-                         <input type="text" name="" id="" class="ck_text" required>
+                         <input type="text" name="serchName" id="serch_name" class="ck_text" required>
                     </div>
                      <div class="input_check" id="emailSerch">
                          <div class="ck_name"><strong>이메일 찾기</strong></div>
-                         <input type="text" name="" id="" class="ck_text"required>
+                         <input type="text"  name="serchEmail" id="serch_email" class="ck_text"required>
                     </div>
                    
                      <div class="input_check"  id="phoneSerch" style="display: none">
                         <div class="ck_phone" ><strong>핸드폰 찾기</strong></div>
-                        <div class="ck_number"> <input type="text" name="" id="" maxlength="4" >-<input id="" name="" maxlength="4"  type="text" />-<input id="" name="" maxlength="4" type="text" /></div>
+                        <div class="ck_number"> <input type="text"  id="phone1" maxlength="3" required/>-<input id="phone2"  maxlength="4"  type="text" required/>-<input id="phone3" maxlength="4" type="text" required/></div>
+                    </div>
+                    <br>
+                    <div class="input_check">
+                        <span class="idresult" id="idresult1" ></span><span class="idresult" id="idresult2" >
                     </div>
             </fieldset>
-              <div class="ck_btn_div">
-                <button class="ck_btn">확인</button>
+              <div class="ck_btn_div"> 
+                 <button class="ck_btn" id="serch_btn" type="button" >확인</button>
             </div> 
+            
+            <input type="hidden"  id="serch_phone"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">     
         </form>
     </div>
@@ -52,8 +58,13 @@
   <%@ include file="/WEB-INF/views/common/footer.jsp" %>   
   
 <script>
-	$(document).ready(() => {
+$(function() {
+    var csrfToken = $("meta[name='csrf-token']").attr('content');
+    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(csrfHeader, csrfToken);
 		
+    });
 		/*이메일 핸드폰 박스 선택*/
 		 $('#phone_check').on('click',() => {
 			 
@@ -69,6 +80,57 @@
 					$('#phoneSerch').css('display','none');
 			}
 		});
+		 
+		 
+		 $('#serch_btn').on('click',() => {
+		 		var name = $("#serch_name").val().trim();
+		 		var email = $("#serch_email").val().trim();
+		 		var phone1 = $("#phone1").val();
+			    var phone2 = $("#phone2").val();
+			    var phone3 = $("#phone3").val();
+				$("#serch_phone").val(phone1 + '-' +  phone2 + '-' + phone3);
+		 		var phone = $("#serch_phone").val().trim();
+		 		
+		 		alert(phone);
+		 		
+		 		if ($('#email_check').is(":checked") == true) {
+					$.ajax({
+						type: "post",
+						url: "${path}/member/serchIdEmail",
+						dataType: "json",
+						data: {
+						 name, 
+						 email
+						},
+						success: function(data) {
+						$("#idresult1").html(name + '님의 아이디는 ' + data.result +'입니다.')	
+						},
+						error: function(e) {
+							console.log(e);
+						}				
+					});
+				}else if ($('#phone_check').is(":checked") == true){
+					$.ajax({
+						type: "post",
+						url: "${path}/member/serchIdPhone",
+						dataType: "json",
+						data: {
+						 name, 
+						 phone
+						},
+						success: function(data) {
+						$("#idresult1").html(name + '님의 아이디는 ' + data.result +'입니다.')	
+						},
+						error: function(e) {
+							console.log(e);
+						}				
+					});
+				}else{
+					alert('이메일, 핸드폰번호 찾기 중 선택해주세요.')
+				}
+		
+		 	});
+		 	 
 
 	});
 	
