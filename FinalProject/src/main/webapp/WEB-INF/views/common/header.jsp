@@ -18,7 +18,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="${path}/js/jquery-3.5.1.js"></script>
-
+	<meta content="${ _csrf.token }" name="csrf-token"/>
+    <meta content="${ _csrf.headerName }" name="csrf-headerName">
     <title>nav</title>
 </head>
 <body>

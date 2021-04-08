@@ -58,13 +58,13 @@ public class MyPageController {
 	}
 	
 	
-	@RequestMapping("member/mypage/profile")
+	@RequestMapping("member/update")
 	public ModelAndView update(@ModelAttribute Member member,
 			@AuthenticationPrincipal Member loginMember,
 			ModelAndView model) {
 		
-//		System.out.println(member);
-//		System.out.println(loginMember);
+		System.out.println("member : " + member);
+		System.out.println("loginMember : " + loginMember);
 		
 		int result = 0;
 		
@@ -76,10 +76,10 @@ public class MyPageController {
 			if(result > 0) {
 //				model.addObject("loginMember", service.findMemberByUserId(loginMember.getUserId()));
 				model.addObject("msg", "회원정보 수정을 완료했습니다.");
-				model.addObject("location", "/mpage");
+				model.addObject("location", "/member/mypage/mypage");
 			} else {
 				model.addObject("msg", "회원정보 수정에 실패했습니다.");
-				model.addObject("location", "/mypage");
+				model.addObject("location", "/member/mypage/profile");
 			}
 		} else {
 			model.addObject("msg", "잘못된 접근입니다.");
