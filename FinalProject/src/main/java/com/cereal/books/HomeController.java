@@ -18,8 +18,6 @@ public class HomeController {
 	@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
 	public String home(  Model model, @AuthenticationPrincipal Member member ) {
 	
-	
-		System.out.println(member);
 		
 		
 		return "mainpage";

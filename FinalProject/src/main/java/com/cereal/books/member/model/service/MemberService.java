@@ -12,4 +12,12 @@ public interface MemberService {
 
 	int deleteMember(String userId, String userPwd);
 
+	String serchIdEmail(String name, String userEmail);
+
+	String serchIdPhone(String name, String userPhone);
+
+	boolean emailValidate(String userEmail);
+
+	boolean phoneValidate(String userPhone);
+
 }

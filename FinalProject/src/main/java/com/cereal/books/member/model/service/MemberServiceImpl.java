@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cereal.books.member.model.dao.MemberDao;
 import com.cereal.books.member.model.vo.Member;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired
@@ -61,6 +64,48 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean NnameValidate(String userNname) {
 		Member member = memberDao.selectUserNname(userNname);
+				
+		return member != null;
+	}
+
+	@Override
+	public String serchIdEmail(String name, String userEmail) {
+		Member member = memberDao.userSerchIdE(name, userEmail);
+		
+		if(member != null) {
+			String result = member.getUserId();		
+			
+			return result;
+			
+		}else {
+			return null;
+		}
+	}
+
+	@Override
+	public String serchIdPhone(String name, String userPhone) {
+		Member member = memberDao.userSerchIdP(name, userPhone);
+		 System.out.println("dPDPD" +  member);
+		if(member != null) {
+			String result = member.getUserId();		
+			
+			return result;
+			
+		}else {
+			return null;
+		}
+	}
+
+	@Override
+	public boolean emailValidate(String userEmail) {
+		Member member = memberDao.selectUserEmail(userEmail);
+		
+		return member != null;
+	}
+
+	@Override
+	public boolean phoneValidate(String userPhone) {
+		Member member = memberDao.selectUserPhone(userPhone);
 		
 		return member != null;
 	}
