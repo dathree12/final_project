@@ -36,7 +36,7 @@ public class MyPageController {
 	}
 	
 	// 회원정보 수정
-	@RequestMapping(value="member/mypage/profile", method = RequestMethod.GET)
+	@RequestMapping("member/mypage/profile")
 	public String profile(Model model, @AuthenticationPrincipal Member member) {
 		
 //		System.out.println(member);
@@ -91,6 +91,32 @@ public class MyPageController {
 		return model;
 	}
 	
+	// 비밀번호 변경
+	@RequestMapping("member/updatePwd")
+	public String userPwd() {
+		
+		return "member/mypage/updatePwd";
+	}
+	
+	@RequestMapping(value = "member/updatePwd", method = {RequestMethod.POST})
+	@ResponseBody
+	public Object updatePwd(ModelAndView model, @AuthenticationPrincipal Member member,
+			@RequestParam("userPwd") String userPwd) {
+		int result = service.updatePwd(member.getUserId(), userPwd);
+		
+//		System.out.println("userPwd : " + userPwd);
+			
+			if(result > 0) {
+				model.addObject("msg", "정상적으로 변경되었습니다.");
+				model.addObject("script", "self.close()");
+			} else {
+				model.addObject("msg", "변경 실패하였습니다.");
+				model.addObject("script", "/member/updatePwd");
+			}
+			
+		return model;
+	}
+
 	// 회원탈퇴
 	@RequestMapping("member/withdrawal")
 	public String withdrawal(@AuthenticationPrincipal Member member) {

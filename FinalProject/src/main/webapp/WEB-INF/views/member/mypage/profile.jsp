@@ -18,7 +18,8 @@
 			<security:authentication property="principal" var="user"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <input type="hidden" name="userNo" value="${user.userNo}">
-            <input type="hidden" name="userId" value="${user.userId}">
+            <input type="hidden" id="userId" name="userId" value="${user.userId}">
+            <input type="hidden" id="userPwd" name="userPwd" value="${user.userPwd}">
                 <table class="info_table">
                     <tr>
                         <th style="width: 30%;">이름</th>
@@ -109,7 +110,7 @@
                 </table>
                 <input type ="hidden" name="userPhone" id="userPhone">
                 <br><br><br>
-               <button class="button" id="pwd" type="button" style="background-color: rgb(141, 133, 133);">비밀번호변경</button>
+               <button class="button" id="pwd" type="button" onclick="updatePwd();" style="background-color: rgb(141, 133, 133);">비밀번호변경</button>
                <button class="button" id="userinfo" type="submit" style="background-color: black;">정보수정</button>
                <button class="button" type="button" onclick="backto_mypage();" style="background-color: white; color: black; border: 1px solid darkgray;">취소</button>
                <button class="button" type="button" onclick="deleteMember();" id="withdrawal">회원탈퇴</button>
@@ -203,5 +204,16 @@
     			 }
     			 
     		  });
+    		 
+    		 // 비밀번호 변경
+    		function updatePwd(){
+ 			//1 비밀번호 변경창을 열고
+ 			//2. 비밀번호수정하기
+ 			
+ 			const url="${path}/member/updatePwd?userId=" + $("#userId").val();
+ 			const status="left=500px,top=200px,width=400px,height=210px";
+ 			
+ 			open(url, "", status);
+ 			}
 	</script>
 <%@ include file="../../../views/common/footer.jsp" %>
