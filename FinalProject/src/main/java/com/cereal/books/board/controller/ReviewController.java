@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,16 +45,28 @@ public class ReviewController {
 	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
-
+		String renameFileName = null;
 		log.info("upload 들어온다! ");
 		
-		JSONObject json = new JSONObject();
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 
 		// 파일 이름 가져오기
 		String fileName = upload.getOriginalFilename();
-
+		
+		// file이 존재해야 로직실행되도록 null이 아니어야 하고, file 있으면 false이고 !붙여서 true로 로직 실행되도록 한다.
+				if(upload != null && !upload.isEmpty()) {
+					// 파일을 저장하는 로직 작성
+					renameFileName = saveFileRename(upload, request);
+					
+					System.out.println(renameFileName);
+					
+//					if(renameFileName != null) {
+//						board.setBoardOriginalFileName(upload.getOriginalFilename());
+//						board.setBoardRenamedFileName(renameFileName);
+//					}
+				}
+				
 		// 파일을 바이트 배열로 변환
 		byte[] bytes = upload.getBytes();
 
@@ -87,8 +101,26 @@ public class ReviewController {
 		
 
 	}
-
 	
+	// ck에디터 이미지 이름 변경하는 메소드
+		private String saveFileRename(MultipartFile upload, HttpServletRequest request) {
+			// file 이름 뒤에 등록하는 시간 붙여서 rename에 넣기
+			String originalFileName = null;
+			String renameFileName = null;
+			
+			originalFileName = upload.getOriginalFilename();
+			String ext = (originalFileName.lastIndexOf(".") == -1) ? "" : originalFileName.substring(originalFileName.lastIndexOf("."));
+			renameFileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) +	ext;
+			
+			return renameFileName;
+		}
+		
+	@RequestMapping(value="/bookSearch")
+		public String brBookSearch() {
+			
+			return "board/br_board/bookSearch";
+		}
+
 	@RequestMapping(value="/brReviewDetail")
 	public void brReviewDetail() {
 		
