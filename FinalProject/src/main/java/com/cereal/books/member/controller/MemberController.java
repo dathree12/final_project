@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -151,6 +153,12 @@ public class MemberController {
 		map.put("result", service.serchIdPhone(name, userPhone));
 		
 		return map;
+	}
+	
+	/*회원 비밀번호 찾기 페이지 이동. */
+	@RequestMapping("/member/userPwdSerch")
+	public String pwdSerch() {
+		return "/member/userPwdSerch";
 	}
 	
 }

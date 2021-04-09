@@ -35,6 +35,7 @@ public interface MemberDao {
 	Member selectUserPhone(@Param("userPhone") String userPhone);
 
 
+
 	
 
 }
