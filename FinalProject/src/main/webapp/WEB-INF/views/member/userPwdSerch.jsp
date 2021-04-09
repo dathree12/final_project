@@ -18,7 +18,7 @@
  <%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>   
 	    <div class="pwd_serch">
-	        <form action="">
+	        <form action="" method="post">
 	            <fieldset class="field">
 	                <legend>비밀번호 찾기</legend>
 	                     <br>
@@ -66,12 +66,12 @@ $(function() {
 				url: "${path}/member/findpw",
 				dataType: "json",
 				data: {
-
+				 name,
 				 id,
 				 email
 				},
 				success: function(data) {
-				 alert('gopg');
+				 alert(data.result);
 				},
 				error: function(e) {
 					console.log(e);
