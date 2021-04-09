@@ -1,5 +1,11 @@
 package com.cereal.books.member.model.service;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -109,7 +115,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		return member != null;
 	}
-
+	
 	
 }
 
