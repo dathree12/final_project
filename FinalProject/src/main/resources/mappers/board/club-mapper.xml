@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.cereal.books.board.model.dao">
+<mapper namespace="com.cereal.books.board.model.dao.ClubDao">
 	<!-- 반복되는 쿼리문 -->
 	<sql id="clubList">
 		SELECT B.BC_NO,
@@ -69,6 +69,7 @@
 	<select id="selectClubDetail"></select>
 	
 	<!-- 일단 PASS 처리해놨다가 나중에 관리자쪽 만들게되면 Q, DQ 해보자 -->
+	<!-- 
 	<insert id="insertClubBoard" parameterMap="map" useGeneratedKeys="true" keyProperty="bcNo" keyColumn="BC_NO">
 		INSERT INTO BOOK_CLUB_BOARD 
 		VALUES (
@@ -89,4 +90,5 @@
 			'Y'
 		)
 	</insert>	
+	 -->
 </mapper>
