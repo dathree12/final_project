@@ -1,8 +1,10 @@
 @charset "UTF-8";
+
 .id_serch{
     width: 30%; 
     margin: 100px auto;
     font-family: 'Source Sans Pro';
+ 
 }
 
 .field {
@@ -22,13 +24,16 @@
     font-size: 0.8em;
 }
 
-.idresult{
-	text-align: center;
-}
 
 .input_check{
     margin: 10px auto;
     display: flex;
+    width: 100%;
+ 
+}
+.input_span{
+    margin:auto;
+    text-align: center;
     width: 100%;
  
 }
@@ -71,6 +76,7 @@
 #idresult1{
 	font-size: 0.9em; 
 	color: green; 
+    
 }
 
 #idresult2{

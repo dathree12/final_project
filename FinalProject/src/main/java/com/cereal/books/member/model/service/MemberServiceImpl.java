@@ -71,19 +71,29 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String serchIdEmail(String name, String userEmail) {
 		Member member = memberDao.userSerchIdE(name, userEmail);
-				
-		String result = member.getUserId();		
 		
-		return result;
+		if(member != null) {
+			String result = member.getUserId();		
+			
+			return result;
+			
+		}else {
+			return null;
+		}
 	}
 
 	@Override
 	public String serchIdPhone(String name, String userPhone) {
-		Member member =memberDao.userSerchIdP(name, userPhone);
-		
-		String result = member.getUserId();		
-		
-		return result;
+		Member member = memberDao.userSerchIdP(name, userPhone);
+		 System.out.println("dPDPD" +  member);
+		if(member != null) {
+			String result = member.getUserId();		
+			
+			return result;
+			
+		}else {
+			return null;
+		}
 	}
 
 	@Override

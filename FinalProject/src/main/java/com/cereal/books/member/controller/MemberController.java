@@ -135,7 +135,7 @@ public class MemberController {
 			@RequestParam("email")String userEmail) {
 		 	
 			Map<String, Object> map = new HashMap<>();
-		
+			
 			map.put("result", service.serchIdEmail(name, userEmail));
 			
 			return map;
