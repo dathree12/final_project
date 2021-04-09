@@ -18,11 +18,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="${path}/js/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="${ path }/bootstrap/dist/js/bootstrap.min.js"></script>
 	<meta content="${ _csrf.token }" name="csrf-token"/>
     <meta content="${ _csrf.headerName }" name="csrf-headerName">
     <title>nav</title>
 </head>
-<body>
+<body style="display: block;">
     <div class="nav_header" id="nav_header">
         <div class="nav_anbArea">
             <div class="nav-c-width">
