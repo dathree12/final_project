@@ -415,3 +415,25 @@ section {
 article {
     margin: auto;
 }
+
+
+.jbTitle {
+    text-align: center;
+}
+
+.jbContent {
+    height: 2000px;
+}
+
+.jbFiexd {
+    position: fixed;
+    top: 0px;
+    border: 1px solid black;
+    width: 100%;
+    background-color: rgb(53, 53, 53);
+    color: #fff;
+}
+
+.jbFiexd .xans-record- a {
+    color: #fff;
+}

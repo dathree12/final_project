@@ -16,9 +16,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="../../js/jquery-3.5.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer></script>
     <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
+    <style type="text/css">
+    	/* button */
+		.btn-block-right { margin-top: 20px; background-color: #747474; border: 1px solid #4f4f4f; border-width: 0px; float: right; padding: 3px; /*display: inline-block;*/ width: 60px; text-align: center; margin-right: 3px; }
+		.btn-block-right a { color: white; }
+    </style>
 </head>
 <%@ include file="../../common/header.jsp" %>
     <section class="cp_board_wrap">
@@ -27,6 +31,10 @@
                 <div class="product-menupackage">
                     <div class="title" style="text-align: center;">
                         <h2><span>북 클럽</span></h2>
+                        <!-- userName.equals('관리자') && userRole.euqals('ADMIN') -->
+                        <div class="btn-block-right">
+				             <a href="${ path }/board/bc_board/bcAdminWrite">글쓰기</a>
+				        </div>
                     </div>
                     <ul class="menuCategory" style="display: block;">
                         <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardMain" style="text-decoration: none; color: black;">전체 클럽</a></li>

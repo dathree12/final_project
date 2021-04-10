@@ -36,6 +36,13 @@ public class ClubController {
 
 		return "board/bc_board/bcBoardMain";
 	}
+	
+	// 북 클럽 메인페이지
+	@RequestMapping("/bcAdminWrite")
+	public String adminWrite() {
+		
+		return "board/bc_board/bcAdminWrite";
+	}
 
 	// 북 클럽 제안 리스트
 	@RequestMapping("/bcBoardList")
@@ -65,7 +72,7 @@ public class ClubController {
 		return "board/bc_board/bcBoardPayment";
 	}
 
-	@RequestMapping(value = "/bcBoardWrite", method = RequestMethod.POST)
+	@RequestMapping(value = {"/bcBoardWrite", "/bcAdminWrite"}, method = RequestMethod.POST)
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
 
