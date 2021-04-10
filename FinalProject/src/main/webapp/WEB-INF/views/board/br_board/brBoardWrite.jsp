@@ -67,7 +67,7 @@
 	
 	                    <div id="brboard-write-bookselect">
 	                        <span>책선택</span>
-	                        <span id="bookfindbtn"><a href="#"/>책찾기</span>
+							<input type="button" value="책검색" onclick="window.open('${path}/board/br_board/bookSearch', '책검색', 'width=500, height=500')">
 	                    </div>
 	                </div>
 	                <textarea name="ckeditor" id="ckeditor"></textarea>
@@ -80,11 +80,8 @@
 
 					});
 					CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/br_board/brBoardWrite'; };
-
-
 					</script>
 	                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
-
 	            </form>
 	        </section>
         <section class="brboard-write-bottom">

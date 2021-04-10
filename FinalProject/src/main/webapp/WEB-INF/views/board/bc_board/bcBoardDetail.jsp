@@ -12,12 +12,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardMain.css" type="text/css">
+    <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardDetail.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="../../js/jquery-3.5.1.js"></script>
-    <script 
-    src="https://kit.fontawesome.com/2d323a629b.js" 
+    <script type="text/javascript" src="${ path }/js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="${ path }/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"
     ></script>
 </head>
@@ -50,16 +50,52 @@
                         <!-- -------------------------------------- -->
                         <hr>
                         <!-- info : schedule select box -->
-                        <table>
-                            <tr>
-                                <p style="font-size: 10px;"><strong>선택*</strong></p>
-                                <select name="_schedule" id="_schedule">
-                                    <option value="">선택 (필수)</option>
-                                    <option value="">(화) 3.13 ~ 3.28 / 4주간</option>
-                                    <option value="">(수) 3.14 ~ 3.29 / 4주간</option>
-                                </select>
-                            </tr>
-                        </table>
+                        <div class="goods_select" id="prod_options">
+                            <div class="row m-margin-bottom-xxl">
+                                <div class="col-xs-12 col-md-12 margin-bottom-xxxl">
+                                    <div class="option_title text-12 text-bold padding-bottom-xl" 
+                                        style="vertical-align: middel; display: table-cell; word-break: break-all; line-height: normal; font-size: 12px; font-weight: 600 impor !important; padding-bottom: 8px im !important;">
+                                        선택
+                                        <span class="option_require">*</span>
+                                    </div>
+                                    <div class="form-select-wrap">
+                                        <a href="javascript:;" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                                            style="display: block; font-size: 14px; padding: 8px 24px 8px 12px; border: 1px solid #ddd; border-color: #212121; transition: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; line-height: 1.42857143;">
+                                            선택 (필수)
+                                        </a>
+                                        <div class="dropdown-menu" 
+                                            style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 0; box-shadow: none; border-radius: 0; border-top: 0; width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999;">
+                                            <div class="dropdown-item" onclick="event.stopPropagation();">
+                                                <a style="padding: 3px 0px; line-height: normal; display: block;" href="javascript:;" class="blocked _requireOption" onclick="SITE_SHOP_DETAIL.selectRequireOption('prod', 750,'O202006175eea01a8566e6', 'O202104038343337740704', '[온라인] 드로잉 에세이 클럽 11기 -4.18(일) 시작',function(){ SITE_SHOP_DETAIL.updateSelectedOptions('prod'); })"">
+                                                    <span class="blocked margin-bottom-1g" style="display: block; margin-bottom: 4px;">[온라인] 드로잉 에세이 클럽 11기 -4.18(일) 시작</span>
+                                                    <span class="no-margin blocked">
+                                                        <strong></strong>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goods_payment" id="prod_selected_options">
+                            <div class="_selected_require_option opt_block" id="prdOption0" style="padding: 15px; position: relative; overflow: hidden; margin-bottom: 10px; background-color: rgba(1,1,1,0.03); zoom: 1; margin-top: 15px;">
+                                <div class="full-width opt_product_area" style="width: 100% !important; display: block;">
+                                    <div class="area_tit holder" style="padding-right: 25px; text-align: left !important; position: relative;">
+                                        <span class="body_font_color_80">[온라인] 드로잉 에세이 클럽 11기 -4.18(일) 시작</span>
+                                        <a href="javascript:;" class="text-18 absolute absolute_right absolute_middle" onclick="SITE_SHOP_DETAIL.removeSelectedOption(0, 'prod')">
+                                            <i class="btl bt-times-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="opt_block total bottom">
+                                <p class="no-margin text-right" style="height: 50px; text-align: right; margin: 0; display: table-row; display: flex; justify-content: space-between; vertical-align: middle; padding-top: 20px;">
+                                    <span style="font-size: 15px; line-height: 1.6; letter-spacing: 0px; font-weight: normal; font-style: normal; display: table-cell; vertical-align: middle;" class="body_font_color_70 text-left">총 상품금액</span>
+                                    <span style="font-size: 15px; line-height: 1.6; letter-spacing: 0px; font-weight: normal; font-style: normal; display: table-cell; vertical-align: middle;" class="total_price">69,000원</span>
+                                </p>
+                            </div>
+                        </div>
                         <!-- -------------------------------------- -->
                         <hr>
                         <!-- info : button -->
@@ -118,7 +154,7 @@
                                 <tr class="xans-record-">
                                     <td>1</td>
                                     <td class="thumb_photo">
-                                        <img src="${ path }/images/club-test.jpg" alt="">
+                                        <img src="${ path }/images/test-img.jpg" alt="">
                                     </td>
                                     <td>
                                         <ul class="d_review_cont">
@@ -262,4 +298,9 @@
             </div>
         </article>
     </section>
+    <script>
+        $(function() {
+            $('.dropdown-toggle').dropdown();
+        });
+    </script>
 <%@ include file="../../common/footer.jsp" %>

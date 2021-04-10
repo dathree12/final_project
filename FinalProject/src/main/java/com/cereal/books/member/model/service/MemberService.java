@@ -1,5 +1,7 @@
 package com.cereal.books.member.model.service;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.cereal.books.member.model.vo.Member;
 
 public interface MemberService {
@@ -20,4 +22,9 @@ public interface MemberService {
 
 	boolean phoneValidate(String userPhone);
 
+	String findPwd(String userId, String name, String userEmail) throws Exception;
+	
+	void sendEmail(Member Member, String mail,  String pwd) throws Exception;
+
+	
 }

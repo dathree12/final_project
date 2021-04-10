@@ -52,7 +52,7 @@
                         <li>
                             <span>
                                 개인정보관리책임자 :
-                                <strong>김동민(dmin1994@gmail.com)</strong> 
+                                <strong>김동민(bookschoko@gmail.com)</strong> 
                             </span>
                         </li>
                         <li>

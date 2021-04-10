@@ -40,14 +40,14 @@
             <span id="errspan" style="color: red"><c:out value="${loginFailMsg}"/></span>
             <br>
             <div class="check_div">
-                <input type="checkbox"> <span>아이디 저장</span>
+                <input type="checkbox" id="loginss"> <label for="loginss"><span>로그인 유지</span></label>
             </div>
             
        
             <div class="btn_div">
                 <button type="button" onclick="location.href=('${path}/member/enrollTerms')">회원가입</button>
                 <button type="button" onclick="location.href=('${path}/member/userIdSerch')">아이디 찾기</button>
-                <button>비밀번호 찾기</button>
+                <button type="button" onclick="location.href=('${path}/member/userPwdSerch')">비밀번호 찾기</button>
             </div>
     </div>
   </section> 

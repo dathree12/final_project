@@ -1,5 +1,7 @@
 package com.cereal.books.member.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -33,6 +35,25 @@ public interface MemberDao {
 
 
 	Member selectUserPhone(@Param("userPhone") String userPhone);
+
+
+	Member userSerchPwd(@Param("userId")String userId, @Param("name") String name,  @Param("userEmail") String userEmail);
+
+	void updatePwd(Member member);
+
+
+	Member selectUserName( @Param("name") String name);
+
+
+
+
+	
+
+
+
+
+
+
 
 
 	
