@@ -28,7 +28,7 @@
             <div class="write-header">
                 <div class="board-name">관리자 제안서 작성</div>
                 <div class="write-btn">
-                    <a href="#">취소</a>
+                    <a href="${ path }/">취소</a>
                     <a href="#">작성</a>
                 </div>
             </div>

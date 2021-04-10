@@ -41,7 +41,6 @@ h2 {
     color: #000;
     font-size: 18px;
     letter-spacing: 0;
-    margin: 20px 0 0;
 }
 
 .title {
@@ -54,7 +53,6 @@ h2 {
     color: #000; 
     font-size: 18px; 
     letter-spacing: 0; 
-    margin: 20px 0 0;
 }
 .menuCategory li {
     display: inline-block;
@@ -170,7 +168,6 @@ strong.name {
     text-align: right;
     line-height: 34px;
     font-size: 11px;
-    border-top: 1px solid #e7e7e7;
     padding: 10px 0 0;
     display: flex;
     justify-content: space-between;

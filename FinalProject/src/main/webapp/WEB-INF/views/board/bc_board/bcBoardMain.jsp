@@ -22,6 +22,10 @@
     	/* button */
 		.btn-block-right { margin-top: 20px; background-color: #747474; border: 1px solid #4f4f4f; border-width: 0px; float: right; padding: 3px; /*display: inline-block;*/ width: 60px; text-align: center; margin-right: 3px; }
 		.btn-block-right a { color: white; }
+		
+        .d_none {
+            display: none;
+        }
     </style>
 </head>
 <%@ include file="../../common/header.jsp" %>
@@ -30,15 +34,15 @@
             <div class="cp_board_contents">
                 <div class="product-menupackage">
                     <div class="title" style="text-align: center;">
-                        <h2><span>북 클럽</span></h2>
+                        <h2 style="margin-left: 100px;"><span>북 클럽</span></h2>
                         <!-- userName.equals('관리자') && userRole.euqals('ADMIN') -->
                         <div class="btn-block-right">
 				             <a href="${ path }/board/bc_board/bcAdminWrite">글쓰기</a>
 				        </div>
                     </div>
                     <ul class="menuCategory" style="display: block;">
-                        <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardMain" style="text-decoration: none; color: black;">전체 클럽</a></li>
-                        <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardMain" style="text-decoration: none; color: black;">모집 중인 클럽</a></li>
+                        <li class="headcategory"><a href="#" style="text-decoration: none; color: black;" onclick="addFunc();">전체 클럽</a></li>
+                        <li class="headcategory"><a href="#" style="text-decoration: none; color: black;" onclick="removeFunc();">모집 중인 클럽</a></li>
                         <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardList" style="text-decoration: none; color: black;">클럽 제안하기</a></li>
                     </ul>
                 </div>
@@ -751,6 +755,16 @@
     </section>
 
     <script>
+    var val = document.querySelector('._catelist_best');
+    var d_none = "d_none";
+
+    function removeFunc() {
+        val.classList.add(d_none);
+    }
+    function addFunc() {
+    	val.classList.remove(d_none);
+    }
+    
     $(document).ready(function() {
         $(".carousel").owlCarousel({
             margin: -10,
@@ -778,5 +792,6 @@
             }
         });
     });
+    
     </script>
 <%@ include file="../../common/footer.jsp" %>
