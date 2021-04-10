@@ -40,7 +40,7 @@
             <span id="errspan" style="color: red"><c:out value="${loginFailMsg}"/></span>
             <br>
             <div class="check_div">
-                <input type="checkbox"> <span>아이디 저장</span>
+                <input type="checkbox" id="loginss"> <label for="loginss"><span>로그인 유지</span></label>
             </div>
             
        

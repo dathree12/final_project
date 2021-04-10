@@ -35,9 +35,10 @@
 	                         <input type="text" name="" id="pwdemail" class="ck_text"required>
 	                    </div>
 	                     <div class="input_span">
-	                        <span></span>
+	                         <span  id="pwdsuccess" ></span><span  id="pwdfail" ></span>
 	                    </div>    
 	            </fieldset>
+	            <br>
 	            <div class="ck_btn_div">
 	                <button class="ck_btn" id="ck_btn" type="button">확인</button>
 	           	</div>
@@ -64,7 +65,7 @@ $(function() {
  		var name = $("#pwdName").val().trim();
  		var id = $("#pwdId").val().trim();
  		var email = $("#pwdemail").val().trim();
-	
+		var sus = "이메일로 임시 비밀번호를 발송했습니다.";
 			$.ajax({
 				type: "post",
 				url: "${path}/member/findpw",
@@ -75,7 +76,16 @@ $(function() {
 				 email
 				},
 				success: function(data) {
-				 alert(data.result);
+					if (data.result === sus) {
+						$("#pwdsuccess").html(data.result)
+						$("#pwdfail").html(' ')
+					}else{
+						$("#pwdsuccess").html(' ')
+						$("#pwdfail").html(data.result)								
+					}	
+				 
+				 
+				 
 				},
 				error: function(e) {
 					console.log(e);

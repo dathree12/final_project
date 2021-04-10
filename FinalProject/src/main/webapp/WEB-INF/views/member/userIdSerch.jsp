@@ -46,6 +46,7 @@
                             <span class="idresult" id="idresult1" ></span><span class="idresult" id="idresult2" ></span>
                         </div>
                     </fieldset>
+                      <br>
                     <div class="ck_btn_div"> 
                        <button class="ck_btn" id="serch_btn" type="button" >확인</button>
                  	</div>

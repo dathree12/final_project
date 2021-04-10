@@ -133,8 +133,9 @@ public class MemberServiceImpl implements MemberService {
 
 		if(mail.equals("findpwd")) {
 			subject = member.getName() + " 회원님의 임시 비밀번호 입니다.";
-			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-			msg += "<h3 style='color: #f26722;'>";
+			msg += "<div align='center' style='border:1px solid #f1f1f1;  font-family:verdana'>";
+			msg += "<div style='margin: auto;  width: 45%; background-color:  #f1f1f1; font-family:verdana'>";
+			msg += "<br><h3 style='color: #f26722; margin: 0px;'>";
 			msg += member.getName() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
 			msg +=  "<br>";
 			msg += "<p>임시 비밀번호 : ";
@@ -147,7 +148,8 @@ public class MemberServiceImpl implements MemberService {
 			msg +=  "<h6>전화 : 02-777-7777</h6>";
 			msg +=  "<h6>사업자등록번호 : 111-77-77777</h6>";
 			msg +=  "<h6>주소 : 경기도 하남시</h6>";
-			msg +=  "<h6>개인정보관리책임자 : 김동민(bookschoko@gmail.com)</h6></div>";
+			msg +=  "<h6>개인정보관리책임자 : 김동민(bookschoko@gmail.com)</h6><br><br><br></div>";
+			msg +=  "</div>";
 			
 		}
 

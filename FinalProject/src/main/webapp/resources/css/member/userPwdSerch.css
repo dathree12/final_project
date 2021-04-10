@@ -77,6 +77,17 @@
 }
 
 
+#pwdsuccess{
+	font-size: 0.9em; 
+	color: green; 
+}
+
+#pwdfail{
+	font-size: 0.9em; 
+	color: red; 
+}
+
+
 .ck_btn{
     background-color:  #222;
     color: white;
