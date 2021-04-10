@@ -7,14 +7,22 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.cereal.books.board.model.service.FundService;
+import com.cereal.books.board.model.vo.FundBoard;
+import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,10 +31,31 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/board/bf_board")
 public class FundController {
 	
-	@RequestMapping(value="/bf_boardList")
-	public String listView() {
+	@Autowired
+	private FundService service;
+	
+	@RequestMapping(value="/bf_boardList", method = {RequestMethod.GET})
+	public ModelAndView listView(
+			ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
 		
-		return "board/bf_board/bf_boardList";
+		List<FundBoard> list = null;
+		
+		int boardCount = service.getBoardCount();
+		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+		
+		System.out.println(boardCount);
+		
+		list = service.getBoardList(pageInfo);
+		
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("board/bf_board/bf_boardList");
+		
+		System.out.println(list);
+		System.out.println(model);
+		return model;
 	}
 	
 	@RequestMapping(value="/bf_boardWrite")
@@ -35,6 +64,7 @@ public class FundController {
 		return "board/bf_board/bf_boardWrite";
 	}
 	
+	// ck에디터 이미지 업로드 메소드
 	@RequestMapping(value = "/bf_boardWrite", method = RequestMethod.POST)
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {

@@ -192,7 +192,7 @@
         <div id="row_div_text"> 
             <span> 장르별 추천 도서</span>
         </div>
-        <nav class="nav"> 
+        <nav class="mnav"> 
             <div id="me_menu">
             <ul class="nav_menu">
                 <li><a href="">소설</a></li>

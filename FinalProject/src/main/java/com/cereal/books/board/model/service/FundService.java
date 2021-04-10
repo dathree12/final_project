@@ -1,8 +1,14 @@
-//package com.cereal.books.board.model.service;
-//
-//import com.cereal.books.board.model.vo.FundBoard;
-//
-//public interface FundService {
-//
-//	int saveFundBoard(FundBoard board);
-//}
+package com.cereal.books.board.model.service;
+
+import java.util.List;
+
+import com.cereal.books.board.model.vo.FundBoard;
+import com.cereal.books.common.util.PageInfo;
+
+public interface FundService {
+
+	int getBoardCount();
+
+	List<FundBoard> getBoardList(PageInfo pageInfo);
+	
+}
