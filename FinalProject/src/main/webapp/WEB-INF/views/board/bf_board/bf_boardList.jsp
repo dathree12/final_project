@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
@@ -62,6 +62,43 @@
         </div>
 
         <div class="fdboard_mid_container">
+        	<c:if test="${list == null}">
+	            <div class="fdboard_mid_box" id="fdboard_01">
+	                <div class="fdboard_thumbnail">
+	                    <div class="fdboard_attainRate">달성%</div>
+	                    <a href="#" class="fdboard_img" name="fdboard_img">
+	                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
+	                    </a>
+	                </div>
+	                <div class="fdboard_contants">
+	                    <p>조회된 게시글이 없습니다.</p>
+	                    <p>100,000원</p>
+	                    <p>종료까지 123일 남음</p>
+	                    <%-- <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" /> --%>
+	                </div>
+	            </div>        		
+        	</c:if>
+        	
+        	<c:if test="${list != null}">
+        		<c:forEach var="board" items="${list}">
+		            <div class="fdboard_mid_box" id="fdboard_01">
+		                <div class="fdboard_thumbnail">
+		                    <div class="fdboard_attainRate">달성%</div>
+		                    <a href="#" class="fdboard_img" name="fdboard_img">
+		                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
+		                    </a>
+		                </div>
+		                <div class="fdboard_contants">
+		                    <p><c:out value="${board.bfTitle} }"/></p>
+		                    <p>100,000원</p>
+		                    <p>종료까지 123일 남음</p>
+		                    <%-- <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" /> --%>
+		                </div>
+		            </div>        			
+        	
+        		</c:forEach>
+        	</c:if>
+            
             <div class="fdboard_mid_box" id="fdboard_01">
                 <div class="fdboard_thumbnail">
                     <div class="fdboard_attainRate">달성%</div>
