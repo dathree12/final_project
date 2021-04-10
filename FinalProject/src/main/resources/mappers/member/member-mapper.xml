@@ -144,7 +144,15 @@
   		WHERE 
   			USER_ID = #{userId} AND USER_NAME =#{name} AND USER_EMAIL =#{userEmail}
   	</select>
-  		<update id="updatePwd" parameterType="Member" >
+  	
+  	<select id="selectUserName" parameterType="string" resultMap="memberResultSet"> 
+		<include refid="selectMemberSql"></include>
+  		WHERE 
+  			USER_NAME =#{name}
+  	</select>
+  	
+  	
+  	<update id="updatePwd" parameterType="Member" >
         UPDATE MEMBER 
         SET
             USER_PWD=#{userPwd}

@@ -78,7 +78,7 @@
 	                                          <option value="@naver.com">@naver.com</option>
 	                                          <option value="@gmail.com">@gmail.com</option>
 	                                          <option value="@daum.net">@daum.net</option>
-	                                          <option value="@daum.net">@nate.net</option>
+	                                          <option value="@nate.com">@nate.com</option>
 	                                          <option value="">직접 작성</option>
 	                                      </select>
 	                                  </div>

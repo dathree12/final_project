@@ -131,13 +131,24 @@ public class MemberServiceImpl implements MemberService {
 		String subject = "";
 		String msg = "";
 
-		if(mail.equals("findpw")) {
-			subject = "책스초코 임시 비밀번호 입니다.";
+		if(mail.equals("findpwd")) {
+			subject = member.getName() + " 회원님의 임시 비밀번호 입니다.";
 			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-			msg += "<h3 style='color: blue;'>";
+			msg += "<h3 style='color: #f26722;'>";
 			msg += member.getName() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
+			msg +=  "<br>";
 			msg += "<p>임시 비밀번호 : ";
-			msg +=  pwd + "</p></div>";
+			msg +=  pwd + "</p>";
+			msg +=  "<br>";
+			msg +=  "<br>";
+			msg +=  "<br>";
+			msg +=  "<h6>상호 : 책스초코</h6>";
+			msg +=  "<h6>대표 : 김동민</h6>";
+			msg +=  "<h6>전화 : 02-777-7777</h6>";
+			msg +=  "<h6>사업자등록번호 : 111-77-77777</h6>";
+			msg +=  "<h6>주소 : 경기도 하남시</h6>";
+			msg +=  "<h6>개인정보관리책임자 : 김동민(bookschoko@gmail.com)</h6></div>";
+			
 		}
 
 		// 받는 사람 E-Mail 주소
@@ -169,10 +180,13 @@ public class MemberServiceImpl implements MemberService {
 		String result = null;
 		if(memberDao.selectUserInfoOne(userId) == null) {
 			
-			System.out.println("등록된 아이디가 아닙니다");
+			result ="등록된 아이디가 없습니다.";
 			
 		}else if(memberDao.selectUserEmail(userEmail) == null ){
-			System.out.println("등록된 이메일이 아닙니다");
+			result ="등록된 이메일이 없습니다.";
+			
+		}else if(memberDao.selectUserName(name)== null ){
+			result ="입력하신 이름과 일치하는 계정이 없습니다.";
 			
 		}else {
 			
@@ -181,13 +195,12 @@ public class MemberServiceImpl implements MemberService {
 			for (int i = 0; i < 8; i++) {
 				userPwd += (char) ((Math.random() * 26) + 97);
 			}
-			System.out.println("비밇" + userPwd);
 			member.setUserPwd(passwordEncoder.encode(userPwd));
 			memberDao.updatePwd(member);
 			
-			sendEmail(member, "findpw", userPwd );
+			sendEmail(member, "findpwd", userPwd );
 			
-			result = userPwd;
+			result = "이메일로 임시 비밀번호를 발송했습니다.";
 		}
 		return result;
 	}

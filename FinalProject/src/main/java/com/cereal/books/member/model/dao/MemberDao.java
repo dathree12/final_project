@@ -42,6 +42,9 @@ public interface MemberDao {
 	void updatePwd(Member member);
 
 
+	Member selectUserName( @Param("name") String name);
+
+
 
 
 	

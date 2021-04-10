@@ -170,7 +170,6 @@ public class MemberController {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("result", service.findPwd(userId, name, userEmail));
-		  System.out.println("ddd " + map );
 		
 		  return map;
 		

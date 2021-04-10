@@ -48,6 +48,8 @@
                     </fieldset>
                     <div class="ck_btn_div"> 
                        <button class="ck_btn" id="serch_btn" type="button" >확인</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+	               	   <button class="ck_btn"  type="button" onclick="location.href=('${path}/member/login')">로그인</button>
                   </div> 
                 
                 <input type="hidden"  id="serch_phone"/>
