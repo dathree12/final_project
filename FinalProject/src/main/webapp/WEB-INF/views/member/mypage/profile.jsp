@@ -210,10 +210,10 @@
  			//1 비밀번호 변경창을 열고
  			//2. 비밀번호수정하기
  			
- 			const url="${path}/member/updatePwd?userId=" + $("#userId").val();
- 			const status="left=500px,top=200px,width=400px,height=210px";
+ 			const url="${path}/member/newPwd";
+ 			const st="left=500px,top=200px,width=400px,height=210px";
  			
- 			open(url, "", status);
+ 			open(url, "_blank", st);
  			}
 	</script>
 <%@ include file="../../../views/common/footer.jsp" %>

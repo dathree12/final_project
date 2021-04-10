@@ -27,7 +27,7 @@
 </head>
 <body>
 	<div id="updatePassword-container">
-		<form action="${path}/member/updatePwd" method="post">
+		<form target="_self" action="${path}/member/updatePwd" name="update" method="post">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<table>
 				<tr>
@@ -44,7 +44,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="submit" value="변경" onclick="return validate();">
+						<input type="submit" value="변경" onclick="window.close();">
 						&nbsp;
 						<input type="button" value="닫기" onclick="self.close();">
 					</td>
@@ -62,6 +62,7 @@
 				$("#pass1").val("");
 				$("#pass2").val("");
 				$("#pass1").focus();
+				
 			}
 		}
 	</script>

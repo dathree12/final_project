@@ -92,27 +92,30 @@ public class MyPageController {
 	}
 	
 	// 비밀번호 변경
-	@RequestMapping("member/updatePwd")
+	@RequestMapping("member/newPwd")
 	public String userPwd() {
 		
 		return "member/mypage/updatePwd";
 	}
 	
-	@RequestMapping(value = "member/updatePwd", method = {RequestMethod.POST})
+	@RequestMapping("member/updatePwd")
 	@ResponseBody
-	public Object updatePwd(ModelAndView model, @AuthenticationPrincipal Member member,
+	public ModelAndView updatePwd(ModelAndView model, @AuthenticationPrincipal Member member,
 			@RequestParam("userPwd") String userPwd) {
-		int result = service.updatePwd(member.getUserId(), userPwd);
+		int result = 0;
 		
-//		System.out.println("userPwd : " + userPwd);
+		result = service.updatePwd(member.getUserId(), userPwd);
+		
+//		System.out.println("result : " + result);
 			
 			if(result > 0) {
 				model.addObject("msg", "정상적으로 변경되었습니다.");
-				model.addObject("script", "self.close()");
 			} else {
 				model.addObject("msg", "변경 실패하였습니다.");
-				model.addObject("script", "/member/updatePwd");
+				model.addObject("location", "/member/newPwd");
 			}
+			
+			model.setViewName("common/msg");
 			
 		return model;
 	}
