@@ -67,7 +67,33 @@
 	
 	                    <div id="brboard-write-bookselect">
 	                        <span>책선택</span>
-							<input type="button" value="책검색" onclick="window.open('${path}/board/br_board/bookSearch', '책검색', 'width=500, height=500')">
+								<input id="bookName" value="" type="text">
+							    <button id="search">검색</button>
+							    <div id="bookdata">
+							    	<p id="title"></p>
+							    	<p id="bookthumb"></p>
+							    </div>
+							    <script>
+							        $(document).ready(function () {
+							            $("#search").click(function () {
+							                $.ajax({
+							                    method: "GET",
+							                    url: "https://dapi.kakao.com/v3/search/book?target=title",
+							                    data: { query: $("#bookName").val() },
+							                    headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" }
+							                })
+							                    .done(function (msg) {
+							                        console.log(msg.documents[0].title);
+							                        console.log(msg.documents[0].thumbnail);
+							                        $("#title").append("<strong>" + msg.documents[0].title + "</strong>");
+							                        $("#bookthumb").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+							                    });
+							            });
+							        });
+							    </script>
+						  	
+ 							<!--  <input type="button" value="책검색" onclick="window.open('${path}/board/br_board/bookSearch', '책검색', 'width=500, height=500')">
+	                    	<p id="selectedbook"></p>-->
 	                    </div>
 	                </div>
 	                <textarea name="ckeditor" id="ckeditor"></textarea>

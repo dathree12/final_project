@@ -26,7 +26,10 @@
 	<h3>책검색</h3>
 	<input id="bookName" value="" type="text">
     <button id="search">검색</button>
-    <p></p>
+    <div id="bookdata">
+    	<p id="title"></p>
+    	<p id="bookthumb"></p>
+    </div>
     <script>
         $(document).ready(function () {
             $("#search").click(function () {
@@ -39,11 +42,41 @@
                     .done(function (msg) {
                         console.log(msg.documents[0].title);
                         console.log(msg.documents[0].thumbnail);
-                        $("p").append("<strong>" + msg.documents[0].title + "</strong>");
-                        $("p").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                        //책ISBN불러오기
+                        $("#title").append("<strong>" + msg.documents[0].title + "</strong>");
+                        $("#bookthumb").append("<img src='" + msg.documents[0].thumbnail + "'/>");
                     });
             });
         });
+    </script>
+    <script>
+		    $(document).ready(function () {
+		        $("#bookdata").click(function () {
+		            $.ajax({
+		            	 //속성을 설정할 수 있다
+		                url:'${path}/board/br_board/brBoardWrite', //데이터를  넘겨줄 링크 설정
+		                type:"GET", // get or post 방식
+		                data: $("#title").val(), //넘겨줄 데이터
+		                
+		                //위에 과정이 성공했을 것을 생각하여 작성 
+		                 //ajax를 통해서 연결 성공하면 출력
+		                 //데이터가 전달되고 나서 다시 돌아왔을 때의 검사하는 것
+		                 //생략하면 안됨 적어줘야 한다.
+		                  success: function (title, status, xhr) {
+		                       
+		                        alert("통신 성공!");
+		                        $("#selectedbook").html(data);
+		                    },
+		                    error: function (xhr, status, error) {
+		                        alert("통신 실패!");
+		                    },
+		                    complete: function (xhr, status) {
+		                        alert("통신 종료");
+		                    }
+		           		 });
+		       		 });
+		   		 });
+		            
     </script>
 </body>
 </html>
