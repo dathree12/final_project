@@ -40,7 +40,9 @@
 	            </fieldset>
 	            <div class="ck_btn_div">
 	                <button class="ck_btn" id="ck_btn" type="button">확인</button>
-	                &nbsp;&nbsp;&nbsp;&nbsp;
+	           	</div>
+	           	<br> 
+	            <div class="ck_btn_div">
 	                <button class="ck_btn"  type="button" onclick="location.href=('${path}/member/login')">로그인</button>
 	           	</div> 
 	       		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">     
