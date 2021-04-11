@@ -188,7 +188,7 @@ public class ClubController {
 		
 		if (result > 0) {
 			model.addObject("msg", "게시글 등록 성공");
-			model.addObject("location", "board/bc_board/bcBoardMain");
+			model.addObject("location", "/board/bc_board/bcBoardMain");
 		} else {
 			System.out.println("실패");
 		}
