@@ -25,6 +25,12 @@ import com.cereal.books.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
+/*
+ * 에러내역
+ *  - Field error in object -> VO 객체 타입 확인해볼 것 (Data 이상한듯 일단 String 으로 고쳐보자)
+ *  - cannot insert NULL into ("BOOK"."BOOK_CLUB_BOARD"."BC_WRITER")
+ */
+
 @Slf4j
 @Controller
 @RequestMapping("/board/bc_board")
@@ -144,9 +150,10 @@ public class ClubController {
 		List<ClubBoard> list = null;
 		
 		int boardCount = service.getBoardCount();
+		
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 		
-		System.out.println(boardCount);
+		System.out.println("boardCount : " + boardCount);
 		
 		list = service.getBoardList(pageInfo);
 		
@@ -155,7 +162,6 @@ public class ClubController {
 		model.setViewName("board/bc_board/bcBoardMain");
 		
 		System.out.println(list);
-		System.out.println(model);
 		
 		return model;
 	}
@@ -173,30 +179,41 @@ public class ClubController {
 	// 북 클럽 메인페이지(관리자)
 	@RequestMapping(value = "/bcAdminWrite", method = RequestMethod.POST)
 	public ModelAndView adminWrite(ModelAndView model, 
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, ClubBoard clubBoard) {
 		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다. 
-		ClubBoard clubBoard = null;
 		
 		int result =  0;
 		
-		// 나중에 관리자만 되게 처리할 것 -> principal.getName()
-		if(loginMember.getUsername().equals(clubBoard.getUserName())) {
-			clubBoard.setUserNo(loginMember.getUserNo());
-			
+		result = service.saveBoard(clubBoard);
 		
-			result = service.saveBoard(clubBoard);
-			
-			if(result > 0 ) {
-				model.addObject("msg", "게시글 등록 성공");
-				model.addObject("location", "/board/bc_board/bcBoardMain");
-			} else {
-				model.addObject("msg", "게시글 등록 실패");
-				model.addObject("location", "/board/bc_board/bcBoardMain");
-			}
+		if (result > 0) {
+			model.addObject("msg", "게시글 등록 성공");
+			model.addObject("location", "board/bc_board/bcBoardMain");
 		} else {
-			model.addObject("msg", "잘못된 접근입니다.");
-			model.addObject("location", "/board/bc_board/bcBoardMain");
+			System.out.println("실패");
 		}
+		
+		// 나중에 관리자만 되게 처리할 것 -> principal.getName() 아래코드 에러뜨는데 Member 쪽에 UserNo Unique 제약조건 확인할 것 
+//		if(loginMember.getUsername().equals(clubBoard.getUserName())) {
+//			clubBoard.setUserNo(loginMember.getUserNo());
+//			System.out.println("loginMember.getUsername() : " + loginMember.getUsername());
+////			System.out.println("clubBoard.getUserName() : " + clubBoard.getUserName());
+//		
+//			result = service.saveBoard(clubBoard);
+//			System.out.println("adminWrite : " + result);
+//			
+//			if(result > 0 ) {
+//				model.addObject("msg", "게시글 등록 성공");
+//				model.addObject("location", "/board/bc_board/bcBoardMain");
+//			} else {
+//				model.addObject("msg", "게시글 등록 실패");
+//				model.addObject("location", "/board/bc_board/bcBoardMain");
+//			}
+//		} 
+//		else {
+//			model.addObject("msg", "잘못된 접근입니다.");
+//			model.addObject("location", "/board/bc_board/bcBoardMain");
+//		}
 		
 		model.setViewName("common/msg");
 		

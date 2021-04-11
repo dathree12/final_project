@@ -12,17 +12,12 @@
     <meta charset="UTF-8">
 	<meta content="${ _csrf.token }" name="csrf-token"/>
     <meta content="${ _csrf.headerName }" name="csrf-headerName">
-    <title>nav</title>
     <link rel="stylesheet" href="${path}/css/common/header.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <!--
-	    <script src="${path}/js/jquery-3.5.1.js"></script>
-    -->
-    <script 
-    src="https://kit.fontawesome.com/2d323a629b.js" 
-    crossorigin="anonymous"
-    ></script>
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+    <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous" ></script>
+    <title>nav</title>
 </head>
 <body style="display: block;">
     <div class="nav_header" id="nav_header">

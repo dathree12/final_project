@@ -32,14 +32,15 @@ public interface ClubDao {
 
 	int selectClubCount();
 	
-	int updateBoard(ClubBoard clubBoard);
+	int updateClubBoard(ClubBoard clubBoard);
 	
-	int insertBoard(ClubBoard clubBoard);
+	int insertClubBoard(ClubBoard clubBoard);
 	
 	ClubBoard selectClubDetail(int bcNo);
 	
 	List<ClubBoard> selectClubList(RowBounds rowBounds);
 
 	ClubBoard findClubByNo(int bcNo);
+
 
 }

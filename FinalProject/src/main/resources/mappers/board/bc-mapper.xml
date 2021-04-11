@@ -2,15 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
+<!-- 
+에러내역 
+ : parent key not found -> MAPPER, 테이블의 제약조건
+
+ -->
+
 <mapper namespace="com.cereal.books.board.model.dao.ClubDao">
 	<!-- 반복되는 쿼리문 -->
 	<sql id="clubList">
 		SELECT B.BC_NO,
+		   B.USER_NO,
 	       M.USER_NO,
 	       B.BC_ORIGIN_TITLE,
 	       B.BC_SUB_TITLE,
 	       B.BC_PRICE,
-	       B.BC_WRITER,
 	       B.BC_REG_DATE,
 	       B.BC_DL_DATE,
 	       B.BC_VIEW_COUNT,
@@ -21,7 +27,7 @@
 	       B.BC_STATUS,
 	       B.BC_AGREEMENT
 		FROM BOOK_CLUB_BOARD B
-		JOIN MEMBER M ON (B.BC_WRITER = M.USER_NAME)
+		JOIN MEMBER M ON (B.USER_NO = M.USER_NO)
 		WHERE BC_STATUS='P'
 	</sql>
 	
@@ -39,7 +45,6 @@
 		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE"/>
 		<result property="bcSubTitle" column="BC_SUB_TITLE"/>
 		<result property="bcPrice" column="BC_PRICE"/>
-		<result property="bcWriter" column="BC_WRITER"/>
 		<result property="bcRegDate" column="BC_REG_DATE"/>
 		<result property="bcDeadLineDate" column="BC_DL_DATE"/>
 		<result property="bcViewCount" column="BC_VIEW_COUNT"/>
@@ -52,19 +57,12 @@
 	</resultMap>
 	
 	<!-- 2. club board detail -->
-	<!-- 
-		<resultMap type="ClubBoard" id="clubDetailResultMap">
-			<id property="bcNo" column="BC_NO"/>
-		</resultMap>
-	-->
-	
 	<select id="selectClubDetail" parameterType="_int" resultMap="clubBoardResultMap">
 		SELECT B.BC_NO,
 		       M.USER_NO,
 		       B.BC_ORIGIN_TITLE,
 		       B.BC_SUB_TITLE,
 		       B.BC_PRICE,
-		       B.BC_WRITER,
 		       B.BC_REG_DATE,
 		       B.BC_DL_DATE,
 		       B.BC_VIEW_COUNT,
@@ -75,7 +73,7 @@
 		       B.BC_STATUS,
 		       B.BC_AGREEMENT
 		FROM BOOK_CLUB_BOARD B
-		JOIN MEMBER M ON (B.BC_WRITER = M.USER_NAME)
+		JOIN MEMBER M ON (B.USER_NO = M.USER_NO)
 		WHERE B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
 	</select>
 	
@@ -107,7 +105,6 @@
 			#{ bcOriginTitle }, 
 			#{ bcSubTitle }, 
 			#{ bcPrice }, 
-			#{ bcWriter }, 
 			DEFAULT, 
 			DEFAULT, 
 			DEFAULT, 

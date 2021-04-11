@@ -12,7 +12,11 @@ import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
-// Dao 한테 쿼리 넘겨주기
+/*
+ * 에러내역 : 
+ *  org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): -> mapper.xml 의 id와 일치하지 않는 경우
+ */
+
 @Slf4j
 @Service
 public class ClubServiceImpl implements ClubService {
@@ -47,6 +51,9 @@ public class ClubServiceImpl implements ClubService {
 	@Override
 	public ClubBoard findClubByNo(int bcNo) {
 		// 클럽게시판번호로 게시판의 정보를 가져온다
+		
+		System.out.println("ClubServiceImpl bcNo : " + bcNo);
+		
 		return clubDao.selectClubDetail(bcNo);
 	}
 
@@ -57,11 +64,14 @@ public class ClubServiceImpl implements ClubService {
 		
 		System.out.println("saveBoard result : " + result);
 		
-		if(clubBoard.getBcNo() != 0) {
-			result = clubDao.updateBoard(clubBoard);
-		} else {
-			result = clubDao.insertBoard(clubBoard);
-		}
+		result = clubDao.insertClubBoard(clubBoard);
+		
+//		if(clubBoard.getBcNo() != 0) {
+//			System.out.println(clubBoard.getBcNo());
+//			result = clubDao.updateClubBoard(clubBoard);
+//		} else {
+//			result = clubDao.insertClubBoard(clubBoard);
+//		}
 		
 		return result;
 	}

@@ -34,7 +34,6 @@
                 <div class="product-menupackage">
                     <div class="title" style="text-align: center;">
                         <h2 style="margin-left: 100px;"><span>북 클럽</span></h2>
-                        <!-- userName.equals('관리자') && userRole.euqals('ADMIN') -->
                         <div class="btn-block-right">
 				             <a href="${ path }/board/bc_board/bcAdminWrite">글쓰기</a>
 				        </div>
