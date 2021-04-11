@@ -9,7 +9,10 @@ public interface ClubService {
 
 	int getBoardCount();
 
+	int saveBoard(ClubBoard clubBoard);
+	
 	List<ClubBoard> getBoardList(PageInfo pageInfo);
 
 	ClubBoard findClubByNo(int bcNo);
+
 }

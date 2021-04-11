@@ -9,13 +9,12 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>클럽 메인페이지</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardMain.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <script src="${path}/js/jquery-3.5.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer></script>
     <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
     <style type="text/css">
@@ -88,7 +87,7 @@
                     <div class="normalpackage">
                         <div class="normalmenu">
                             <div class="function">
-                                <p class="prdCount">제품 : <strong>24</strong>개</p>
+                                <p class="prdCount">제품 : <strong></strong>개</p>
                                 <h2><span id="recruiting_club">모집 중인 클럽</span></h2>
                                 <div></div>
                                 <!-- <ul id="type">
@@ -178,6 +177,7 @@
     	val.classList.remove(d_none);
     }
     
+    /*
     $(document).ready(function() {
         $(".carousel").owlCarousel({
             margin: -10,
@@ -205,6 +205,7 @@
             }
         });
     });
+    */
     
     </script>
 <%@ include file="../../common/footer.jsp" %>

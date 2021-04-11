@@ -59,9 +59,24 @@
 	-->
 	
 	<select id="selectClubDetail" parameterType="_int" resultMap="clubBoardResultMap">
-		SELECT *
-		FROM BOOK_CLUB_BOARD
-		WHERE BC_NO = #{bcNo}
+		SELECT B.BC_NO,
+		       M.USER_NO,
+		       B.BC_ORIGIN_TITLE,
+		       B.BC_SUB_TITLE,
+		       B.BC_PRICE,
+		       B.BC_WRITER,
+		       B.BC_REG_DATE,
+		       B.BC_DL_DATE,
+		       B.BC_VIEW_COUNT,
+		       B.BC_CONTENT,
+		       B.BC_COM_COUNT,
+		       B.BC_ORIGIN_IMAGE,
+		       B.BC_MODIFY_IMAGE,
+		       B.BC_STATUS,
+		       B.BC_AGREEMENT
+		FROM BOOK_CLUB_BOARD B
+		JOIN MEMBER M ON (B.BC_WRITER = M.USER_NAME)
+		WHERE B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
 	</select>
 	
 	<select id="selectClubList" parameterType="map" resultMap="clubBoardResultMap">
@@ -84,8 +99,7 @@
 	-->
 	
 	<!-- 일단 PASS 처리해놨다가 나중에 관리자쪽 만들게되면 Q, DQ 해보자 -->
-	<!-- 
-	<insert id="insertClubBoard" parameterMap="map" useGeneratedKeys="true" keyProperty="bcNo" keyColumn="BC_NO">
+	<insert id="insertClubBoard" parameterType="map" useGeneratedKeys="true" keyProperty="bcNo" keyColumn="BC_NO">
 		INSERT INTO BOOK_CLUB_BOARD 
 		VALUES (
 			SEQ_BC_NO.NEXTVAL,
@@ -105,5 +119,4 @@
 			'Y'
 		)
 	</insert>	
-	 -->
 </mapper>

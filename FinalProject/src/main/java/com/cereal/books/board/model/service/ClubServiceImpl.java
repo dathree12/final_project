@@ -49,4 +49,20 @@ public class ClubServiceImpl implements ClubService {
 		// 클럽게시판번호로 게시판의 정보를 가져온다
 		return clubDao.selectClubDetail(bcNo);
 	}
+
+	@Override
+	public int saveBoard(ClubBoard clubBoard) {
+		
+		int result = 0;
+		
+		System.out.println("saveBoard result : " + result);
+		
+		if(clubBoard.getBcNo() != 0) {
+			result = clubDao.updateBoard(clubBoard);
+		} else {
+			result = clubDao.insertBoard(clubBoard);
+		}
+		
+		return result;
+	}
 }

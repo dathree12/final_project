@@ -14,12 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.common.util.PageInfo;
+import com.cereal.books.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -83,7 +85,9 @@ public class ClubController {
 	}
 
 	// CKEDITOR {BoardWrite, AdminWrite}
-	@RequestMapping(value = {"/bcBoardWrite", "/bcAdminWrite"}, method = RequestMethod.POST)
+	/*
+	 * 
+	@RequestMapping(value = "/bcBoardWrite", method = RequestMethod.POST)
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
 
@@ -129,6 +133,7 @@ public class ClubController {
 		printWriter.flush();
 
 	}
+	 */
 
 	// 북 클럽 메인페이지
 	@RequestMapping(value = "/bcBoardMain", method = RequestMethod.GET)
@@ -165,5 +170,37 @@ public class ClubController {
 		return model;
 	}
 
+	// 북 클럽 메인페이지(관리자)
+	@RequestMapping(value = "/bcAdminWrite", method = RequestMethod.POST)
+	public ModelAndView adminWrite(ModelAndView model, 
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다. 
+		ClubBoard clubBoard = null;
+		
+		int result =  0;
+		
+		// 나중에 관리자만 되게 처리할 것 -> principal.getName()
+		if(loginMember.getUsername().equals(clubBoard.getUserName())) {
+			clubBoard.setUserNo(loginMember.getUserNo());
+			
+		
+			result = service.saveBoard(clubBoard);
+			
+			if(result > 0 ) {
+				model.addObject("msg", "게시글 등록 성공");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			} else {
+				model.addObject("msg", "게시글 등록 실패");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			}
+		} else {
+			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/board/bc_board/bcBoardMain");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
 	
 }

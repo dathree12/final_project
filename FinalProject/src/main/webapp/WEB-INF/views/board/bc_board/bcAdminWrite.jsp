@@ -10,8 +10,8 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   	<meta content="${ _csrf.token }" name="csrf-token"/>
+    <meta content="${ _csrf.headerName }" name="csrf-headerName">
     <title>Document</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcAdminWrite.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -37,6 +37,7 @@
     <section class="propose-write-section-2th">
         <article class="propose-write-article-2th">
             <form action="${ path }/board/bc_board/bcAdminWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
+            	<input type="submit">
                 <div class="board_summary">
                     <div class="left">
                         <div class="avatar">
