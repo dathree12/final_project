@@ -86,6 +86,9 @@ h2 {
     color: #757575;
     vertical-align: top;
 }
+.prdList li {
+	width: 25%;
+}
 .box {
     margin: 0 10px;
     /* zoom: 1; */
@@ -242,7 +245,6 @@ strong.name {
 /* pageBar */
 .pageBar { font-size: 25px; /*border: 1px solid black;*/ text-align: center; }
 .pageBar a { width: 30px; height: 30px; margin: 10px; }
-.pageBar a:nth-child(3) { font-size: 20px; }
 
 @media screen and (max-width: 768px){
     .product-menupackage {

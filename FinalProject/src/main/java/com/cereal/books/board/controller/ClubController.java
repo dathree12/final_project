@@ -4,14 +4,22 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.cereal.books.board.model.service.ClubService;
+import com.cereal.books.board.model.vo.ClubBoard;
+import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,8 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/board/bc_board")
 public class ClubController {
 	
-//	@Autowired
-//	private ClubService service;
+	// No qualifying bean of type -> @Service...
+	@Autowired
+	private ClubService service;
 
 	// 북 클럽 상세페이지
 	@RequestMapping("/bcBoardDetail")
@@ -29,7 +38,7 @@ public class ClubController {
 
 		return "board/bc_board/bcBoardDetail";
 	}
-
+	
 	// 북 클럽 메인페이지
 	@RequestMapping("/bcBoardMain")
 	public String clubMain() {
@@ -37,11 +46,12 @@ public class ClubController {
 		return "board/bc_board/bcBoardMain";
 	}
 	
-	// 북 클럽 메인페이지
+	// 북 클럽 메인페이지(관리자)
 	@RequestMapping("/bcAdminWrite")
 	public String adminWrite() {
+		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다. 
 		
-		return "board/bc_board/bcAdminWrite";
+		 return "board/bc_board/bcAdminWrite";
 	}
 
 	// 북 클럽 제안 리스트
@@ -64,7 +74,7 @@ public class ClubController {
 
 		return "board/bc_board/bcBoardWrite";
 	}
-
+	
 	// 북 클럽 결제페이지
 	@RequestMapping("/bcBoardPayment")
 	public String clubPayment() {
@@ -72,6 +82,7 @@ public class ClubController {
 		return "board/bc_board/bcBoardPayment";
 	}
 
+	// CKEDITOR {BoardWrite, AdminWrite}
 	@RequestMapping(value = {"/bcBoardWrite", "/bcAdminWrite"}, method = RequestMethod.POST)
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
@@ -119,4 +130,40 @@ public class ClubController {
 
 	}
 
+	// 북 클럽 메인페이지
+	@RequestMapping(value = "/bcBoardMain", method = RequestMethod.GET)
+	public ModelAndView list(ModelAndView model, 
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
+			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {
+		
+		List<ClubBoard> list = null;
+		
+		int boardCount = service.getBoardCount();
+		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+		
+		System.out.println(boardCount);
+		
+		list = service.getBoardList(pageInfo);
+		
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("board/bc_board/bcBoardMain");
+		
+		System.out.println(list);
+		System.out.println(model);
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
+	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo) {
+		ClubBoard clubBoard = service.findClubByNo(bcNo);
+		
+		model.addObject("clubBoard", clubBoard);
+		model.setViewName("board/bc_board/bcBoardDetail");
+		
+		return model;
+	}
+
+	
 }

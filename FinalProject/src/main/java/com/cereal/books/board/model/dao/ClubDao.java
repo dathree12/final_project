@@ -1,6 +1,9 @@
 package com.cereal.books.board.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import com.cereal.books.board.model.vo.ClubBoard;
 
@@ -27,6 +30,14 @@ import com.cereal.books.board.model.vo.ClubBoard;
 @Mapper
 public interface ClubDao {
 
+	// 클럽 게시판 개수
+	int selectClubCount();
+	
+	// 게시판 번호로 클럽 상세페이지 접근
 	ClubBoard selectClubDetail(int bcNo);
+	
+	List<ClubBoard> selectClubList(RowBounds rowBounds);
+
+	ClubBoard findClubByNo(int bcNo);
 
 }

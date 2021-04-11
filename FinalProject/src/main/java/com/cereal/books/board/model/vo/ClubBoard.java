@@ -29,15 +29,15 @@ public class ClubBoard {
 	
 	private Date bcDeadLineDate; // 북클럽 마감일정
 	
-	private int viewCount; // 북클럽 조회수
+	private int bcViewCount; // 북클럽 조회수
 	
 	private String bcContent; // 북클럽 상세내용
 	
 	private int bcCommentCount; // 북클럽 댓글수
 	
-	private String originImage; // 북클럽 대표이미지
+	private String bcOriginImage; // 북클럽 대표이미지
 	
-	private String modifyImage; // 북클럽 대표이미지 수정
+	private String bcModifyImage; // 북클럽 대표이미지 수정
 	
 	private String bcStatus; // 북클럽 상태, (Nonepass, Pass, Deque, Queue)
 	

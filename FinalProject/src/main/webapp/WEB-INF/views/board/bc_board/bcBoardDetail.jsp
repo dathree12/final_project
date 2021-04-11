@@ -36,8 +36,10 @@
                 <!-- info : title -->
                 <div class="infoArea__box">
                     <div class="infoArea">
+                    	<!-- 임시 앵커태그 -->
+                    	<a>${ clubBoard.bcNo }</a>
                         <h1 id="_deadline"><span>99</span>일 남음</h1>
-                        <h2 style="margin-top: 10px;">샘플상품24</h2>
+                        <h2 style="margin-top: 10px;">${ clubBoard.bcOriginTitle }</h2>
                         <div class="sub_title" style="margin-top: 5px;">
                             <span>무심한 듯 세련된, 강인함과 여림, 부드러움과 무거움. 균형 잡힌 스타일의 데일리룩 아이템을 제안합니다.</span>
                         </div>
@@ -46,8 +48,8 @@
                     <div class="box">
                         <!-- info : subtitle, schedule, price -->
                         <ul class="box_1th">
-                            <p style="margin-top: 50px;">4주 읽기습관 28기 (자유도서, 고정리더)</p>
-                            <p style="font-size: 30px; margin: 0;"><b>69,000원</b></p>
+                            <p style="margin-top: 50px;">${ clubBoard.bcSubTitle }</p>
+                            <p style="font-size: 30px; margin: 0;"><b>${ clubBoard.bcPrice }원</b></p>
                         </ul>
                         <!-- -------------------------------------- -->
                         <hr>
