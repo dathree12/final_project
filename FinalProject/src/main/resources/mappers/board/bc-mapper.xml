@@ -12,7 +12,7 @@
 	<!-- 반복되는 쿼리문 -->
 	<sql id="clubList">
 		SELECT B.BC_NO,
-		   B.USER_NO,
+		   B.WRITER_NO,
 	       M.USER_NO,
 	       B.BC_ORIGIN_TITLE,
 	       B.BC_SUB_TITLE,
@@ -27,7 +27,7 @@
 	       B.BC_STATUS,
 	       B.BC_AGREEMENT
 		FROM BOOK_CLUB_BOARD B
-		JOIN MEMBER M ON (B.USER_NO = M.USER_NO)
+		JOIN MEMBER M ON (B.WRITER_NO = M.USER_NO)
 		WHERE BC_STATUS='P'
 	</sql>
 	
@@ -40,7 +40,7 @@
 	<!-- 1. club board -->
 	<resultMap type="ClubBoard" id="clubBoardResultMap">
 		<id property="bcNo" column="BC_NO"/>
-		<result property="userNo" column="USER_NO"/>
+		<result property="writerNo" column="WRITER_NO"/>
 		<result property="userName" column="USER_NAME"/>
 		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE"/>
 		<result property="bcSubTitle" column="BC_SUB_TITLE"/>
@@ -59,6 +59,7 @@
 	<!-- 2. club board detail -->
 	<select id="selectClubDetail" parameterType="_int" resultMap="clubBoardResultMap">
 		SELECT B.BC_NO,
+			   B.WRITER_NO,
 		       M.USER_NO,
 		       B.BC_ORIGIN_TITLE,
 		       B.BC_SUB_TITLE,
@@ -73,7 +74,7 @@
 		       B.BC_STATUS,
 		       B.BC_AGREEMENT
 		FROM BOOK_CLUB_BOARD B
-		JOIN MEMBER M ON (B.USER_NO = M.USER_NO)
+		JOIN MEMBER M ON (B.WRITER_NO = M.USER_NO)
 		WHERE B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
 	</select>
 	
