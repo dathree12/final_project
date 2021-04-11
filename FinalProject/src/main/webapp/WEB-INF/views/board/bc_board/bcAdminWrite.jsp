@@ -10,8 +10,8 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   	<meta content="${ _csrf.token }" name="csrf-token"/>
+    <meta content="${ _csrf.headerName }" name="csrf-headerName">
     <title>Document</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcAdminWrite.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -37,40 +37,43 @@
     <section class="propose-write-section-2th">
         <article class="propose-write-article-2th">
             <form action="${ path }/board/bc_board/bcAdminWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
+            	<input type="submit">
                 <div class="board_summary">
                     <div class="left">
                         <div class="avatar">
                             <img alt="프로필 이미지" src="https://cdn.imweb.me/thumbnail/20161214/5850d6a2c09a8.jpg" class="avatar-image">
                         </div>
                         <div class="author">
-                            <div class="write">김동민</div>
+                            <div class="write">${ loginMember.userName }</div>
                         </div>
                     </div>
                 </div>
-                <div class="table-cell">
-                    <input id="post_subject" class="post_subject" name="origin_title" value="" placeholder="제목" type="text" style="width: 50%;">
+                <div class="table-cell"">
+                    <span name="userName">${ loginMember.name }</span>
                 </div>
                 <div class="table-cell">
-                    <input id="post_subject" class="post_subject" name="sub_title" value="" placeholder="소제목" type="text" style="width: 50%;">
+                    <input id="post_subject" class="post_subject" name="bcOriginTitle" value="${ clubBoard.bcOriginTitle }" placeholder="제목" type="text" style="width: 50%;">
                 </div>
                 <div class="table-cell">
-                    <input id="post_subject" class="post_subject" name="club_price" value="" placeholder="가격" type="text" style="width: 120px;">
+                    <input id="post_subject" class="post_subject" name="bcSubTitle" value="${ clubBoard.bcSubTitle }" placeholder="소제목" type="text" style="width: 50%;">
                 </div>
                 <div class="table-cell">
-                    <input id="post_subject" class="post_subject" name="club_price" value="" placeholder="일정" type="text" style="width: 200px;">
+                    <input id="post_subject" class="post_subject" name="bcPrice" value="${ clubBoard.bcPrice }" placeholder="가격" type="text" style="width: 120px;">
                 </div>
-                <textarea name="ckeditor" id="ckeditor" rows="10" cols="80"></textarea>
+                <div class="table-cell">
+                    <input id="post_subject" class="post_subject" name="bcRegDate" value="${ clubBoard.bcRegDate }" placeholder="일정" type="date" style="width: 200px;">
+                </div>
+                <div class="table-cell">
+                    <input id="post_subject" class="post_subject" name="bcDeadLineDate" value="${ clubBoard.bcDeadLineDate }" placeholder="일정" type="date" style="width: 200px;">
+                </div>
+                <textarea name="bcContent" id="bcContent" rows="10" cols="80"></textarea>
    	                <script>
-					CKEDITOR.replace( "ckeditor", {//해당 이름으로 된 textarea에 에디터를 적용
-						height: 1000,
-						getUploadUrl: type='image',
-						filebrowserUploadUrl: '<c:url value="/board/bc_board/bcAdminWrite" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
-							
-
-					});
-					CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/bc_board/bcAdminWrite'; };
-
-
+						CKEDITOR.replace( "bcContent", {//해당 이름으로 된 textarea에 에디터를 적용
+							height: 1000,
+							getUploadUrl: type='image',
+							filebrowserUploadUrl: '<c:url value="/board/bc_board/bcAdminWrite" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
+						});
+						CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/bc_board/bcAdminWrite'; };
 					</script>
 	                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
             </form>

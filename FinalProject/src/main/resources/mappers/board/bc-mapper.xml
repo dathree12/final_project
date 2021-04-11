@@ -2,15 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
+<!-- 
+에러내역 
+ : parent key not found -> MAPPER, 테이블의 제약조건
+
+ -->
+
 <mapper namespace="com.cereal.books.board.model.dao.ClubDao">
 	<!-- 반복되는 쿼리문 -->
 	<sql id="clubList">
 		SELECT B.BC_NO,
+		   B.WRITER_NO,
 	       M.USER_NO,
 	       B.BC_ORIGIN_TITLE,
 	       B.BC_SUB_TITLE,
 	       B.BC_PRICE,
-	       B.BC_WRITER,
 	       B.BC_REG_DATE,
 	       B.BC_DL_DATE,
 	       B.BC_VIEW_COUNT,
@@ -21,8 +27,8 @@
 	       B.BC_STATUS,
 	       B.BC_AGREEMENT
 		FROM BOOK_CLUB_BOARD B
-		JOIN MEMBER M ON (B.BC_WRITER = M.USER_NAME)
-		WHERE BC_STATUS='P';
+		JOIN MEMBER M ON (B.WRITER_NO = M.USER_NO)
+		WHERE BC_STATUS='P'
 	</sql>
 	
 	<!-- 
@@ -34,11 +40,11 @@
 	<!-- 1. club board -->
 	<resultMap type="ClubBoard" id="clubBoardResultMap">
 		<id property="bcNo" column="BC_NO"/>
+		<result property="writerNo" column="WRITER_NO"/>
 		<result property="userName" column="USER_NAME"/>
 		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE"/>
 		<result property="bcSubTitle" column="BC_SUB_TITLE"/>
 		<result property="bcPrice" column="BC_PRICE"/>
-		<result property="bcWriter" column="BC_WRITER"/>
 		<result property="bcRegDate" column="BC_REG_DATE"/>
 		<result property="bcDeadLineDate" column="BC_DL_DATE"/>
 		<result property="bcViewCount" column="BC_VIEW_COUNT"/>
@@ -51,14 +57,38 @@
 	</resultMap>
 	
 	<!-- 2. club board detail -->
-	<resultMap type="ClubBoard" id="clubDetailResultMap">
-		<id property="bcNo" column="BC_NO"/>
-	</resultMap>
-	<!-- 3. club board propose -->
-	<!-- 4. club board payment -->
-	<!-- 5. comment -->
+	<select id="selectClubDetail" parameterType="_int" resultMap="clubBoardResultMap">
+		SELECT B.BC_NO,
+			   B.WRITER_NO,
+		       M.USER_NO,
+		       B.BC_ORIGIN_TITLE,
+		       B.BC_SUB_TITLE,
+		       B.BC_PRICE,
+		       B.BC_REG_DATE,
+		       B.BC_DL_DATE,
+		       B.BC_VIEW_COUNT,
+		       B.BC_CONTENT,
+		       B.BC_COM_COUNT,
+		       B.BC_ORIGIN_IMAGE,
+		       B.BC_MODIFY_IMAGE,
+		       B.BC_STATUS,
+		       B.BC_AGREEMENT
+		FROM BOOK_CLUB_BOARD B
+		JOIN MEMBER M ON (B.WRITER_NO = M.USER_NO)
+		WHERE B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
+	</select>
+	
+	<select id="selectClubList" parameterType="map" resultMap="clubBoardResultMap">
+		<include refid="clubList"></include>
+		ORDER BY B.BC_NO DESC
+	</select>
 	
 	<!-- select count -->
+	<select id="selectClubCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_CLUB_BOARD
+		WHERE BC_STATUS = 'Y'
+	</select>
 	
 	<!-- insert board -->
 	<!-- 
@@ -66,11 +96,9 @@
 		keyProperty : bcNo 
 		keyColumn : BC_NO
 	-->
-	<select id="selectClubDetail"></select>
 	
 	<!-- 일단 PASS 처리해놨다가 나중에 관리자쪽 만들게되면 Q, DQ 해보자 -->
-	<!-- 
-	<insert id="insertClubBoard" parameterMap="map" useGeneratedKeys="true" keyProperty="bcNo" keyColumn="BC_NO">
+	<insert id="insertClubBoard" parameterType="map" useGeneratedKeys="true" keyProperty="bcNo" keyColumn="BC_NO">
 		INSERT INTO BOOK_CLUB_BOARD 
 		VALUES (
 			SEQ_BC_NO.NEXTVAL,
@@ -78,7 +106,6 @@
 			#{ bcOriginTitle }, 
 			#{ bcSubTitle }, 
 			#{ bcPrice }, 
-			#{ bcWriter }, 
 			DEFAULT, 
 			DEFAULT, 
 			DEFAULT, 
@@ -90,5 +117,4 @@
 			'Y'
 		)
 	</insert>	
-	 -->
 </mapper>
