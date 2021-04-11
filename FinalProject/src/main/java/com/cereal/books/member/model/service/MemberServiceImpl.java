@@ -2,7 +2,9 @@ package com.cereal.books.member.model.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class MemberServiceImpl implements MemberService {
+	
 	@Autowired
 	private MemberDao memberDao;
 	
@@ -33,14 +36,19 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public int saveMember(Member member) {
 		int result = 0;
-
 		if(member.getUserNo() != 0) {
 			result = memberDao.updateMember(member);
 		} else {
-		member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
-		result = memberDao.insertMember(member);
+			member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
+			result = memberDao.insertMember(member);
+		
+			try {
+			sendEmail(member, "enroll", "회원가입");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		return result;
+	 return result;
 	}
 
 	private Member deleteMember(String userId) {
@@ -118,7 +126,7 @@ public class MemberServiceImpl implements MemberService {
 		return member != null;
 	}
 	
-	public void sendEmail(Member member, String mail, String pwd ) throws Exception {
+	public void sendEmail(Member member, String mail, String text ) throws Exception {
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com"; //네이버 이용시 smtp.naver.com
@@ -139,7 +147,7 @@ public class MemberServiceImpl implements MemberService {
 			msg += member.getName() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
 			msg +=  "<br>";
 			msg += "<p>임시 비밀번호 : ";
-			msg +=  pwd + "</p>";
+			msg +=  text + "</p>";
 			msg +=  "<br>";
 			msg +=  "<br>";
 			msg +=  "<br>";
@@ -150,6 +158,38 @@ public class MemberServiceImpl implements MemberService {
 			msg +=  "<h6>주소 : 경기도 하남시</h6>";
 			msg +=  "<h6>개인정보관리책임자 : 김동민(bookschoko@gmail.com)</h6><br><br><br></div>";
 			msg +=  "</div>";
+			
+		}else if(mail.equals("enroll")) {
+			Date time = new Date();
+			SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd");
+			String enrolltime = format.format(time);
+			subject = member.getName() + "님 책스초코 회원가입을 축하합니다.";
+			msg += "<div align='center' style='border:1px solid #f1f1f1;  font-family:verdana'>";
+			msg += "<div style='margin: auto;  width: 45%; background-color:  #f1f1f1; font-family:verdana'>";
+			msg += "<br><h3 style='color: #f26722; margin: 0px;'>";
+			msg +=  member.getName() + "님 회원가입을 축하합니다.</h3>";
+			msg +=  "<br>";
+			msg += "<p>아이디 : ";
+			msg +=  member.getUserId() + "</p>";
+			msg += "<p>닉네임 : ";
+			msg +=  member.getUserNname() + "</p>";
+			msg += "<p>핸드폰 번호 : ";
+			msg +=  member.getUserPhone() + "</p>";
+			msg += "<p>주소 : ";
+			msg +=  member.getUserAddress() + "</p>";
+			msg += "<p>가입 날짜 : ";
+			msg +=  enrolltime + "</p>";
+			msg +=  "<br>";
+			msg +=  "<br>";
+			msg +=  "<br>";
+			msg +=  "<h6>상호 : 책스초코</h6>";
+			msg +=  "<h6>대표 : 김동민</h6>";
+			msg +=  "<h6>전화 : 02-777-7777</h6>";
+			msg +=  "<h6>사업자등록번호 : 111-77-77777</h6>";
+			msg +=  "<h6>주소 : 경기도 하남시</h6>";
+			msg +=  "<h6>개인정보관리책임자 : 김동민(bookschoko@gmail.com)</h6><br><br><br></div>";
+			msg +=  "</div>";
+		}else {
 			
 		}
 

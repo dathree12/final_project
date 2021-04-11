@@ -24,7 +24,7 @@ public interface MemberService {
 
 	String findPwd(String userId, String name, String userEmail) throws Exception;
 	
-	void sendEmail(Member Member, String mail,  String pwd) throws Exception;
+	void sendEmail(Member Member, String mail,  String text) throws Exception;
 
 	
 }
