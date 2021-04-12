@@ -24,9 +24,18 @@ public class AdminPageController {
 	private MemberService mService;
 	
 	@RequestMapping("/member/admin/admin_page")
-public String mypage() {
+	public ModelAndView mypage(ModelAndView model) {
+		String status = null;
+		List<Member> list = null;
+		int boardCount = mService.getMemberCount(status);
+		PageInfo pageInfo = new PageInfo(1, 10, boardCount, 10);
+		list = mService.getMemberList(pageInfo, status);
 		
-		return "member/admin/admin_page";
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("member/admin/admin_page");
+		
+		return model;
 	}
 	@RequestMapping("/member/admin")
 	@ResponseBody
@@ -40,13 +49,13 @@ public String mypage() {
 			status = null;
 		}
 		
-		System.out.println("status : " + status);
+//		System.out.println("status : " + status);
 		List<Member> list = null;
 		int boardCount = mService.getMemberCount(status);
 		PageInfo pageInfo = new PageInfo(1, 10, boardCount, 10);
 		list = mService.getMemberList(pageInfo, status);
 		
-		System.out.println("list : " + list);
+//		System.out.println("list : " + list);
 //		System.out.println(boardCount);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
@@ -59,22 +68,21 @@ public String mypage() {
 		return result;
 	}
 	
-	@RequestMapping("/member/admin/updatemst")
-	public ModelAndView list(
-			ModelAndView model
-//			@RequestParam(value = "mStatus", required = false) String status
-//			@RequestParam(value = "mStatus", required = false) List userId
+	@RequestMapping(value = "/member/admin/updatemst", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public Object list(
+			@RequestParam(value = "newstatus", required = false) String status,
+			@RequestParam(value = "idlist[]", required = false) List<String> userId
 			) {
-		String status = "N";
 		System.out.println("status : " + status);
-		List<String> userId = new ArrayList<>();
-		userId.add("su94h");
-		userId.add("user1");
+		
 		System.out.println("userId" + userId);
 		
 		mService.getMemberStatus(status, userId);
-		
-//		model.addObject("list", list);
-		return model;
+
+        Map<String, Object> retVal = new HashMap<String, Object>();
+        
+        retVal.put("code", "OK");
+		return retVal;
 	}
 }

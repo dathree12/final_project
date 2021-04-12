@@ -501,7 +501,24 @@
                                 <th class="th">Status</th>
                             </tr>
 				            <tbody id="dynamicTbody">
-	
+								<c:if test="${list == null}">
+								<tr>
+									<td colspan="6">
+										조회된 회원이 없습니다.
+									</td>
+								</tr>	
+							</c:if>
+							<c:if test="${list != null}">
+								<c:forEach var="member" items="${list}">
+									<tr>
+										<td><input name="upmst" type="checkbox"></td>
+										<td><c:out value="${member.userId}"/></td>
+										<td><c:out value="${member.name}"/></td>
+										<td><c:out value="${member.userNname}"/></td>
+										<td><c:out value="${member.status}"/></td>
+									</tr>
+								</c:forEach>
+							</c:if>
 							</tbody>
                         </table>
                         </div>
@@ -523,8 +540,8 @@
                             <button onclick="location.href='${path}/member/admin/admin_page?page=${pageInfo.nextPage}&listLimit=${pageInfo.listLimit}'">&gt;</button>
                         </div>
                         <div class="bnt">
-                        <button onclick="updatememberst()" value="N">정지</button>
-                        <button onclick="updatememberst()" value="Y">복구</button>
+                        <button type="button" id="mbtn"value="N">정지</button>
+                        <button type="button" id="membtn"value="Y">복구</button>
                         </div>
                     </div>
                     </form>
@@ -534,14 +551,22 @@
     </section>
    
 <script type="text/javascript">
+$(function() {
+    var csrfToken = $("meta[name='csrf-token']").attr('content');
+    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(csrfHeader, csrfToken);
+    });
 $("select[name=mStatus]").change(function(){
 	var mStatus = $(this).val();
 	var mlist = {};
+	$("#dynamicTbody").empty();
 	  
 	  $.ajax({
 			type: "get",
 			url: "${path}/member/admin",
 			dataType: "json",
+			async: false,
 			data: {
 				// id(파라미터 키값):id
 				mStatus // 파라미터의 키값과 변수명이 동일할 경우
@@ -558,7 +583,7 @@ $("select[name=mStatus]").change(function(){
 				
 				for(key in tc){
 				html += '<tr>';
-				html += '<td><input name="upmst" type="checkbox"></td>';
+				html += '<td><input name="upmst" id="mcb" type="checkbox" value="'+tc[key].id+'"></td>';
 				html += '<td>'+tc[key].id+'</td>';
 				html += '<td>'+tc[key].name+'</td>';
 				html += '<td>'+tc[key].nname+'</td>';
@@ -568,34 +593,47 @@ $("select[name=mStatus]").change(function(){
 							
 				$("#dynamicTbody").empty();
 				$("#dynamicTbody").append(html);
+				
 			},
 			error: function(e) {
 				console.log(e);
 			}
 		});
 });
-$(function updatememberst(){
-	location.href = "${path}/member/admin/updatemst";
-	/*
-	var mStatus = $(this).val();
-	console.log(mStatus);
-	var mlist = {};
-	  
-	  $.ajax({
-			type: "get",
+	$("#mbtn, #membtn").on('click', function (){
+		
+		var newstatus =  "";
+		var idlist = new Array();
+		
+		$.each($('input[name=upmst]:checked'), function() {
+			idlist.push($(this).val());
+         });
+		
+		console.log(idlist);
+		if($(event.target).attr('id')=='mbtn'){
+			newstatus = "N";
+		} else {
+		    newstatus = "Y";
+		}
+		
+		$.ajax({
+			type: "post",
 			url: "${path}/member/admin/updatemst",
 			dataType: "json",
+			async: false,
 			data: {
-				// id(파라미터 키값):id
-				mStatus // 파라미터의 키값과 변수명이 동일할 경우
+				newstatus,
+				idlist
 			},
 			success: function(data) {
+				alert("변경성공");
+				$("select[name=mStatus]").val('ALL').change();
 			},
 			error: function(e) {
 				console.log(e);
 			}
 		});
-	  */
+		 });
 });
 </script>
 <%@ include file="../../../views/common/footer.jsp" %>
