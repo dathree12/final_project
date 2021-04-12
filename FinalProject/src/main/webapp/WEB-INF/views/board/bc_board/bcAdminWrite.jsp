@@ -44,10 +44,12 @@
                             <img alt="프로필 이미지" src="https://cdn.imweb.me/thumbnail/20161214/5850d6a2c09a8.jpg" class="avatar-image">
                         </div>
                         <div class="author">
+		              		<security:authentication property="principal" var="user"/> 
+		                    <input style="border: none; margin-top: 10px" id="post_subject" class="post_subject" name="userName" value="${ user.name }" type="text" readonly>
+		                    <input style="visibility: hidden;" type="text" name="userId" value="${ user.userId }" readonly>
                         </div>
                     </div>
                 </div>
-                    <input type="text" name="userId" value="${ loginMember.userId }" readonly>
                 <div class="table-cell">
                     <input id="post_subject" class="post_subject" name="bcOriginTitle" value="${ clubBoard.bcOriginTitle }" placeholder="제목" type="text" style="width: 50%;">
                 </div>

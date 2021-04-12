@@ -26,14 +26,16 @@
 		B.BC_AGREEMENT
 		FROM
 		BOOK_CLUB_BOARD B
-		JOIN MEMBER M ON (B.BC_WRITER_NO = M.USER_NO)
+		JOIN MEMBER M ON (B.USER_ID = M.USER_ID)
 		WHERE B.BC_STATUS='Y'
 	</sql>
 
 	<resultMap type="ClubBoard" id="clubResultMap">
 		<id property="bcNo" column="BC_NO" />
 		<result property="userId" column="USER_ID"/>
+		<!-- 
 		<result property="bcWriterNo" column="BC_WRITER_NO"/>
+		-->
 		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE" />
 		<result property="bcSubTitle" column="BC_SUB_TITLE" />
 		<result property="bcPrice" column="BC_PRICE" />
@@ -51,7 +53,9 @@
 	<resultMap type="ClubBoard" id="clubDetailResultMap">
 		<id property="bcNo" column="BC_NO" />
 		<result property="userId" column="USER_ID"/>
+		<!-- 
 		<result property="bcWriterNo" column="BC_WRITER_NO"/>
+		-->
 		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE" />
 		<result property="bcSubTitle" column="BC_SUB_TITLE" />
 		<result property="bcPrice" column="BC_PRICE" />
@@ -89,7 +93,7 @@
 		B.BC_STATUS,
 		B.BC_AGREEMENT
 		FROM BOOK_CLUB_BOARD B
-		JOIN MEMBER M ON (B.BC_WRITER_NO = M.USER_NO)
+		JOIN MEMBER M ON (B.USER_ID = M.USER_ID)
 		WHERE
 		B.BC_STATUS='Y' AND B.BC_NO=#{ bcNo }
 	</select>
@@ -116,7 +120,7 @@
 		BOOK_CLUB_BOARD 
 		VALUES(
 		SEQ_BC_NO.NEXTVAL,
-		#{bcWriterNo},
+		<!-- #{bcWriterNo}, -->
 		#{userId},
 		#{bcOriginTitle}, 
 		#{bcSubTitle}, 

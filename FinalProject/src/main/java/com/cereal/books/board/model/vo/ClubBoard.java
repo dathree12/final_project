@@ -11,7 +11,7 @@ public class ClubBoard {
 
 	private int bcNo; // 북클럽 번호
 	
-	private int bcWriterNo; // 북클럽 작성자
+//	private int bcWriterNo; // 북클럽 작성자
 	
 	private String userId;
 	
