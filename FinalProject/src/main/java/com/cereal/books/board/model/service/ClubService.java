@@ -11,8 +11,11 @@ public interface ClubService {
 
 	int saveBoard(ClubBoard clubBoard);
 	
+	int saveRemainDate();
+
 	List<ClubBoard> getBoardList(PageInfo pageInfo);
 
 	ClubBoard findClubByNo(int bcNo);
+
 
 }

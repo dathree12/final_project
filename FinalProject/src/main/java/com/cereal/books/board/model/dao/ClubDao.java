@@ -31,6 +31,8 @@ import com.cereal.books.board.model.vo.ClubBoard;
 public interface ClubDao {
 
 	int selectCount();
+
+	int saveRemainDate();
 	
 //	int updateClub(ClubBoard clubBoard);
 	

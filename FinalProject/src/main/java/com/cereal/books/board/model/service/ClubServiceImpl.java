@@ -28,6 +28,12 @@ public class ClubServiceImpl implements ClubService {
 	public int getBoardCount() {
 		return clubDao.selectCount();
 	}
+	
+	@Override
+	public int saveRemainDate() {
+		return clubDao.saveRemainDate();
+	}
+
 
 	// 게시판 페이징 처리
 	@Override
@@ -66,4 +72,5 @@ public class ClubServiceImpl implements ClubService {
 		
 		return result;
 	}
+	
 }

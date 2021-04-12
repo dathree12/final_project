@@ -141,6 +141,7 @@ public class ClubController {
 		List<ClubBoard> list = null;
 		
 		int boardCount = service.getBoardCount();
+		int result = service.saveRemainDate();
 		
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 		
@@ -171,44 +172,29 @@ public class ClubController {
 	// 북 클럽 메인페이지(관리자)
 	@RequestMapping(value = "/bcAdminWrite", method = RequestMethod.POST)
 	public ModelAndView adminWrite(ModelAndView model, 
-//			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			Principal user,
 			ClubBoard clubBoard) {
 		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다. 
 		
-		int result =  0;
-		
-		result = service.saveBoard(clubBoard);
-		System.out.println(user.getName());
-		
-		if (result > 0) {
-			model.addObject("msg", "게시글 등록 성공");
+		if(user.getName().equals(clubBoard.getUserId())) {
+			clubBoard.setUserId(user.getName());
+
+			int result = 0;
+			
+			result = service.saveBoard(clubBoard);
+			
+			if(result > 0 ) {
+				model.addObject("msg", "게시글 등록 성공");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			} else {
+				model.addObject("msg", "게시글 등록 실패");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			}
+		} 
+		else {
+			model.addObject("msg", "잘못된 접근입니다.");
 			model.addObject("location", "/board/bc_board/bcBoardMain");
-		} else {
-			System.out.println("실패");
 		}
-		
-		// 나중에 관리자만 되게 처리할 것 -> principal.getName() 아래코드 에러뜨는데 Member 쪽에 UserNo Unique 제약조건 확인할 것 
-//		if(loginMember.getUsername().equals(clubBoard.getUserName())) {
-//			clubBoard.setUserNo(loginMember.getUserNo());
-//			System.out.println("loginMember.getUsername() : " + loginMember.getUsername());
-////			System.out.println("clubBoard.getUserName() : " + clubBoard.getUserName());
-//		
-//			result = service.saveBoard(clubBoard);
-//			System.out.println("adminWrite : " + result);
-//			
-//			if(result > 0 ) {
-//				model.addObject("msg", "게시글 등록 성공");
-//				model.addObject("location", "/board/bc_board/bcBoardMain");
-//			} else {
-//				model.addObject("msg", "게시글 등록 실패");
-//				model.addObject("location", "/board/bc_board/bcBoardMain");
-//			}
-//		} 
-//		else {
-//			model.addObject("msg", "잘못된 접근입니다.");
-//			model.addObject("location", "/board/bc_board/bcBoardMain");
-//		}
 		
 		model.setViewName("common/msg");
 		

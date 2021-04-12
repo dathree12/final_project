@@ -131,6 +131,7 @@
 		                                                    <strong class="title">
 		                                                        <p style="font-size: 11px; color: #000;">
 		                                                        	<c:out value="${ clubBoard.bcRegDate }"></c:out>
+		                                                        	<c:out value="${ clubBoard.bcRemainDate }"></c:out>
 		                                                            <!--  
 		                                                            2021-03-08 / 11:30 AM / 매주2회
 		                                                            -->
