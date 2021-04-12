@@ -27,8 +27,8 @@
 	<input id="bookName" value="" type="text">
     <button id="search">검색</button>
     <div id="bookdata">
-    	<p id="title"></p>
-    	<p id="bookthumb"></p>
+    	<p id="title" name="title"></p>
+    	<p id="bookthumb"name=""></p>
     </div>
     <script>
         $(document).ready(function () {
@@ -43,13 +43,14 @@
                         console.log(msg.documents[0].title);
                         console.log(msg.documents[0].thumbnail);
                         //책ISBN불러오기
-                        $("#title").append("<strong>" + msg.documents[0].title + "</strong>");
+                        $("#title").append( msg.documents[0].title);
                         $("#bookthumb").append("<img src='" + msg.documents[0].thumbnail + "'/>");
                     });
             });
         });
     </script>
-    <script>
+    <!--  <script>
+     
 		    $(document).ready(function () {
 		        $("#bookdata").click(function () {
 		            $.ajax({
@@ -57,7 +58,6 @@
 		                url:'${path}/board/br_board/brBoardWrite', //데이터를  넘겨줄 링크 설정
 		                type:"GET", // get or post 방식
 		                data: $("#title").val(), //넘겨줄 데이터
-		                
 		                //위에 과정이 성공했을 것을 생각하여 작성 
 		                 //ajax를 통해서 연결 성공하면 출력
 		                 //데이터가 전달되고 나서 다시 돌아왔을 때의 검사하는 것
@@ -77,10 +77,18 @@
 		       		 });
 		   		 });
 		            
-    </script>
-    
+    </script>-->
+   
     <script>
-    opener.window.document.getElementById("brboard-write-bookselect").innerText="aaaa";
+    $(document).ready(function () {
+        $("#bookdata").click(function () {
+        	var booktitle = document.getElementById("title").html;
+        	console.log(booktitle)
+        	opener.window.document.getElementById("selectedBook").innerText = booktitle;
+        });
+    });  
+        
+    		
     </script>
 </body>
 </html>

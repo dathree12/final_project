@@ -95,8 +95,6 @@
 							        });
 							    </script>-->
 	                    </div>
-						  	
-	                    	<p id="selectedbook"></p>
 	                </div>
 	                <textarea name="ckeditor" id="ckeditor"></textarea>
 	                <script>
@@ -113,7 +111,7 @@
 	            </form>
 	        </section>
         <section class="brboard-write-bottom">
-            <a href="#" id="write-bottom-cancelbtn">취소</a>
+            <a href="${ path }/board/br_board/brBoardMain" id="write-bottom-cancelbtn">취소</a>
             <a href="#" id="write-bottom-enrollbtn">등록</a>
         </section>
     </div>    
