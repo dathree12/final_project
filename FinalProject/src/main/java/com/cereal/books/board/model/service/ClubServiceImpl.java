@@ -45,10 +45,6 @@ public class ClubServiceImpl implements ClubService {
 
 	@Override
 	public ClubBoard findClubByNo(int bcNo) {
-		// 클럽게시판번호로 게시판의 정보를 가져온다
-		
-		System.out.println("ClubServiceImpl bcNo : " + bcNo);
-		
 		return clubDao.selectClubDetail(bcNo);
 	}
 

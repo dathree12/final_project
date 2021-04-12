@@ -33,9 +33,6 @@
 	<resultMap type="ClubBoard" id="clubResultMap">
 		<id property="bcNo" column="BC_NO" />
 		<result property="userId" column="USER_ID"/>
-		<!-- 
-		<result property="bcWriterNo" column="BC_WRITER_NO"/>
-		-->
 		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE" />
 		<result property="bcSubTitle" column="BC_SUB_TITLE" />
 		<result property="bcPrice" column="BC_PRICE" />
@@ -53,9 +50,6 @@
 	<resultMap type="ClubBoard" id="clubDetailResultMap">
 		<id property="bcNo" column="BC_NO" />
 		<result property="userId" column="USER_ID"/>
-		<!-- 
-		<result property="bcWriterNo" column="BC_WRITER_NO"/>
-		-->
 		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE" />
 		<result property="bcSubTitle" column="BC_SUB_TITLE" />
 		<result property="bcPrice" column="BC_PRICE" />
@@ -75,10 +69,10 @@
 
 	<!-- 2. club board detail -->
 	<select id="selectClubDetail" parameterType="_int"
-		resultMap="clubResultMap">
+		resultMap="clubDetailResultMap">
 		SELECT 
 		B.BC_NO,
-		M.USER_NO,
+		M.USER_ID,
 		B.BC_ORIGIN_TITLE,
 		B.BC_SUB_TITLE,
 		B.BC_PRICE,
@@ -95,18 +89,36 @@
 		FROM BOOK_CLUB_BOARD B
 		JOIN MEMBER M ON (B.USER_ID = M.USER_ID)
 		WHERE
-		B.BC_STATUS='Y' AND B.BC_NO=#{ bcNo }
+		B.BC_STATUS='P' AND B.BC_NO=#{ bcNo }
 	</select>
 
 	<select id="selectClubList" parameterType="map"	resultMap="clubResultMap">
-		<include refid="clubListSql"></include>
+		SELECT 
+		B.BC_NO,
+        M.USER_ID,
+        B.BC_ORIGIN_TITLE,
+        B.BC_SUB_TITLE,
+        B.BC_PRICE,
+        B.BC_REG_DATE,
+        B.BC_START_DATE,
+        B.BC_DL_DATE,
+        B.BC_VIEW_COUNT,
+        B.BC_CONTENT,
+        B.BC_COM_COUNT,
+        B.BC_ORIGIN_IMAGE,
+        B.BC_MODIFY_IMAGE,
+        B.BC_STATUS,
+        B.BC_AGREEMENT
+		FROM BOOK_CLUB_BOARD B
+		JOIN MEMBER M ON (B.USER_ID = M.USER_ID)
+		WHERE BC_AGREEMENT='Y'
 		ORDER BY B.BC_NO DESC
 	</select>
 
 	<select id="selectCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOOK_CLUB_BOARD
-		WHERE BC_STATUS = 'Y'
+		WHERE BC_STATUS = 'P'
 	</select>
 
 	<!-- insert board -->
@@ -120,7 +132,6 @@
 		BOOK_CLUB_BOARD 
 		VALUES(
 		SEQ_BC_NO.NEXTVAL,
-		<!-- #{bcWriterNo}, -->
 		#{userId},
 		#{bcOriginTitle}, 
 		#{bcSubTitle}, 

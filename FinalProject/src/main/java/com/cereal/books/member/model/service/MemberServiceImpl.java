@@ -10,11 +10,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.mail.HtmlEmail;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cereal.books.common.util.PageInfo;
 import com.cereal.books.member.model.dao.MemberDao;
 import com.cereal.books.member.model.vo.Member;
 
@@ -247,6 +249,29 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 	
+	@Override
+	public int updatePwd(String userId, String userPwd) {
+		return memberDao.updatePwd(userId, passwordEncoder.encode(userPwd));
+	}
+
+	@Override
+	public int getMemberCount(String status) {
+		return memberDao.selectCount(status);
+	}
+
+	@Override
+	public List<Member> getMemberList(PageInfo pageInfo, String status) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return memberDao.selectMemberList(rowBounds, status);
+	}
+
+	@Override
+	public int getMemberStatus(String status, List<String> userId) {
+		System.out.println("userId = " + userId);
+		return memberDao.updateMemberStatus(status, userId);
+	}
 	
 }
 

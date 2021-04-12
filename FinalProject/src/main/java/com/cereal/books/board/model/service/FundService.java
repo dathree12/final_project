@@ -10,5 +10,8 @@ public interface FundService {
 	int getBoardCount();
 
 	List<FundBoard> getBoardList(PageInfo pageInfo);
+
+	int saveRemainDate();
+
 	
 }

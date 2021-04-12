@@ -3,7 +3,9 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
 <!DOCTYPE html>
 <html lang="ko">
@@ -44,6 +46,7 @@
                         <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardList" style="text-decoration: none; color: black;">클럽 제안하기</a></li>
                     </ul>
                 </div>
+                <!-- 시작 날짜랑 종료날짜가 같아지면 DB에 INDEX(Y/N) 으로 처리하고 해당컬럼 N이되면 리스트 보여주는 컨트롤러 작성? -->
                 <!-- 
                 <div class="_catelist_best wrapper">
                     <h2><span id="deadline_club" style="position: absolute; left: 600px; top: 150px;">진행 중인 클럽</span></h2>
@@ -96,18 +99,18 @@
                             </div>
                         </div>
                         <div class="ec-base-product">
-                            <ul class="prdList">
+                            <ul class="prdList" style="height: 100%">
                             	<c:if test="${ list == null }">
-                            		조회된 게시글이 없습니다.
+                            		<p style="width: 100%; margin: 100px 100px 100px 43%">조회된 게시글이 없습니다.</p>
                             	</c:if>
                             	<c:if test="${ list != null }">
-                            		<c:forEach var="board" items="${ list }">
-		                                <li id="anchorBoxId_1" class="xans-record-"><c:out value="${ clubBoard.bcNo }"></c:out>
+                            		<c:forEach var="clubBoard" items="${ list }">
+		                                <li id="anchorBoxId_1" class="xans-record-">
 		                                    <div class="box">
 		                                        <div class="thumbnail">
 		                                            <div class="prdImg">
 		                                                <div class="price_rate">7%</div>
-		                                                <a href="${ path }/board/view?boardNo=${ clubBoard.bcNo }">
+		                                                <a href="${ path }/board/bc_board/bcBoardDetail?bcNo=${ clubBoard.bcNo }">
 		                                                    <img src="${ path }/images/club-test.jpg" alt="샘플">
 		                                                </a>
 		                                            </div>
@@ -121,7 +124,7 @@
 		                                            <ul class="spec">
 		                                                <li class="_inline">
 		                                                    <strong class="title" style="font-size: 12px; color: #000000; font-weight: bold;">
-		                                                    <c:out value="${ clubBoard.bcPrice }"></c:out>
+		                                                    <fmt:formatNumber value="${ clubBoard.bcPrice }" />
 		                                                    </strong>
 		                                                </li>
 		                                                <li class="_inline">
@@ -151,6 +154,10 @@
                             <c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1" varStatus="status">
                             	<c:if test="${ status.current == pageInfo.currentPage }">
                             		<a href="${ status.current }">1</a>
+                            		<a href="${ status.current }">2</a>
+                            		<a href="${ status.current }">3</a>
+                            		<a href="${ status.current }">4</a>
+                            		<a href="${ status.current }">5</a>
                             	</c:if>
                             	<c:if test="${ status.current != pageInfo.currentPage }">
 		                            <a href="${ path }/board/bcBoardMain/list?page=${ status.current}&listLimit=${ pageInfo.listLimit } " class="p_number"><span>1</span></a>

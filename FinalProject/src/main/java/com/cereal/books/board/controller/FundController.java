@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -47,6 +48,9 @@ public class FundController {
 		
 		System.out.println(boardCount);
 		
+		// remainDate 업데이트 하는 과정
+		int result = service.saveRemainDate();
+		
 		list = service.getBoardList(pageInfo);
 		
 		model.addObject("list", list);
@@ -63,6 +67,17 @@ public class FundController {
 		
 		return "board/bf_board/bf_boardWrite";
 	}
+	
+//	@RequestMapping(value="/bf_boardWrite")
+//	public ModelAndView write(
+//			ModelAndView model, HttpServletRequest request,	Principal user,	FundBoard fundboard,
+//			@RequestParam("upfile") MultipartFile upfile) {
+//		
+//		int result = 0;
+//		
+//		
+//		return model;
+//	}
 	
 	// ck에디터 이미지 업로드 메소드
 	@RequestMapping(value = "/bf_boardWrite", method = RequestMethod.POST)

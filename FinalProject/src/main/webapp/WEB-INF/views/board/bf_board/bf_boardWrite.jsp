@@ -43,7 +43,7 @@
                             작성자
                         </th>
                         <td>
-                            <input type="text" name="userId" value="${ user.userId }" size="50px" readonly>
+                            <input type="text" name="userId" value="${ user.userNo }" size="50px" readonly>
                         </td>
                     </tr>
                     <tr>
