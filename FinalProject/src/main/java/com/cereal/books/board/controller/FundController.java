@@ -47,6 +47,9 @@ public class FundController {
 		
 		System.out.println(boardCount);
 		
+		// remainDate 업데이트 하는 과정
+		int result = service.saveRemainDate();
+		
 		list = service.getBoardList(pageInfo);
 		
 		model.addObject("list", list);

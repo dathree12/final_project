@@ -34,5 +34,14 @@ public class FundServiceImpl implements FundService {
 		return fundDao.selectBoardList(rowBounds);
 	}
 
+	@Override
+	public int saveRemainDate() {
+		int result = 0;
+		result = fundDao.saveRemainDate();
+		
+		return result;
+	}
+
+
 	
 }

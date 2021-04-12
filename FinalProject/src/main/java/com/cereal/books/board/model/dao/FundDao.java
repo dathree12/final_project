@@ -14,4 +14,7 @@ public interface FundDao {
 
 	List<FundBoard> selectBoardList(RowBounds rowBounds);
 
+	int saveRemainDate();
+
+
 }

@@ -60,8 +60,14 @@
 		SELECT COUNT(*)
 		FROM BOOK_FUNDING_BOARD B
 		WHERE B.BF_STATUS='P'
-	</select>	
-
+	</select>
+	
+	<update id="saveRemainDate" parameterType="FundBoard">
+		UPDATE BOOK_FUNDING_BOARD
+		SET 
+			BF_REMAIN_DATE = TRUNC(BF_END_DATE - SYSDATE)
+	</update>
+	
 </mapper>
 
 
