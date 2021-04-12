@@ -13,5 +13,6 @@ public interface FundService {
 
 	int saveRemainDate();
 
+	int changeStatus();
 	
 }

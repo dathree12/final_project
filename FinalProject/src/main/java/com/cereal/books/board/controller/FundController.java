@@ -39,7 +39,7 @@ public class FundController {
 	public ModelAndView listView(
 			ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit	) {
 		
 		List<FundBoard> list = null;
 		
@@ -50,6 +50,7 @@ public class FundController {
 		
 		// remainDate 업데이트 하는 과정
 		int result = service.saveRemainDate();
+		int result2 = service.changeStatus();
 		
 		list = service.getBoardList(pageInfo);
 		
@@ -70,11 +71,38 @@ public class FundController {
 	
 //	@RequestMapping(value="/bf_boardWrite")
 //	public ModelAndView write(
-//			ModelAndView model, HttpServletRequest request,	Principal user,	FundBoard fundboard,
-//			@RequestParam("upfile") MultipartFile upfile) {
+//			ModelAndView model, HttpServletRequest request,	FundBoard fundboard,
+//			@RequestParam("upfile") MultipartFile upfile, @RequestParam("userNo") int userNo, @RequestParam("userId") String userId) {
 //		
 //		int result = 0;
 //		
+//		if(userId != null) {
+//			fundboard.setUserNo(userNo);
+//			// 파일을 저장하는 로직 작성
+//			String renameFileName = saveFile(upfile, request);
+//			
+//			if(renameFileName != null) {
+//				fundboard.setBfOriImgName(upfile.getOriginalFilename());
+//				fundboard.setBfReImgName(renameFileName);
+//			}
+//		
+//			// board 객체를 DB에 저장할 수 있도록 service에 넘겨주는 과정
+//			result = service.saveBoard(fundboard);
+//			
+//			if(result > 0) {
+//				model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+//				model.addObject("location", "/board/bf_board/bf_boardList");
+//			} else {
+//				model.addObject("msg", "게시글 등록을 실패하였습니다.");
+//				model.addObject("location", "/board/bf_board/bf_boardList");
+//			}
+//		} else {
+//			model.addObject("msg", "로그인 후 작성해주세요.");
+//			model.addObject("location", "/");
+//		}
+//		
+//		model.setViewName("common/msg");
+////		model.setViewName("board/write");
 //		
 //		return model;
 //	}

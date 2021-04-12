@@ -42,6 +42,14 @@ public class FundServiceImpl implements FundService {
 		return result;
 	}
 
+	@Override
+	public int changeStatus() {
+		int result = 0;
+		result = fundDao.changeStatus();
+		
+		return result;
+	}
+
 
 	
 }
