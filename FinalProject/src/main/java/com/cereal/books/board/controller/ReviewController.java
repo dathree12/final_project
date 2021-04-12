@@ -116,10 +116,11 @@ public class ReviewController {
 		}
 		
 	@RequestMapping(value="/bookSearch")
-		public String brBookSearch() {
+		public void brBookSearch() {
 			
-			return "board/br_board/bookSearch";
+
 		}
+
 
 	@RequestMapping(value="/brReviewDetail")
 	public void brReviewDetail() {
