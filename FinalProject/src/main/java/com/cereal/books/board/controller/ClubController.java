@@ -159,6 +159,7 @@ public class ClubController {
 	
 	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
 	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo) {
+		
 		ClubBoard clubBoard = service.findClubByNo(bcNo);
 		
 		model.addObject("clubBoard", clubBoard);

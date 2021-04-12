@@ -69,10 +69,10 @@
 
 	<!-- 2. club board detail -->
 	<select id="selectClubDetail" parameterType="_int"
-		resultMap="clubResultMap">
+		resultMap="clubDetailResultMap">
 		SELECT 
 		B.BC_NO,
-		M.USER_NO,
+		M.USER_ID,
 		B.BC_ORIGIN_TITLE,
 		B.BC_SUB_TITLE,
 		B.BC_PRICE,
@@ -89,7 +89,7 @@
 		FROM BOOK_CLUB_BOARD B
 		JOIN MEMBER M ON (B.USER_ID = M.USER_ID)
 		WHERE
-		B.BC_STATUS='Y' AND B.BC_NO=#{ bcNo }
+		B.BC_STATUS='P' AND B.BC_NO=#{ bcNo }
 	</select>
 
 	<select id="selectClubList" parameterType="map"	resultMap="clubResultMap">
@@ -118,7 +118,7 @@
 	<select id="selectCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOOK_CLUB_BOARD
-		WHERE BC_STATUS = 'Y'
+		WHERE BC_STATUS = 'P'
 	</select>
 
 	<!-- insert board -->

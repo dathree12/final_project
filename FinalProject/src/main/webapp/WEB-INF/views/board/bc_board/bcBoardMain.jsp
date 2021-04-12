@@ -108,7 +108,7 @@
 		                                        <div class="thumbnail">
 		                                            <div class="prdImg">
 		                                                <div class="price_rate">7%</div>
-		                                                <a href="${ path }/board/view?boardNo=${ clubBoard.bcNo }">
+		                                                <a href="${ path }/board/bc_board/bcBoardDetail?bcNo=${ clubBoard.bcNo }">
 		                                                    <img src="${ path }/images/club-test.jpg" alt="샘플">
 		                                                </a>
 		                                            </div>
