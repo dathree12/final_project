@@ -500,9 +500,24 @@
                                 <th class="th">닉네임</th>
                                 <th class="th">Status</th>
                             </tr>
-				            <tbody id="dynamicTbody">
-	
-							</tbody>
+				            <c:if test="${list == null}">
+								<tr>
+									<td colspan="6">
+										조회된 회원이 없습니다.
+									</td>
+								</tr>	
+							</c:if>
+							<c:if test="${list != null}">
+								<c:forEach var="member" items="${list}">
+									<tr>
+										<td><input type="checkbox"></td>
+										<td><c:out value="${member.userId}"/></td>
+										<td><c:out value="${member.name}"/></td>
+										<td><c:out value="${member.userNname}"/></td>
+										<td><c:out value="${member.status}"/></td>
+									</tr>
+								</c:forEach>
+							</c:if>
                         </table>
                         </div>
                     </div>
@@ -523,8 +538,8 @@
                             <button onclick="location.href='${path}/member/admin/admin_page?page=${pageInfo.nextPage}&listLimit=${pageInfo.listLimit}'">&gt;</button>
                         </div>
                         <div class="bnt">
-                        <button onclick="updatememberst()" value="N">정지</button>
-                        <button onclick="updatememberst()" value="Y">복구</button>
+                        <button>정지</button>
+                        <button>복구</button>
                         </div>
                     </div>
                     </form>
@@ -535,67 +550,28 @@
    
 <script type="text/javascript">
 $("select[name=mStatus]").change(function(){
+	
 	var mStatus = $(this).val();
+	  console.log($(this).val()); //value값 가져오기
 	var mlist = {};
 	  
 	  $.ajax({
 			type: "get",
-			url: "${path}/member/admin",
-			dataType: "json",
-			data: {
-				// id(파라미터 키값):id
-				mStatus // 파라미터의 키값과 변수명이 동일할 경우
-			},
-			success: function(result) {
-				mlist = result.list;
-				
-				var tc = new Array();
-				var html = '';
-				
-				$.each(mlist, function( index, value ) {
-					tc.push({id : value.userId ,name : value.name, nname : value.userNname, status : value.status}); 
-                 });
-				
-				for(key in tc){
-				html += '<tr>';
-				html += '<td><input name="upmst" type="checkbox"></td>';
-				html += '<td>'+tc[key].id+'</td>';
-				html += '<td>'+tc[key].name+'</td>';
-				html += '<td>'+tc[key].nname+'</td>';
-				html += '<td>'+tc[key].status+'</td>';
-				html += '</tr>';
-				}
-							
-				$("#dynamicTbody").empty();
-				$("#dynamicTbody").append(html);
-			},
-			error: function(e) {
-				console.log(e);
-			}
-		});
-});
-$(function updatememberst(){
-	location.href = "${path}/member/admin/updatemst";
-	/*
-	var mStatus = $(this).val();
-	console.log(mStatus);
-	var mlist = {};
-	  
-	  $.ajax({
-			type: "get",
-			url: "${path}/member/admin/updatemst",
+			url: "${path}/member/admin/admin_page",
 			dataType: "json",
 			data: {
 				// id(파라미터 키값):id
 				mStatus // 파라미터의 키값과 변수명이 동일할 경우
 			},
 			success: function(data) {
+				console.log(data);
 			},
 			error: function(e) {
 				console.log(e);
 			}
 		});
-	  */
+	  
 });
+	
 </script>
 <%@ include file="../../../views/common/footer.jsp" %>
