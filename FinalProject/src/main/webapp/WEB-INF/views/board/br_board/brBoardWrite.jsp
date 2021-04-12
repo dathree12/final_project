@@ -67,8 +67,11 @@
 	
 	                    <div id="brboard-write-bookselect">
 	                        <span>책선택</span>
+ 							  <input type="button" value="책검색" onclick="window.open('${path}/board/br_board/bookSearch', '책검색', 'width=500, height=500')">
+							  <div id="selectedBook">책을 선택해주세요</div>
+							  <!-- 
 								<input id="bookName" value="" type="text">
-							    <button id="search">검색</button>
+								<button id="search">검색</button>
 							    <div id="bookdata">
 							    	<p id="title"></p>
 							    	<p id="bookthumb"></p>
@@ -90,11 +93,10 @@
 							                    });
 							            });
 							        });
-							    </script>
-						  	
- 							<!--  <input type="button" value="책검색" onclick="window.open('${path}/board/br_board/bookSearch', '책검색', 'width=500, height=500')">
-	                    	<p id="selectedbook"></p>-->
+							    </script>-->
 	                    </div>
+						  	
+	                    	<p id="selectedbook"></p>
 	                </div>
 	                <textarea name="ckeditor" id="ckeditor"></textarea>
 	                <script>

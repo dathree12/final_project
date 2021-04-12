@@ -78,5 +78,9 @@
 		   		 });
 		            
     </script>
+    
+    <script>
+    opener.window.document.getElementById("brboard-write-bookselect").innerText="aaaa";
+    </script>
 </body>
 </html>
