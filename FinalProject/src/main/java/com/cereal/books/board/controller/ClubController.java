@@ -1,27 +1,18 @@
 package com.cereal.books.board.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.common.util.PageInfo;
-import com.cereal.books.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -179,12 +170,15 @@ public class ClubController {
 	// 북 클럽 메인페이지(관리자)
 	@RequestMapping(value = "/bcAdminWrite", method = RequestMethod.POST)
 	public ModelAndView adminWrite(ModelAndView model, 
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, ClubBoard clubBoard) {
+//			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			Principal user,
+			ClubBoard clubBoard) {
 		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다. 
 		
 		int result =  0;
 		
 		result = service.saveBoard(clubBoard);
+		System.out.println(user.getName());
 		
 		if (result > 0) {
 			model.addObject("msg", "게시글 등록 성공");

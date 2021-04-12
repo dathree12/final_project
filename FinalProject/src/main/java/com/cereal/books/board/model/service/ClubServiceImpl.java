@@ -24,14 +24,9 @@ public class ClubServiceImpl implements ClubService {
 	@Autowired
 	private ClubDao clubDao;
 	
-//	@Override
-//	public ClubBoard findByBoardNo(int bcNo) {
-//		return clubDao.selectClubDetail(bcNo);
-//	}
-
 	@Override
 	public int getBoardCount() {
-		return clubDao.selectClubCount();
+		return clubDao.selectCount();
 	}
 
 	// 게시판 페이징 처리
@@ -64,14 +59,14 @@ public class ClubServiceImpl implements ClubService {
 		
 		System.out.println("saveBoard result : " + result);
 		
-		result = clubDao.insertClubBoard(clubBoard);
+		result = clubDao.insertClub(clubBoard);
 		
-//		if(clubBoard.getBcNo() != 0) {
-//			System.out.println(clubBoard.getBcNo());
-//			result = clubDao.updateClubBoard(clubBoard);
-//		} else {
-//			result = clubDao.insertClubBoard(clubBoard);
-//		}
+		if(clubBoard.getBcNo() != 0) {
+//			result = clubDao.updateClub(clubBoard);
+			System.out.println("updateClub");
+		} else {
+			result = clubDao.insertClub(clubBoard);
+		}
 		
 		return result;
 	}

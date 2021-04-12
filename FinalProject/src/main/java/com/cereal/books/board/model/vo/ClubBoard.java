@@ -11,9 +11,9 @@ public class ClubBoard {
 
 	private int bcNo; // 북클럽 번호
 	
-	private int userNo; // 북클럽 작성자 번호 = writeNo
+//	private int bcWriterNo; // 북클럽 작성자
 	
-	private String userName; // 사용자 이름
+	private String userId;
 	
 	private String bcOriginTitle; // 북클럽 제목
 	
@@ -21,11 +21,11 @@ public class ClubBoard {
 	
 	private int bcPrice; // 북클럽 가격
 	
-	private String bcWriter; // 북클럽 작성자
+	private String bcRegDate; // 북클럽 등록일정, 메인페이지에 추가 될
 	
-	private String bcRegDate; // 북클럽 등록일정
+	private String bcStartDate; // 북클럽 등록일정, 클럽 시작일정
 	
-	private String bcDeadLineDate; // 북클럽 마감일정
+	private String bcDeadLineDate; // 북클럽 마감일정, 클럽 마감일정
 	
 	private int bcViewCount; // 북클럽 조회수
 	
