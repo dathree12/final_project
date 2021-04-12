@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
    	<meta content="${ _csrf.token }" name="csrf-token"/>
     <meta content="${ _csrf.headerName }" name="csrf-headerName">
-    <title>Document</title>
+    <title>AdminWrite</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcAdminWrite.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -72,7 +72,9 @@
 							getUploadUrl: type='image',
 							filebrowserUploadUrl: '<c:url value="/board/bc_board/bcAdminWrite" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
 						});
-						CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/bc_board/bcAdminWrite'; };
+						CKEDITOR.editorConfig = function( config ) { 
+							config.filebrowserUploadUrl = '/board/bc_board/bcAdminWrite';
+						};
 					</script>
 	                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
             </form>
