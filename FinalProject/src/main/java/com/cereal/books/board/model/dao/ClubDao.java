@@ -30,11 +30,11 @@ import com.cereal.books.board.model.vo.ClubBoard;
 @Mapper
 public interface ClubDao {
 
-	int selectClubCount();
+	int selectCount();
 	
-	int updateClubBoard(ClubBoard clubBoard);
+//	int updateClub(ClubBoard clubBoard);
 	
-	int insertClubBoard(ClubBoard clubBoard);
+	int insertClub(ClubBoard clubBoard);
 	
 	ClubBoard selectClubDetail(int bcNo);
 	

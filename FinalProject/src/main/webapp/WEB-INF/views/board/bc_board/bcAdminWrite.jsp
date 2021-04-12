@@ -44,13 +44,10 @@
                             <img alt="프로필 이미지" src="https://cdn.imweb.me/thumbnail/20161214/5850d6a2c09a8.jpg" class="avatar-image">
                         </div>
                         <div class="author">
-                            <div class="write">${ loginMember.userName }</div>
                         </div>
                     </div>
                 </div>
-                <div class="table-cell"">
-                    <span name="userName">${ loginMember.name }</span>
-                </div>
+                    <input type="text" name="userId" value="${ loginMember.userId }" readonly>
                 <div class="table-cell">
                     <input id="post_subject" class="post_subject" name="bcOriginTitle" value="${ clubBoard.bcOriginTitle }" placeholder="제목" type="text" style="width: 50%;">
                 </div>
@@ -58,10 +55,10 @@
                     <input id="post_subject" class="post_subject" name="bcSubTitle" value="${ clubBoard.bcSubTitle }" placeholder="소제목" type="text" style="width: 50%;">
                 </div>
                 <div class="table-cell">
-                    <input id="post_subject" class="post_subject" name="bcPrice" value="${ clubBoard.bcPrice }" placeholder="가격" type="text" style="width: 120px;">
+                    <input id="post_subject" class="post_subject" name="bcPrice" value="${ clubBoard.bcPrice }" placeholder="가격" type="number" style="width: 120px;">
                 </div>
                 <div class="table-cell">
-                    <input id="post_subject" class="post_subject" name="bcRegDate" value="${ clubBoard.bcRegDate }" placeholder="일정" type="date" style="width: 200px;">
+                    <input id="post_subject" class="post_subject" name="bcRegDate" value="${ clubBoard.bcStartDate }" placeholder="일정" type="date" style="width: 200px;">
                 </div>
                 <div class="table-cell">
                     <input id="post_subject" class="post_subject" name="bcDeadLineDate" value="${ clubBoard.bcDeadLineDate }" placeholder="일정" type="date" style="width: 200px;">
