@@ -160,6 +160,32 @@
             USER_ID=#{userId}
     </update>
   
-  
+	<select id="selectMemberList" parameterType="map" resultMap="memberResultSet"> 
+  	<!-- 동적쿼리 if문 사용하기 -->
+		<include refid="selectMemberSql"></include>
+		<if test="status != null">
+	  		WHERE 
+	  			STATUS =#{status}
+		</if>
+  		ORDER BY USER_NO DESC
+  	</select>
+  	<select id="selectCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		<!-- 동적쿼리 if문 사용하기 -->
+		<if test="status != null">
+	  		WHERE 
+	  			STATUS =#{status}
+		</if>
+	</select>
+	<update id="updateMemberStatus" parameterType="map">
+		UPDATE MEMBER
+		SET
+            STATUS=#{status}
+        WHERE USER_ID IN
+        <foreach item="userId" index="i" collection="userId" open="(" separator="," close=")">
+        	#{userId}
+        </foreach>
+	</update>
   
 </mapper>
