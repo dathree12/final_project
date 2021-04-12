@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 에러내역 : 
+	parent key not found -> 부모클래스에 들어갈 수 있어야 하는데 부모클래스의 범위를 넘어섰기 때문에 발생 
+	SQL command not properly ended -> 콜론, AS 등 잘못 된 끝맺음
+-->
+
+<mapper namespace="com.cereal.books.board.model.dao.ClubDao">
+	<!-- 반복되는 쿼리문 -->
+	<sql id="clubListSql">
+		SELECT 
+		B.BC_NO,
+		M.USER_ID,
+		B.BC_ORIGIN_TITLE,
+		B.BC_SUB_TITLE,
+		B.BC_REG_DATE,
+		B.BC_START_DATE,
+		B.BC_DL_DATE,
+		B.BC_VIEW_COUNT,
+		B.BC_CONTENT,
+		B.BC_ORIGIN_IMAGE,
+		B.BC_MODIFY_IMAGE,
+		B.BC_STATUS,
+		B.BC_AGREEMENT
+		FROM
+		BOOK_CLUB_BOARD B
+		JOIN MEMBER M ON (B.USER_ID = M.USER_ID)
+		WHERE B.BC_STATUS='Y'
+	</sql>
+
+	<resultMap type="ClubBoard" id="clubResultMap">
+		<id property="bcNo" column="BC_NO" />
+		<result property="userId" column="USER_ID"/>
+		<!-- 
+		<result property="bcWriterNo" column="BC_WRITER_NO"/>
+		-->
+		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE" />
+		<result property="bcSubTitle" column="BC_SUB_TITLE" />
+		<result property="bcPrice" column="BC_PRICE" />
+		<result property="bcRegDate" column="BC_REG_DATE" />
+		<result property="bcStartDate" column="BC_START_DATE" />
+		<result property="bcDeadLineDate" column="BC_DL_DATE" />
+		<result property="bcViewCount" column="BC_VIEW_COUNT" />
+		<result property="bcContent" column="BC_CONTENT" />
+		<result property="bcOriginImage" column="BC_ORIGIN_IMAGE" />
+		<result property="bcModifyImage" column="BC_MODIFY_IMAGE" />
+		<result property="bcStatus" column="BC_STATUS" />
+		<result property="bcAgreement" column="BC_AGREEMENT" />
+	</resultMap>
+	
+	<resultMap type="ClubBoard" id="clubDetailResultMap">
+		<id property="bcNo" column="BC_NO" />
+		<result property="userId" column="USER_ID"/>
+		<!-- 
+		<result property="bcWriterNo" column="BC_WRITER_NO"/>
+		-->
+		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE" />
+		<result property="bcSubTitle" column="BC_SUB_TITLE" />
+		<result property="bcPrice" column="BC_PRICE" />
+		<result property="bcRegDate" column="BC_REG_DATE" />
+		<result property="bcStartDate" column="BC_START_DATE" />
+		<result property="bcDeadLineDate" column="BC_DL_DATE" />
+		<result property="bcViewCount" column="BC_VIEW_COUNT" />
+		<result property="bcContent" column="BC_CONTENT" />
+		<result property="bcCommentCount" column="BC_COM_COUNT"/>
+		<result property="bcOriginImage" column="BC_ORIGIN_IMAGE" />
+		<result property="bcModifyImage" column="BC_MODIFY_IMAGE" />
+		<result property="bcStatus" column="BC_STATUS" />
+		<result property="bcAgreement" column="BC_AGREEMENT" />
+	</resultMap>
+	
+	<!-- 리플관련 resultMap -->
+
+	<!-- 2. club board detail -->
+	<select id="selectClubDetail" parameterType="_int"
+		resultMap="clubResultMap">
+		SELECT 
+		B.BC_NO,
+		M.USER_NO,
+		B.BC_ORIGIN_TITLE,
+		B.BC_SUB_TITLE,
+		B.BC_PRICE,
+		B.BC_REG_DATE,
+		B.BC_START_DATE,
+		B.BC_DL_DATE,
+		B.BC_VIEW_COUNT,
+		B.BC_CONTENT,
+		B.BC_COM_COUNT,
+		B.BC_ORIGIN_IMAGE,
+		B.BC_MODIFY_IMAGE,
+		B.BC_STATUS,
+		B.BC_AGREEMENT
+		FROM BOOK_CLUB_BOARD B
+		JOIN MEMBER M ON (B.USER_ID = M.USER_ID)
+		WHERE
+		B.BC_STATUS='Y' AND B.BC_NO=#{ bcNo }
+	</select>
+
+	<select id="selectClubList" parameterType="map"	resultMap="clubResultMap">
+		<include refid="clubListSql"></include>
+		ORDER BY B.BC_NO DESC
+	</select>
+
+	<select id="selectCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_CLUB_BOARD
+		WHERE BC_STATUS = 'Y'
+	</select>
+
+	<!-- insert board -->
+	<!-- useGeneratedKeys : 기본값(false), DB에서 처리해준 값(Sequence)을 가져와서 처리하고 싶을때 
+		keyProperty : bcNo keyColumn : BC_NO -->
+
+	<!-- 일단 PASS 처리해놨다가 나중에 관리자쪽 만들게되면 Q, DQ 해보자 -->
+	<insert id="insertClub" parameterType="map"
+		useGeneratedKeys="true" keyProperty="bcNo" keyColumn="BC_NO">
+		INSERT INTO 
+		BOOK_CLUB_BOARD 
+		VALUES(
+		SEQ_BC_NO.NEXTVAL,
+		<!-- #{bcWriterNo}, -->
+		#{userId},
+		#{bcOriginTitle}, 
+		#{bcSubTitle}, 
+		#{bcPrice}, 
+		DEFAULT, 
+		DEFAULT, 
+		DEFAULT, 
+		DEFAULT, 
+		#{bcContent}, 
+		DEFAULT, 
+		'대표', 
+		'수정', 
+		'P', 
+		'Y'
+		)
+	</insert>
+</mapper>

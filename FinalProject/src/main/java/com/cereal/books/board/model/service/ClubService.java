@@ -1,10 +1,18 @@
 package com.cereal.books.board.model.service;
 
-import com.cereal.books.board.model.vo.ClubBoard;
+import java.util.List;
 
-// Ctrl + Mouse up -> Implementation (Impl : 구현체로 이동)
+import com.cereal.books.board.model.vo.ClubBoard;
+import com.cereal.books.common.util.PageInfo;
+
 public interface ClubService {
 
-	// bcNo 로 ClubBoard 정보 가져오기
-	ClubBoard findByBoardNo(int bcNo);
+	int getBoardCount();
+
+	int saveBoard(ClubBoard clubBoard);
+	
+	List<ClubBoard> getBoardList(PageInfo pageInfo);
+
+	ClubBoard findClubByNo(int bcNo);
+
 }

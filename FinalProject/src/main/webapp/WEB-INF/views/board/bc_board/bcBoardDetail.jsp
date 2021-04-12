@@ -9,22 +9,24 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardDetail.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="${ path }/js/jquery-3.5.1.js"></script>
-    <script type="text/javascript" src="${ path }/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+   	<link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.css">
     <script src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"
     ></script>
+    <style type="text/css">
+    	ul {
+    		margin-top: 16px
+    	}
+    </style>
 </head>
 <%@ include file="../../common/header.jsp" %>
     <section>
         <!-- content top -->
-        <article class="detailArea">
+        <article class="detailArea" style="margin: auto;">
             <div class="sub_detailArea">
                 <div class="thumbnail">
                     <div class="_d_name">
@@ -34,8 +36,10 @@
                 <!-- info : title -->
                 <div class="infoArea__box">
                     <div class="infoArea">
+                    	<!-- 임시 앵커태그 -->
+                    	<a>${ clubBoard.bcNo }</a>
                         <h1 id="_deadline"><span>99</span>일 남음</h1>
-                        <h2 style="margin-top: 10px;">샘플상품24</h2>
+                        <h2 style="margin-top: 10px;">${ clubBoard.bcOriginTitle }</h2>
                         <div class="sub_title" style="margin-top: 5px;">
                             <span>무심한 듯 세련된, 강인함과 여림, 부드러움과 무거움. 균형 잡힌 스타일의 데일리룩 아이템을 제안합니다.</span>
                         </div>
@@ -44,8 +48,8 @@
                     <div class="box">
                         <!-- info : subtitle, schedule, price -->
                         <ul class="box_1th">
-                            <p style="margin-top: 50px;">4주 읽기습관 28기 (자유도서, 고정리더)</p>
-                            <p style="font-size: 30px; margin: 0;"><b>69,000원</b></p>
+                            <p style="margin-top: 50px;">${ clubBoard.bcSubTitle }</p>
+                            <p style="font-size: 30px; margin: 0;"><b>${ clubBoard.bcPrice }원</b></p>
                         </ul>
                         <!-- -------------------------------------- -->
                         <hr>
@@ -66,8 +70,8 @@
                                         <div class="dropdown-menu" 
                                             style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 0; box-shadow: none; border-radius: 0; border-top: 0; width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999;">
                                             <div class="dropdown-item" onclick="event.stopPropagation();">
-                                                <a style="padding: 3px 0px; line-height: normal; display: block;" href="javascript:;" class="blocked _requireOption" onclick="SITE_SHOP_DETAIL.selectRequireOption('prod', 750,'O202006175eea01a8566e6', 'O202104038343337740704', '[온라인] 드로잉 에세이 클럽 11기 -4.18(일) 시작',function(){ SITE_SHOP_DETAIL.updateSelectedOptions('prod'); })"">
-                                                    <span class="blocked margin-bottom-1g" style="display: block; margin-bottom: 4px;">[온라인] 드로잉 에세이 클럽 11기 -4.18(일) 시작</span>
+                                                <a style="padding: 3px 0px; line-height: normal; display: block;" class="blocked _requireOption" onclick="selectBoxCliked();">
+                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="display: block; margin-bottom: 4px;">[온라인] 드로잉 에세이 클럽 11기 -4.18(일) 시작</span>
                                                     <span class="no-margin blocked">
                                                         <strong></strong>
                                                     </span>
@@ -79,10 +83,10 @@
                             </div>
                         </div>
                         <div class="goods_payment" id="prod_selected_options">
-                            <div class="_selected_require_option opt_block" id="prdOption0" style="padding: 15px; position: relative; overflow: hidden; margin-bottom: 10px; background-color: rgba(1,1,1,0.03); zoom: 1; margin-top: 15px;">
+                            <div class="_selected_require_option opt_block" id="prdOption0" style="display: none; padding: 15px; position: relative; overflow: hidden; margin-bottom: 10px; background-color: rgba(1,1,1,0.03); zoom: 1; margin-top: 15px;">
                                 <div class="full-width opt_product_area" style="width: 100% !important; display: block;">
                                     <div class="area_tit holder" style="padding-right: 25px; text-align: left !important; position: relative;">
-                                        <span class="body_font_color_80">[온라인] 드로잉 에세이 클럽 11기 -4.18(일) 시작</span>
+                                        <span class="body_font_color_80 resultProduct"></span>
                                         <a href="javascript:;" class="text-18 absolute absolute_right absolute_middle" onclick="SITE_SHOP_DETAIL.removeSelectedOption(0, 'prod')">
                                             <i class="btl bt-times-circle"></i>
                                         </a>
@@ -96,7 +100,6 @@
                                 </p>
                             </div>
                         </div>
-                        <!-- -------------------------------------- -->
                         <hr>
                         <!-- info : button -->
                         <div class="ec-base-button">
@@ -299,8 +302,36 @@
         </article>
     </section>
     <script>
+    	// 부트스트랩 드롭다운
         $(function() {
-            $('.dropdown-toggle').dropdown();
+            // $('.dropdown-toggle').dropdown();
+            
+            var jbOffset = $('.nav_header').offset();
+            $(window).scroll( function() {
+                if ($(document).scrollTop() > jbOffset.top) {
+                    $('.menuArea').addClass('jbFixed');
+                }
+                else {
+                    $('.menuArea').removeClass('jbFixed');
+                }
+            });
         });
+        
+        // Detail selectBox 값넣는거 좀 이상함
+        function selectBoxCliked () {
+            // 잊어버린 내용 innerHTML은 <div>, <span>의 텍스트 노드값을 자식으로 갖고있으면 복사해온다.
+            var selectVal = document.querySelector('#selectVal');
+            var resultProduct = document.querySelector('.resultProduct');
+            var opt_block = document.querySelector('.opt_block');
+
+            resultProduct.innerHTML = selectVal.innerHTML;
+
+            if (!(resultProduct === null) && resultProduct !== "") {
+                opt_block.style.display = 'block';
+                selectVal.addEventListener('click', function() {
+                    alert('이미 선택한 상품입니다.');
+                });
+            }
+        }
     </script>
 <%@ include file="../../common/footer.jsp" %>

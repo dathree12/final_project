@@ -41,7 +41,6 @@ h2 {
     color: #000;
     font-size: 18px;
     letter-spacing: 0;
-    margin: 20px 0 0;
 }
 
 .title {
@@ -54,7 +53,6 @@ h2 {
     color: #000; 
     font-size: 18px; 
     letter-spacing: 0; 
-    margin: 20px 0 0;
 }
 .menuCategory li {
     display: inline-block;
@@ -87,6 +85,9 @@ h2 {
     margin: 0 0 40px;
     color: #757575;
     vertical-align: top;
+}
+.prdList li {
+	width: 25%;
 }
 .box {
     margin: 0 10px;
@@ -170,7 +171,6 @@ strong.name {
     text-align: right;
     line-height: 34px;
     font-size: 11px;
-    border-top: 1px solid #e7e7e7;
     padding: 10px 0 0;
     display: flex;
     justify-content: space-between;
@@ -245,7 +245,6 @@ strong.name {
 /* pageBar */
 .pageBar { font-size: 25px; /*border: 1px solid black;*/ text-align: center; }
 .pageBar a { width: 30px; height: 30px; margin: 10px; }
-.pageBar a:nth-child(3) { font-size: 20px; }
 
 @media screen and (max-width: 768px){
     .product-menupackage {

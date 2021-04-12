@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cereal.books.board.model.dao.FundDao">
+
+	<sql id="fundListSql">
+		SELECT B.BF_NO,
+			   B.USER_NO,
+			   B.BF_TITLE,
+			   B.BF_PRICE,
+			   B.BF_ENROLL_DATE,
+			   B.BF_END_DATE,
+			   B.BF_MODIFY_DATE,
+			   B.BF_REMAIN_DATE,
+			   B.BF_TARGET_PRICE,
+			   B.BF_REACH_PRICE,
+			   B.BF_ATTAIN_RATE,
+			   B.BF_VIEW_COUNT,
+			   B.BF_BUY_COUNT,
+			   B.BF_STATUS,
+			   B.BF_AGREEMENT,
+			   B.BF_LIKE,
+			   B.BF_CONTENT,
+			   B.BF_ORI_IMGNAME,
+			   B.BF_RE_IMGNAME
+		FROM BOOK_FUNDING_BOARD B
+		JOIN MEMBER M ON(B.USER_NO = M.USER_NO)
+		WHERE B.BF_STATUS='P'
+	</sql>
+	
+	<resultMap type="FundBoard" id="fundResultMap">
+		<id property="bfNo" column="BF_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="bfTitle" column="BF_TITLE"/>
+		<result property="bfPrice" column="BF_PRICE"/>
+		<result property="bfEnrollDate" column="BF_ENROLL_DATE"/>
+		<result property="bfEndDate" column="BF_END_DATE"/>
+		<result property="bfModifyDate" column="BF_MODIFY_DATE"/>
+		<result property="bfRemainDate" column="BF_REMAIN_DATE"/>
+		<result property="bfTargetPrice" column="BF_TARGET_PRICE"/>
+		<result property="bfReachPrice" column="BF_REACH_PRICE"/>
+		<result property="bfAttainRate" column="BF_ATTAIN_RATE"/>
+		<result property="bfViewCount" column="BF_VIEW_COUNT"/>
+		<result property="bfBuycount" column="BF_BUY_COUNT"/>
+		<result property="bfStatus" column="BF_STATUS"/>
+		<result property="bfAgreement" column="BF_AGREEMENT"/>
+		<result property="bfLike" column="BF_LIKE"/>
+		<result property="bfContent" column="BF_CONTENT"/>
+		<result property="bfOriImgName" column="BF_ORI_IMGNAME"/>
+		<result property="bfReImgName" column="BF_RE_IMGNAME"/>
+	</resultMap>
+
+	<select id="selectBoardList" parameterType="map" resultMap="fundResultMap">
+		<include refid="fundListSql"></include>
+		ORDER BY B.BF_NO DESC
+	</select>
+	
+	<select id="selectCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_FUNDING_BOARD B
+		WHERE B.BF_STATUS='P'
+	</select>	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

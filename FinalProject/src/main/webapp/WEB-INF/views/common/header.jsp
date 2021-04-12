@@ -10,18 +10,13 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <script 
-    src="https://kit.fontawesome.com/2d323a629b.js" 
-    crossorigin="anonymous"
-    ></script>
+	<meta content="${ _csrf.token }" name="csrf-token"/>
+    <meta content="${ _csrf.headerName }" name="csrf-headerName">
     <link rel="stylesheet" href="${path}/css/common/header.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="${path}/js/jquery-3.5.1.js"></script>
-    <link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.min.css">
-    <script type="text/javascript" src="${ path }/bootstrap/dist/js/bootstrap.min.js"></script>
-	<meta content="${ _csrf.token }" name="csrf-token"/>
-    <meta content="${ _csrf.headerName }" name="csrf-headerName">
+    <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous" ></script>
     <title>nav</title>
 </head>
 <body style="display: block;">
@@ -82,7 +77,7 @@
                                 <div class="-search">
                                     <fieldset>
                                         <legend>검색</legend>
-                                        <input type="text" id="keyword" name="keyword" class="inputTypeText" placeholder="검색 하던지 말던지.." value="">
+                                        <input type="text" id="nav_keyword" name="nav_keyword" class="inputTypeText" placeholder="검색 하던지 말던지.." value="">
                                         <span class="btn_h_search" onclick="">
                                             <i class="fas fa-search"></i>
                                         </span>

@@ -18,7 +18,7 @@
  <%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>   
 	    <div class="pwd_serch">
-	        <form action="">
+	        <form action="" method="post">
 	            <fieldset class="field">
 	                <legend>비밀번호 찾기</legend>
 	                     <br>
@@ -35,12 +35,17 @@
 	                         <input type="text" name="" id="pwdemail" class="ck_text"required>
 	                    </div>
 	                     <div class="input_span">
-	                        <span>안녕</span>
+	                         <span  id="pwdsuccess" ></span><span  id="pwdfail" ></span>
 	                    </div>    
 	            </fieldset>
+	            <br>
 	            <div class="ck_btn_div">
 	                <button class="ck_btn" id="ck_btn" type="button">확인</button>
 	           	</div>
+	           	<br> 
+	            <div class="ck_btn_div">
+	                <button class="ck_btn"  type="button" onclick="location.href=('${path}/member/login')">로그인</button>
+	           	</div> 
 	       		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">     
 	        </form>
 	    </div>
@@ -60,18 +65,27 @@ $(function() {
  		var name = $("#pwdName").val().trim();
  		var id = $("#pwdId").val().trim();
  		var email = $("#pwdemail").val().trim();
-	
+		var sus = "이메일로 임시 비밀번호를 발송했습니다.";
 			$.ajax({
 				type: "post",
 				url: "${path}/member/findpw",
 				dataType: "json",
 				data: {
-
+				 name,
 				 id,
 				 email
 				},
 				success: function(data) {
-				 alert('gopg');
+					if (data.result === sus) {
+						$("#pwdsuccess").html(data.result)
+						$("#pwdfail").html(' ')
+					}else{
+						$("#pwdsuccess").html(' ')
+						$("#pwdfail").html(data.result)								
+					}	
+				 
+				 
+				 
 				},
 				error: function(e) {
 					console.log(e);

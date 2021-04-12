@@ -89,6 +89,10 @@
                 <a href="#" class="first">«</a>
                 <a href="#" class="prev">‹</a>
                 <a href="#" class="p_number"><span>1</span></a>
+                <a href="#" class="p_number"><span>2</span></a>
+                <a href="#" class="p_number"><span>3</span></a>
+                <a href="#" class="p_number"><span>4</span></a>
+                <a href="#" class="p_number"><span>5</span></a>
                 <a href="#" class="next">›</a>
                 <a href="#" class="last">»</a>
             </div>

@@ -16,11 +16,8 @@
 }
 
 body { 
-    margin: 0; 
     font-family: 'Source Sans Pro'; 
     font-size: var(--small-size);
-    /* font-family: "Roboto","나눔바른고딕",'Nanum Barun Gothic',"나눔고딕","NanumGothic","Nanum Gothic","Apple SD Gothic Neo","돋움",dotum,sans-serif; */
-    /* display: flex;  */
     align-items: center; 
     justify-content: center; 
 }

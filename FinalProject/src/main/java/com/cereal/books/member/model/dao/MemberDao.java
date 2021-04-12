@@ -1,7 +1,10 @@
 package com.cereal.books.member.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import com.cereal.books.member.model.vo.Member;
 
@@ -33,6 +36,33 @@ public interface MemberDao {
 
 
 	Member selectUserPhone(@Param("userPhone") String userPhone);
+
+
+	Member userSerchPwd(@Param("userId")String userId, @Param("name") String name,  @Param("userEmail") String userEmail);
+
+	void updatePwd(Member member);
+
+
+	Member selectUserName( @Param("name") String name);
+
+	
+	int updatePwd(@Param("userId") String userId, @Param("userPwd") String userPwd);
+	
+	
+	int selectCount(String status);
+
+	
+	List<Member> selectMemberList(@Param("rowBounds") RowBounds rowBounds, @Param("status") String status);
+
+
+	int updateMemberStatus(@Param("status") String status, @Param("userId") List<String> userId);
+
+	
+
+
+
+
+
 
 
 

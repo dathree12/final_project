@@ -160,5 +160,18 @@ public class MemberController {
 	public String pwdSerch() {
 		return "/member/userPwdSerch";
 	}
+
+	@ResponseBody
+	@RequestMapping(value ="/member/findpw" , method ={RequestMethod.POST})
+	public Object findPwd( @RequestParam("id")String userId,  @RequestParam("name")String name, 
+			@RequestParam("email")String userEmail) throws Exception {
+		
 	
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("result", service.findPwd(userId, name, userEmail));
+		
+		  return map;
+		
+	}
 }
