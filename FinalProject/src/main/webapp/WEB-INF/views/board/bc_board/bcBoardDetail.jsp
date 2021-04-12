@@ -41,7 +41,7 @@
                         <h1 id="_deadline"><span>99</span>일 남음</h1>
                         <h2 style="margin-top: 10px;">${ clubBoard.bcOriginTitle }</h2>
                         <div class="sub_title" style="margin-top: 5px;">
-                            <span>무심한 듯 세련된, 강인함과 여림, 부드러움과 무거움. 균형 잡힌 스타일의 데일리룩 아이템을 제안합니다.</span>
+                            <span>${ clubBoard.bcSubTitle }</span>
                         </div>
                     </div>
                     
