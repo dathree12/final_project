@@ -77,7 +77,7 @@
                                 <div class="-search">
                                     <fieldset>
                                         <legend>검색</legend>
-                                        <input type="text" id="keyword" name="keyword" class="inputTypeText" placeholder="검색 하던지 말던지.." value="">
+                                        <input type="text" id="nav_keyword" name="nav_keyword" class="inputTypeText" placeholder="검색 하던지 말던지.." value="">
                                         <span class="btn_h_search" onclick="">
                                             <i class="fas fa-search"></i>
                                         </span>
