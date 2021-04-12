@@ -68,6 +68,14 @@
 			BF_REMAIN_DATE = TRUNC(BF_END_DATE - SYSDATE)
 	</update>
 	
+ 	<update id="changeStatus" parameterType="FundBoard">
+		UPDATE BOOK_FUNDING_BOARD
+		SET 
+			BF_STATUS = 'Q'
+		WHERE 
+			BF_REMAIN_DATE &lt; 0
+	</update>
+	
 </mapper>
 
 
