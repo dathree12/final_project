@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
 <!DOCTYPE html>
 <html lang="ko">
@@ -13,10 +15,8 @@
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardDetail.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-   	<link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.css">
-    <script src="https://kit.fontawesome.com/2d323a629b.js" 
-    crossorigin="anonymous"
-    ></script>
+   	<link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous" ></script>
     <style type="text/css">
     	ul {
     		margin-top: 16px
@@ -36,20 +36,15 @@
                 <!-- info : title -->
                 <div class="infoArea__box">
                     <div class="infoArea">
-                    	<!-- 임시 앵커태그 -->
-                    	<a>${ clubBoard.bcNo }</a>
                         <h1 id="_deadline"><span>99</span>일 남음</h1>
                         <h2 style="margin-top: 10px;">${ clubBoard.bcOriginTitle }</h2>
-                        <div class="sub_title" style="margin-top: 5px;">
-                            <span>${ clubBoard.bcSubTitle }</span>
-                        </div>
                     </div>
                     
                     <div class="box">
                         <!-- info : subtitle, schedule, price -->
                         <ul class="box_1th">
-                            <p style="margin-top: 50px;">${ clubBoard.bcSubTitle }</p>
-                            <p style="font-size: 30px; margin: 0;"><b>${ clubBoard.bcPrice }원</b></p>
+                            <p style="margin-top: 15px;">${ clubBoard.bcSubTitle }</p>
+                            <p style="font-size: 30px; margin: 0;"><b><fmt:formatNumber value="${ clubBoard.bcPrice }" />원</b></p>
                         </ul>
                         <!-- -------------------------------------- -->
                         <hr>
@@ -71,7 +66,7 @@
                                             style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 0; box-shadow: none; border-radius: 0; border-top: 0; width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999;">
                                             <div class="dropdown-item" onclick="event.stopPropagation();">
                                                 <a style="padding: 3px 0px; line-height: normal; display: block;" class="blocked _requireOption" onclick="selectBoxCliked();">
-                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="display: block; margin-bottom: 4px;">[온라인] 드로잉 에세이 클럽 11기 -4.18(일) 시작</span>
+                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="display: block; margin-bottom: 4px;">[온라인] <c:out value="${ clubBoard.bcStartDate }"></c:out></span>
                                                     <span class="no-margin blocked">
                                                         <strong></strong>
                                                     </span>
@@ -96,10 +91,16 @@
                             <div class="opt_block total bottom">
                                 <p class="no-margin text-right" style="height: 50px; text-align: right; margin: 0; display: table-row; display: flex; justify-content: space-between; vertical-align: middle; padding-top: 20px;">
                                     <span style="font-size: 15px; line-height: 1.6; letter-spacing: 0px; font-weight: normal; font-style: normal; display: table-cell; vertical-align: middle;" class="body_font_color_70 text-left">총 상품금액</span>
-                                    <span style="font-size: 15px; line-height: 1.6; letter-spacing: 0px; font-weight: normal; font-style: normal; display: table-cell; vertical-align: middle;" class="total_price">69,000원</span>
+                                    <span style="font-size: 15px; line-height: 1.6; letter-spacing: 0px; font-weight: normal; font-style: normal; display: table-cell; vertical-align: middle;" class="total_price"><fmt:formatNumber value="${ clubBoard.bcPrice }" />원</span>
                                 </p>
                             </div>
                         </div>
+                        <script>
+                            $(function() {
+                                $('.dropdown-toggle').dropdown();
+                            });
+                        </script>
+                        <!-- -------------------------------------- -->
                         <hr>
                         <!-- info : button -->
                         <div class="ec-base-button">
@@ -124,7 +125,7 @@
                 <li><a href="#tag2">Q&A</a></li>
             </ul>
             <div class="cont">
-                <img src="${ path }/images/detail.png" alt="">
+                <img src="./images/detail.png" alt="">
             </div>
         </article>
 
@@ -157,7 +158,7 @@
                                 <tr class="xans-record-">
                                     <td>1</td>
                                     <td class="thumb_photo">
-                                        <img src="${ path }/images/test-img.jpg" alt="">
+                                        <img src="images/test-img.jpg" alt="">
                                     </td>
                                     <td>
                                         <ul class="d_review_cont">
@@ -302,10 +303,7 @@
         </article>
     </section>
     <script>
-    	// 부트스트랩 드롭다운
         $(function() {
-            // $('.dropdown-toggle').dropdown();
-            
             var jbOffset = $('.nav_header').offset();
             $(window).scroll( function() {
                 if ($(document).scrollTop() > jbOffset.top) {
@@ -316,8 +314,6 @@
                 }
             });
         });
-        
-        // Detail selectBox 값넣는거 좀 이상함
         function selectBoxCliked () {
             // 잊어버린 내용 innerHTML은 <div>, <span>의 텍스트 노드값을 자식으로 갖고있으면 복사해온다.
             var selectVal = document.querySelector('#selectVal');

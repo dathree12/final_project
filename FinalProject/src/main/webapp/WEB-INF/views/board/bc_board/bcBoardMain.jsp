@@ -3,7 +3,9 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
 <!DOCTYPE html>
 <html lang="ko">
@@ -122,7 +124,7 @@
 		                                            <ul class="spec">
 		                                                <li class="_inline">
 		                                                    <strong class="title" style="font-size: 12px; color: #000000; font-weight: bold;">
-		                                                    <c:out value="${ clubBoard.bcPrice }"></c:out>
+		                                                    <fmt:formatNumber value="${ clubBoard.bcPrice }" />
 		                                                    </strong>
 		                                                </li>
 		                                                <li class="_inline">

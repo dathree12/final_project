@@ -45,8 +45,6 @@ public class ClubServiceImpl implements ClubService {
 
 	@Override
 	public ClubBoard findClubByNo(int bcNo) {
-		System.out.println(bcNo);
-		
 		return clubDao.selectClubDetail(bcNo);
 	}
 
