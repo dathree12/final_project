@@ -86,7 +86,7 @@
 	                                                            -->
 	                                                        </p>
 	                                                        <span style="font-size: 11px; color: #999999; float: left; margin: 0">
-	                                                            <c:out value="${ clubBoard.bcContent }"></c:out> 
+	                                                            <c:out value="${ clubBoard.bcSubTitle }"></c:out> 
 	                                                        </span>
 	                                                    </strong>
 	                                                </li>
@@ -150,7 +150,7 @@
 		                                                            -->
 		                                                        </p>
 		                                                        <span style="font-size: 11px; color: #999999; float: left; margin: 0">
-		                                                            <c:out value="${ clubBoard.bcContent }"></c:out> 
+		                                                            <c:out value="${ clubBoard.bcSubTitle }"></c:out>
 		                                                        </span>
 		                                                    </strong>
 		                                                </li>
@@ -167,11 +167,11 @@
                             <a href="${ path }/board/bcBoardMain/list?page=${ pageInfo.prvePage }&listLimit=${ pageInfo.listLimit }" class="prev">‹</a>
                             <c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1" varStatus="status">
                             	<c:if test="${ status.current == pageInfo.currentPage }">
-                            		<a href="${ status.current }">1</a>
-                            		<a href="${ status.current }">2</a>
-                            		<a href="${ status.current }">3</a>
-                            		<a href="${ status.current }">4</a>
-                            		<a href="${ status.current }">5</a>
+                            		<a class="p_number" href="${ status.current }">1</a>
+                            		<a class="p_number" href="${ status.current }">2</a>
+                            		<a class="p_number" href="${ status.current }">3</a>
+                            		<a class="p_number" href="${ status.current }">4</a>
+                            		<a class="p_number" href="${ status.current }">5</a>
                             	</c:if>
                             	<c:if test="${ status.current != pageInfo.currentPage }">
 		                            <a href="${ path }/board/bcBoardMain/list?page=${ status.current}&listLimit=${ pageInfo.listLimit } " class="p_number"><span>1</span></a>

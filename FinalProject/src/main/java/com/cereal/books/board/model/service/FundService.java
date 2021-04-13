@@ -14,5 +14,21 @@ public interface FundService {
 	int saveRemainDate();
 
 	int changeStatus();
+
+	int saveBoard(FundBoard fundboard);
+
+	// 관리자
+	List<FundBoard> getFundList(PageInfo fundPageInfo, String status);
+
+	int getFundCount(String status);
+	
+	// 마이페이지 (참여 / 제안)
+	int getMyFundCount(int userNo);
+
+	List<FundBoard> getMyFundList(PageInfo pageInfo, int userNo);
+	
+	int getMyAplctFundCount(int userNo);
+	
+	List<FundBoard> getMyAplctFundList(PageInfo pageInfo, int userNo);
 	
 }

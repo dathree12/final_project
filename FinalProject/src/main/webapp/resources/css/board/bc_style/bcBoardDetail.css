@@ -32,7 +32,7 @@ li { cursor: pointer; }
 }
 select { width: 400px; height: 40px; }
 
-.thumbnail { border: 1px solid #353535; background-color: lightcoral; width: 600px; height: 600px; }
+.thumbnail { border: 1px solid #353535; width: 600px; height: 600px; }
 
 /* top article */
 .detailArea { /*border: 1px solid black;*/ width: 1260px; height: 780px; }

@@ -11,5 +11,4 @@ public interface ReviewDao {
 
 		int insertReviewBoard(ReviewBoard reviewboard);
 
-
 }

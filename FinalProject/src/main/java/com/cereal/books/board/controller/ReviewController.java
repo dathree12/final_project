@@ -15,9 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.cereal.books.board.model.service.BoardService;
+import com.cereal.books.board.model.service.ReviewService;
+import com.cereal.books.board.model.vo.ReviewBoard;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ReviewController {
 	
 	@Autowired
-	private BoardService service;
+	private ReviewService service;
 	
 	@RequestMapping(value="/brBoardMain")
 	public String brBoardMain() {
@@ -41,9 +44,56 @@ public class ReviewController {
 		//return "board/br_board/brBoardWrite";
 	}
 	
+//	
+//	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
+//	public ModelAndView brWrite (HttpServletRequest request, 
+//								 ReviewBoard reviewboard, ModelAndView model) {
+//
+//			int result = 0;
+//
+//			result = service.saveBoard(reviewboard);
+//			
+//			if(result > 0) {
+//				model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+//				model.addObject("location", "/board/br_board/brBoardMain");
+//			} else {
+//				model.addObject("msg", "게시글 등록을 실패하였습니다.");
+//				model.addObject("location", "/board/list");
+//			}			
+//			
+//		
+//		model.setViewName("common/msg");
+//		
+//		return model;
+//		}
+//	
 	
 	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
-	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
+	public ModelAndView brWrite(HttpServletRequest request, MultipartFile upload,
+							ReviewBoard reviewboard, ModelAndView model, @RequestParam("userNo") int userNo, @RequestParam("userId") String userId)
+			throws Exception {
+		
+		int result = 0;
+
+		result = service.saveBoard(reviewboard);
+		
+		if(result > 0) {
+			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+			model.addObject("location", "/board/br_board/brBoardMain");
+		} else {
+			model.addObject("msg", "게시글 등록을 실패하였습니다.");
+			model.addObject("location", "/board/list");
+		}			
+		
+	
+	model.setViewName("common/msg");
+	
+	return model;
+	}
+	
+
+	@RequestMapping(value = "/imageUpload", method = { RequestMethod.POST })
+	public void brWrite(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
 		String renameFileName = null;
 		log.info("upload 들어온다! ");
@@ -99,8 +149,12 @@ public class ReviewController {
 		
 		printWriter.flush();
 		
-
+		
 	}
+	
+	
+	
+	
 	
 	// ck에디터 이미지 이름 변경하는 메소드
 		private String saveFileRename(MultipartFile upload, HttpServletRequest request) {
