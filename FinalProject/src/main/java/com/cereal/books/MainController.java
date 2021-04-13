@@ -29,7 +29,7 @@ public class MainController {
 	@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView main(ModelAndView model, 
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "2") int listLimit ) {
+			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit ) {
 		List<ReviewBoard> list = null;
 		
 		int boardCount = service.getBoardCount();
