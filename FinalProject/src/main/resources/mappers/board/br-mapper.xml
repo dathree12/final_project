@@ -36,7 +36,7 @@
 		<result property="ckeditor" column="BR_CONTENT"/>
 		<result property="brViewCount" column="BR_VIEWCOUNT"/>
 		<result property="brLike" column="BR_LIKE"/>
-		<result property="status" column="STATUS"/>
+		<result property="brstatus" column="BR_STATUS"/>
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
  

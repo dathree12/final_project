@@ -26,13 +26,13 @@ public class ReviewBoard {
 	
 	private Date brModifyDate;
 	
-	private int brBookType;
+	private String brBookType;
 	
 	private String brContent;
 	
 	private int brLike;
 	
-	private String status;
+	private String brstatus;
 	
 	private float brRating;
 

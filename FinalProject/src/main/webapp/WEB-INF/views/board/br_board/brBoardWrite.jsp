@@ -13,15 +13,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>북리뷰 글쓰기</title>
-    <link rel="stylesheet" href="${ path }/css/board/br_style/brBoardWrite.css" type="text/css">
+    <link rel="stylesheet" href="${path}/css/board/br_style/brBoardWrite.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script 
     src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"
     ></script>
-    <script src="${ path }/js/jquery-3.5.1.js"></script>
-    <script src="${ path }/ckeditor/ckeditor.js"></script>
+    <script src="${path}/js/jquery-3.5.1.js"></script>
+    <script src="${path}/ckeditor/ckeditor.js"></script>
 
 </head>
 <%@ include file="../../common/header.jsp" %>
@@ -84,18 +84,16 @@
 						height: 1000,
 						getUploadUrl: type='image',
 						filebrowserUploadUrl: '<c:url value="/board/br_board/imageUpload" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
-							
-
 					});
 					</script>
-	                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
-	            </form>
+	            
 	        </section>
-        <section class="brboard-write-bottom">
-            <a href="${ path }/board/br_board/brBoardMain" id="write-bottom-cancelbtn">취소</a>
-			<a id="write-bottom-enrollbtn" onclick="document.getElementById('brboardwrite').submit();">등록</a>
-           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-        </section>
+	        <section class="brboard-write-bottom">
+	            <a href="${ path }/board/br_board/brBoardMain" id="write-bottom-cancelbtn">취소</a>
+				<a id="write-bottom-enrollbtn" onclick="document.getElementById('brboardwrite').submit();">등록</a>
+	           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	        </section>
+        </form>
     </div>    
     </div>
     

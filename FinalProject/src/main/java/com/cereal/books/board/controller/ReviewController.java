@@ -45,7 +45,7 @@ public class ReviewController {
 	}
 	
 	
-	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
+	@RequestMapping(value = "/brBoardWrite", method = {RequestMethod.POST})
 	public ModelAndView brWrite(HttpServletRequest request, MultipartFile upload,
 							ReviewBoard reviewboard, ModelAndView model)
 			throws Exception {
