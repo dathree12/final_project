@@ -14,10 +14,6 @@
   --title-color: #555555;
   --pagebarborder-color: #e7e7e7;
 }
-a {
-  text-decoration: none;
-  color: #353535;
-}
 
 hr {
   margin: 15px 0 15px 0;
@@ -28,6 +24,7 @@ form {
   margin-top: 0em;
   height: 100%;
 }
+
 .brboard-body {
   padding: 5%;
 }
@@ -259,6 +256,7 @@ form {
     padding: 3px 5px;
     font-size: 9px;
     transition-duration: 0.3s;
+    font: #353535;
   }
 
   .write-button:hover {
