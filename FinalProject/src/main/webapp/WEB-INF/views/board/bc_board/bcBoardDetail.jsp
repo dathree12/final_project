@@ -30,7 +30,7 @@
             <div class="sub_detailArea">
                 <div class="thumbnail">
                     <div class="_d_name">
-    
+    					<img alt="" src="">
                     </div>
                 </div>
                 <!-- info : title -->
@@ -63,7 +63,7 @@
                                             선택 (필수)
                                         </a>
                                         <div class="dropdown-menu" 
-                                            style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 0; box-shadow: none; border-radius: 0; border-top: 0; width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999;">
+                                            style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 0; box-shadow: none; border-radius: 0; border-top: 1px solid rgba(0, 0, 0, 0.003); width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999; max-width: 399px">
                                             <div class="dropdown-item" onclick="event.stopPropagation();">
                                                 <a style="padding: 3px 0px; line-height: normal; display: block;" class="blocked _requireOption" onclick="selectBoxCliked();">
                                                     <span id="selectVal" class="blocked margin-bottom-1g" style="display: block; margin-bottom: 4px;">[온라인] <c:out value="${ clubBoard.bcStartDate }"></c:out></span>
@@ -95,17 +95,12 @@
                                 </p>
                             </div>
                         </div>
-                        <script>
-                            $(function() {
-                                $('.dropdown-toggle').dropdown();
-                            });
-                        </script>
                         <!-- -------------------------------------- -->
                         <hr>
                         <!-- info : button -->
                         <div class="ec-base-button">
                             <div class="_d_btn_1th"> 
-                                <input type="submit" value="바로구매하기">
+                                <input type="submit" value="바로구매하기" onclick="goPayment();">
                             </div>
                             <div class="_d_btn_2th">
                                 <input type="submit" value="장바구니" id="_btn_cart">
@@ -329,5 +324,13 @@
                 });
             }
         }
+        
+        function goPayment() {
+        	location.href = "${ path }/board/bc_board/bcBoardPayment";
+        }
+        
+        $(function() {
+            $('.dropdown-toggle').dropdown();
+        });
     </script>
 <%@ include file="../../common/footer.jsp" %>

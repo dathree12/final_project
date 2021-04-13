@@ -239,6 +239,9 @@ strong.name {
 /* pageBar */
 .pageBar { font-size: 25px; /*border: 1px solid black;*/ text-align: center; }
 .pageBar a { width: 30px; height: 30px; margin: 10px; }
+.p_number {
+	font-size: 14px;
+}
 
 @media screen and (max-width: 768px){
     .product-menupackage {
@@ -464,3 +467,4 @@ strong.name {
     margin-left: -50px;
     margin-top: 50px;
 }
+
