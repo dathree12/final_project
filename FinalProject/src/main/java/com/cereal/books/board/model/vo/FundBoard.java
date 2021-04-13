@@ -48,4 +48,6 @@ public class FundBoard {
 	
 	private String bfReImgName;
 	
+	private String bfAdminComment;
+	
 }

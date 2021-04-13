@@ -23,7 +23,8 @@
 			   B.BF_LIKE,
 			   B.BF_CONTENT,
 			   B.BF_ORI_IMGNAME,
-			   B.BF_RE_IMGNAME
+			   B.BF_RE_IMGNAME,
+			   B.BF_ADMIN_COMMENT
 		FROM BOOK_FUNDING_BOARD B
 		JOIN MEMBER M ON(B.USER_NO = M.USER_NO)
 		WHERE B.BF_STATUS='P'
@@ -49,6 +50,8 @@
 		<result property="bfContent" column="BF_CONTENT"/>
 		<result property="bfOriImgName" column="BF_ORI_IMGNAME"/>
 		<result property="bfReImgName" column="BF_RE_IMGNAME"/>
+		<result property="bfAdminComment" column="BF_ADMIN_COMMENT"/>
+	
 	</resultMap>
 
 	<!-- list에서 사용 : list불러오고 전체 보드 수 구해서 페이징처리까지 -->
@@ -66,6 +69,7 @@
 	<update id="saveRemainDate" parameterType="FundBoard">
 		UPDATE BOOK_FUNDING_BOARD
 		SET 
+			BF_ATTAIN_RATE = CEIL((BF_REACH_PRICE/BF_TARGET_PRICE)*100),
 			BF_REMAIN_DATE = TRUNC(BF_END_DATE - SYSDATE)
 	</update>
  	<update id="changeStatus" parameterType="FundBoard">
@@ -99,7 +103,8 @@
 		 	DEFAULT,
 		 	#{bfContent},
 		 	#{bfOriImgName},
-		 	#{bfReImgName}
+		 	#{bfReImgName},
+		 	NULL
 		)
 	</insert>
 	
