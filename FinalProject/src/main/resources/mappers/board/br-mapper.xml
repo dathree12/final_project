@@ -11,19 +11,19 @@
 		       BR.BR_PRESENT_PIC,
 		       BR.BR_TITLE,
 		       BR.BR_CREATE_DATE,
-		       BR.BR_MODIFY_DATE
+		       BR.BR_MODIFY_DATE,
 		       BR.BR_BOOKTYPE,
 		       BR.BR_CONTENT,
 		       BR.BR_VIEWCOUNT,
 		       BR.BR_LIKE,
-		       BR.STATUS,
+		       BR.BR_STATUS,
 		       BR.BR_RATING
 		FROM BOOK_REVIEW_BOARD BR
 		JOIN MEMBER M ON(BR.USER_NO = M.USER_NO)		
 		WHERE BR.STATUS='Y'
 	</sql>
 
-	<resultMap type="Board" id="brResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
+	<resultMap type="ReviewBoard" id="brResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
 		<id property="brNo" column="BR_NO"/>
 		<result property="userNo" column="USER_NO"/>
 		<result property="userNname" column="USER_NNAME"/>
@@ -36,7 +36,7 @@
 		<result property="brContent" column="BR_CONTENT"/>
 		<result property="brViewCount" column="BR_VIEWCOUNT"/>
 		<result property="brLike" column="BR_LIKE"/>
-		<result property="status" column="STATUS"/>
+		<result property="status" column="BR_STATUS"/>
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
 	

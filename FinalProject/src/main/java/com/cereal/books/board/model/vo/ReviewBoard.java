@@ -30,6 +30,8 @@ public class ReviewBoard {
 	
 	private String brContent;
 	
+	private int brViewCount;
+	
 	private int brLike;
 	
 	private String status;
