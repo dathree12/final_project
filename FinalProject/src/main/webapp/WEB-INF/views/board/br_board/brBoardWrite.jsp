@@ -47,7 +47,7 @@
 	            <hr id="line">
 	        </section>
 	        <section class ="brboard-write-body">
-	            <form action="${ path }/board/br_board/brBoardWrite${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
+	            <form action="${ path }/board/br_board/brBoardWrite${_csrf.parameterName}=${_csrf.token}" method="POST" id="brboardwrite" enctype="multipart/form-data">
 	                <p>북리뷰 글쓰기</p>
 	                <div class="brboard-write-option">
 	                    <p>글제목</p>
@@ -88,14 +88,13 @@
 							
 
 					});
-					CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/br_board/brBoardWrite'; };
 					</script>
 	                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
 	            </form>
 	        </section>
         <section class="brboard-write-bottom">
             <a href="${ path }/board/br_board/brBoardMain" id="write-bottom-cancelbtn">취소</a>
-            <input type="submit" id="write-bottom-enrollbtn" value="등록">
+            <a id="write-bottom-enrollbtn" onclick="document.getElementById('brboardwrite').submit();">등록</a>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         </section>
     </div>    

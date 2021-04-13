@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -68,8 +69,8 @@ public class ReviewController {
 //	
 	
 	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
-	public ModelAndView brWrite(HttpServletRequest request, HttpServletResponse response, MultipartFile upload,
-							ReviewBoard reviewboard, ModelAndView model)
+	public ModelAndView brWrite(HttpServletRequest request, MultipartFile upload,
+							ReviewBoard reviewboard, ModelAndView model, @RequestParam("userNo") int userNo, @RequestParam("userId") String userId)
 			throws Exception {
 		
 		int result = 0;
