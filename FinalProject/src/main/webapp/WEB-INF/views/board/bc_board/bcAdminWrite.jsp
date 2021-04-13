@@ -60,7 +60,7 @@
                     <input id="post_subject" class="post_subject" name="bcPrice" value="${ clubBoard.bcPrice }" placeholder="가격" type="number" style="width: 120px;">
                 </div>
                 <div class="table-cell">
-                    <input id="post_subject" class="post_subject" name="bcRegDate" value="${ clubBoard.bcStartDate }" placeholder="일정" type="date" style="width: 200px;">
+                    <input id="post_subject" class="post_subject" name="bcStartDate" value="${ clubBoard.bcStartDate }" placeholder="일정" type="date" style="width: 200px;">
                 </div>
                 <div class="table-cell">
                     <input id="post_subject" class="post_subject" name="bcDeadLineDate" value="${ clubBoard.bcDeadLineDate }" placeholder="일정" type="date" style="width: 200px;">

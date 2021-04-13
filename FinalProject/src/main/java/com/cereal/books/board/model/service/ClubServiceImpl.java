@@ -28,24 +28,15 @@ public class ClubServiceImpl implements ClubService {
 	public int getBoardCount() {
 		return clubDao.selectCount();
 	}
-
-	// 게시판 페이징 처리
+	
 	@Override
-	public List<ClubBoard> getBoardList(PageInfo pageInfo) {
-		/*
-		 * RowBounds (import org.apache.ibatis.session.RowBounds;)
-		 *  1) offset : 데이터를 가져오는 시작점에서 얼마나 떨어진 데이터값인지 의미
-		 *  2) limit : 몇 개의 값을 가져올지를 의미한다.
-		 */
-		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-		
-		return clubDao.selectClubList(rowBounds);
+	public int saveRemainDate() {
+		return clubDao.saveRemainDate();
 	}
-
+	
 	@Override
-	public ClubBoard findClubByNo(int bcNo) {
-		return clubDao.selectClubDetail(bcNo);
+	public int noneRemainDate() {
+		return clubDao.noneRemainDate();
 	}
 
 	@Override
@@ -66,4 +57,29 @@ public class ClubServiceImpl implements ClubService {
 		
 		return result;
 	}
+
+	@Override
+	public ClubBoard findClubByNo(int bcNo) {
+		return clubDao.selectClubDetail(bcNo);
+	}
+
+	
+	@Override
+	public List<ClubBoard> getBoardList(PageInfo pageInfo) {
+		/*
+		 * RowBounds (import org.apache.ibatis.session.RowBounds;)
+		 *  1) offset : 데이터를 가져오는 시작점에서 얼마나 떨어진 데이터값인지 의미
+		 *  2) limit : 몇 개의 값을 가져올지를 의미한다.
+		 */
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return clubDao.selectClubList(rowBounds);
+	}
+
+	@Override
+	public List<ClubBoard> getDlBoardList() {
+		return clubDao.selectDlClubList();
+	}
+	
 }

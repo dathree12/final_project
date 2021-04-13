@@ -1,5 +1,7 @@
 package com.cereal.books.board.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,11 +23,13 @@ public class ClubBoard {
 	
 	private int bcPrice; // 북클럽 가격
 	
-	private String bcRegDate; // 북클럽 등록일정, 메인페이지에 추가 될
+	private Date bcRegDate; // 북클럽 등록일정, 메인페이지에 추가 될
 	
-	private String bcStartDate; // 북클럽 등록일정, 클럽 시작일정
+	private Date bcStartDate; // 북클럽 등록일정, 클럽 시작일정
 	
-	private String bcDeadLineDate; // 북클럽 마감일정, 클럽 마감일정
+	private Date bcDeadLineDate; // 북클럽 마감일정, 클럽 마감일정
+	
+	private int bcRemainDate;
 	
 	private int bcViewCount; // 북클럽 조회수
 	

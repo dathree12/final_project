@@ -46,50 +46,63 @@
                         <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardList" style="text-decoration: none; color: black;">클럽 제안하기</a></li>
                     </ul>
                 </div>
-                <!-- 시작 날짜랑 종료날짜가 같아지면 DB에 INDEX(Y/N) 으로 처리하고 해당컬럼 N이되면 리스트 보여주는 컨트롤러 작성? -->
-                <!-- 
-                <div class="_catelist_best wrapper">
-                    <h2><span id="deadline_club" style="position: absolute; left: 600px; top: 150px;">진행 중인 클럽</span></h2>
-                    <ul class="prdList carousel owl-carousel">
-                        <li class="anchorBoxId_14">
-                            <div class="box">
-                                <div class="thumbnail">
-                                    <div class="prdImg">
-                                        <div class="price_rate">7%</div>
-                                        <a href="#">
-                                            <img src="${ path }/images/club-test.jpg" alt="샘플">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="description">
-                                    <strong class="name">
-                                        <a href="#">
-                                            <span style="font-size: 12px; color: #555555;">샘플상품4</span>
-                                        </a>
-                                    </strong>
-                                    <ul class="spec">
-                                        <li class="_inline">
-                                            <strong class="title" style="font-size: 12px; color: #000000; font-weight: bold;">28,000원</strong>
-                                        </li>
-                                        <li class="_inline">
-                                            <strong class="title">
-                                                <p class="spec_deadline">
-                                                    마감되었습니다
-                                                </p>
-                                            </strong>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                -->
+                <!-- noneRemainList -->
+                <c:if test="${ dlList == null }">
+             	   <p style="width: 100%; margin: 100px 100px 100px 43%">조회된 게시글이 없습니다.</p>
+                </c:if>
+                <c:if test="${ dlList != null }">
+                	<c:forEach var="clubBoard" items="${ dlList }">
+		                <div class="_catelist_best wrapper">
+		                    <h2><span id="deadline_club" style="position: absolute; left: 600px; top: 150px;">진행 중인 클럽</span></h2>
+		                    <ul class="prdList carousel owl-carousel">
+		                        <li class="anchorBoxId_14">
+		                            <div class="box">
+		                                <div class="thumbnail">
+		                                    <div class="prdImg">
+		                                        <div class="price_rate">7%</div>
+		                                        <a href="#">
+		                                            <img src="${ path }/images/club-test.jpg" alt="샘플">
+		                                        </a>
+		                                    </div>
+		                                </div>
+		                                <div class="description">
+		                                    <strong class="name">
+		                                        <a href="#">
+		                                            <span style="font-size: 12px; color: #555555;">샘플상품4</span>
+		                                        </a>
+		                                    </strong>
+	                                            <ul class="spec" style="height: 100%; padding: 0">
+	                                                <li class="_inline" style="display: block; width: 100%; margin: 0">
+	                                                    <strong class="title" style="font-size: 12px; color: #000000; font-weight: bold; text-align: left;">
+	                                                    <span style="font-size: 10px; background: #000; color: #fff; padding: 0px 1px;">가격</span>&nbsp;<fmt:formatNumber value="${ clubBoard.bcPrice }" />원
+	                                                    </strong>
+	                                                </li>
+	                                                <li class="_inline" style="display: block; width: 100%; text-align: left; margin: 0">
+	                                                    <strong class="title">
+	                                                        <p style="font-size: 11px; color: #000;">
+	                                                        	<p style="background: #000; color: #fff; display: table;">마감되었습니다.</p>
+	                                                            <!--  
+	                                                            2021-03-08 / 11:30 AM / 매주2회
+	                                                            -->
+	                                                        </p>
+	                                                        <span style="font-size: 11px; color: #999999; float: left; margin: 0">
+	                                                            <c:out value="${ clubBoard.bcContent }"></c:out> 
+	                                                        </span>
+	                                                    </strong>
+	                                                </li>
+	                                            </ul>
+		                                </div>
+		                            </div>
+		                        </li>
+		                    </ul>
+		                </div>
+                	</c:forEach>
+                </c:if>
                 <div class="_c_width">
                     <div class="normalpackage">
                         <div class="normalmenu">
                             <div class="function">
-                                <p class="prdCount">제품 : <strong></strong>개</p>
+                                <p class="prdCount">총 클럽 : <strong>${ clubBoard.boardCount }</strong>개</p>
                                 <h2><span id="recruiting_club">모집 중인 클럽</span></h2>
                                 <div></div>
                                 <!-- <ul id="type">
@@ -121,21 +134,22 @@
 		                                                    <span style="font-size: 12px; color: #555555;"><c:out value="${ clubBoard.bcOriginTitle }"></c:out></span>
 		                                                </a>
 		                                            </strong>
-		                                            <ul class="spec">
-		                                                <li class="_inline">
-		                                                    <strong class="title" style="font-size: 12px; color: #000000; font-weight: bold;">
-		                                                    <fmt:formatNumber value="${ clubBoard.bcPrice }" />
+		                                            <ul class="spec" style="height: 100%; padding: 0">
+		                                                <li class="_inline" style="display: block; width: 100%; margin: 0">
+		                                                    <strong class="title" style="font-size: 12px; color: #000000; font-weight: bold; text-align: left;">
+		                                                    <span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">가격</span>&nbsp;<fmt:formatNumber value="${ clubBoard.bcPrice }" />원
 		                                                    </strong>
 		                                                </li>
-		                                                <li class="_inline">
+		                                                <li class="_inline" style="display: block; width: 100%; text-align: left; margin: 0">
 		                                                    <strong class="title">
 		                                                        <p style="font-size: 11px; color: #000;">
-		                                                        	<c:out value="${ clubBoard.bcRegDate }"></c:out>
+		                                                        	<span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">등록</span>&nbsp;<c:out value="${ clubBoard.bcRegDate }"></c:out>
+		                                                        	<c:out value="${ clubBoard.bcRemainDate }"></c:out>
 		                                                            <!--  
 		                                                            2021-03-08 / 11:30 AM / 매주2회
 		                                                            -->
 		                                                        </p>
-		                                                        <span style="font-size: 11px; color: #999999;">
+		                                                        <span style="font-size: 11px; color: #999999; float: left; margin: 0">
 		                                                            <c:out value="${ clubBoard.bcContent }"></c:out> 
 		                                                        </span>
 		                                                    </strong>
@@ -183,7 +197,6 @@
     	val.classList.remove(d_none);
     }
     
-    /*
     $(document).ready(function() {
         $(".carousel").owlCarousel({
             margin: -10,
@@ -211,7 +224,6 @@
             }
         });
     });
-    */
     
     </script>
 <%@ include file="../../common/footer.jsp" %>

@@ -198,12 +198,9 @@ strong.name {
     vertical-align: top;
 }
 .spec {
-    padding: 0;
-    margin: 0;
+	margin: auto;
 }
-.spec li {
-    margin: 0;
-}
+
 .description p {
     text-align: left;
 }

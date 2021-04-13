@@ -16,5 +16,6 @@ public interface FundDao {
 
 	int saveRemainDate();
 
+	int changeStatus();
 
 }
