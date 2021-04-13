@@ -165,6 +165,7 @@ form {
   background-color: #89a2cc;
 }
 
+
 @media all and (max-width: 768px) {
   #brboard-write-bookselect {
     font-size: 12px;
