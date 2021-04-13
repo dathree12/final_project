@@ -64,6 +64,47 @@ public class FundServiceImpl implements FundService {
 		return result;
 	}
 
+	// 관리자 펀드 조회
+	@Override
+	public List<FundBoard> getFundList(PageInfo fundPageInfo, String status) {
+		int offset = (fundPageInfo.getCurrentPage() - 1) * fundPageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, fundPageInfo.getListLimit());
+		
+		return fundDao.adminFundList(rowBounds, status);
+	}
 
+	@Override
+	public int getFundCount(String status) {
+		return fundDao.selectFundStatusCount(status);
+	}
+
+	// 마이페이지
+	// 참여중인 펀드
+	@Override
+	public List<FundBoard> getMyFundList(PageInfo pageInfo, int userNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return fundDao.myFundList(rowBounds, userNo);
+	}
+
+	@Override
+	public int getMyFundCount(int userNo) {
+		return fundDao.selectMyFundCount(userNo);
+	}
+	
+	// 내가 제안한 펀드
+	@Override
+	public List<FundBoard> getMyAplctFundList(PageInfo pageInfo, int userNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return fundDao.myAplctFundList(rowBounds, userNo);
+	}
+	
+	@Override
+	public int getMyAplctFundCount(int userNo) {
+		return fundDao.selectMyAplcFundCount(userNo);
+	}
 	
 }

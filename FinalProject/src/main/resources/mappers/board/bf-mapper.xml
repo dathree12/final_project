@@ -29,6 +29,30 @@
 		JOIN MEMBER M ON(B.USER_NO = M.USER_NO)
 		WHERE B.BF_STATUS='P'
 	</sql>
+		
+	<!-- 기본 펀드 조회(관리자, 마이페이지) -->
+	<sql id="selectfundSql">
+		SELECT BF_NO,
+			   USER_NO,
+			   BF_TITLE,
+			   BF_PRICE,
+			   BF_ENROLL_DATE,
+			   BF_END_DATE,
+			   BF_MODIFY_DATE,
+			   BF_REMAIN_DATE,
+			   BF_TARGET_PRICE,
+			   BF_REACH_PRICE,
+			   BF_ATTAIN_RATE,
+			   BF_VIEW_COUNT,
+			   BF_BUY_COUNT,
+			   BF_STATUS,
+			   BF_AGREEMENT,
+			   BF_LIKE,
+			   BF_CONTENT,
+			   BF_ORI_IMGNAME,
+			   BF_RE_IMGNAME
+		FROM BOOK_FUNDING_BOARD
+	</sql>
 	
 	<resultMap type="FundBoard" id="fundResultMap">
 		<id property="bfNo" column="BF_NO"/>
@@ -108,6 +132,65 @@
 		)
 	</insert>
 	
+	
+	<!-- 관리자 -->
+	<!-- 관리자펀드 조회 -->
+	<select id="adminFundList" parameterType="map" resultMap="fundResultMap">
+		<include refid="selectfundSql"></include>
+		<if test="status != null">
+	  		WHERE 
+	  			BF_STATUS =#{status}
+		</if>
+  		ORDER BY USER_NO DESC
+  	</select>
+  	<select id="selectFundStatusCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_FUNDING_BOARD
+		<if test="status != null">
+	  		WHERE 
+	  			BF_STATUS =#{status}
+		</if>
+	</select>
+	<!-- 펀드 상태 변경 -->
+	<update id="updateFundStatus" parameterType="map">
+		UPDATE BOOK_FUNDING_BOARD
+		SET
+            STATUS=#{status}
+        WHERE BF_NO IN
+        <foreach item="bfNo" index="i" collection="bfNo" open="(" separator="," close=")">
+        	#{bfNo}
+        </foreach>
+	</update>
+	
+	<!-- 마이페이지 -->
+	<!-- 참여한 펀드 조회 -->
+	<select id="myFundList" parameterType="map" resultMap="fundResultMap">
+		SELECT F.BF_NO, 
+			F.BF_TITLE, 
+			F.BF_RE_IMGNAME
+		FROM BOOK_FUNDING_BOARD F 
+		JOIN PAYMENT P ON(F.BF_NO = P.BF_NO)
+		WHERE P.USER_NO = #{userNo} AND P.PAY_PROGRESS = 'Y' AND P.PAY_ITEM = 'F' AND P.PAY_STATUS = 'N'
+  		ORDER BY BF_NO DESC
+  	</select>
+  	<select id="selectMyFundCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_FUNDING_BOARD F 
+		JOIN PAYMENT P ON(F.BF_NO = P.BF_NO)
+		WHERE P.USER_NO = #{userNo} AND P.PAY_PROGRESS = 'Y' AND P.PAY_ITEM = 'F' AND P.PAY_STATUS = 'N'
+	</select>
+	<!-- 신청한 펀드 조회 -->
+	<select id="myAplctFundList" parameterType="map" resultMap="fundResultMap">
+		SELECT BF_NO, BF_TITLE, BF_RE_IMGNAME, BF_STATUS
+		FROM BOOK_FUNDING_BOARD
+		WHERE USER_NO = #{userNo}
+  		ORDER BY BF_NO DESC
+  	</select>
+  	<select id="selectMyAplcFundCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_FUNDING_BOARD
+		WHERE USER_NO = #{userNo}
+	</select>
 </mapper>
 
 
