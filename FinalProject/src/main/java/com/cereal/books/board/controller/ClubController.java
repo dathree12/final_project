@@ -139,18 +139,23 @@ public class ClubController {
 			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {
 		
 		List<ClubBoard> list = null;
+		List<ClubBoard> dlList = null;
 		
 		int boardCount = service.getBoardCount();
 		int result = service.saveRemainDate();
+		int noneResult = service.noneRemainDate();
 		
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 		
 		System.out.println("boardCount : " + boardCount);
 		
 		list = service.getBoardList(pageInfo);
+		dlList = service.getDlBoardList();
 		
 		model.addObject("list", list);
+		model.addObject("dlList", dlList);
 		model.addObject("pageInfo", pageInfo);
+		model.addObject("boardCount", boardCount);
 		model.setViewName("board/bc_board/bcBoardMain");
 		
 		System.out.println(list);

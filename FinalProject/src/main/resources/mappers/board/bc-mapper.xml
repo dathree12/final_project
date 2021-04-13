@@ -28,7 +28,7 @@
 		FROM
 		BOOK_CLUB_BOARD B
 		JOIN MEMBER M ON (B.USER_ID = M.USER_ID)
-		WHERE B.BC_STATUS='Y'
+		WHERE B.BC_STATUS='P'
 	</sql>
 
 	<resultMap type="ClubBoard" id="clubResultMap">
@@ -97,26 +97,30 @@
 	</select>
 
 	<select id="selectClubList" parameterType="map"	resultMap="clubResultMap">
+		<include refid="clubListSql"></include>
+		ORDER BY B.BC_NO DESC
+	</select>
+	
+	<select id="selectDlClubList" parameterType="map" resultMap="clubResultMap">
 		SELECT 
 		B.BC_NO,
-        M.USER_ID,
-        B.BC_ORIGIN_TITLE,
-        B.BC_SUB_TITLE,
-        B.BC_PRICE,
-        B.BC_REG_DATE,
-        B.BC_START_DATE,
-        B.BC_DL_DATE,
-   		B.BC_REMAIN_DATE,
-        B.BC_VIEW_COUNT,
-        B.BC_CONTENT,
-        B.BC_COM_COUNT,
-        B.BC_ORIGIN_IMAGE,
-        B.BC_MODIFY_IMAGE,
-        B.BC_STATUS,
-        B.BC_AGREEMENT
-		FROM BOOK_CLUB_BOARD B
+		M.USER_ID,
+		B.BC_ORIGIN_TITLE,
+		B.BC_SUB_TITLE,
+		B.BC_REG_DATE,
+		B.BC_START_DATE,
+		B.BC_DL_DATE,
+		B.BC_REMAIN_DATE,
+		B.BC_VIEW_COUNT,
+		B.BC_CONTENT,
+		B.BC_ORIGIN_IMAGE,
+		B.BC_MODIFY_IMAGE,
+		B.BC_STATUS,
+		B.BC_AGREEMENT
+		FROM
+		BOOK_CLUB_BOARD B
 		JOIN MEMBER M ON (B.USER_ID = M.USER_ID)
-		WHERE BC_AGREEMENT='Y'
+		WHERE B.BC_STATUS='Q'
 		ORDER BY B.BC_NO DESC
 	</select>
 
@@ -160,5 +164,11 @@
 		UPDATE BOOK_CLUB_BOARD
 		SET 
 		BC_REMAIN_DATE = TRUNC(BC_DL_DATE - SYSDATE)
+	</update>
+	
+	<update id="noneRemainDate" parameterType="ClubBoard">
+		UPDATE BOOK_CLUB_BOARD
+		SET BC_STATUS = 'Q'
+		WHERE BC_STATUS = 'P' AND BC_REMAIN_DATE &lt; 0
 	</update>
 </mapper>

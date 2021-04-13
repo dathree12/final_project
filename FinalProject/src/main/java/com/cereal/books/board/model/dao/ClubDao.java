@@ -34,15 +34,18 @@ public interface ClubDao {
 
 	int saveRemainDate();
 	
-//	int updateClub(ClubBoard clubBoard);
+	int noneRemainDate();
 	
 	int insertClub(ClubBoard clubBoard);
 	
+//	int updateClub(ClubBoard clubBoard);
+
 	ClubBoard selectClubDetail(int bcNo);
 	
-	List<ClubBoard> selectClubList(RowBounds rowBounds);
-
 	ClubBoard findClubByNo(int bcNo);
-
-
+	
+	List<ClubBoard> selectClubList(RowBounds rowBounds);
+	
+	List<ClubBoard> selectDlClubList();
+	
 }

@@ -13,9 +13,12 @@ public interface ClubService {
 	
 	int saveRemainDate();
 
+	int noneRemainDate();
+
 	List<ClubBoard> getBoardList(PageInfo pageInfo);
-
+	
+	List<ClubBoard> getDlBoardList();
+	
 	ClubBoard findClubByNo(int bcNo);
-
 
 }
