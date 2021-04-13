@@ -44,33 +44,10 @@ public class ReviewController {
 		//return "board/br_board/brBoardWrite";
 	}
 	
-//	
-//	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
-//	public ModelAndView brWrite (HttpServletRequest request, 
-//								 ReviewBoard reviewboard, ModelAndView model) {
-//
-//			int result = 0;
-//
-//			result = service.saveBoard(reviewboard);
-//			
-//			if(result > 0) {
-//				model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-//				model.addObject("location", "/board/br_board/brBoardMain");
-//			} else {
-//				model.addObject("msg", "게시글 등록을 실패하였습니다.");
-//				model.addObject("location", "/board/list");
-//			}			
-//			
-//		
-//		model.setViewName("common/msg");
-//		
-//		return model;
-//		}
-//	
 	
 	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
 	public ModelAndView brWrite(HttpServletRequest request, MultipartFile upload,
-							ReviewBoard reviewboard, ModelAndView model, @RequestParam("userNo") int userNo, @RequestParam("userId") String userId)
+							ReviewBoard reviewboard, ModelAndView model)
 			throws Exception {
 		
 		int result = 0;

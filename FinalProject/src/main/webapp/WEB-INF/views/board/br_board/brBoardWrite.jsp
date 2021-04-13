@@ -11,7 +11,6 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>북리뷰 글쓰기</title>
     <link rel="stylesheet" href="${ path }/css/board/br_style/brBoardWrite.css" type="text/css">
@@ -47,7 +46,7 @@
 	            <hr id="line">
 	        </section>
 	        <section class ="brboard-write-body">
-	            <form action="${ path }/board/br_board/brBoardWrite${_csrf.parameterName}=${_csrf.token}" method="POST" id="brboardwrite" enctype="multipart/form-data">
+	            <form action="${path}/board/br_board/brBoardWrite" method="POST" id="brboardwrite" enctype="multipart/form-data">
 	                <p>북리뷰 글쓰기</p>
 	                <div class="brboard-write-option">
 	                    <p>글제목</p>
@@ -94,8 +93,8 @@
 	        </section>
         <section class="brboard-write-bottom">
             <a href="${ path }/board/br_board/brBoardMain" id="write-bottom-cancelbtn">취소</a>
-            <a id="write-bottom-enrollbtn" onclick="document.getElementById('brboardwrite').submit();">등록</a>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			<a id="write-bottom-enrollbtn" onclick="document.getElementById('brboardwrite').submit();">등록</a>
+           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         </section>
     </div>    
     </div>
