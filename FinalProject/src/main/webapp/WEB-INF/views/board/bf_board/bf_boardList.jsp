@@ -85,7 +85,7 @@
 		                <div class="fdboard_thumbnail">
 		                    <div class="fdboard_attainRate"><c:out value="${Math.round((board.bfReachPrice/board.bfTargetPrice)*100)}"/>%</div>
 		                    <a href="#" class="fdboard_img" name="fdboard_img">
-		                        <img src="${ path }/images/bf_images/${ board.bfReImgName }" width="180px" height="270px">
+		                        <img src="${ path }/upload/bf_board/${ board.bfReImgName }" width="180px" height="270px">
 		                    </a>
 		                </div>
 		                <div class="fdboard_contants">

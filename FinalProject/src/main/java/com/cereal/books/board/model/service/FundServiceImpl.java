@@ -50,6 +50,20 @@ public class FundServiceImpl implements FundService {
 		return result;
 	}
 
+	@Override
+	@Transactional
+	public int saveBoard(FundBoard fundboard) {
+		int result = 0;
+
+//		if(fundboard.getBfNo() != 0) {
+//			result = fundDao.updateBoard(fundboard);
+//		} else {
+			result = fundDao.insertBoard(fundboard);
+//		}
+		
+		return result;
+	}
+
 
 	
 }

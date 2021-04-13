@@ -18,4 +18,6 @@ public interface FundDao {
 
 	int changeStatus();
 
+	int insertBoard(FundBoard fundboard);
+
 }

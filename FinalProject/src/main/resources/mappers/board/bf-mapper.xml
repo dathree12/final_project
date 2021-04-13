@@ -51,23 +51,23 @@
 		<result property="bfReImgName" column="BF_RE_IMGNAME"/>
 	</resultMap>
 
+	<!-- list에서 사용 : list불러오고 전체 보드 수 구해서 페이징처리까지 -->
 	<select id="selectBoardList" parameterType="map" resultMap="fundResultMap">
 		<include refid="fundListSql"></include>
 		ORDER BY B.BF_NO DESC
 	</select>
-	
 	<select id="selectCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOOK_FUNDING_BOARD B
 		WHERE B.BF_STATUS='P'
 	</select>
 	
+	<!-- list에서 사용 : remaindate 구하고 마감된 항목 status 변경 -->
 	<update id="saveRemainDate" parameterType="FundBoard">
 		UPDATE BOOK_FUNDING_BOARD
 		SET 
 			BF_REMAIN_DATE = TRUNC(BF_END_DATE - SYSDATE)
 	</update>
-	
  	<update id="changeStatus" parameterType="FundBoard">
 		UPDATE BOOK_FUNDING_BOARD
 		SET 
@@ -75,6 +75,33 @@
 		WHERE 
 			BF_REMAIN_DATE &lt; 0
 	</update>
+	
+	<!-- write에서 사용 : fund write 기능 -->
+	<insert id="insertBoard" parameterType="map"
+		 useGeneratedKeys="true" keyProperty="bfNo" keyColumn="BF_NO">
+  		INSERT INTO BOOK_FUNDING_BOARD 
+  		VALUES(
+  			SEQ_BF_NO.NEXTVAL,		 
+		 	#{userNo},
+		 	#{bfTitle},
+		 	#{bfPrice},
+		 	#{bfEnrollDate},
+		 	#{bfEndDate},
+		 	DEFAULT,
+		 	99999,
+		 	#{bfTargetPrice},
+		 	0,
+		 	0,
+		 	DEFAULT,
+		 	DEFAULT,
+		 	DEFAULT,
+		 	'Y',
+		 	DEFAULT,
+		 	#{bfContent},
+		 	#{bfOriImgName},
+		 	#{bfReImgName}
+		)
+	</insert>
 	
 </mapper>
 
