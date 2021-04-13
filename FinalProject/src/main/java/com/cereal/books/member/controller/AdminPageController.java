@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cereal.books.board.model.service.FundService;
+import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.common.util.PageInfo;
 import com.cereal.books.member.model.service.MemberService;
 import com.cereal.books.member.model.vo.Member;
@@ -22,52 +24,54 @@ public class AdminPageController {
 	
 	@Autowired
 	private MemberService mService;
+	private FundService fService;
 	
+	// 관리자 페이지 불러오기
 	@RequestMapping("/member/admin/admin_page")
 	public ModelAndView mypage(ModelAndView model) {
 		String status = null;
 		List<Member> list = null;
+		List<FundBoard> bflist = null;
 		int boardCount = mService.getMemberCount(status);
+		int fBoardCount = fService.getFundCount(status);
 		PageInfo pageInfo = new PageInfo(1, 10, boardCount, 10);
+		PageInfo fundPageInfo = new PageInfo(1, 10, fBoardCount, 10);
 		list = mService.getMemberList(pageInfo, status);
+		bflist = fService.getFundList(fundPageInfo, status);
 		
 		model.addObject("list", list);
+		model.addObject("bflist", bflist);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("member/admin/admin_page");
 		
 		return model;
 	}
+	
+	// 회원 목록 불러오기
 	@RequestMapping("/member/admin")
 	@ResponseBody
 	public Map<String, Object> list(
-//			ModelAndView model,
 			@RequestParam(value = "mStatus", required = false, defaultValue = "ALL") String status
 			) {
 		
-//		String status = null;
 		if(status.equals("ALL")) {
 			status = null;
 		}
 		
-//		System.out.println("status : " + status);
 		List<Member> list = null;
 		int boardCount = mService.getMemberCount(status);
 		PageInfo pageInfo = new PageInfo(1, 10, boardCount, 10);
 		list = mService.getMemberList(pageInfo, status);
 		
-//		System.out.println("list : " + list);
-//		System.out.println(boardCount);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		result.put("list", list);
 		result.put("pageInfo", pageInfo);
-//		model.addObject("list", list);
-//		model.addObject("pageInfo", pageInfo);
-//		model.setViewName("member/admin/admin_page");
 		
 		return result;
 	}
 	
+	// 회원 상태값 변경
 	@RequestMapping(value = "/member/admin/updatemst", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public Object list(

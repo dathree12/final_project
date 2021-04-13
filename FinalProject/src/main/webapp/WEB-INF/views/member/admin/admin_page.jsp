@@ -13,7 +13,6 @@
         <div class="menu">
             <span><a href="#bookclub">북클럽</a></span>
             <span><a href="#bookfunding">북펀딩</a></span>
-            <span><a href="#quit">마감현황</a></span>
             <span><a href="#user">회원관리</a></span>
         </div>
         <hr>
@@ -25,7 +24,12 @@
                 <div class="list">
                     <div class="content">
                         <!-- 제안된 클럽 -->
-                        <p>클럽 제안 현황</p>
+                        <select class="usertype" name="bcStatus">
+                            <option id="bcStatus" value="">클럽제안현황</option>
+                            <option id="bcStatus" value="">운영중인클럽</option>
+                            <option id="bcStatus" value="">취소된클럽</option>
+                            <option id="bcStatus" value="">마감된클럽</option>
+                        </select>
                         <table class="list_table">
                             <tr>
                                 <th></th>
@@ -194,361 +198,141 @@
         </div>
 
         <!-- 북펀딩 -->
-        <div class="bookfunding">
+		<div class="bookfunding">
             <p class="title" id="bookfunding">북펀딩</p>
             <div class="funding">
                 <div class="list">
-                    <div class="content">
-                        <p>펀딩 신청 현황</p>
-                        <table class="list_table">
-                            <tr>
-                                <th></th>
-                                <th class="th">No</th>
-                                <th class="th">Title</th>
-                                <th class="th">Status</th>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td>책스초코의 비밀</td>
-                                <td>검토중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td>책스초코의 비밀</td>
-                                <td>검토중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td>책스초코의 비밀</td>
-                                <td>검토중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td>책스초코의 비밀</td>
-                                <td>검토중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td>책스초코의 비밀</td>
-                                <td>검토중</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="pageBar">
-                        <div id="pageBarAndBtn">
-                            <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
-                        </div>
-                        <div class="bnt">
-                        <button>수락</button>
-                        <button>거절</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="open_list">
-                    <div class="content">
-                        <p>모집중인 펀딩</p>
-                        <table class="list_table">
-                            <tr>
-                                <th></th>
-                                <th class="th">No</th>
-                                <th class="th">Title</th>
-                                <th class="th">Status</th>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="pageBar">
-                        <div id="pageBarAndBtn">
-                            <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
-                        </div>
-                        <div class="bnt">
-                            <button>마감</button>
-                            </div>
-                    </div>
-                </div>
-                <div class="refusal_list">
-                    <div class="content">
-                        <p>취소 된 펀딩</p>
-                        <table class="list_table">
-                            <tr>
-                                <th class="th">No</th>
-                                <th class="th">Title</th>
-                                <th class="th">Status</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>책스초코의 비밀</td>
-                                <td>거절</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>책스초코의 비밀</td>
-                                <td>거절</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>책스초코의 비밀</td>
-                                <td>거절</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>책스초코의 비밀</td>
-                                <td>거절</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>책스초코의 비밀</td>
-                                <td>거절</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="pageBar">
-                        <div id="pageBar">
-                            <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 마감현황 -->
-        <div class="status_quit">
-            <p class="title" id="quit">마감현황</p>
-            <div class="quit">
-                <div class="quit_list">
-                    <div class="content">
-                        <p>북클럽</p>
-                        <table class="list_table">
-                            <tr>
-                                <th></th>
-                                <th class="th">No</th>
-                                <th class="th">Title</th>
-                                <th class="th">Status</th>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="pageBar">
-                        <div id="pageBar">
-                            <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="refusal_list">
-                    <div class="content">
-                        <p>북펀딩</p>
-                        <table class="list_table">
-                            <tr>
-                                <th class="th">No</th>
-                                <th class="th">Title</th>
-                                <th class="th">Status</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="pageBar">
-                        <div id="pageBar">
-                            <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 회원관리 -->
-        <div class="user">
-            <p class="title" id="user">회원관리</p>
-            <div class="user_list">
-                <div class="list">
-                <form action="${path}/member/admin" method="post">
-                <security:authentication property="principal" var="user"/>
-                    <div class="content">
-                        <p style="display: inline-block;">회원목록</p>
-                        <select class="usertype" name="mStatus">
-                            <option id="mStatus" value="ALL">전체회원</option>
-                            <option id="mStatus" value="Y">활동회원</option>
-                            <option id="mStatus" value="N">정지회원</option>
-                        </select>
-                        <div>
-                        <table class="list_table">
-                            <tr>
-                                <th></th>
-                                <th class="th">ID</th>
-                                <th class="th">이름</th>
-                                <th class="th">닉네임</th>
-                                <th class="th">Status</th>
-                            </tr>
-				            <tbody id="dynamicTbody">
-								<c:if test="${list == null}">
-								<tr>
-									<td colspan="6">
-										조회된 회원이 없습니다.
-									</td>
-								</tr>	
-							</c:if>
-							<c:if test="${list != null}">
-								<c:forEach var="member" items="${list}">
-									<tr>
-										<td><input name="upmst" type="checkbox"></td>
-										<td><c:out value="${member.userId}"/></td>
-										<td><c:out value="${member.name}"/></td>
-										<td><c:out value="${member.userNname}"/></td>
-										<td><c:out value="${member.status}"/></td>
-									</tr>
-								</c:forEach>
-							</c:if>
-							</tbody>
-                        </table>
-                        </div>
-                    </div>
-                    <div class="pageBar">
-                        <div id="pageBarAndBtn">
-                            <!-- 이전 페이지로 -->
-                            <button onclick="location.href='${path}/member/admin/admin_page?page=${pageInfo.prvePage}&listLimit=${pageInfo.listLimit}'">&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
-								<c:if test="${status.current == pageInfo.currentPage}">
-									<button disabled><c:out value="${status.current}"/></button>
-				   				</c:if>
-								<c:if test="${status.current != pageInfo.currentPage}">
-									<button onclick="location.href='${path}/member/admin/admin_page?page=${status.current}&listLimit=${pageInfo.listLimit}'"><c:out value="${status.current}"/></button>
-				   				</c:if>
-							</c:forEach>
-                            <!-- 다음 페이지로 -->
-                            <button onclick="location.href='${path}/member/admin/admin_page?page=${pageInfo.nextPage}&listLimit=${pageInfo.listLimit}'">&gt;</button>
-                        </div>
-                        <div class="bnt">
-                        <button type="button" id="mbtn"value="N">정지</button>
-                        <button type="button" id="membtn"value="Y">복구</button>
-                        </div>
-                    </div>
+	                <form action="${path}/member/admin/bookfunding" method="post">
+	                	<security:authentication property="principal" var="user"/>
+	                    <div class="content">
+	                        <select class="usertype" name="bcStatus">
+	                            <option id="bcStatus" value="N">펀딩신청현황</option>
+	                            <option id="bcStatus" value="P">모집중인펀딩</option>
+	                            <option id="bcStatus" value="C">취소된펀딩</option>
+	                            <option id="bcStatus" value="Q">마감된펀딩</option>
+	                        </select>
+	                        <table class="list_table">
+	                            <tr>
+	                                <th></th>
+	                                <th class="th">No</th>
+	                                <th class="th">Title</th>
+	                                <th class="th">User</th>
+	                                <th class="th">Status</th>
+	                            </tr>
+	                            <tbody id="fundTbody">
+									<c:if test="${bflist == null}">
+										<tr>
+											<td colspan="6">
+												조회된 펀딩이 없습니다.
+											</td>
+										</tr>	
+									</c:if>
+									<c:if test="${bflist != null}">
+										<c:forEach var="bookfunding" items="${list}">
+											<tr>
+												<td><input name="upmst" type="checkbox" value="${member.userId}"></td>
+												<td><c:out value="${bookfunding.bfNo}"/></td>
+												<td><c:out value="${bookfunding.bfTitle}"/></td>
+												<td><c:out value="${bookfunding.userId}"/></td>
+												<td><c:out value="${bookfunding.bfStatus}"/></td>
+											</tr>
+										</c:forEach>
+									</c:if>
+								</tbody>
+	                        </table>
+	                    </div>
+	                    <div class="pageBar">
+	                        <div id="pageBarAndBtn">
+	                            <!-- 이전 페이지로 -->
+	                            <button>&lt;</button>
+	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
+	                            <button disabled>1</button>
+	                            <button>2</button>
+	                            <button>3</button>
+	                            <!-- 다음 페이지로 -->
+	                            <button >&gt;</button>
+	                        </div>
+	                        <div class="bnt">
+		                        <button>수락</button>
+		                        <button>거절</button>
+	                        </div>
+	                    </div>
                     </form>
                 </div>
             </div>
-        </div>
-    </section>
+		</div>
+
+	        <!-- 회원관리 -->
+		<div class="user">
+	            <p class="title" id="user">회원관리</p>
+	            <div class="user_list">
+	                <div class="list">
+	                <form action="${path}/member/admin" method="post">
+	                	<security:authentication property="principal" var="user"/>
+	                    <div class="content">
+	                        <select class="usertype" name="mStatus">
+	                            <option id="mStatus" value="ALL">전체회원</option>
+	                            <option id="mStatus" value="Y">활동회원</option>
+	                            <option id="mStatus" value="N">정지회원</option>
+	                        </select>
+	                        <div>
+		                        <table class="list_table">
+		                            <tr>
+		                                <th></th>
+		                                <th class="th">ID</th>
+		                                <th class="th">이름</th>
+		                                <th class="th">닉네임</th>
+		                                <th class="th">Status</th>
+		                            </tr>
+						            <tbody id="dynamicTbody">
+										<c:if test="${list == null}">
+										<tr>
+											<td colspan="6">
+												조회된 회원이 없습니다.
+											</td>
+										</tr>	
+									</c:if>
+									<c:if test="${list != null}">
+										<c:forEach var="member" items="${list}">
+											<tr>
+												<td><input name="upmst" type="checkbox" value="${member.userId}"></td>
+												<td><c:out value="${member.userId}"/></td>
+												<td><c:out value="${member.name}"/></td>
+												<td><c:out value="${member.userNname}"/></td>
+												<td><c:out value="${member.status}"/></td>
+											</tr>
+										</c:forEach>
+									</c:if>
+									</tbody>
+		                        </table>
+	                        </div>
+	                    </div>
+	                    <div class="pageBar">
+	                        <div id="pageBarAndBtn">
+	                            <!-- 이전 페이지로 -->
+	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${pageInfo.prvePage}&listLimit=${pageInfo.listLimit}'">&lt;</button>
+	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
+	                            <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+									<c:if test="${status.current == pageInfo.currentPage}">
+										<button disabled><c:out value="${status.current}"/></button>
+					   				</c:if>
+									<c:if test="${status.current != pageInfo.currentPage}">
+										<button onclick="location.href='${path}/member/admin/admin_page?page=${status.current}&listLimit=${pageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+					   				</c:if>
+								</c:forEach>
+	                            <!-- 다음 페이지로 -->
+	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${pageInfo.nextPage}&listLimit=${pageInfo.listLimit}'">&gt;</button>
+	                        </div>
+	                        <div class="bnt">
+	                        <button type="button" id="mbtn"value="N">정지</button>
+	                        <button type="button" id="membtn"value="Y">복구</button>
+	                        </div>
+	                    </div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	</section>
    
 <script type="text/javascript">
 $(function() {
@@ -557,12 +341,14 @@ $(function() {
     $(document).ajaxSend(function (e, xhr, options) {
         xhr.setRequestHeader(csrfHeader, csrfToken);
     });
-$("select[name=mStatus]").change(function(){
-	var mStatus = $(this).val();
-	var mlist = {};
-	$("#dynamicTbody").empty();
+    
+    // 회원 목록 조회
+	$("select[name=mStatus]").change(function(){
+		var mStatus = $(this).val();
+		var mlist = {};
+		$("#dynamicTbody").empty();
 	  
-	  $.ajax({
+	  	$.ajax({
 			type: "get",
 			url: "${path}/member/admin",
 			dataType: "json",
@@ -599,7 +385,9 @@ $("select[name=mStatus]").change(function(){
 				console.log(e);
 			}
 		});
-});
+	});
+	
+    // 회원 상태 변경
 	$("#mbtn, #membtn").on('click', function (){
 		
 		var newstatus =  "";
@@ -609,7 +397,6 @@ $("select[name=mStatus]").change(function(){
 			idlist.push($(this).val());
          });
 		
-		console.log(idlist);
 		if($(event.target).attr('id')=='mbtn'){
 			newstatus = "N";
 		} else {
@@ -633,7 +420,7 @@ $("select[name=mStatus]").change(function(){
 				console.log(e);
 			}
 		});
-		 });
+	});
 });
 </script>
 <%@ include file="../../../views/common/footer.jsp" %>

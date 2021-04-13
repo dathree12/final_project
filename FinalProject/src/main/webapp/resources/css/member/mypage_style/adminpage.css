@@ -21,30 +21,8 @@ a { text-decoration: none; color: black;}
     /* border: 1px black solid; */
     /* display: inline-block; */
 }
-.open_list {
-    width: 50%;
-    height: 50%;
-    /* border: 1px black solid; */
-    display: inline-block;
-}
-.refusal_list{
-    width: 48%;
-    height: 50%;
-    float: right;
-    display: inline-block;
-    /* border: 1px black solid; */
-}
 .content {
     margin-bottom: 15px;   
-}
-.bnt {
-  display: inline-block;
-}
-button {
-	background-color: #747474;
-  border: 1px solid #4f4f4f;
-  color: #ffffff;
-  font-size: var(--small-size);
 }
 .list_table {
     width: 95%;
@@ -73,31 +51,16 @@ td{
     float: left;
 }
 
-/* 마감현황 */
-.status_quit { width: 100%; float: left; margin-bottom: 50px;}
-.quit {
-    width: 100%;
-    height: 300px;
-    border: darkgrey solid 1px;
-    border-radius: 5px;
-    float: left;
-}
-.quit_list {
-    width: 50%;
-    height: 50%;
-    display: inline-block;
-}
-
 /* 회원관리 */
 .user { width: 100%; float: left; margin-bottom: 50px;}
 .user_list {
     width: 100%;
-    height: 400px;
+    height: 600px;
     border: darkgrey solid 1px;
     border-radius: 5px;
     float: left;
 }
-.usertype { margin: 10px;}
+.usertype { margin: 10px; padding: 20px}
 
 /*페이지바*/
 div#pageBarAndBtn {
@@ -115,6 +78,19 @@ div#pageBar {
 
 div#pageBar span.cPage {
 	color: #0066ff;
+}
+
+button {
+	border-style: none;
+	color: black;
+	background-color: white;
+}
+.bnt button {
+	background-color: #747474;
+	border: 1px solid #4f4f4f;
+	color: #ffffff;
+	font-size: var(--small-size);
+	display: inline-block;
 }
 
 /* 반응형 */
