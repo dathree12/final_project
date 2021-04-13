@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
    	<meta content="${ _csrf.token }" name="csrf-token"/>
     <meta content="${ _csrf.headerName }" name="csrf-headerName">
-    <title>Document</title>
+    <title>AdminWrite</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcAdminWrite.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -60,7 +60,7 @@
                     <input id="post_subject" class="post_subject" name="bcPrice" value="${ clubBoard.bcPrice }" placeholder="가격" type="number" style="width: 120px;">
                 </div>
                 <div class="table-cell">
-                    <input id="post_subject" class="post_subject" name="bcRegDate" value="${ clubBoard.bcStartDate }" placeholder="일정" type="date" style="width: 200px;">
+                    <input id="post_subject" class="post_subject" name="bcStartDate" value="${ clubBoard.bcStartDate }" placeholder="일정" type="date" style="width: 200px;">
                 </div>
                 <div class="table-cell">
                     <input id="post_subject" class="post_subject" name="bcDeadLineDate" value="${ clubBoard.bcDeadLineDate }" placeholder="일정" type="date" style="width: 200px;">
@@ -70,9 +70,12 @@
 						CKEDITOR.replace( "bcContent", {//해당 이름으로 된 textarea에 에디터를 적용
 							height: 1000,
 							getUploadUrl: type='image',
-							filebrowserUploadUrl: '<c:url value="/board/bc_board/bcAdminWrite" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
+							filebrowserUploadUrl: '<c:url value="/board/bc_board/imageUpload" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
 						});
-						CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/bc_board/bcAdminWrite'; };
+						
+						CKEDITOR.editorConfig = function( config ) { 
+							config.filebrowserUploadUrl = '/board/bc_board/imageUpload';
+						};
 					</script>
 	                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
             </form>

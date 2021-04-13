@@ -28,7 +28,7 @@
 <section class="brboard-body">    
     <section class = "brboard-top">
         <div class = "brboard-top-title">
-            <a href="#">북리뷰 게시판</a>
+            <a style="color:#353535" href="#">북리뷰 게시판</a>
         </div>
         <div class = "brboard-top-menu">
             <li><a href="#">전체</a></li>

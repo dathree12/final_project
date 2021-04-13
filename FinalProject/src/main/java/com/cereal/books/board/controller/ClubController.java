@@ -1,13 +1,22 @@
 package com.cereal.books.board.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ClubService;
@@ -80,11 +89,20 @@ public class ClubController {
 
 		return "board/bc_board/bcBoardPayment";
 	}
+	
+	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
+	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo) {
+		
+		ClubBoard clubBoard = service.findClubByNo(bcNo);
+		
+		model.addObject("clubBoard", clubBoard);
+		model.setViewName("board/bc_board/bcBoardDetail");
+		
+		return model;
+	}
 
-	// CKEDITOR {BoardWrite, AdminWrite}
-	/*
-	 * 
-	@RequestMapping(value = "/bcBoardWrite", method = RequestMethod.POST)
+//	// CKEDITOR {BoardWrite, AdminWrite}
+	@RequestMapping(value = "/imageUpload", method = RequestMethod.POST)
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
 
@@ -130,7 +148,6 @@ public class ClubController {
 		printWriter.flush();
 
 	}
-	 */
 
 	// 북 클럽 메인페이지
 	@RequestMapping(value = "/bcBoardMain", method = RequestMethod.GET)
@@ -139,17 +156,23 @@ public class ClubController {
 			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {
 		
 		List<ClubBoard> list = null;
+		List<ClubBoard> dlList = null;
 		
 		int boardCount = service.getBoardCount();
+		int result = service.saveRemainDate();
+		int noneResult = service.noneRemainDate();
 		
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 		
 		System.out.println("boardCount : " + boardCount);
 		
 		list = service.getBoardList(pageInfo);
+		dlList = service.getDlBoardList();
 		
 		model.addObject("list", list);
+		model.addObject("dlList", dlList);
 		model.addObject("pageInfo", pageInfo);
+		model.addObject("boardCount", boardCount);
 		model.setViewName("board/bc_board/bcBoardMain");
 		
 		System.out.println(list);
@@ -157,61 +180,56 @@ public class ClubController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
-	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo) {
-		ClubBoard clubBoard = service.findClubByNo(bcNo);
-		
-		model.addObject("clubBoard", clubBoard);
-		model.setViewName("board/bc_board/bcBoardDetail");
-		
-		return model;
-	}
 
 	// 북 클럽 메인페이지(관리자)
 	@RequestMapping(value = "/bcAdminWrite", method = RequestMethod.POST)
-	public ModelAndView adminWrite(ModelAndView model, 
-//			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	public ModelAndView adminWrite(
+			ModelAndView model, 
 			Principal user,
-			ClubBoard clubBoard) {
-		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다. 
+			ClubBoard clubBoard
+			) throws Exception {
+		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
 		
-		int result =  0;
-		
-		result = service.saveBoard(clubBoard);
-		System.out.println(user.getName());
-		
-		if (result > 0) {
-			model.addObject("msg", "게시글 등록 성공");
+		if(user.getName().equals(clubBoard.getUserId())) {
+			clubBoard.setUserId(user.getName());
+
+			int result = 0;
+			
+			result = service.saveBoard(clubBoard);
+			
+			if(result > 0 ) {
+				model.addObject("msg", "게시글 등록 성공");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			} else {
+				model.addObject("msg", "게시글 등록 실패");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			}
+		} 
+		else {
+			model.addObject("msg", "잘못된 접근입니다.");
 			model.addObject("location", "/board/bc_board/bcBoardMain");
-		} else {
-			System.out.println("실패");
 		}
-		
-		// 나중에 관리자만 되게 처리할 것 -> principal.getName() 아래코드 에러뜨는데 Member 쪽에 UserNo Unique 제약조건 확인할 것 
-//		if(loginMember.getUsername().equals(clubBoard.getUserName())) {
-//			clubBoard.setUserNo(loginMember.getUserNo());
-//			System.out.println("loginMember.getUsername() : " + loginMember.getUsername());
-////			System.out.println("clubBoard.getUserName() : " + clubBoard.getUserName());
-//		
-//			result = service.saveBoard(clubBoard);
-//			System.out.println("adminWrite : " + result);
-//			
-//			if(result > 0 ) {
-//				model.addObject("msg", "게시글 등록 성공");
-//				model.addObject("location", "/board/bc_board/bcBoardMain");
-//			} else {
-//				model.addObject("msg", "게시글 등록 실패");
-//				model.addObject("location", "/board/bc_board/bcBoardMain");
-//			}
-//		} 
-//		else {
-//			model.addObject("msg", "잘못된 접근입니다.");
-//			model.addObject("location", "/board/bc_board/bcBoardMain");
-//		}
 		
 		model.setViewName("common/msg");
 		
+//		==================================
+		
 		return model;
 	}
+	
+//	// 해당 게시판 번호를 타고 들어가서 결제창까지 가야할듯? POST방식 써야하나 GET으로 테스트해볼까
+//	// 결제할 상품정보를 가져와야하니까, 상품정보를 갖고있는 번호의 게시판 정보 가져오면 될 듯
+//	@RequestMapping(value = "/bcBoardPayment", method = RequestMethod.GET)
+//	public ModelAndView payment(ModelAndView model, @RequestParam("bcNo") int bcNo) {
+//		
+//		ClubBoard clubBoard = null;
+//		
+//		clubBoard = service.findClubByNo(bcNo);
+//		
+//		model.addObject("clubBoard", clubBoard);
+//		model.setViewName("/board/bc_board/bcBoardPayment");
+//		
+//		return model;
+//	}
 	
 }

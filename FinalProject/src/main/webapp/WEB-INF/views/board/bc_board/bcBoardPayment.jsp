@@ -42,7 +42,7 @@
                                         <p>
                                             <em style="border: 1px solid lightgrey; color: lightgrey; font-size: 9px; padding: 2px; margin-right: 2px;">필수</em>
                                             <strong style="color: #555555;">선택</strong>
-                                            <span style="color: #555555;">: 4.4(일)시작- [온라인]드로잉 클럽 풍경 편 10기 - 1개</span>
+                                            <span style="color: #555555;">: <c:out value="${ clubBoard. }"></c:out></span>
                                         </p>
                                     </div>
                                     <div class="shop_item_pay">

@@ -33,32 +33,35 @@
 		<result property="brCreateDate" column="BR_CREATE_DATE"/>
 		<result property="brModifyDate" column="BR_MODIFY_DATE"/>
 		<result property="brBookType" column="BR_BOOKTYPE"/>
-		<result property="brContent" column="BR_CONTENT"/>
+		<result property="ckeditor" column="BR_CONTENT"/>
 		<result property="brViewCount" column="BR_VIEWCOUNT"/>
 		<result property="brLike" column="BR_LIKE"/>
 		<result property="status" column="STATUS"/>
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
-	
-	<!-- 작성중 
+ 
+
 	<insert id="insertReviewBoard" parameterType="map"
 		useGeneratedKeys="true" keyProperty="boardNo" keyColumn="BOARD_NO">
   		
-  		INSERT INTO BOARD 
-  		VALUES(
-  			SEQ_BOARD_NO.NEXTVAL,
-  			#{boardWriteNo},
-  			#{boardTitle},
-  			#{boardContent},
-  			#{boardOriginalFileName},
-  			#{boardRenamedFileName},
-  			DEFAULT,
-  			DEFAULT,
-  			DEFAULT,
-  			DEFAULT,
-  			DEFAULT
+	  	INSERT INTO BOOK_REVIEW_BOARD
+	  		VALUES(
+	  			SEQ_BOARD_NO.NEXTVAL,
+	  			#{userNo},
+	  			#{userNname},
+	  			#{brIsbn},
+	  			DEFAULT,
+	  			brTitle,
+	  			DEFAULT,
+	  			DEFAULT,
+	  			#{brBookType},
+	  			#{ckeditor},
+	  			DEFAULT,
+	  			DEFAULT,
+	  			'Y',
+	  			DEFAULT
  		)
-	
 	</insert>
-	-->
+
+	
 </mapper>

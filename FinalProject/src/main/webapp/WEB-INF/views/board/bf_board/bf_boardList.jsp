@@ -65,15 +65,15 @@
         	<c:if test="${list == null}">
 	            <div class="fdboard_mid_box" id="fdboard_01">
 	                <div class="fdboard_thumbnail">
-	                    <div class="fdboard_attainRate">달성%</div>
+	                    <div class="fdboard_attainRate"></div>
 	                    <a href="#" class="fdboard_img" name="fdboard_img">
-	                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
+	                        <img src="#" width="180px" height="270px">
 	                    </a>
 	                </div>
 	                <div class="fdboard_contants">
 	                    <p>조회된 게시글이 없습니다.</p>
-	                    <p>100,000원</p>
-	                    <p>종료까지 123일 남음</p>
+	                    <p>관리자에게 문의해주세요.</p>
+	                    <p></p>
 	                    <%-- <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" /> --%>
 	                </div>
 	            </div>        		
@@ -83,15 +83,15 @@
         		<c:forEach var="board" items="${list}">
 		            <div class="fdboard_mid_box" id="fdboard_01">
 		                <div class="fdboard_thumbnail">
-		                    <div class="fdboard_attainRate">달성%</div>
+		                    <div class="fdboard_attainRate"><c:out value="${board.bfAttainRate}"/>%</div>
 		                    <a href="#" class="fdboard_img" name="fdboard_img">
-		                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
+		                        <img src="${ path }/upload/bf_board/${ board.bfReImgName }" width="180px" height="270px">
 		                    </a>
 		                </div>
 		                <div class="fdboard_contants">
-		                    <p><c:out value="${board.bfTitle} }"/></p>
-		                    <p>100,000원</p>
-		                    <p>종료까지 123일 남음</p>
+		                    <p><c:out value="${board.bfTitle}"/></p>
+		                    <p><c:out value="${board.bfPrice}"/>원</p>
+		                    <p><c:out value="${board.bfRemainDate}"/>일 남음</p>
 		                    <%-- <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" /> --%>
 		                </div>
 		            </div>        			
@@ -99,183 +99,26 @@
         		</c:forEach>
         	</c:if>
             
-            <div class="fdboard_mid_box" id="fdboard_01">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" class="fdboard_img" name="fdboard_img">
-                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_02">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_03">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_04">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="${ path }/images/bf_testBook.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_05">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_06">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_07">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_08">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_09">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_10">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_11">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
-
-            <div class="fdboard_mid_box" id="fdboard_12">
-                <div class="fdboard_thumbnail">
-                    <div class="fdboard_attainRate">달성%</div>
-                    <a href="#" name="fdboard_img">
-                        <img src="./image/book.jpg" width="180px" height="270px">
-                    </a>
-                </div>
-                <div class="fdboard_contants">
-                    <p>펀딩 책 제목</p>
-                    <p>100,000원</p>
-                    <p>종료까지 123일 남음</p>
-                </div>
-            </div>
+            
         </div>
     </div>
     
     <div class="fdboard_mid_bottom">
         <div class="fdboard_mid_pageCount">
-            <a href="#">&lt;&lt;</a>
-            <a href="#">&lt;</a>
-            <a href=""> 1 </a><a href=""> 2 </a><a href=""> 3 </a><a href=""> 4 </a><a href=""> 5 </a>
-            <a href="#">&gt;</a>
-            <a href="#">&gt;&gt;</a>
+            <a href="${path}/board/bf_board/bf_boardList?page=1">&lt;&lt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+			<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+				<c:if test="${status.current == pageInfo.currentPage}">
+					<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+   				</c:if>
+				<c:if test="${status.current != pageInfo.currentPage}">
+					<a href="${path}/board/bf_board/bf_boardList?page=${status.current}"><c:out value="${status.current}"/></a>
+					&nbsp &nbsp
+   				</c:if>
+			</c:forEach>            
+            
+            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.maxPage}">&gt;&gt;</a>
         </div>
     </div>	
 	

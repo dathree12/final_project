@@ -24,7 +24,7 @@ public class FundBoard {
 	
 	private Date bfModifyDate;
 	
-	private Date bfRemainDate;
+	private int bfRemainDate;
 	
 	private int bfTargetPrice;
 	
@@ -47,5 +47,7 @@ public class FundBoard {
 	private String bfOriImgName;
 	
 	private String bfReImgName;
+	
+	private String bfAdminComment;
 	
 }

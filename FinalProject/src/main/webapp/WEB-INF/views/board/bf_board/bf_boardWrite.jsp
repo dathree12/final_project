@@ -35,7 +35,7 @@
                             프로젝트 제목
                         </th>
                         <td>
-                            <input type="text" placeholder="제목을 입력하세요." size="50px">
+                            <input type="text" name="bfTitle" placeholder="제목을 입력하세요." size="50px">
                         </td>
                     </tr>
                     <tr>
@@ -43,6 +43,7 @@
                             작성자
                         </th>
                         <td>
+                            <input type="hidden" name="userNo" value="${ user.userNo }" size="50px" readonly>
                             <input type="text" name="userId" value="${ user.userId }" size="50px" readonly>
                         </td>
                     </tr>
@@ -51,7 +52,7 @@
                             시작날짜
                         </th>
                         <td>
-                            <input type="date">
+                            <input type="date" name="bfEnrollDate">
                         </td>
                     </tr>
                     <tr>
@@ -59,7 +60,7 @@
                             종료날짜
                         </th>
                         <td>
-                            <input type="date">
+                            <input type="date" name="bfEndDate">
                         </td>
                     </tr>
                     <tr>
@@ -67,7 +68,7 @@
                             가격
                         </th>
                         <td>
-                            <input type="text" placeholder="숫자만 입력하세요.">
+                            <input type="text" name="bfPrice" placeholder="숫자만 입력하세요.">
                         </td>
                     </tr>
                     <tr>
@@ -75,7 +76,7 @@
                             목표 달성 금액
                         </th>
                         <td>
-                            <input type="text" placeholder="숫자만 입력하세요.">
+                            <input type="text" name="bfTargetPrice" placeholder="숫자만 입력하세요.">
                         </td>
                     </tr>
                     <tr>
@@ -83,28 +84,28 @@
                             사진파일 올리기(대표사진)
                         </th>
                         <td>
-                            <input type="file">
+                            <input type="file" name="upfile">
                         </td>
                     </tr>
                 </table>
 
                 <h4>프로젝트 내용을 입력해 주세요.</h4>
-                <textarea name="ckeditor" id="ckeditor" rows="10" cols="80"></textarea>
+                <textarea name="bfContent" id="bfContent" rows="10" cols="80"></textarea>
 	                <script>
-						CKEDITOR.replace( "ckeditor", {//해당 이름으로 된 textarea에 에디터를 적용
+						CKEDITOR.replace( "bfContent", {//해당 이름으로 된 textarea에 에디터를 적용
 							height: 500,
 							getUploadUrl: type='image',
-							filebrowserUploadUrl: '<c:url value="/board/bf_board/bf_boardWrite" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
+							filebrowserUploadUrl: '<c:url value="/board/bf_board/bf_boardWriteCK" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
 						});
 						
-						CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/bf_board/bf_boardWrite'; };
+						CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/bf_board/bf_boardWriteCK'; };
 					</script>
-					<input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
             </div>
             <div class="write_btn">
                 <a class="btn" href="${ path }/board/bf_board/bf_boardList">취소</a> &nbsp
-                <a class="btn" href="#" onclick="document.getElementById('bfBoardWrite').submit();">등록</a>
+                <a class="btn" onclick="document.getElementById('bfBoardWrite').submit();">등록</a>
             </div>
+			<input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
         </form>
     </div>
 

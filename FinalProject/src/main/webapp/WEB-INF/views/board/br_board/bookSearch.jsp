@@ -26,7 +26,11 @@
 	<h3>책검색</h3>
 	<input id="bookName" value="" type="text">
     <button id="search">검색</button>
-    <p></p>
+    <div id="bookdata">
+    	<p id="bookisbn"name="bookisbn" style="display:none"></p>
+    	<p id="title" name="title"></p>
+    	<p id="bookthumb"name=""></p>
+    </div>
     <script>
         $(document).ready(function () {
             $("#search").click(function () {
@@ -37,13 +41,37 @@
                     headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" }
                 })
                     .done(function (msg) {
+                    	console.log(msg.documents[0].isbn);
                         console.log(msg.documents[0].title);
                         console.log(msg.documents[0].thumbnail);
-                        $("p").append("<strong>" + msg.documents[0].title + "</strong>");
-                        $("p").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                        //책ISBN불러오기
+                        $("#title").append( msg.documents[0].title);
+                        $("#bookthumb").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                        $("#bookisbn").append( msg.documents[0].isbn);
                     });
+               
             });
+            
         });
+    </script>
+   
+    <script>
+    $(document).ready(function () {
+        $("#bookdata").click(function () {
+        	var booktitle = document.getElementById("title").innerText;
+        	var bookisbn = document.getElementById("bookisbn").innerText;
+        	
+        	console.log(booktitle)
+        	
+        	opener.window.document.getElementById("selectedBook").innerText = booktitle;
+        	opener.window.document.getElementById("bookIsbn").innerText = bookisbn;
+        	opener.window.document.getElementById("bookIsbn").innerText = bookisbn;
+ 			
+        	 window.open('','_self').close();  
+        });
+    });  
+        
+    		
     </script>
 </body>
 </html>
