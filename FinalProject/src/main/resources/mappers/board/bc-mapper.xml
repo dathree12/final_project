@@ -146,8 +146,8 @@
 		#{bcSubTitle}, 
 		#{bcPrice}, 
 		DEFAULT, 
-		${bcStartDate},
-		${bcDeadLineDate},
+		TO_DATE(#{bcStartDate}, 'yy-mm-dd'),
+		TO_DATE(#{bcDeadLineDate}, 'yy-mm-dd'),
 		DEFAULT, 
 		DEFAULT, 
 		#{bcContent}, 
@@ -159,7 +159,6 @@
 		)
 	</insert>
 	
-	<!-- D-Day 승현님꺼 테스트 -->
 	<update id="saveRemainDate" parameterType="ClubBoard">
 		UPDATE BOOK_CLUB_BOARD
 		SET 
