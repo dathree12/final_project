@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,13 +46,13 @@ public class ReviewController {
 	}
 	
 	
-	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
+	@RequestMapping(value = "/brBoardWrite", method = {RequestMethod.POST})
 	public ModelAndView brWrite(HttpServletRequest request, MultipartFile upload,
 							ReviewBoard reviewboard, ModelAndView model)
 			throws Exception {
 		
 		int result = 0;
-
+		
 		result = service.saveBoard(reviewboard);
 		
 		if(result > 0) {

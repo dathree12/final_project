@@ -10,23 +10,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewBoard {
-	private int brNo;
+	private int brNo; //게시판 글 번호
 	
-	private int userNo;
+	private int userNo;//글작성자 번호
 	
-	private String userNname;	
+	private String brIsbn; //책 ISBN
 	
-	private int brIsbn;
+	private String brPresentPic; //책 이미지 ->thumbnail할거 (아마 따로 저장 안하고 ajax로 불러올듯)
 	
-	private String brPresentPic;
-	
-	private String brTitle;
+	private String brTitle; // 책리뷰 제목
 	
 	private Date brCreateDate;
 	
 	private Date brModifyDate;
 	
-	private int brBookType;
+	private String brBookType;
 	
 	private String brContent;
 	
@@ -34,7 +32,7 @@ public class ReviewBoard {
 	
 	private int brLike;
 	
-	private String status;
+	private String brStatus;
 	
 	private float brRating;
 

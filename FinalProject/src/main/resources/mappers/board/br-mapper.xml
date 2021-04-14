@@ -36,26 +36,25 @@
 		<result property="ckeditor" column="BR_CONTENT"/>
 		<result property="brViewCount" column="BR_VIEWCOUNT"/>
 		<result property="brLike" column="BR_LIKE"/>
-		<result property="status" column="BR_STATUS"/>
+		<result property="brStatus" column="BR_STATUS"/>
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
  
 
 	<insert id="insertReviewBoard" parameterType="map"
-		useGeneratedKeys="true" keyProperty="boardNo" keyColumn="BOARD_NO">
+		useGeneratedKeys="true" keyProperty="brNo" keyColumn="BR_NO">
   		
 	  	INSERT INTO BOOK_REVIEW_BOARD
 	  		VALUES(
-	  			SEQ_BOARD_NO.NEXTVAL,
+	  			SEQ_BR_NO.NEXTVAL,
 	  			#{userNo},
-	  			#{userNname},
 	  			#{brIsbn},
 	  			DEFAULT,
-	  			brTitle,
+	  			#{brTitle},
 	  			DEFAULT,
 	  			DEFAULT,
 	  			#{brBookType},
-	  			#{ckeditor},
+	  			#{brContent},
 	  			DEFAULT,
 	  			DEFAULT,
 	  			'Y',
