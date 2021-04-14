@@ -31,7 +31,7 @@ public class AdminPageController {
 	@RequestMapping("/member/admin/admin_page")
 	public ModelAndView mypage(ModelAndView model) {
 		String status = null;
-		String fStatus = "P";
+		String fStatus = null;
 		
 		// 회원관련
 		List<Member> list = null;
@@ -55,6 +55,48 @@ public class AdminPageController {
 		
 		return model;
 	}
+	
+	// 펀드 목록 비동기
+	@RequestMapping("/member/admin/funding")
+	@ResponseBody
+	public Map<String, Object> fundlist(
+			@RequestParam(value = "fStatus", required = false, defaultValue = "ALL") String fStatus
+			) {
+		
+		if(fStatus.equals("ALL")) {
+			fStatus = null;
+		}
+		
+		List<FundBoard> flist = null;
+		int fBoardCount = fService.getFundCount(fStatus);
+		PageInfo fundPageInfo = new PageInfo(1, 10, fBoardCount, 10);
+		flist = fService.getFundList(fundPageInfo, fStatus);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		result.put("flist", flist);
+		result.put("fundPageInfo", fundPageInfo);
+		
+		return result;
+	}
+	// 펀드 상태값 변경
+		@RequestMapping(value = "/member/admin/updatefst", method={RequestMethod.GET, RequestMethod.POST})
+		@ResponseBody
+		public Object updateFundlist(
+				@RequestParam(value = "newstatus", required = false) String status,
+				@RequestParam(value = "idlist[]", required = false) List<String> userId
+				) {
+			System.out.println("status : " + status);
+			
+			System.out.println("userId" + userId);
+			
+			mService.getMemberStatus(status, userId);
+
+	        Map<String, Object> retVal = new HashMap<String, Object>();
+	        
+	        retVal.put("code", "OK");
+			return retVal;
+		}
 	
 	// 회원 목록 비동기
 	@RequestMapping("/member/admin")

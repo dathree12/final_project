@@ -97,11 +97,12 @@
 	                <form action="${path}/member/admin/bookfunding" method="post">
 	                	<security:authentication property="principal" var="user"/>
 	                    <div class="content">
-	                        <select class="usertype" name="bcStatus">
-	                            <option id="bcStatus" value="N">펀딩신청현황</option>
-	                            <option id="bcStatus" value="P">모집중인펀딩</option>
-	                            <option id="bcStatus" value="C">취소된펀딩</option>
-	                            <option id="bcStatus" value="Q">마감된펀딩</option>
+	                        <select class="usertype" name="bfStatus">
+	                            <option id="bfStatus" value="ALL">전체펀딩목록</option>
+	                            <option id="bfStatus" value="N">펀딩신청현황</option>
+	                            <option id="bfStatus" value="P">모집중인펀딩</option>
+	                            <option id="bfStatus" value="C">취소된펀딩</option>
+	                            <option id="bfStatus" value="Q">마감된펀딩</option>
 	                        </select>
 	                        <table class="list_table">
 	                            <tr>
@@ -232,6 +233,85 @@ $(function() {
         xhr.setRequestHeader(csrfHeader, csrfToken);
     });
     
+    // 펀드 목록 조회
+	$("select[name=bfStatus]").change(function(){
+		var bfStatus = $(this).val();
+		var flist = {};
+		$("#fundTbody").empty();
+	  
+	  	$.ajax({
+			type: "get",
+			url: "${path}/member/admin/funding",
+			dataType: "json",
+			async: false,
+			data: {
+				// id(파라미터 키값):id
+				bfStatus // 파라미터의 키값과 변수명이 동일할 경우
+			},
+			success: function(result) {
+				flist = result.flist;
+				
+				var tc = new Array();
+				var html = '';
+				
+				$.each(flist, function( index, value ) {
+					tc.push({no : value.bfNo ,title : value.bfTitle, status : value.bfStatus}); 
+                 });
+				
+				for(key in tc){
+				html += '<tr>';
+				html += '<td><input name="upfst" id="fcb" type="checkbox" value="'+tc[key].id+'"></td>';
+				html += '<td>'+tc[key].no+'</td>';
+				html += '<td>'+tc[key].title+'</td>';
+				html += '<td>'+tc[key].status+'</td>';
+				html += '</tr>';
+				}
+							
+				$("#fundTbody").empty();
+				$("#fundTbody").append(html);
+				
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+	});
+    
+	// 펀드 상태 변경
+	$("#mbtn, #membtn").on('click', function (){
+		
+		var newstatus =  "";
+		var idlist = new Array();
+		
+		$.each($('input[name=upmst]:checked'), function() {
+			idlist.push($(this).val());
+         });
+		
+		if($(event.target).attr('id')=='mbtn'){
+			newstatus = "N";
+		} else {
+		    newstatus = "Y";
+		}
+		
+		$.ajax({
+			type: "post",
+			url: "${path}/member/admin/updatemst",
+			dataType: "json",
+			async: false,
+			data: {
+				newstatus,
+				idlist
+			},
+			success: function(data) {
+				alert("변경성공");
+				$("select[name=mStatus]").val('ALL').change();
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+	});
+	
     // 회원 목록 조회
 	$("select[name=mStatus]").change(function(){
 		var mStatus = $(this).val();
