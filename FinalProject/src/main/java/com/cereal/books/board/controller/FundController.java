@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -246,10 +247,19 @@ public class FundController {
 		return "board/bf_board/bf_paySuccess";
 	}
 	
-	@RequestMapping(value="/bf_viewDetail")
-	public String viewDetail() {
+	// 게시판 상세조회 + 조회수
+	@RequestMapping(value="/bf_viewDetail", method = {RequestMethod.GET})
+	public ModelAndView viewDetail(@RequestParam("bfNo") int bfNo, ModelAndView model) {
+		// 조회수 증가, 일정시간 이후 조회수 +1 구현해야
+		int result = service.increaseViewcnt(bfNo);
 		
-		return "board/bf_board/bf_viewDetail";
+		System.out.println("viewDetailTest : " + bfNo);
+		FundBoard board = service.findBoardByNo(bfNo);
+		
+		model.addObject("board", board);
+		model.setViewName("board/bf_board/bf_viewDetail");		
+		
+		return model;
 	}
 }
 
