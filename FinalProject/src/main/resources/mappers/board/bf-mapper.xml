@@ -50,7 +50,8 @@
 			   BF_LIKE,
 			   BF_CONTENT,
 			   BF_ORI_IMGNAME,
-			   BF_RE_IMGNAME
+			   BF_RE_IMGNAME,
+			   BF_ADMIN_COMMENT
 		FROM BOOK_FUNDING_BOARD
 	</sql>
 	
@@ -152,10 +153,10 @@
 		</if>
 	</select>
 	<!-- 펀드 상태 변경 -->
-	<update id="updateFundStatus" parameterType="map">
+	<update id="adminUpdateFundStatus" parameterType="map">
 		UPDATE BOOK_FUNDING_BOARD
 		SET
-            STATUS=#{status}
+            BF_STATUS=#{status}
         WHERE BF_NO IN
         <foreach item="bfNo" index="i" collection="bfNo" open="(" separator="," close=")">
         	#{bfNo}
@@ -173,7 +174,7 @@
 		WHERE P.USER_NO = #{userNo} AND P.PAY_PROGRESS = 'Y' AND P.PAY_ITEM = 'F' AND P.PAY_STATUS = 'N'
   		ORDER BY BF_NO DESC
   	</select>
-  	<select id="selectMyFundCount" parameterType="map" resultType="_int">
+  	<select id="selectMyFundCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOOK_FUNDING_BOARD F 
 		JOIN PAYMENT P ON(F.BF_NO = P.BF_NO)
@@ -186,7 +187,7 @@
 		WHERE USER_NO = #{userNo}
   		ORDER BY BF_NO DESC
   	</select>
-  	<select id="selectMyAplcFundCount" parameterType="map" resultType="_int">
+  	<select id="selectMyAplcFundCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOOK_FUNDING_BOARD
 		WHERE USER_NO = #{userNo}

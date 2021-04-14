@@ -79,6 +79,11 @@ public class FundServiceImpl implements FundService {
 	public int getFundCount(String status) {
 		return fundDao.selectFundStatusCount(status);
 	}
+	
+	@Override
+	public int adminFundStatus(String status, int bfNo) {
+		return fundDao.adminUpdateFundStatus(status, bfNo);
+	}
 
 	// 마이페이지
 	// 참여중인 펀드
