@@ -16,9 +16,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="${path}/js/jquery-3.5.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer></script>
-    <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
     <style type="text/css">
     	/* button */
 		.btn-block-right { margin-top: 20px; background-color: #747474; border: 1px solid #4f4f4f; border-width: 0px; float: right; padding: 3px; /*display: inline-block;*/ width: 60px; text-align: center; margin-right: 3px; }
@@ -50,11 +47,11 @@
                 <c:if test="${ dlList == null }">
              	   <p style="width: 100%; margin: 100px 100px 100px 43%">조회된 게시글이 없습니다.</p>
                 </c:if>
-                <c:if test="${ dlList != null }">
-                	<c:forEach var="clubBoard" items="${ dlList }">
 		                <div class="_catelist_best wrapper">
 		                    <h2><span id="deadline_club" style="position: absolute; left: 600px; top: 150px;">진행 중인 클럽</span></h2>
-		                    <ul class="prdList carousel owl-carousel">
+		                    <ul class="prdList carousel owl-carousel" style="max-height: ">
+			                <c:if test="${ dlList != null }">
+			                	<c:forEach var="clubBoard" items="${ dlList }">
 		                        <li class="anchorBoxId_14">
 		                            <div class="box">
 		                                <div class="thumbnail">
@@ -94,9 +91,9 @@
 		                                </div>
 		                            </div>
 		                        </li>
+		                	</c:forEach>
 		                    </ul>
 		                </div>
-                	</c:forEach>
                 </c:if>
                 <div class="_c_width">
                     <div class="normalpackage">
@@ -187,43 +184,47 @@
     </section>
 
     <script>
+    // jQuery.Deferred exception
+    //  -> 콜백함수를 사용하여 비동기를 처리할경우, 여러 개의 콜백함수가 nesting되어 복잡도가 높아질 수 있습니다.
+    //  -> 스크립트 순서도 중요!
+    $(function() {
+		$(".carousel").owlCarousel({
+			margin: -10,
+			loop: true,
+			autoplay: true,
+			autoplayTimeout:2000,
+			autoplayHoverpause: true,
+			responsive: {
+			    0:{
+			        items: 1,
+			        nav: false
+			    },
+			    600:{
+			        items: 2,
+			        nav: false
+			    },
+			    1000:{
+			        items: 3,
+			        nav: false
+			    },
+			    1280:{
+			        items: 4,
+			        nav: false
+			    }
+			}
+		});
+    });
+    
     var val = document.querySelector('._catelist_best');
     var d_none = "d_none";
 
     function removeFunc() {
         val.classList.add(d_none);
-    }
+    };
+    
     function addFunc() {
     	val.classList.remove(d_none);
-    }
-    
-    $(document).ready(function() {
-        $(".carousel").owlCarousel({
-            margin: -10,
-            loop: true,
-            autoplay: true,
-            autoplayTimeout:2000,
-            autoplayHoverpause: true,
-            responsive: {
-                0:{
-                    items: 1,
-                    nav: false
-                },
-                600:{
-                    items: 2,
-                    nav: false
-                },
-                1000:{
-                    items: 3,
-                    nav: false
-                },
-                1280:{
-                    items: 4,
-                    nav: false
-                }
-            }
-        });
-    });
+    };
     
     </script>
 <%@ include file="../../common/footer.jsp" %>
