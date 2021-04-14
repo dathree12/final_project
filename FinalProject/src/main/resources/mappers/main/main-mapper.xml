@@ -52,4 +52,14 @@
 		<include refid="brListSql"></include>
 		ORDER BY BR.BR_LIKE DESC
 	</select>
+	
+	<select id="selectBoardListbest" parameterType="arraylist" resultMap="mainResultMap">
+		
+		<include refid="brListSql"></include>
+		AND M.USER_NO = #{userNo} AND BR.BR_BOOKTYPE IN 
+		<foreach item="book" collection="arr" index="index" open="(" separator="," close=")">
+			#{book}
+		</foreach>
+		ORDER BY BR.BR_LIKE DESC
+	</select>
 </mapper>
