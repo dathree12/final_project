@@ -57,7 +57,7 @@
 						<p>작성자</p>
 	                    <div id="brboard-write-writer" >
 	                        <input type="text" name="userNname" value="${user.name}" readonly>
-	                        <p name="userNo" value="${user.userNo}" style="display:invisible" required>
+	                        <input name="userNo" value="${user.userNo}" style="display:none" required>
 	                    </div>
 	                    
 	                    <p>책장르</p>
@@ -74,8 +74,8 @@
 	                        <span>책선택</span>
  							  <input type="button" value="책검색" onclick="window.open('${path}/board/br_board/bookSearch', '책검색', 'width=500, height=500')">
 							  <div id="selectedBook" name="brBookTitle">책을 선택해주세요</div>
-							  <p id="bookIsbn" name="brIsbn" style="display:none"></p>
-							  <div id="selectedBookThumb" name="brPresentPic" style="display:none"></div>
+							  <input type="text" id="brIsbn" name="brIsbn"  style="display:none">
+							  <input id="selectedBookThumb" name="brPresentPic" style="display:none">
 	                    </div>
 	                </div>
 	                <textarea name="brContent" id="brContent"></textarea>
@@ -97,7 +97,8 @@
     </div>    
     </div>
     
-  
+    
+
   <!--  
     <script>
     $("#title").keyup((e) => {
