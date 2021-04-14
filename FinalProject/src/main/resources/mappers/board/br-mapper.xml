@@ -6,7 +6,6 @@
 	<sql id="brListSql">
 		SELECT BR.BR_NO,
 		       M.USER_NO,
-		       M.USER_NNAME,
 		       BR.BR_ISBN,
 		       BR.BR_PRESENT_PIC,
 		       BR.BR_TITLE,
@@ -26,7 +25,6 @@
 	<resultMap type="ReviewBoard" id="brResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
 		<id property="brNo" column="BR_NO"/>
 		<result property="userNo" column="USER_NO"/>
-		<result property="userNname" column="USER_NNAME"/>
 		<result property="brIsbn" column="BR_ISBN"/>
 		<result property="brPresentPic" column="BR_PRESENT_PIC"/>
 		<result property="brTitle" column="BR_TITLE"/>
@@ -36,7 +34,7 @@
 		<result property="ckeditor" column="BR_CONTENT"/>
 		<result property="brViewCount" column="BR_VIEWCOUNT"/>
 		<result property="brLike" column="BR_LIKE"/>
-		<result property="brStatus" column="BR_STATUS"/>
+		<result property="status" column="BR_STATUS"/>
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
  

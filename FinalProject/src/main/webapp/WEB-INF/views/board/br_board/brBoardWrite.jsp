@@ -56,7 +56,7 @@
 	                    
 						<p>작성자</p>
 	                    <div id="brboard-write-writer" >
-	                        <input type="text" name="userNname" value="${user.name}" readonly>
+	                        <input type="text" name="userName" value="${user.name}" readonly>
 	                        <input name="userNo" value="${user.userNo}" style="display:none" required>
 	                    </div>
 	                    

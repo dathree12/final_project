@@ -14,6 +14,8 @@ public class ReviewBoard {
 	
 	private int userNo;//글작성자 번호
 	
+	private String userNname;
+	
 	private String brIsbn; //책 ISBN
 	
 	private String brPresentPic; //책 이미지 ->thumbnail할거 (아마 따로 저장 안하고 ajax로 불러올듯)
@@ -32,7 +34,7 @@ public class ReviewBoard {
 	
 	private int brLike;
 	
-	private String brStatus;
+	private String status;
 	
 	private float brRating;
 
