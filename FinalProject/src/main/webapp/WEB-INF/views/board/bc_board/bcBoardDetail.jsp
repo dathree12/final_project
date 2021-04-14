@@ -63,10 +63,10 @@
                                             선택 (필수)
                                         </a>
                                         <div class="dropdown-menu" 
-                                            style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 0; box-shadow: none; border-radius: 0; border-top: 1px solid rgba(0, 0, 0, 0.003); width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999; max-width: 399px">
+                                            style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 1px 1px;  box-shadow: none; border-radius: 0; border-top: 1px solid rgba(0, 0, 0, 0.003); width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999; max-width: 399px">
                                             <div class="dropdown-item" onclick="event.stopPropagation();">
                                                 <a style="padding: 3px 0px; line-height: normal; display: block;" class="blocked _requireOption" onclick="selectBoxCliked();">
-                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="display: block; margin-bottom: 4px;">[온라인] <c:out value="${ clubBoard.bcStartDate }"></c:out></span>
+                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="margin-bottom: 4px; display: inline-block; text-align: left;">[온라인] <c:out value="${ clubBoard.bcStartDate }"></c:out></span>
                                                     <span class="no-margin blocked">
                                                         <strong></strong>
                                                     </span>

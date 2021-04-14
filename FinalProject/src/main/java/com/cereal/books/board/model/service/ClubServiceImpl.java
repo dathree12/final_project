@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cereal.books.board.model.dao.ClubDao;
 import com.cereal.books.board.model.vo.ClubBoard;
@@ -39,6 +40,7 @@ public class ClubServiceImpl implements ClubService {
 		return clubDao.noneRemainDate();
 	}
 
+	@Transactional
 	@Override
 	public int saveBoard(ClubBoard clubBoard) {
 		

@@ -16,6 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="${path}/js/jquery-3.5.1.js"></script>
+    <script src="${ path }/js/owl.carousel.min.js" defer></script>
    	<script src="${ path }/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous" ></script>
     <title>nav</title>

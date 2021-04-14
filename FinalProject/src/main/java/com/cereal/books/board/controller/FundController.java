@@ -252,3 +252,14 @@ public class FundController {
 		return "board/bf_board/bf_viewDetail";
 	}
 }
+
+
+
+
+
+
+
+
+
+
+

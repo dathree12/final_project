@@ -31,9 +31,6 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-	@Autowired
-	private  CustomUserDetailService customservice;
-	
 	/*로그인 페이지 이동*/
 	@RequestMapping(value = "member/login" , method = {RequestMethod.GET,RequestMethod.POST})
 	public String loginViews() {

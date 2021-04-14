@@ -28,6 +28,8 @@
             <security:authorize access="isAnonymous()">
             <div id="inner_reco_div">
                 <span id="inner_reco_div_span">추천 도서</span>
+            <c:if test="${list != null}">
+            	<c:forEach var="board" items="${list}">
                 <a href=""> 
                    <div class="reco_div">
                     <div class="reco_img_div">
@@ -35,44 +37,16 @@
                     </div>
                     <div class="reco_content">
                        <div class="reco_content_title">
-                           <strong style="font-size: 16px;">쉑쉑버거</strong>
+                           <strong style="font-size: 16px;"><c:out value="${board.brTitle}"/></strong>
                        </div>  
                        <div class="reco_content_ctt">
-                            <span>쉑쉑버거는 맛이 너무 좋습니다 무조건 먹게되면 쉑쉑버거는 맛이 너무 좋습니다</span>
+                            <span><c:out value="${board.brContent}"/></span>
                        </div> 
                     </div>
                    </div>
                 </a>
-                <a href=""> 
-                    <div class="reco_div">
-                     <div class="reco_img_div">
-                         <img src="${path}/images/바다.jpg" alt="" class="img_size">
-                     </div>
-                     <div class="reco_content">
-                        <div class="reco_content_title">
-                            <strong style="font-size: 16px;">쉑쉑버거</strong>
-                        </div>  
-                        <div class="reco_content_ctt">
-                             <span>쉑쉑버거는 맛이 너무 좋습니다 쉑쉑버거는 맛이 너무 좋습니다쉑쉑버거는 맛이 너무 좋습니다쉑쉑버거는 맛이 너무 좋습니다쉑쉑버거는 맛이 너무 좋습니다쉑쉑버거는 맛이 너무 좋습니다쉑쉑버거는 맛이 너무 좋습니다쉑쉑버거는 맛이 너무 좋습니다쉑쉑버거는 맛이 너무 좋습니다</span>
-                        </div> 
-                     </div>
-                    </div>
-                 </a>
-                 <a href=""> 
-                    <div class="reco_div">
-                     <div class="reco_img_div">
-                         <img src="${path}/images/바다.jpg" alt="" class="img_size">
-                     </div>
-                     <div class="reco_content">
-                        <div class="reco_content_title">
-                            <strong style="font-size: 16px;">쉑쉑버거</strong>
-                        </div>  
-                        <div class="reco_content_ctt">
-                             <span>쉑쉑버거는 맛이 너무 좋습니다 무조건 먹게되면  of  oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo </span>
-                        </div> 
-                     </div>
-                    </div>
-                 </a>
+                	</c:forEach>
+                </c:if>
             </div>
 			</security:authorize>
 			<security:authorize access="hasAnyRole('USER','ADMIN')">

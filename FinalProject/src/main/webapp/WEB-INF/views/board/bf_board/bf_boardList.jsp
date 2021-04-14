@@ -83,7 +83,7 @@
         		<c:forEach var="board" items="${list}">
 		            <div class="fdboard_mid_box" id="fdboard_01">
 		                <div class="fdboard_thumbnail">
-		                    <div class="fdboard_attainRate"><c:out value="${Math.round((board.bfReachPrice/board.bfTargetPrice)*100)}"/>%</div>
+		                    <div class="fdboard_attainRate"><c:out value="${board.bfAttainRate}"/>%</div>
 		                    <a href="#" class="fdboard_img" name="fdboard_img">
 		                        <img src="${ path }/upload/bf_board/${ board.bfReImgName }" width="180px" height="270px">
 		                    </a>

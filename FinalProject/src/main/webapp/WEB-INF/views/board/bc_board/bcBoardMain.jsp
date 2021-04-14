@@ -16,9 +16,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="${path}/js/jquery-3.5.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer></script>
-    <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
     <style type="text/css">
     	/* button */
 		.btn-block-right { margin-top: 20px; background-color: #747474; border: 1px solid #4f4f4f; border-width: 0px; float: right; padding: 3px; /*display: inline-block;*/ width: 60px; text-align: center; margin-right: 3px; }
@@ -50,12 +47,12 @@
                 <c:if test="${ dlList == null }">
              	   <p style="width: 100%; margin: 100px 100px 100px 43%">조회된 게시글이 없습니다.</p>
                 </c:if>
-                <c:if test="${ dlList != null }">
-                	<c:forEach var="clubBoard" items="${ dlList }">
 		                <div class="_catelist_best wrapper">
 		                    <h2><span id="deadline_club" style="position: absolute; left: 600px; top: 150px;">진행 중인 클럽</span></h2>
-		                    <ul class="prdList carousel owl-carousel">
-		                        <li class="anchorBoxId_14">
+		                    <ul class="prdList carousel owl-carousel" style="max-height: ">
+			                <c:if test="${ dlList != null }">
+			                	<c:forEach var="clubBoard" items="${ dlList }">
+		                        <li class="anchorBoxId_14" onclick="alert('기간 만료된 클럽입니다.');">
 		                            <div class="box">
 		                                <div class="thumbnail">
 		                                    <div class="prdImg">
@@ -94,9 +91,9 @@
 		                                </div>
 		                            </div>
 		                        </li>
+		                	</c:forEach>
 		                    </ul>
 		                </div>
-                	</c:forEach>
                 </c:if>
                 <div class="_c_width">
                     <div class="normalpackage">
@@ -162,24 +159,50 @@
                             	</c:if>
                             </ul>
                         </div>
-                        <div class="pageBar">
-                            <a href="${ path }/board/bcBoardMain/list?page=1&listLimit=${ pageInfo.listLimit }" class="first">«</a>
-                            <a href="${ path }/board/bcBoardMain/list?page=${ pageInfo.prvePage }&listLimit=${ pageInfo.listLimit }" class="prev">‹</a>
-                            <c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1" varStatus="status">
-                            	<c:if test="${ status.current == pageInfo.currentPage }">
-                            		<a class="p_number" href="${ status.current }">1</a>
-                            		<a class="p_number" href="${ status.current }">2</a>
-                            		<a class="p_number" href="${ status.current }">3</a>
-                            		<a class="p_number" href="${ status.current }">4</a>
-                            		<a class="p_number" href="${ status.current }">5</a>
-                            	</c:if>
-                            	<c:if test="${ status.current != pageInfo.currentPage }">
-		                            <a href="${ path }/board/bcBoardMain/list?page=${ status.current}&listLimit=${ pageInfo.listLimit } " class="p_number"><span>1</span></a>
-                            	</c:if>
-                            </c:forEach>
-                            <a href="${ path }/board/bcBoardMain/list?page=${ pageInfo.nextPage }&listLimit=${ pageInfo.listLimit }" class="next">›</a>
-                            <a href="${ path }/board/bcBoardMain/list?page=${ pageInfo.maxPage }&listLimit=${ pageInfo.listLimit }" class="last">»</a>
-                        </div>
+                        <!-- 
+                            <div class="fdboard_mid_bottom">
+						        <div class="fdboard_mid_pageCount">
+						            <a href="${path}/board/bf_board/bf_boardList?page=1">&lt;&lt;</a> &nbsp &nbsp
+						            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+									<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+										<c:if test="${status.current == pageInfo.currentPage}">
+											<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+						   				</c:if>
+										<c:if test="${status.current != pageInfo.currentPage}">
+											<a href="${path}/board/bf_board/bf_boardList?page=${status.current}"><c:out value="${status.current}"/></a>
+											&nbsp &nbsp
+						   				</c:if>
+									</c:forEach>            
+						            
+						            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+						            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.maxPage}">&gt;&gt;</a>
+						        </div>
+						    </div>	
+                         -->
+                        <!--
+	                        currentPage 현재 페이지
+	                        pageLimit 한 페이지에 보여질 페이지의 수
+	                        listCOunt 전체 리스트 수
+	                        listLimit 한 페이지에 표시될 페이지 수 
+                        -->
+                          <div class="bcboard_mid_bottom" style="/*border: 1px solid black;*/ text-align: center;">
+					        <div class="bcboard_mid_pageCount">
+					            <a href="${path}/board/bc_board/bcBoardMain?page=1">&lt;&lt;</a> &nbsp &nbsp
+					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+								<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+									<c:if test="${status.current == pageInfo.currentPage}">
+										<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+					   				</c:if>
+									<c:if test="${status.current != pageInfo.currentPage}">
+										<a href="${path}/board/bc_board/bcBoardMain?page=${status.current}"><c:out value="${status.current}"/></a>
+										&nbsp &nbsp
+					   				</c:if>
+								</c:forEach>            
+					            
+					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.maxPage}">&gt;&gt;</a>
+					        </div>
+					    </div>	
                     </div>
                 </div>
             </div>
@@ -187,43 +210,47 @@
     </section>
 
     <script>
+    // jQuery.Deferred exception
+    //  -> 콜백함수를 사용하여 비동기를 처리할경우, 여러 개의 콜백함수가 nesting되어 복잡도가 높아질 수 있습니다.
+    //  -> 스크립트 순서도 중요!
+    $(function() {
+		$(".carousel").owlCarousel({
+			margin: -10,
+			loop: true,
+			autoplay: true,
+			autoplayTimeout:2000,
+			autoplayHoverpause: true,
+			responsive: {
+			    0:{
+			        items: 1,
+			        nav: false
+			    },
+			    600:{
+			        items: 2,
+			        nav: false
+			    },
+			    1000:{
+			        items: 3,
+			        nav: false
+			    },
+			    1280:{
+			        items: 4,
+			        nav: false
+			    }
+			}
+		});
+    });
+    
     var val = document.querySelector('._catelist_best');
     var d_none = "d_none";
 
     function removeFunc() {
         val.classList.add(d_none);
-    }
+    };
+    
     function addFunc() {
     	val.classList.remove(d_none);
-    }
-    
-    $(document).ready(function() {
-        $(".carousel").owlCarousel({
-            margin: -10,
-            loop: true,
-            autoplay: true,
-            autoplayTimeout:2000,
-            autoplayHoverpause: true,
-            responsive: {
-                0:{
-                    items: 1,
-                    nav: false
-                },
-                600:{
-                    items: 2,
-                    nav: false
-                },
-                1000:{
-                    items: 3,
-                    nav: false
-                },
-                1280:{
-                    items: 4,
-                    nav: false
-                }
-            }
-        });
-    });
+    };
     
     </script>
 <%@ include file="../../common/footer.jsp" %>
