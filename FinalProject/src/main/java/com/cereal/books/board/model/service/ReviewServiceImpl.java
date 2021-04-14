@@ -48,4 +48,9 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.selectCount();
 	}
 
+	@Override
+	public ReviewBoard findBoardByNo(int brNo) {
+		return reviewDao.selectBoardDetail(brNo);
+	}
+
 }

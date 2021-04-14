@@ -14,4 +14,6 @@ public interface ReviewService {
 
 	int getBoardCount();
 
+	ReviewBoard findBoardByNo(int brNo);
+
 }

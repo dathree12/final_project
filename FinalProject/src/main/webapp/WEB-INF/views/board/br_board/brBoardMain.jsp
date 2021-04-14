@@ -70,7 +70,7 @@
         		<c:forEach var="board" items="${list}">
 		            <div class="brboard-reviewbox" id="bookreview1">
 		                <div class="thumbnail">
-		                    <a href="#" name="thumbnailbox" id="reviewthumbnail"></a>
+		                    <a href="${path}/board/br_board/brReviewDetail?brNo=${board.brNo}" name="thumbnailbox" id="reviewthumbnail"></a>
 		                </div>    
 		                <div class="review-description">
 		                    <div class="book-description">
