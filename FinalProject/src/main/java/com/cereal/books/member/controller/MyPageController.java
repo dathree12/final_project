@@ -1,6 +1,7 @@
 package com.cereal.books.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cereal.books.board.model.service.ClubService;
+import com.cereal.books.board.model.service.FundService;
+import com.cereal.books.board.model.vo.FundBoard;
+import com.cereal.books.common.util.PageInfo;
 import com.cereal.books.member.model.service.MemberService;
 import com.cereal.books.member.model.vo.Member;
 
@@ -28,11 +33,43 @@ import lombok.extern.slf4j.Slf4j;
 public class MyPageController {
 	@Autowired
 	private MemberService service;
+	@Autowired
+	private FundService fService;
+	@Autowired
+	private ClubService cService;
 	
-	@RequestMapping("member/mypage/mypage")
-	public String mypage() {
+	@RequestMapping(value = "member/mypage/mypage", method= {RequestMethod.GET})
+	public ModelAndView bookFunding(ModelAndView model, @AuthenticationPrincipal Member member) {
+		int userNo = member.getUserNo();
+		// 참여중인 펀드
+		List<FundBoard> myFundList = null;
 		
-		return "member/mypage/mypage";
+		int myFundCount = fService.getMyFundCount(userNo);
+		PageInfo myFundPageInfo = new PageInfo(1, 5, myFundCount, 5);
+		
+		System.out.println(myFundCount);
+		
+		myFundList = fService.getMyFundList(myFundPageInfo, userNo);
+		System.out.println(myFundList);
+		
+		// 개설 신청한 펀드
+		List<FundBoard> myAplctFundList = null;
+		
+		int myAplctFundCount = fService.getMyAplctFundCount(userNo);
+		PageInfo pageInfo = new PageInfo(1, 5, myAplctFundCount, 5);
+		
+		System.out.println(myAplctFundCount);
+		
+		myAplctFundList = fService.getMyAplctFundList(pageInfo, userNo);
+		
+		model.addObject("myFundList", myFundList);
+		model.addObject("myFundPageInfo", myFundPageInfo);
+		model.addObject("myAplctFundList", myAplctFundList);
+		model.addObject("pageInfo", pageInfo);
+		model.addObject("member", member);
+		model.setViewName("member/mypage/mypage");
+		
+		return model;
 	}
 	
 	// 회원정보 수정

@@ -13,17 +13,10 @@
         <hr>
 
         <div class="info">
-        <security:authorize access="isAnonymous()">
-                	
-                	<li>
-                        <a href="${path}/member/login">로그인</a>
-                    </li>
-        </security:authorize>
-        <security:authorize access="hasRole('USER')">
             <!-- 회원정보 -->
             <p class="title">profile</p>
             <div class="profile">
-                <p style="padding-left: 10px;"><span><security:authentication property="principal.name"/></span>님 환영합니다.</p>
+                <p style="padding-left: 10px;"><span>${member.name}</span>님 환영합니다.</p>
                 <button class="info_btn" onclick="profile();">회원정보수정</button>
             </div>
             
@@ -290,87 +283,92 @@
         <div class="bookfunding">
             <p class="title">북펀딩</p>
             <div class="funding">
-                <div class="join_club">
-                    <div class="content">
-                        <a><img class="btn_img" src="./images/left.png" style="margin-right: 5%;"></a>
-                        <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="image" onclick="bookfunding();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-                            <p>클럽이름</p>
-                        </div>
-                        <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-                            <p>클럽이름</p>
-                        </div>
-                        <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-                            <p>클럽이름</p>
-                        </div>
-                        <a><img class="btn_img" src="./images/right.png" style="margin-left: 5%;"></a>
-                    </div>
-                    <div class="pageBar">
-                        <div class="small_pageBar" id="pageBar">
-                            <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="my_list">
-                    <div class="content">
-                        <p>개설신청현황</p>
-                        <table class="list_table">
-                            <tr>
-                                <th class="th">No</th>
-                                <th class="th">Title</th>
-                                <th class="th">Status</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="pageBar">
-                        <div id="pageBar">
-                            <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
-                        </div>
-                    </div>
-                </div>
+	                <div class="join_club">
+	                    <div class="content">
+	                        <a><img class="btn_img" src="./images/left.png" style="margin-right: 5%;"></a>
+	                        <!-- 
+	                        <div class="book_info" id="book1">
+	                            <a href="#" name="thumbnailbox"><img class="image" onclick="bookfunding();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+	                            <p>클럽이름</p>
+	                        </div>
+	                        <div class="book_info" id="book1">
+	                            <a href="#" name="thumbnailbox"><img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+	                            <p>클럽이름</p>
+	                        </div>
+	                        <div class="book_info" id="book1">
+	                            <a href="#" name="thumbnailbox"><img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
+	                            <p>클럽이름</p>
+	                        </div>
+	                         -->
+	                        <div class="book_info" id="book1">
+	                            <c:if test="${myFundList == null}">
+											참여한 펀딩이 없습니다.
+								</c:if>
+								<c:if test="${myFundList != null}">
+									<c:forEach var="fundlist" items="${myFundList}">
+										<a href="#" name="thumbnailbox"><img class="image" onclick="bookfunding();" value="${fundlist.bfNo}" src="./imeges/${fundlist.bfReImgName}.png"></a>
+	                            		<p>${fundlist.bfTitle}</p>
+									</c:forEach>
+								</c:if>
+	                        </div>
+	                        <a><img class="btn_img" src="./images/right.png" style="margin-left: 5%;"></a>
+	                    </div>
+	                    <div class="pageBar">
+	                        <div class="small_pageBar" id="pageBar">
+	                            <!-- 이전 페이지로 -->
+	                            <button>&lt;</button>
+	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
+	                            <button disabled>1</button>
+	                            <button>2</button>
+	                            <button>3</button>
+	                            <!-- 다음 페이지로 -->
+	                            <button >&gt;</button>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="my_list">
+	                    <div class="content">
+	                        <p>개설 신청 현황</p>
+	                        <table class="list_table">
+	                            <tr>
+	                                <th class="th">No</th>
+	                                <th class="th">Title</th>
+	                                <th class="th">Status</th>
+	                            </tr>
+	                            <tbody>
+	                            </tbody>
+	                            <c:if test="${myAplctFundList == null}">
+									<tr>
+										<td colspan="6">
+											조회된 펀딩 내역이 없습니다.
+										</td>
+									</tr>	
+								</c:if>
+								<c:if test="${myAplctFundList != null}">
+									<c:forEach var="aplctBF" items="${myAplctFundList}">
+										<tr>
+											<td><c:out value="${aplctBF.bfNo}"/></td>
+											<td><c:out value="${aplctBF.bfTitle}"/></td>
+											<td><c:out value="${aplctBF.bfStatus}"/></td>
+										</tr>
+									</c:forEach>
+								</c:if>
+	                        </table>
+	                    </div>
+	                    <div class="pageBar">
+	                        <div id="pageBar">
+	                            <!-- 이전 페이지로 -->
+	                            <button>&lt;</button>
+	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
+	                            <button disabled>1</button>
+	                            <button>2</button>
+	                            <button>3</button>
+	                            <!-- 다음 페이지로 -->
+	                            <button >&gt;</button>
+	                        </div>
+	                    </div>
+	                </div>
             </div>
-            </security:authorize>
         </div>
     </section>
     

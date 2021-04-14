@@ -24,30 +24,39 @@ public class AdminPageController {
 	
 	@Autowired
 	private MemberService mService;
+	@Autowired
 	private FundService fService;
 	
 	// 관리자 페이지 불러오기
 	@RequestMapping("/member/admin/admin_page")
 	public ModelAndView mypage(ModelAndView model) {
 		String status = null;
-		List<Member> list = null;
-		List<FundBoard> bflist = null;
-		int boardCount = mService.getMemberCount(status);
-		int fBoardCount = fService.getFundCount(status);
-		PageInfo pageInfo = new PageInfo(1, 10, boardCount, 10);
-		PageInfo fundPageInfo = new PageInfo(1, 10, fBoardCount, 10);
-		list = mService.getMemberList(pageInfo, status);
-		bflist = fService.getFundList(fundPageInfo, status);
+		String fStatus = "P";
 		
+		// 회원관련
+		List<Member> list = null;
+		int boardCount = mService.getMemberCount(status);
+		PageInfo pageInfo = new PageInfo(1, 10, boardCount, 10);
+		list = mService.getMemberList(pageInfo, status);
+		
+		// 북펀딩
+		List<FundBoard> bfList = null;
+		int fBoardCount = fService.getFundCount(fStatus);
+		PageInfo fundPageInfo = new PageInfo(1, 10, fBoardCount, 10);
+		bfList = fService.getFundList(fundPageInfo, fStatus);
+		
+		System.out.println(fBoardCount);
+		System.out.println(bfList);
+				
 		model.addObject("list", list);
-		model.addObject("bflist", bflist);
+		model.addObject("bfList", bfList);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("member/admin/admin_page");
 		
 		return model;
 	}
 	
-	// 회원 목록 불러오기
+	// 회원 목록 비동기
 	@RequestMapping("/member/admin")
 	@ResponseBody
 	public Map<String, Object> list(

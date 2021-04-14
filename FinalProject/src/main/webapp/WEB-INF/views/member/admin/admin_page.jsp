@@ -81,116 +81,8 @@
                             <button >&gt;</button>
                         </div>
                         <div class="bnt">
-                        <button>수락</button>
-                        <button>거절</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="open_list">
-                    <!-- 운영중인 클럽 -->
-                    <div class="content">
-                        <p>운영중인 클럽</p>
-                        <table class="list_table">
-                            <tr>
-                                <th></th>
-                                <th class="th">No</th>
-                                <th class="th">Title</th>
-                                <th class="th">Status</th>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="pageBar">
-                        <div id="pageBarAndBtn">
-                            <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
-                        </div>
-                        <div class="bnt">
-                            <button>마감</button>
-                            </div>
-                    </div>
-                </div>
-                <div class="refusal_list">
-                    <div class="content">
-                        <p>취소 된 클럽</p>
-                        <table class="list_table">
-                            <tr>
-                                <th class="th">No</th>
-                                <th class="th">Title</th>
-                                <th class="th">Status</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>책스초코의 비밀</td>
-                                <td>거절</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>책스초코의 비밀</td>
-                                <td>거절</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>책스초코의 비밀</td>
-                                <td>거절</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>책스초코의 비밀</td>
-                                <td>거절</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>책스초코의 비밀</td>
-                                <td>거절</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="pageBar">
-                        <div id="pageBar">
-                            <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
+	                        <button>수락</button>
+	                        <button>거절</button>
                         </div>
                     </div>
                 </div>
@@ -216,24 +108,22 @@
 	                                <th></th>
 	                                <th class="th">No</th>
 	                                <th class="th">Title</th>
-	                                <th class="th">User</th>
 	                                <th class="th">Status</th>
 	                            </tr>
 	                            <tbody id="fundTbody">
-									<c:if test="${bflist == null}">
+									<c:if test="${bfList == null}">
 										<tr>
 											<td colspan="6">
 												조회된 펀딩이 없습니다.
 											</td>
 										</tr>	
 									</c:if>
-									<c:if test="${bflist != null}">
-										<c:forEach var="bookfunding" items="${list}">
+									<c:if test="${bfList != null}">
+										<c:forEach var="bookfunding" items="${bfList}">
 											<tr>
-												<td><input name="upmst" type="checkbox" value="${member.userId}"></td>
+												<td><input name="upmst" type="checkbox" value=""></td>
 												<td><c:out value="${bookfunding.bfNo}"/></td>
 												<td><c:out value="${bookfunding.bfTitle}"/></td>
-												<td><c:out value="${bookfunding.userId}"/></td>
 												<td><c:out value="${bookfunding.bfStatus}"/></td>
 											</tr>
 										</c:forEach>
