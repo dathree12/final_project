@@ -26,7 +26,7 @@ public class ReviewBoard {
 	
 	private Date brModifyDate;
 	
-	private int brBookType;
+	private String brBookType;
 	
 	private String brContent;
 	

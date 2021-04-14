@@ -20,7 +20,7 @@
 		       BR.BR_RATING
 		FROM BOOK_REVIEW_BOARD BR
 		JOIN MEMBER M ON(BR.USER_NO = M.USER_NO)		
-		WHERE BR.STATUS='Y'
+		WHERE BR.BR_STATUS='Y'
 	</sql>
 
 	<resultMap type="ReviewBoard" id="brResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
