@@ -44,10 +44,13 @@
                     	console.log(msg.documents[0].isbn);
                         console.log(msg.documents[0].title);
                         console.log(msg.documents[0].thumbnail);
+                        
+                        var getAPIisbn = msg.documents[0].isbn;
+                        var isbn = getAPIisbn.split(" ");
                         //책ISBN불러오기
                         $("#title").append( msg.documents[0].title);
                         $("#bookthumb").append("<img src='" + msg.documents[0].thumbnail + "'/>");
-                        $("#bookisbn").append( msg.documents[0].isbn);
+                        $("#bookisbn").append(isbn[0]);
                     });
                
             });

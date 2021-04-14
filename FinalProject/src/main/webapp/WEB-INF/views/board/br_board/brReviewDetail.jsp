@@ -24,6 +24,7 @@
     
 </head>
 <body>
+<%@ include file="../../common/header.jsp" %>
 	<div class="wrap">
         <section class="brboard-body">    
             <section class = "brboard-top">
@@ -78,8 +79,8 @@
                 </div>
                 <div class="brboard-review-contentlower">
                     <span id="review-recommend-btn">
-                        <a href="#" class="recommend-button"><img src="/images/heart.png" class="recoicon" id="recommend-icon1"></a>
-                        <a href="#" class="recommend-button"><img src="/images/redheart.png" class="recoicon" id="recommend-icon2"></a>
+                        <a href="#" class="recommend-button"><img src="${ path }/images/heart.png" class="recoicon" id="recommend-icon1"></a>
+                        <a href="#" class="recommend-button"><img src="${ path }/images/redheart.png" class="recoicon" id="recommend-icon2"></a>
                         <span id="review-recommend-btn">공감</span>
                     </span>
                     <span id="review-edit-btn">
@@ -202,31 +203,31 @@
     </div>
 </body>
 
-<script>
-    $(document).ready(function(){
-            /*웹페이지 열었을 때*/
-            $("#recommend-icon1").show();
-            $("#recommend-icon2").hide();
-            /*img1을 클릭했을 때 img2를 보여줌*/
-            $("#recommend-icon1").click(function(){
-                $("#recommend-icon1").hide();
-                $("#recommend-icon2").show();
-            });
-            /*img2를 클릭했을 때 img1을 보여줌*/
-            $("#recommend-icon2").click(function(){
-                $("#recommend-icon1").show();
-                $("#recommend-icon2").hide();
-            });
-        });
-</script>
-<script>
-    $(document).ready(function() {
-        $('.comment_body').on('keyup', function(e) {
-            $(this).css('height', 'auto');
-            $(this).height(this.scrollHeight);
-        });
-        $('.comment_body').keyup();
-    })
-</script>
+	<script>
+	    $(document).ready(function(){
+	            /*웹페이지 열었을 때*/
+	            $("#recommend-icon1").show();
+	            $("#recommend-icon2").hide();
+	            /*img1을 클릭했을 때 img2를 보여줌*/
+	            $("#recommend-icon1").click(function(){
+	                $("#recommend-icon1").hide();
+	                $("#recommend-icon2").show();
+	            });
+	            /*img2를 클릭했을 때 img1을 보여줌*/
+	            $("#recommend-icon2").click(function(){
+	                $("#recommend-icon1").show();
+	                $("#recommend-icon2").hide();
+	            });
+	        });
+	</script>
+	<script>
+	    $(document).ready(function() {
+	        $('.comment_body').on('keyup', function(e) {
+	            $(this).css('height', 'auto');
+	            $(this).height(this.scrollHeight);
+	        });
+	        $('.comment_body').keyup();
+	    })
+	</script>
 
 <%@ include file="../../common/footer.jsp" %>
