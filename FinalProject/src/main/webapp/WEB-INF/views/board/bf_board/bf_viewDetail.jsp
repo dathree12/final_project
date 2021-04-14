@@ -1,8 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
@@ -30,14 +29,14 @@
                 <div class="sub_detailArea">
                     <div class="fd_viewdetail_thumbnail">
                         <div class="_d_name">
-                            <img src="${ path }/images/bf_testBook.jpg" >
+                            <img src="${ path }/upload/bf_board/${ board.bfReImgName }" width="400px" height="600px">
                         </div>
                     </div>
                     <!-- info : title -->
                     <div class="infoArea__box">
                         <div class="infoArea">
-                            <h1 id="_deadline"><span>XX</span>일 남음</h1>
-                            <h2>펀딩 프로젝트 제목</h2>
+                            <h1 id="_deadline"><span><c:out value="${board.bfRemainDate}"/> </span> 일 남음</h1>
+                            <h2><c:out value="${board.bfTitle}"/></h2>
                             <div class="sub_title" style="margin-top: 5px;">
                                 <!-- <span>부제목</span> -->
                             </div>
@@ -49,30 +48,23 @@
                                 <table class="box_table">
                                     <tr>
                                         <th>시작 날짜</th>
-                                        <td>###</td>
+                                        <td><c:out value="${board.bfEnrollDate}"/></td>
                                     </tr>
                                     <tr>
                                         <th>마감 날짜</th>
-                                        <td>###</td>
+                                        <td><c:out value="${board.bfEndDate}"/></td>
                                     </tr>
                                     <tr>
                                         <th>목표 달성 금액</th>
-                                        <td>###</td>
+                                        <td><fmt:formatNumber value="${board.bfReachPrice}" />원</td>
                                     </tr>
                                     <tr>
                                         <th>배송비</th>
                                         <td>3,000원</td>
                                     </tr>
                                 </table>
-                                <!-- <p style="line-height: 20px;">시작날짜</p> -->
-                                <!-- <p style="line-height: 20px;">마감날짜</p> -->
-                                <!-- <p style="line-height: 20px;">목표 달성 금액</p> -->
-                                <!-- <p style="line-height: 20px;">배송비</p> -->
-                                <!-- <p style="font-size: 30px; margin: 0;"><b>100,000원</b></p> -->
                             </ul>
-                            <!-- -------------------------------------- -->
                             <hr>
-                            <!-- info : schedule select box -->
                             <table>
                                 <tr>
                                     <p style="font-size: 16px;"><b>수량을 선택해주세요.</b></p>
@@ -84,11 +76,8 @@
                                     </select> -->
                                 </tr>
                             </table>
-                            <!-- -------------------------------------- -->
-                            <!-- <hr> -->
                             <br>
                             <br>
-                            <!-- info : button -->
                             <div class="ec-base-button">
                                 <div class="_d_btn_1th"> 
                                     <input type="submit" value="바로구매하기">
@@ -111,11 +100,9 @@
                     <li><a href="#tag2">Q&A</a></li>
                 </ul>
                 <div class="cont">
-                    <!-- <img src="./images/detail.png" alt=""> -->
-                    <pre>
-                        북펀딩 프로젝트 상세내용이 들어가는 자리입니다.
-    
-                    </pre>
+                    
+                    <c:out value="${board.bfContent}" escapeXml="false"/>
+                        
                 </div>
             </article>
     
