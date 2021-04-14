@@ -7,25 +7,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="path" value="${ pageContext.request.contextPath }" />
-<!DOCTYPE html>
-<html lang="ko">
+<%@ include file="../../common/header.jsp"%>
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>리뷰작성페이지</title>
 	<link rel="stylesheet" href="${ path }/css/board/bc_style/bcReviewWrite.css" type="text/css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
 	<script src="${ path }/ckeditor/ckeditor.js"></script>
-	<script src="https://kit.fontawesome.com/2d323a629b.js"
-		crossorigin="anonymous"></script>
 </head>
-<%@ include file="../../common/header.jsp"%>
 <section id="wrap">
 	<div id="container">
-		<div
-			class="xans-element- xans-board xans-board-writepackage-4 xans-board-writepackage xans-board-4 _board_wrap">
-			<div
-				class="xans-element- xans-board xans-board-title-4 xans-board-title xans-board-4">
+		<div class="xans-element- xans-board xans-board-writepackage-4 xans-board-writepackage xans-board-4 _board_wrap">
+			<div class="xans-element- xans-board xans-board-title-4 xans-board-title xans-board-4">
 				<div class="title">
 					<h2>
 						<font style="color: rgb(85, 85, 85);">사용후기</font>
@@ -37,8 +29,7 @@
 				<div class="xans-element- xans-board xans-board-write-4 xans-board-write xans-board-4">
 					<div class="ec-base-box typeProduct">
 						<p class="thumbnail">
-							<a href="#"> <img style="max-width: 90px;"
-								src="${ path }/images/club-test.jpg" alt="썸네일 이미지" id="iPrdImg">
+							<a href="#"> <img style="max-width: 90px;" src="${ path }/images/club-test.jpg" alt="썸네일 이미지" id="iPrdImg">
 								<!-- 구매한 상품 이미지 -->
 							</a>
 						</p>
@@ -62,41 +53,27 @@
 								</tr>
 							</tbody>
 						</table>
-					<textarea name="bcContent" id="bcContent" rows="10" cols="80"></textarea>
-					<script>
-						CKEDITOR.replace(
-							"bcContent",
-							{//해당 이름으로 된 textarea에 에디터를 적용
-								height : 1000,
-								getUploadUrl : type = 'image',
-								filebrowserUploadUrl : '<c:url value="/board/bc_board/imageUpload" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
-							});
-
-						CKEDITOR.editorConfig = function(config) {
-							config.filebrowserUploadUrl = '/board/bc_board/imageUpload';
-						}
-					</script>
-					<input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
+						<textarea name="bcContent" id="bcContent" rows="10" cols="80"></textarea>
+						<script src="${ path }/js/club/bcReviewWrite.js"></script>
+						<input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
+					</div>
 				</div>
 			</form>
-		</div>
-		<div class="ec-base-button">
-			<span class="gLeft" style="float: left; text-align: left;"> <span
-				class="displaynone" style="display: none;"> <a href="#none">
-						<!-- 관리자답변보기 -->
+			<div class="ec-base-button">
+				<span class="gLeft" style="float: left; text-align: left;"> <span
+					class="displaynone" style="display: none;"> <a href="#none">
+							<!-- 관리자답변보기 -->
+					</a>
+				</span> <a href="#"> <span class="-cbtn -c-medium"
+						style="height: 32px; line-height: 32px;"> 목록 </span>
 				</a>
-			</span> <a href="#"> <span class="-cbtn -c-medium"
-					style="height: 32px; line-height: 32px;"> 목록 </span>
-			</a>
-			</span> <span class="gRight" style="float: right; text-align: right;">
-				<a href="#"> <span class="-cbtn -c-medium -c-black"> 등록 </span>
-			</a> <a href="#"> <span class="-cbtn -c-medium"> 취소 </span>
-			</a>
-			</span>
+				</span> <span class="gRight" style="float: right; text-align: right;">
+					<a href="#"> <span class="-cbtn -c-medium -c-black"> 등록 </span>
+				</a> <a href="#"> <span class="-cbtn -c-medium"> 취소 </span>
+				</a>
+				</span>
+			</div>
 		</div>
-	</div>
-	</form>
-	</div>
 	</div>
 </section>
 <%@ include file="../../common/footer.jsp"%>

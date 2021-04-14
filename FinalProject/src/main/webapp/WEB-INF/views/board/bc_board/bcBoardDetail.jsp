@@ -7,22 +7,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-<!DOCTYPE html>
-<html lang="ko">
+<%@ include file="../../common/header.jsp" %>
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
+    <title>게시판 상세보기</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardDetail.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous" ></script>
     <style type="text/css">
     	ul {
     		margin-top: 16px
     	}
     </style>
 </head>
-<%@ include file="../../common/header.jsp" %>
     <section>
         <!-- content top -->
         <article class="detailArea" style="margin: auto;">
@@ -296,40 +291,5 @@
             </div>
         </article>
     </section>
-    <script>
-        $(function() {
-            var jbOffset = $('.nav_header').offset();
-            $(window).scroll( function() {
-                if ($(document).scrollTop() > jbOffset.top) {
-                    $('.menuArea').addClass('jbFixed');
-                }
-                else {
-                    $('.menuArea').removeClass('jbFixed');
-                }
-            });
-        });
-        function selectBoxCliked () {
-            // 잊어버린 내용 innerHTML은 <div>, <span>의 텍스트 노드값을 자식으로 갖고있으면 복사해온다.
-            var selectVal = document.querySelector('#selectVal');
-            var resultProduct = document.querySelector('.resultProduct');
-            var opt_block = document.querySelector('.opt_block');
-
-            resultProduct.innerHTML = selectVal.innerHTML;
-
-            if (!(resultProduct === null) && resultProduct !== "") {
-                opt_block.style.display = 'block';
-                selectVal.addEventListener('click', function() {
-                    alert('이미 선택한 상품입니다.');
-                });
-            }
-        }
-        
-        function goPayment() {
-        	location.href = "${ path }/board/bc_board/bcBoardPayment";
-        }
-        
-        $(function() {
-            $('.dropdown-toggle').dropdown();
-        });
-    </script>
+    <script src="${ path }/js/club/bcBoardDetail.js"></script>
 <%@ include file="../../common/footer.jsp" %>

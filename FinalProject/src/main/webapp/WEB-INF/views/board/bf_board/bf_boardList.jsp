@@ -11,7 +11,6 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="main.js" defer></script> -->
     <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous"></script>
@@ -74,7 +73,6 @@
 	                    <p>조회된 게시글이 없습니다.</p>
 	                    <p>관리자에게 문의해주세요.</p>
 	                    <p></p>
-	                    <%-- <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" /> --%>
 	                </div>
 	            </div>        		
         	</c:if>
@@ -82,9 +80,10 @@
         	<c:if test="${list != null}">
         		<c:forEach var="board" items="${list}">
 		            <div class="fdboard_mid_box" id="fdboard_01">
+		            	<input type="hidden" name="bfNo" value="${board.bfNo}">
 		                <div class="fdboard_thumbnail">
 		                    <div class="fdboard_attainRate"><c:out value="${board.bfAttainRate}"/>%</div>
-		                    <a href="#" class="fdboard_img" name="fdboard_img">
+		                    <a href="${path}/board/bf_board/bf_viewDetail?bfNo=${board.bfNo}" class="fdboard_img" name="fdboard_img">
 		                        <img src="${ path }/upload/bf_board/${ board.bfReImgName }" width="180px" height="270px">
 		                    </a>
 		                </div>
@@ -92,15 +91,12 @@
 		                    <p><c:out value="${board.bfTitle}"/></p>
 		                    <p><c:out value="${board.bfPrice}"/>원</p>
 		                    <p><c:out value="${board.bfRemainDate}"/>일 남음</p>
-		                    <%-- <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" /> --%>
 		                </div>
 		            </div>        			
-        	
         		</c:forEach>
         	</c:if>
-            
-            
         </div>
+        
     </div>
     
     <div class="fdboard_mid_bottom">
