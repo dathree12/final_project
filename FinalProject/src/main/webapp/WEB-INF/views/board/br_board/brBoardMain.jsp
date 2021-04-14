@@ -70,17 +70,17 @@
         		<c:forEach var="board" items="${list}">
 		            <div class="brboard-reviewbox" id="bookreview1">
 		                <div class="thumbnail">
-		                    <a href="#" name="thumbnailbox"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU" id="thumbnailpic"></a>
+		                    <a href="#" name="thumbnailbox" id="reviewthumbnail"></a>
 		                </div>    
 		                <div class="review-description">
 		                    <div class="book-description">
 		                        <p id="review-title"><a href="#"><c:out value="${board.brTitle}" /></a></p>
 		                        <p id="review-bookisbn" style="display:none"><c:out value="${board.brIsbn}"/></p>
 		                        <p id="review-booktitle"></p>
-		                        <p id="review-writer"><c:out value="${board.brTitle}" /></p>
+		                        <p id="review-writer"><c:out value="${board.userNname}" /></p>
 		                    </div>
 		                    <div class="count-description">
-		                        <p id="review-writedate"><c:out value="${board.brTitle}" /></p>
+		                        <p id="review-writedate"><c:out value="${board.brModifyDate}" /></p>
 		                        <span id="review-viewcount"><img src="${ path }/images/storytelling.png" id="viewcount-icon"><c:out value="${board.brViewCount}" /></span>
 		                        <span id="review-recocount"><img src="${ path }/images/redheart.png" id="recocount-icon"><c:out value="${board.brLike}" /></span>
 		                    </div>
@@ -113,17 +113,18 @@
 </div>
 	<script>
 	 $(document).ready(function () {
+		 	 var isbn = document.getElementById("review-bookisbn").innerText
              $.ajax({
                  method: "GET",
                  url: "https://dapi.kakao.com/v3/search/book?target=isbn",
-                 data: { query: $("#review-bookisbn").val() },
-                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" }
+                 data: { query: isbn },
+                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
              })
                  .done(function (msg) {
-                 	console.log(msg.documents[0].isbn);
                      console.log(msg.documents[0].title);
                      console.log(msg.documents[0].thumbnail);
-                     $("#review-booktitle").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                     $("#reviewthumbnail").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                     $("#review-booktitle").append(msg.documents[0].title);
                  });
      });
 	</script>
