@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardDetail.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-   	<link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous" ></script>
     <style type="text/css">
     	ul {
@@ -120,7 +119,7 @@
                 <li><a href="#tag2">Q&A</a></li>
             </ul>
             <div class="cont">
-                <img src="./images/detail.png" alt="">
+                <img src="" alt="">
             </div>
         </article>
 
@@ -149,11 +148,11 @@
                                 <col style="width: auto;">
                                 <col style="width: 150px;">
                             </colgroup>
-                            <tbody class="center">
-                                <tr class="xans-record-">
+                            <tbody class="center .dropdown">
+                                <tr class="xans-record- btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                     <td>1</td>
                                     <td class="thumb_photo">
-                                        <img src="images/test-img.jpg" alt="">
+                                        <img src="" alt="">
                                     </td>
                                     <td>
                                         <ul class="d_review_cont">
@@ -172,7 +171,7 @@
                                         </ul>
                                     </td>
                                 </tr>
-                                <tr id="product-review-read">
+                                <tr id="product-review-read dropdown-menu">
                                     <td colspan="4">
                                         <div class="view">
                                             <div id="ec-ucc-media-box-8">
@@ -212,7 +211,7 @@
                 </div>
                 <p class="ec-base-button typeBoarder">
                     <span class="gRight">
-                        <a href="#">
+                        <a href="${ path }/board/bc_board/bcReviewWrite">
                             <span class="-cbtn -c-medium -c-black">
                                 상품후기쓰기
                             </span>
@@ -274,7 +273,7 @@
                     </tbody>
                 </table>
                 <p class="review_button">
-                    <span class="gRight">
+                    <span class="gRight" style="margin-top: 10px;">
                         <a href="#">
                             <span class="-cbtn -c-medium -c-black">
                                 상품후기쓰기

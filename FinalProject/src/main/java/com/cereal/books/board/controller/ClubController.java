@@ -54,6 +54,13 @@ public class ClubController {
 		return "board/bc_board/bcBoardMain";
 	}
 	
+	// 북 클럽 메인페이지
+	@RequestMapping("/bcReviewWrite")
+	public String clubReview() {
+		
+		return "board/bc_board/bcReviewWrite";
+	}
+	
 	// 북 클럽 메인페이지(관리자)
 	@RequestMapping("/bcAdminWrite")
 	public String adminWrite() {

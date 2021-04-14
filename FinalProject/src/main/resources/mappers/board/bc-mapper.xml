@@ -190,6 +190,25 @@
 		)
 	</insert>
 	
+	<insert id="">
+		insert into 
+		comment_board 
+		values(
+		SEQ_COM_NO.NEXTVAL, 
+		4, 
+		DEFAULT, 
+		'관리자', 
+		'잘했어요', 
+		SYSDATE, 
+		DEFAULT, 
+		DEFAULT, 
+		'C', 
+		1, 
+		DEFAULT, 
+		DEFAULT
+		);
+	</insert>
+	
 	<update id="saveRemainDate" parameterType="ClubBoard">
 		UPDATE BOOK_CLUB_BOARD
 		SET 
