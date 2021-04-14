@@ -45,9 +45,8 @@ public class MainController {
 			list = service.getBoardList(pageInfo);
 			
 		}else {
-			userNo= member.getUserNo();
 			
-			list = service.getBoardListNo(pageInfo, userNo);
+			list = service.getBoardListNo(pageInfo);
 	
 			
 		}
