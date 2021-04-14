@@ -3,8 +3,9 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,9 +14,8 @@
     <link rel="stylesheet" href="${path}/css/member/enrollTerms.css">
     <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-	<script src="${path}/js/jquery-3.5.1.js"></script>
-</head>
-	   <%@ include file="/WEB-INF/views/common/header.jsp" %>   
+	<script src="${path}/js/member/enroll.js"></script>
+</head> 
 	<section>
 	
 	    <h1 id="terms_top">이용 약관</h1>
@@ -112,64 +112,9 @@
 	            </div>
 	        
 	            <div id="terms_btn_div">
-	                <button id="terms_btn" type="button" >다음으로</button>
+	                <button id="terms_btn" type="button" onclick="location.href=('${path}/member/enroll')">다음으로</button>
 	            </div>
 	          
 			</div>
 	</section>
 		  <%@ include file="/WEB-INF/views/common/footer.jsp" %>
-		
-		
-	<script>
-		$(document).ready(() => {
-		  $('#allCheck').on('click',() => {
-			
-		  	if($('#allCheck').is(":checked") == false){
-				$('#agree_service_check0').prop("checked", false);
-			 	$('#agree_service_check1').prop("checked", false);
-		  	}else{
-		  		$('#agree_service_check0').prop("checked", true);
-				$('#agree_service_check1').prop("checked", true);
-				terms_btn.focus();
-		  	}
-		  });
-		  
-		  $('#agree_service_check0').on('click',() => {
-				
-			  	if($('#agree_service_check0').is(":checked") == true){
-					if($('#agree_service_check1').is(":checked") == true){
-						$('#allCheck').prop("checked", true);
-					}
-			  	}else{
-			  		$('#allCheck').prop("checked", false);
-			  	}	
-			  
-		  });
-		  $('#agree_service_check1').on('click',() => {
-			  	if($('#agree_service_check1').is(":checked") == true ){
-					if($('#agree_service_check0').is(":checked") == true){
-						$('#allCheck').prop("checked", true);
-					}
-			  
-			  	}else{
-			  		$('#allCheck').prop("checked", false);
-			  	}	
-		  });
-		  
-		  $('#terms_btn').on('click',() => {
-			  
-			  if($('#allCheck').is(":checked") == false){
-					
-			  	alert('약관을 읽고 모두 동의 해주세요');	
-			  }else{
-				  
-			 	location.href=('${path}/member/enroll');
-			  }
-			  });
-
-		 
-		});
-		
-		
-	</script>
-		
