@@ -5,23 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-<!DOCTYPE html>
-<html lang="ko">
+<%@ include file="../../common/header.jsp" %>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>제안하기 게시판 리스트</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardList.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="../../js/jquery-3.5.1.js"></script>
-    <script 
-    src="https://kit.fontawesome.com/2d323a629b.js" 
-    crossorigin="anonymous"
-    ></script>
 </head>
-<%@ include file="../../common/header.jsp" %>
     <section class="propose-list-section-1th">
         <!-- 제목(1), 카테고리(3) -->
         <article class="headcategory">
