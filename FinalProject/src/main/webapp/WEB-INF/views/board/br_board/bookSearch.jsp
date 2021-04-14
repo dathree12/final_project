@@ -64,8 +64,7 @@
         	console.log(booktitle)
         	
         	opener.window.document.getElementById("selectedBook").innerText = booktitle;
-        	opener.window.document.getElementById("bookIsbn").innerText = bookisbn;
-        	opener.window.document.getElementById("bookIsbn").innerText = bookisbn;
+        	opener.window.document.getElementById("brIsbn").value = bookisbn;
  			
         	 window.open('','_self').close();  
         });

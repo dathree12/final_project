@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,37 +45,14 @@ public class ReviewController {
 		//return "board/br_board/brBoardWrite";
 	}
 	
-//	
-//	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
-//	public ModelAndView brWrite (HttpServletRequest request, 
-//								 ReviewBoard reviewboard, ModelAndView model) {
-//
-//			int result = 0;
-//
-//			result = service.saveBoard(reviewboard);
-//			
-//			if(result > 0) {
-//				model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-//				model.addObject("location", "/board/br_board/brBoardMain");
-//			} else {
-//				model.addObject("msg", "게시글 등록을 실패하였습니다.");
-//				model.addObject("location", "/board/list");
-//			}			
-//			
-//		
-//		model.setViewName("common/msg");
-//		
-//		return model;
-//		}
-//	
 	
-	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
+	@RequestMapping(value = "/brBoardWrite", method = {RequestMethod.POST})
 	public ModelAndView brWrite(HttpServletRequest request, MultipartFile upload,
-							ReviewBoard reviewboard, ModelAndView model, @RequestParam("userNo") int userNo, @RequestParam("userId") String userId)
+							ReviewBoard reviewboard, ModelAndView model)
 			throws Exception {
 		
 		int result = 0;
-
+		
 		result = service.saveBoard(reviewboard);
 		
 		if(result > 0) {
