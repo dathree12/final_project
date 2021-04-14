@@ -236,11 +236,19 @@ strong.name {
     background: #f7f7f7;
 }
 
-/* pageBar */
-.pageBar { font-size: 25px; /*border: 1px solid black;*/ text-align: center; }
+/*.pageBar { text-align: center; }
 .pageBar a { width: 30px; height: 30px; margin: 10px; }
 .p_number {
 	font-size: 14px;
+}*/
+.bcboard_mid_bottom {
+    padding: 3%;
+}
+.bcboard_mid_pageCount {
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 0%;
+    /* position: relative; */
 }
 
 @media screen and (max-width: 768px){

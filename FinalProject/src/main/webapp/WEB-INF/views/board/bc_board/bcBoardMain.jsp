@@ -52,7 +52,7 @@
 		                    <ul class="prdList carousel owl-carousel" style="max-height: ">
 			                <c:if test="${ dlList != null }">
 			                	<c:forEach var="clubBoard" items="${ dlList }">
-		                        <li class="anchorBoxId_14">
+		                        <li class="anchorBoxId_14" onclick="alert('기간 만료된 클럽입니다.');">
 		                            <div class="box">
 		                                <div class="thumbnail">
 		                                    <div class="prdImg">
@@ -159,24 +159,50 @@
                             	</c:if>
                             </ul>
                         </div>
-                        <div class="pageBar">
-                            <a href="${ path }/board/bcBoardMain/list?page=1&listLimit=${ pageInfo.listLimit }" class="first">«</a>
-                            <a href="${ path }/board/bcBoardMain/list?page=${ pageInfo.prvePage }&listLimit=${ pageInfo.listLimit }" class="prev">‹</a>
-                            <c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" step="1" varStatus="status">
-                            	<c:if test="${ status.current == pageInfo.currentPage }">
-                            		<a class="p_number" href="${ status.current }">1</a>
-                            		<a class="p_number" href="${ status.current }">2</a>
-                            		<a class="p_number" href="${ status.current }">3</a>
-                            		<a class="p_number" href="${ status.current }">4</a>
-                            		<a class="p_number" href="${ status.current }">5</a>
-                            	</c:if>
-                            	<c:if test="${ status.current != pageInfo.currentPage }">
-		                            <a href="${ path }/board/bcBoardMain/list?page=${ status.current}&listLimit=${ pageInfo.listLimit } " class="p_number"><span>1</span></a>
-                            	</c:if>
-                            </c:forEach>
-                            <a href="${ path }/board/bcBoardMain/list?page=${ pageInfo.nextPage }&listLimit=${ pageInfo.listLimit }" class="next">›</a>
-                            <a href="${ path }/board/bcBoardMain/list?page=${ pageInfo.maxPage }&listLimit=${ pageInfo.listLimit }" class="last">»</a>
-                        </div>
+                        <!-- 
+                            <div class="fdboard_mid_bottom">
+						        <div class="fdboard_mid_pageCount">
+						            <a href="${path}/board/bf_board/bf_boardList?page=1">&lt;&lt;</a> &nbsp &nbsp
+						            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+									<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+										<c:if test="${status.current == pageInfo.currentPage}">
+											<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+						   				</c:if>
+										<c:if test="${status.current != pageInfo.currentPage}">
+											<a href="${path}/board/bf_board/bf_boardList?page=${status.current}"><c:out value="${status.current}"/></a>
+											&nbsp &nbsp
+						   				</c:if>
+									</c:forEach>            
+						            
+						            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+						            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.maxPage}">&gt;&gt;</a>
+						        </div>
+						    </div>	
+                         -->
+                        <!--
+	                        currentPage 현재 페이지
+	                        pageLimit 한 페이지에 보여질 페이지의 수
+	                        listCOunt 전체 리스트 수
+	                        listLimit 한 페이지에 표시될 페이지 수 
+                        -->
+                          <div class="bcboard_mid_bottom" style="/*border: 1px solid black;*/ text-align: center;">
+					        <div class="bcboard_mid_pageCount">
+					            <a href="${path}/board/bc_board/bcBoardMain?page=1">&lt;&lt;</a> &nbsp &nbsp
+					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+								<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+									<c:if test="${status.current == pageInfo.currentPage}">
+										<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+					   				</c:if>
+									<c:if test="${status.current != pageInfo.currentPage}">
+										<a href="${path}/board/bc_board/bcBoardMain?page=${status.current}"><c:out value="${status.current}"/></a>
+										&nbsp &nbsp
+					   				</c:if>
+								</c:forEach>            
+					            
+					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.maxPage}">&gt;&gt;</a>
+					        </div>
+					    </div>	
                     </div>
                 </div>
             </div>

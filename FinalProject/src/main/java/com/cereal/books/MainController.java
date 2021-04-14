@@ -1,6 +1,7 @@
 package com.cereal.books;
 
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cereal.books.board.model.service.MainBoardService;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
+
 import com.cereal.books.member.model.vo.Member;
 
 
@@ -29,19 +31,26 @@ public class MainController {
 	@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView main(ModelAndView model, 
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit ) {
+			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit,
+			@AuthenticationPrincipal Member member ) {
+		
 		List<ReviewBoard> list = null;
-		
-		int boardCount = service.getBoardCount();
-		
+		int boardCount = 0;
+		int userNo = 0;
+		boardCount = service.getBoardCount();
 		PageInfo pageInfo = new PageInfo(page, 3, boardCount, listLimit);
-		
-		System.out.println(boardCount);
-		
-		list = service.getBoardList(pageInfo);
-		
-		
-		System.out.println(list);
+	
+
+		if (member == null) {
+			list = service.getBoardList(pageInfo);
+			
+		}else {
+			userNo= member.getUserNo();
+			
+			list = service.getBoardListNo(pageInfo, userNo);
+	
+			
+		}
 		
 		model.addObject("list", list);
 		model.setViewName("mainpage");

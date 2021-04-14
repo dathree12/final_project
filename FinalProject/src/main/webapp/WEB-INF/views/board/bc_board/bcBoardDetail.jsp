@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardDetail.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-   	<link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous" ></script>
     <style type="text/css">
     	ul {
@@ -63,10 +62,10 @@
                                             선택 (필수)
                                         </a>
                                         <div class="dropdown-menu" 
-                                            style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 0; box-shadow: none; border-radius: 0; border-top: 1px solid rgba(0, 0, 0, 0.003); width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999; max-width: 399px">
+                                            style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 1px 1px;  box-shadow: none; border-radius: 0; border-top: 1px solid rgba(0, 0, 0, 0.003); width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999; max-width: 399px">
                                             <div class="dropdown-item" onclick="event.stopPropagation();">
                                                 <a style="padding: 3px 0px; line-height: normal; display: block;" class="blocked _requireOption" onclick="selectBoxCliked();">
-                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="display: block; margin-bottom: 4px;">[온라인] <c:out value="${ clubBoard.bcStartDate }"></c:out></span>
+                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="margin-bottom: 4px; display: inline-block; text-align: left;">[온라인] <c:out value="${ clubBoard.bcStartDate }"></c:out></span>
                                                     <span class="no-margin blocked">
                                                         <strong></strong>
                                                     </span>
@@ -120,7 +119,7 @@
                 <li><a href="#tag2">Q&A</a></li>
             </ul>
             <div class="cont">
-                <img src="./images/detail.png" alt="">
+                <img src="" alt="">
             </div>
         </article>
 
@@ -149,11 +148,11 @@
                                 <col style="width: auto;">
                                 <col style="width: 150px;">
                             </colgroup>
-                            <tbody class="center">
-                                <tr class="xans-record-">
+                            <tbody class="center .dropdown">
+                                <tr class="xans-record- btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                     <td>1</td>
                                     <td class="thumb_photo">
-                                        <img src="images/test-img.jpg" alt="">
+                                        <img src="" alt="">
                                     </td>
                                     <td>
                                         <ul class="d_review_cont">
@@ -172,7 +171,7 @@
                                         </ul>
                                     </td>
                                 </tr>
-                                <tr id="product-review-read">
+                                <tr id="product-review-read dropdown-menu">
                                     <td colspan="4">
                                         <div class="view">
                                             <div id="ec-ucc-media-box-8">
@@ -212,7 +211,7 @@
                 </div>
                 <p class="ec-base-button typeBoarder">
                     <span class="gRight">
-                        <a href="#">
+                        <a href="${ path }/board/bc_board/bcReviewWrite">
                             <span class="-cbtn -c-medium -c-black">
                                 상품후기쓰기
                             </span>
@@ -274,7 +273,7 @@
                     </tbody>
                 </table>
                 <p class="review_button">
-                    <span class="gRight">
+                    <span class="gRight" style="margin-top: 10px;">
                         <a href="#">
                             <span class="-cbtn -c-medium -c-black">
                                 상품후기쓰기
