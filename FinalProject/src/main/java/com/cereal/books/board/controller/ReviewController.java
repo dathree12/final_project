@@ -51,7 +51,7 @@ public class ReviewController {
 			throws Exception {
 		
 		int result = 0;
-
+		
 		result = service.saveBoard(reviewboard);
 		
 		if(result > 0) {

@@ -23,13 +23,14 @@ public class ReviewServiceImpl implements ReviewService {
 	@Transactional
 	public int saveBoard(ReviewBoard reviewboard) {
 		int result = 0;
-		
+		System.out.println("글쓰기컨트롤러 돌아간다.");
+		System.out.println(reviewboard);
 		if(reviewboard.getBrNo() != 0) {
 			result = reviewDao.updateReviewBoard(reviewboard);
 		} else {
 			result = reviewDao.insertReviewBoard(reviewboard);
 		}
-		return 0;
+		return result;
 	}
 
 	@Override

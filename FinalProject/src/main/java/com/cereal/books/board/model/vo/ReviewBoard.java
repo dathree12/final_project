@@ -14,8 +14,6 @@ public class ReviewBoard {
 	
 	private int userNo;
 	
-	private String userNname;	
-	
 	private int brIsbn;
 	
 	private String brPresentPic;
@@ -32,7 +30,7 @@ public class ReviewBoard {
 	
 	private int brLike;
 	
-	private String brstatus;
+	private String brStatus;
 	
 	private float brRating;
 

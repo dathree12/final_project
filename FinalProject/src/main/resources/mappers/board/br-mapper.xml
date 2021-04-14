@@ -11,7 +11,7 @@
 		       BR.BR_PRESENT_PIC,
 		       BR.BR_TITLE,
 		       BR.BR_CREATE_DATE,
-		       BR.BR_MODIFY_DATE
+		       BR.BR_MODIFY_DATE,
 		       BR.BR_BOOKTYPE,
 		       BR.BR_CONTENT,
 		       BR.BR_VIEWCOUNT,
@@ -23,7 +23,7 @@
 		WHERE BR.STATUS='Y'
 	</sql>
 
-	<resultMap type="Board" id="brResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
+	<resultMap type="ReviewBoard" id="brResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
 		<id property="brNo" column="BR_NO"/>
 		<result property="userNo" column="USER_NO"/>
 		<result property="userNname" column="USER_NNAME"/>
@@ -36,26 +36,25 @@
 		<result property="ckeditor" column="BR_CONTENT"/>
 		<result property="brViewCount" column="BR_VIEWCOUNT"/>
 		<result property="brLike" column="BR_LIKE"/>
-		<result property="brstatus" column="BR_STATUS"/>
+		<result property="brStatus" column="BR_STATUS"/>
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
  
 
 	<insert id="insertReviewBoard" parameterType="map"
-		useGeneratedKeys="true" keyProperty="boardNo" keyColumn="BOARD_NO">
+		useGeneratedKeys="true" keyProperty="brNo" keyColumn="BR_NO">
   		
 	  	INSERT INTO BOOK_REVIEW_BOARD
 	  		VALUES(
-	  			SEQ_BOARD_NO.NEXTVAL,
+	  			SEQ_BR_NO.NEXTVAL,
 	  			#{userNo},
-	  			#{userNname},
 	  			#{brIsbn},
 	  			DEFAULT,
-	  			brTitle,
+	  			#{brTitle},
 	  			DEFAULT,
 	  			DEFAULT,
 	  			#{brBookType},
-	  			#{ckeditor},
+	  			#{brContent},
 	  			DEFAULT,
 	  			DEFAULT,
 	  			'Y',

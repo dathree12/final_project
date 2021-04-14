@@ -67,45 +67,6 @@
         </div>
         <section class="brboard-mid-container">
             <div class="brboard-reviewbox" id="bookreview1">
-            	<c:if test="${list == null}">
-	              <div class="review-description">
-                    <div class="book-description">
-                        <p id="review-title"><a href="#">리뷰제목</a></p>
-                        <p id="review-booktitle">책제목</p>
-                        <p id="review-writer">리뷰작성자</p>
-                    </div>
-                    <div class="count-description">
-                        <p id="review-writedate">2021.03.25</p>
-                        <span id="review-viewcount"><img src="${ path }/images/storytelling.png" id="viewcount-icon">조회수</span>
-                        <span id="review-recocount"><img src="${ path }/images/redheart.png" id="recocount-icon">추천수</span>
-                    </div>
-	                <div class="fdboard_contants">
-	                    <p>조회된 게시글이 없습니다.</p>
-	                    <p>관리자에게 문의해주세요.</p>
-	                    <p></p>
-	                    <%-- <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" /> --%>
-	                </div>
-	            </div>        		
-        	</c:if>
-        	
-        	<c:if test="${list != null}">
-        		<c:forEach var="board" items="${list}">
-		            <div class="fdboard_mid_box" id="fdboard_01">
-		                <div class="fdboard_thumbnail">
-		                    <a href="#" class="fdboard_img" name="fdboard_img">
-		                        <img src="${ path }/upload/bf_board/${ board.bfReImgName }" width="180px" height="270px">
-		                    </a>
-		                </div>
-		                <div class="fdboard_contants">
-		                    <p><c:out value="${board.brTitle}"/></p>
-		                    <p><c:out value="${board.책제목}"/></p>
-		                    <p><c:out value="${board.userNname}"/>일 남음</p>
-		                    <%-- <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" /> --%>
-		                </div>
-		            </div>        			
-        	
-        		</c:forEach>
-        	</c:if>
                 <div class="thumbnail">
                     <a href="#" name="thumbnailbox"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU" id="thumbnailpic"></a>
                 </div>    
@@ -119,7 +80,6 @@
                         <p id="review-writedate">2021.03.25</p>
                         <span id="review-viewcount"><img src="${ path }/images/storytelling.png" id="viewcount-icon">조회수</span>
                         <span id="review-recocount"><img src="${ path }/images/redheart.png" id="recocount-icon">추천수</span>
-                       
                     </div>
                 </div>
             </div> 
@@ -127,20 +87,14 @@
     </section>
     <section class="brboard-bot">
         <div class="brboard-pagination">
-            <a href="${path}/board/br_board/br_boardMain?page=1">&lt;&lt;</a> &nbsp &nbsp
-            <a href="${path}/board/br_board/br_boardMain?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
-			<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
-				<c:if test="${status.current == pageInfo.currentPage}">
-					<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
-   				</c:if>
-				<c:if test="${status.current != pageInfo.currentPage}">
-					<a href="${path}/board/br_board/br_boardMain?page=${status.current}"><c:out value="${status.current}"/></a>
-					&nbsp &nbsp
-   				</c:if>
-			</c:forEach>            
-            
-            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
-            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.maxPage}">&gt;&gt;</a>
+            <a href="#">&laquo;</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">&raquo;</a>
         </div>
 <!--http://ecudemo121656.cafe24.com/ 참고하기-->
     </section>

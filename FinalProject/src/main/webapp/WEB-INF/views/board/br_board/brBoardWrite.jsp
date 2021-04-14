@@ -46,7 +46,7 @@
 	            <hr id="line">
 	        </section>
 	        <section class ="brboard-write-body">
-	            <form action="${path}/board/br_board/brBoardWrite" method="POST" id="brboardwrite" enctype="multipart/form-data">
+	            <form action="${ path }/board/br_board/brBoardWrite?${_csrf.parameterName}=${_csrf.token}" method="POST" id="brboardwrite" enctype="multipart/form-data">
 	                <p>북리뷰 글쓰기</p>
 	                <div class="brboard-write-option">
 	                    <p>글제목</p>
@@ -56,7 +56,7 @@
 	                    
 						<p>작성자</p>
 	                    <div id="brboard-write-writer" >
-	                        <input type="text" name="userNname" value="${user.name}" readonly></p>
+	                        <input type="text" name="userNname" value="${user.name}" readonly>
 	                        <p name="userNo" value="${user.userNo}" style="display:invisible" required>
 	                    </div>
 	                    
@@ -78,9 +78,9 @@
 							  <div id="selectedBookThumb" name="brPresentPic" style="display:none"></div>
 	                    </div>
 	                </div>
-	                <textarea name="ckeditor" id="ckeditor"></textarea>
+	                <textarea name="brContent" id="brContent"></textarea>
 	                <script>
-					CKEDITOR.replace( "ckeditor", {//해당 이름으로 된 textarea에 에디터를 적용
+					CKEDITOR.replace( "brContent", {//해당 이름으로 된 textarea에 에디터를 적용
 						height: 1000,
 						getUploadUrl: type='image',
 						filebrowserUploadUrl: '<c:url value="/board/br_board/imageUpload" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
@@ -97,6 +97,7 @@
     </div>    
     </div>
     
+  
   <!--  
     <script>
     $("#title").keyup((e) => {
