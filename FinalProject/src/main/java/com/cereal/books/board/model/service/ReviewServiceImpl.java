@@ -42,4 +42,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.selectBoardList(rowBounds);
 	}
 
+	@Override
+	public int getBoardCount() {
+		
+		return reviewDao.selectCount();
+	}
+
 }

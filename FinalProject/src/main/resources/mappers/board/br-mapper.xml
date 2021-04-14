@@ -31,7 +31,7 @@
 		<result property="brCreateDate" column="BR_CREATE_DATE"/>
 		<result property="brModifyDate" column="BR_MODIFY_DATE"/>
 		<result property="brBookType" column="BR_BOOKTYPE"/>
-		<result property="ckeditor" column="BR_CONTENT"/>
+		<result property="brContent" column="BR_CONTENT"/>
 		<result property="brViewCount" column="BR_VIEWCOUNT"/>
 		<result property="brLike" column="BR_LIKE"/>
 		<result property="status" column="BR_STATUS"/>
@@ -59,6 +59,19 @@
 	  			DEFAULT
  		)
 	</insert>
-
+	
+	<!-- ist불러오고 전체 보드 수 구해서 페이징처리까지 -->
+	<select id="selectBoardList" parameterType="map" resultMap="brResultMap">
+		<include refid="brListSql"></include>
+		ORDER BY BR.BR_NO DESC
+	</select>
+	
+	<select id="selectCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_REVIEW_BOARD BR
+		WHERE BR.BR_STATUS='Y'
+	</select>
+	
+	
 	
 </mapper>
