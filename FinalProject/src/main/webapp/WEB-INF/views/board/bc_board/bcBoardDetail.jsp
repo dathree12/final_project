@@ -11,15 +11,10 @@
 <head>
     <title>게시판 상세보기</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardDetail.css" type="text/css">
-    <link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.min.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <style type="text/css">
     	ul {
     		margin-top: 16px
-    	}
-    	
-    	a {
-    		color: #000;
     	}
     </style>
 </head>
@@ -148,21 +143,20 @@
                                 <col style="width: auto;">
                                 <col style="width: 150px;">
                             </colgroup>
-                            <tbody class="center dropdown" style="padding: 0;">
-                                <tr style="background: #fff; border-collapse: collapse; border-radius: 0; width: 100%; margin: 0; margin-bottom: -1px; border: 1px solid #f1f1f1;" class="xans-record-"
-                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <td style="width: 50px;">1</td>
-                                    <td style="width: 150px;" class="thumb_photo">
+                            <tbody class="center .dropdown">
+                                <tr class="xans-record- btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <td>1</td>
+                                    <td class="thumb_photo">
                                         <img src="" alt="">
                                     </td>
-                                    <td style="width: 848.89px;">
+                                    <td>
                                         <ul class="d_review_cont">
                                             <li>
                                                 <a href="#">만족</a>
                                             </li>
                                         </ul>
                                     </td>
-                                    <td style="width: 150px;">
+                                    <td>
                                         <ul class="d_review_info">
                                             <li>
                                                 <span> 대표 관리자</span>
@@ -172,8 +166,8 @@
                                         </ul>
                                     </td>
                                 </tr>
-                                <tr id="product-review-read" class="dropdown-menu" aria-labelledby="dLabel" style="margin: 0; width: 100%; padding: 0; border: none;">
-                                    <td colspan="4" style="width: 1280px; margin: 0">
+                                <tr id="product-review-read dropdown-menu">
+                                    <td colspan="4">
                                         <div class="view">
                                             <div id="ec-ucc-media-box-8">
                                                 <p></p>
@@ -190,7 +184,6 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <!-- 
                                         <ul class="boardComment">
                                             <li>
                                                 <strong class="name"> 대표 관리자</strong>
@@ -205,7 +198,6 @@
                                                 <p></p>
                                             </div>
                                         </form>
-                                        -->
                                     </td>
                                 </tr>
                             </tbody>

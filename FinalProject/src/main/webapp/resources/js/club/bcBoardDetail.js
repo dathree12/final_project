@@ -9,9 +9,6 @@ $(function() {
             $('.menuArea').removeClass('jbFixed');
         }
     });
-    
-    // 부트스트랩 드롭다운
-    $('.dropdown-toggle').dropdown();
 });
 
 // 박스 선택하면 선택영역에 추가하기
@@ -35,3 +32,8 @@ function selectBoxCliked () {
 function goPayment() {
 	location.href = "${ path }/board/bc_board/bcBoardPayment";
 }
+
+// 부트스트랩 드롭다운
+$(function() {
+    $('.dropdown-toggle').dropdown();
+});
