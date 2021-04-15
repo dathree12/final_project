@@ -101,7 +101,7 @@
 	                            <option id="bfStatus" value="ALL">전체펀딩목록</option>
 	                            <option id="bfStatus" value="N">펀딩신청현황</option>
 	                            <option id="bfStatus" value="P">모집중인펀딩</option>
-	                            <option id="bfStatus" value="C">취소된펀딩</option>
+	                            <option id="bfStatus" value="D">취소된펀딩</option>
 	                            <option id="bfStatus" value="Q">마감된펀딩</option>
 	                        </select>
 	                        <table class="list_table">
@@ -122,7 +122,7 @@
 									<c:if test="${bfList != null}">
 										<c:forEach var="bookfunding" items="${bfList}">
 											<tr>
-												<td><input name="upmst" type="checkbox" value=""></td>
+												<td><input name="upfst" type="checkbox" value="${bookfunding.bfNo}"></td>
 												<td><c:out value="${bookfunding.bfNo}"/></td>
 												<td><c:out value="${bookfunding.bfTitle}"/></td>
 												<td><c:out value="${bookfunding.bfStatus}"/></td>
@@ -144,8 +144,8 @@
 	                            <button >&gt;</button>
 	                        </div>
 	                        <div class="bnt">
-		                        <button>수락</button>
-		                        <button>거절</button>
+		                        <button type="button" id="fpbtn"value="P">수락</button>
+		                        <button type="button" id="fdbtn"value="D">거절</button>
 	                        </div>
 	                    </div>
                     </form>
@@ -278,33 +278,33 @@ $(function() {
 	});
     
 	// 펀드 상태 변경
-	$("#mbtn, #membtn").on('click', function (){
+	$("#fpbtn, #fdbtn").on('click', function (){
 		
 		var newstatus =  "";
-		var idlist = new Array();
+		var bfNolist = new Array();
 		
-		$.each($('input[name=upmst]:checked'), function() {
-			idlist.push($(this).val());
+		$.each($('input[name=upfst]:checked'), function() {
+			bfNolist.push($(this).val());
          });
 		
-		if($(event.target).attr('id')=='mbtn'){
-			newstatus = "N";
+		if($(event.target).attr('id')=='fpbtn'){
+			newstatus = "P";
 		} else {
-		    newstatus = "Y";
+		    newstatus = "D";
 		}
 		
 		$.ajax({
 			type: "post",
-			url: "${path}/member/admin/updatemst",
+			url: "${path}/member/admin/updateFundlist",
 			dataType: "json",
 			async: false,
 			data: {
 				newstatus,
-				idlist
+				bfNolist
 			},
 			success: function(data) {
 				alert("변경성공");
-				$("select[name=mStatus]").val('ALL').change();
+				$("select[name=bfStatus]").val('ALL').change();
 			},
 			error: function(e) {
 				console.log(e);

@@ -60,17 +60,17 @@ public class AdminPageController {
 	@RequestMapping("/member/admin/funding")
 	@ResponseBody
 	public Map<String, Object> fundlist(
-			@RequestParam(value = "fStatus", required = false, defaultValue = "ALL") String fStatus
+			@RequestParam(value = "bfStatus", required = false) String bfStatus
 			) {
 		
-		if(fStatus.equals("ALL")) {
-			fStatus = null;
+		if(bfStatus.equals("ALL")) {
+			bfStatus = null;
 		}
 		
 		List<FundBoard> flist = null;
-		int fBoardCount = fService.getFundCount(fStatus);
+		int fBoardCount = fService.getFundCount(bfStatus);
 		PageInfo fundPageInfo = new PageInfo(1, 10, fBoardCount, 10);
-		flist = fService.getFundList(fundPageInfo, fStatus);
+		flist = fService.getFundList(fundPageInfo, bfStatus);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
@@ -80,17 +80,17 @@ public class AdminPageController {
 		return result;
 	}
 	// 펀드 상태값 변경
-		@RequestMapping(value = "/member/admin/updatefst", method={RequestMethod.GET, RequestMethod.POST})
+		@RequestMapping(value = "/member/admin/updateFundlist", method={RequestMethod.GET, RequestMethod.POST})
 		@ResponseBody
 		public Object updateFundlist(
 				@RequestParam(value = "newstatus", required = false) String status,
-				@RequestParam(value = "idlist[]", required = false) List<String> userId
+				@RequestParam(value = "bfNolist[]", required = false) List<Integer> bfNo
 				) {
 			System.out.println("status : " + status);
 			
-			System.out.println("userId" + userId);
+			System.out.println("bfNo : " + bfNo);
 			
-			mService.getMemberStatus(status, userId);
+			fService.adminFundStatus(status, bfNo);
 
 	        Map<String, Object> retVal = new HashMap<String, Object>();
 	        
