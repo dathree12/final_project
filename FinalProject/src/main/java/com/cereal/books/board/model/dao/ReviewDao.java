@@ -18,4 +18,6 @@ public interface ReviewDao {
 
 		int selectCount();
 
+		ReviewBoard selectBoardDetail(int brNo);
+
 }
