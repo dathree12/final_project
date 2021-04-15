@@ -56,7 +56,7 @@
 	                    
 						<p>작성자</p>
 	                    <div id="brboard-write-writer" >
-	                        <input type="text" name="userName" value="${user.name}" readonly>
+	                        <input type="text" name="userName" value="${user.userNname}" readonly>
 	                        <input name="userNo" value="${user.userNo}" style="display:none" required>
 	                    </div>
 	                    
@@ -96,50 +96,7 @@
         </form>
     </div>    
     </div>
-    
-    
+  
 
-  <!--  
-    <script>
-    $("#title").keyup((e) => {
-		let Nname = $(e.target).val().trim();
-	    var nickReg = /^[가-힣a-zA-Z]{2,11}$/;
-		
-	    if (!nickReg.test($("#title").val() )) {
-	    	nickCk ="영문대소문자, 한글을 포함한 2~12글자를 입력하세요.";
-			$("#nameck1").html(" ")
-			$("#nameck2").html(nickCk)
-		}else {
-		    $.ajax({
-				type: "get",
-				url: "${path}/member/NnameCheck",
-				dataType: "json",
-				data: {
-					Nname
-				},
-				success: function(data) {
-					console.log(data);
-					
-					if(data.validate !== true) {
-						result ="사용 가능한 닉네임 입니다.";
-						$("#nameck1").html(result)
-						$("#nameck2").html(" ")
-					} else {
-						result ="이미 사용중인 닉네임 입니다.";	
-						$("#nameck2").html(result)
-						$("#nameck1").html(" ")
-					}
-				
-				},
-				error: function(e) {
-					console.log(e);
-				}				
-			});
-		}
-	});
-    
-    </script>
-    -->
-    
 
 <%@ include file="../../common/footer.jsp" %>

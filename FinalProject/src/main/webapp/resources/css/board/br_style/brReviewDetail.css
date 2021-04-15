@@ -123,6 +123,11 @@ form {
   margin: 1%;
 }
 
+#thumbnailbox {
+  width: 100px;
+  height: 150px;
+}
+
 .review-book-description p {
   font-size: 10px;
   margin: 0.3;

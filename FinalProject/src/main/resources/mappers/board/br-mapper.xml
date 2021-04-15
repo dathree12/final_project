@@ -49,10 +49,20 @@
 		<result property="brModifyDate" column="BR_MODIFY_DATE"/>
 		<result property="brBookType" column="BR_BOOKTYPE"/>
 		<result property="brContent" column="BR_CONTENT"/>
-		<!--<result property="brViewCount" column="BR_VIEWCOUNT"/>
+		<result property="brViewCount" column="BR_VIEWCOUNT"/>
 	  	<result property="brLike" column="BR_LIKE"/>
-		<result property="status" column="BR_STATUS"/>-->
+		<result property="status" column="BR_STATUS"/>
 		<result property="brRating" column="BR_RATING"/>
+	</resultMap>
+	
+	<resultMap type="Comment" id="boardCommentResultMap">
+		<id property="replyNO" column="COM_NO"/>
+		<result property="boardNO" column="BOARD_NO"/>
+		<result property="userId" column="R_USER_ID"/>
+		<result property="replyContent" column="REPLY_CONTENT"/>
+		<result property="status" column="R_STATUS"/>
+		<result property="replyCreateDate" column="REPLY_CREATE_DATE"/>
+		<result property="replyModifyDate" column="REPLY_MODIFY_DATE"/>
 	</resultMap>
 
 	<insert id="insertReviewBoard" parameterType="map"
@@ -98,12 +108,13 @@
 		       BR.BR_MODIFY_DATE,
 		       BR.BR_BOOKTYPE,
 		       BR.BR_CONTENT,
-<!-- 	       BR.BR_VIEWCOUNT,
-		       BR.BR_LIKE, -->	
+		       BR.BR_VIEWCOUNT,
+		       BR.BR_LIKE,	
 		       BR.BR_STATUS,
 		       BR.BR_RATING
 		FROM BOOK_REVIEW_BOARD BR
-		JOIN MEMBER M ON(BR.USER_NO = M.USER_NO)	
+		JOIN MEMBER M ON(BR.USER_NO = M.USER_NO)
+		WHERE BR.BR_NO = #{brNo}	
 	</select>
 	
 	

@@ -189,7 +189,7 @@ public class ReviewController {
 		ReviewBoard reviewboard = service.findBoardByNo(brNo);
 		
 		model.addObject("board", reviewboard);
-		model.setViewName("board/br_board/brBoardDetail");
+		model.setViewName("board/br_board/brReviewDetail");
 		
 		return model;
 		
