@@ -79,11 +79,11 @@ public class MemberController {
 	@RequestMapping("/member/idCheck")
 	public Object idCheck(@RequestParam("id")String userId) {		
 
-		
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("validate", service.validate(userId));
 						
+		
 		return map;
 	}
 	/*닉네임 중복 체크 */
@@ -121,41 +121,41 @@ public class MemberController {
 	}
 	
 	/*회원 id찾기 페이지 이동*/
-	@GetMapping("/member/userIdSerch")
-	public String serchIdView () {
+	@GetMapping("/member/userIdSearch")
+	public String searchIdView () {
 		
-		return "/member/userIdSerch";
+		return "/member/userIdSearch";
 	}
 
 	/*회원 id찾기 이메일 로직*/
 	@ResponseBody
-	@RequestMapping(value = "/member/serchIdEmail" , method ={RequestMethod.POST})
-	public Object serchIdEmail( @RequestParam("name")String name, 
+	@RequestMapping(value = "/member/searchIdEmail" , method ={RequestMethod.POST})
+	public Object searchIdEmail( @RequestParam("name")String name, 
 			@RequestParam("email")String userEmail) {
 		 	
 			Map<String, Object> map = new HashMap<>();
 			
-			map.put("result", service.serchIdEmail(name, userEmail));
+			map.put("result", service.searchIdEmail(name, userEmail));
 			
 			return map;
 	}
 	/*회원 id찾기 핸드폰 로직*/
 	@ResponseBody
-	@RequestMapping(value = "/member/serchIdPhone" , method ={RequestMethod.POST})
-	public Object serchIdPhone( @RequestParam("name")String name, 
+	@RequestMapping(value = "/member/searchIdPhone" , method ={RequestMethod.POST})
+	public Object searchIdPhone( @RequestParam("name")String name, 
 			@RequestParam("phone")String userPhone) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("result", service.serchIdPhone(name, userPhone));
+		map.put("result", service.searchIdPhone(name, userPhone));
 		
 		return map;
 	}
 	
 	/*회원 비밀번호 찾기 페이지 이동. */
-	@RequestMapping("/member/userPwdSerch")
-	public String pwdSerch() {
-		return "/member/userPwdSerch";
+	@RequestMapping("/member/userPwdSearch")
+	public String pwdSearch() {
+		return "/member/userPwdSearch";
 	}
 
 	@ResponseBody

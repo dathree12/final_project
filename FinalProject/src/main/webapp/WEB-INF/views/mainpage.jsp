@@ -11,9 +11,7 @@
 <head>
 <meta charset="UTF-8">
     <title>메인페이지</title>
-     <link rel="stylesheet" href="${path}/css/common/mainpage.css" type="text/css">
-     <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
-     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="${path}/css/common/mainpage.css">
 </head>
 
 

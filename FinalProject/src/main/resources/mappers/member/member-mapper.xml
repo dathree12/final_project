@@ -128,18 +128,18 @@
 	</delete>
 	
 
-	<select id="userSerchIdE" parameterType="string" resultMap="memberResultSet"> 
+	<select id="userSearchIdE" parameterType="string" resultMap="memberResultSet"> 
 		<include refid="selectMemberSql"></include>
   		WHERE 
   			USER_NAME =#{name} AND USER_EMAIL =#{userEmail}
   	</select>
-	<select id="userSerchIdP" parameterType="string" resultMap="memberResultSet"> 
+	<select id="userSearchIdP" parameterType="string" resultMap="memberResultSet"> 
 		<include refid="selectMemberSql"></include>
   		WHERE 
   			USER_NAME =#{name} AND USER_PHONE =#{userPhone}
   	</select>
   	
-	<select id="userSerchPwd" parameterType="string" resultMap="memberResultSet"> 
+	<select id="userSearchPwd" parameterType="string" resultMap="memberResultSet"> 
 		<include refid="selectMemberSql"></include>
   		WHERE 
   			USER_ID = #{userId} AND USER_NAME =#{name} AND USER_EMAIL =#{userEmail}

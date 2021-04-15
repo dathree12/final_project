@@ -1,5 +1,5 @@
 		$(document).ready(() => {
-		 var csrfToken = $("meta[name='csrf-token']").attr('content');
+		var csrfToken = $("meta[name='csrf-token']").attr('content');
 	    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
 	    $(document).ajaxSend(function (e, xhr, options) {
 	        xhr.setRequestHeader(csrfHeader, csrfToken);
@@ -47,9 +47,15 @@
 			  }else{
 				  
 			  }
-			  });
-	
-		 	$("#userId").keyup((e) => {
+		  });
+	  });	
+	  
+	  
+	  
+	  	  
+     $(document).ready((e) => {			  
+			/*아이디 찾기*/
+		 $("#userId").keyup((e) => {
 	 		let id = $(e.target).val().trim();
 			var idReg = /^[a-z][a-z\d]{4,11}$/g;
 			
@@ -59,9 +65,9 @@
 				$("#idck1").html(" ")
 				$("#idck2").html(lengthCk)
 			}else{
-				$.ajax({
+				 $.ajax({
 					type: "get",
-					url: "${path}/member/idCheck",
+					url: "idCheck",
 					dataType: "json",
 					data: {
 						id
@@ -84,11 +90,12 @@
 					error: function(e) {
 						console.log(e);
 					}				
-				});
+				});	
 			}	
-	 	});
+	 	});	
 	 	
 	 	
+
 	 	/*닉네임 중복*/
 		$("#userNname").keyup((e) => {
 			let Nname = $(e.target).val().trim();
@@ -102,7 +109,7 @@
 			}else {
 			    $.ajax({
 					type: "get",
-					url: "${path}/member/NnameCheck",
+					url: "NnameCheck",
 					dataType: "json",
 					data: {
 						Nname
@@ -193,7 +200,7 @@
 			if( emailck.test( $("#Email1").val() ) ) {
 				$.ajax({
 					type: "get",
-					url: "${path}/member/emailCheck",
+					url: "emailCheck",
 					dataType: "json",
 					data: {
 						email
@@ -233,7 +240,7 @@
 			if( emailck.test( $("#Email1").val() ) ) {
 				$.ajax({
 					type: "get",
-					url: "${path}/member/emailCheck",
+					url: "emailCheck",
 					dataType: "json",
 					data: {
 						email
@@ -316,7 +323,7 @@
 			 }else{
 				 $.ajax({
 						type: "get",
-						url: "${path}/member/phoneCheck",
+						url: "phoneCheck",
 						dataType: "json",
 						data: {
 							phone
@@ -342,13 +349,7 @@
 			 
 		  });
 		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
+				 
 		 /*회원가입시 공란 체크*/
 		 $("#en_btn").on("click", () => {
 			 
@@ -416,6 +417,8 @@
 				 location.replace("${path}/");
 			  }
 		});
-		  
-		 
-		});
+		
+});
+	
+	
+	

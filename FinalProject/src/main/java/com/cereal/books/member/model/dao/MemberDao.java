@@ -26,10 +26,10 @@ public interface MemberDao {
     int deleteMember(@Param("userId") String userId);
 
 
-	Member userSerchIdE(@Param("name") String name, @Param("userEmail") String userEmail);
+	Member userSearchIdE(@Param("name") String name, @Param("userEmail") String userEmail);
 
 
-	Member userSerchIdP(@Param("name")String name,  @Param("userPhone") String userPhone);
+	Member userSearchIdP(@Param("name")String name,  @Param("userPhone") String userPhone);
 
 
 	Member selectUserEmail(@Param("userEmail")String userEmail);
@@ -38,12 +38,12 @@ public interface MemberDao {
 	Member selectUserPhone(@Param("userPhone") String userPhone);
 
 
-	Member userSerchPwd(@Param("userId")String userId, @Param("name") String name,  @Param("userEmail") String userEmail);
+	Member userSearchPwd(@Param("userId")String userId, @Param("name") String name,  @Param("userEmail") String userEmail);
 
 	void updatePwd(Member member);
 
 
-	Member selectUserName( @Param("name") String name);
+	List<Member> selectUserName( @Param("name") String name);
 
 	
 	int updatePwd(@Param("userId") String userId, @Param("userPwd") String userPwd);

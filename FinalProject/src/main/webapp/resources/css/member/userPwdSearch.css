@@ -1,10 +1,8 @@
 @charset "UTF-8";
-
-.id_serch{
+.pwd_search{
     width: 30%; 
     margin: 100px auto;
     font-family: 'Source Sans Pro';
- 
 }
 
 .field {
@@ -24,22 +22,21 @@
     font-size: 0.8em;
 }
 
-
 .input_check{
     margin: 10px auto;
     display: flex;
     width: 100%;
  
 }
+
 .input_span{
-    margin:auto;
+    margin: 15px auto;
     text-align: center;
     width: 100%;
- 
 }
 
 .ck_phone{
-    width: 99%;
+    width: 100%;
     text-align: center;
     background:  #f1f1f1;
     border: 1px solid #f1f1f1;
@@ -62,7 +59,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    margin: auto 11px;
+    margin: auto 10px;
    }
    
 .ck_number input{
@@ -73,23 +70,21 @@
 
 }
 
-#idresult1{
-	font-size: 0.9em; 
-	color: green; 
-    
-}
-
-#idresult2{
-	font-size: 0.9em; 
-	color: red; 
-}
-
-
-
 
 .ck_btn_div{
     display: flex;
     justify-content: center;
+}
+
+
+#pwdsuccess{
+	font-size: 0.9em; 
+	color: green; 
+}
+
+#pwdfail{
+	font-size: 0.9em; 
+	color: red; 
 }
 
 
@@ -114,7 +109,7 @@
 
 @media screen  and (max-width: 768px){
 
-    .id_serch{
+    .pwd_serch{
         width: 50%;
     }
 
@@ -147,10 +142,4 @@
     .ck_btn{
         width: 40%;
     }
-    
-    .idresult{
-	text-align: center;
-	font-size: 0.7em;
-}
-    
 }
