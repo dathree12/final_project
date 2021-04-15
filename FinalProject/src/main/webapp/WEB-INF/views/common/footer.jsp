@@ -12,9 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="${path}/css/common/footer.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-     <script src="${path}/js/jquery-3.5.1.js"></script>
     <footer>
         <div id="footer_div"> 
             <div class="f_body">

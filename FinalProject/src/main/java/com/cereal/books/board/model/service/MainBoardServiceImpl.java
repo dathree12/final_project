@@ -41,7 +41,7 @@ public class MainBoardServiceImpl implements MainBoardService {
 
 
 	@Override
-	public List<ReviewBoard> getBoardListNo(PageInfo pageInfo, int userNo) {
+	public List<ReviewBoard> getBoardListNo(PageInfo pageInfo) {
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit(); 
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,27 +52,24 @@ public class MainBoardServiceImpl implements MainBoardService {
 		for (int i = 0; i < arr.length; i++) {
 			
 			if(arr[i].equals("소설")) {
-				arr[i] = "1";
+				arr[i] = "b1";
 			}else if(arr[i].equals("어린이/청소년")){
-				arr[i] = "2";
+				arr[i] = "b2";
 			}else if(arr[i].equals("경제/경영")){
-				arr[i] = "3";
+				arr[i] = "b3";
 			}else if(arr[i].equals("인문/사회/역사")){
-				arr[i] = "4";
+				arr[i] = "b4";
 			}else if(arr[i].equals("종교/역학")){
-				arr[i] = "5";
+				arr[i] = "b5";
 			}else if(arr[i].equals("자기개발")){
-				arr[i] = "6";
+				arr[i] = "b6";
 			}else {
 				System.out.println("회원장르 정보가 null입니다.");
 			}
 		}
 				
-		
 
-		
-		
-		return  mainBoardDao.selectBoardListbest(rowBounds, userNo, arr);
+		return  mainBoardDao.selectBoardListbest(rowBounds, arr);
 	}
 
 

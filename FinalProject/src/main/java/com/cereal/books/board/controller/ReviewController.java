@@ -52,6 +52,14 @@ public class ReviewController {
 		
 		list = service.getBoardList(pageInfo);
 		
+		
+//		for (ReviewBoard reviewBoard : list) {
+//			
+//			reviewBoard.setBrIsbn(null);
+//		}
+		
+		
+		
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("board/br_board/brBoardMain");
@@ -176,9 +184,14 @@ public class ReviewController {
 		}
 
 
-	@RequestMapping(value="/brReviewDetail")
-	public void brReviewDetail() {
+	@RequestMapping(value="/brReviewDetail", method = {RequestMethod.GET})
+	public ModelAndView brReviewDetail(@RequestParam("brNo") int brNo, ModelAndView model) {
+		ReviewBoard reviewboard = service.findBoardByNo(brNo);
 		
+		model.addObject("board", reviewboard);
+		model.setViewName("board/br_board/brBoardDetail");
+		
+		return model;
 		
 	}
 	

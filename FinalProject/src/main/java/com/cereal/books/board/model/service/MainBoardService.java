@@ -12,7 +12,7 @@ public interface MainBoardService {
 
 	List<ReviewBoard> getBoardList(PageInfo pageInfo);
 
-	List<ReviewBoard> getBoardListNo(PageInfo pageInfo, int userNo);
+	List<ReviewBoard> getBoardListNo(PageInfo pageInfo);
 
 	
 

@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
+<%@ include file="../header.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,7 +19,6 @@
 
 </head>
 <body>
-<%@ include file="../header.jsp" %>
 		<section>	
         <h2 class="terms_agree">이용 약관</h2>
 	    <hr>
