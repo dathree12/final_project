@@ -25,7 +25,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public int saveBoard(ReviewBoard reviewboard) {
 		int result = 0;
 		System.out.println("글쓰기컨트롤러 돌아간다.");
-		System.out.println(reviewboard);
+		//System.out.println(reviewboard);
 		if(reviewboard.getBrNo() != 0) {
 			result = reviewDao.updateReviewBoard(reviewboard);
 		} else {
@@ -40,6 +40,17 @@ public class ReviewServiceImpl implements ReviewService {
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());		
 		
 		return reviewDao.selectBoardList(rowBounds);
+	}
+
+	@Override
+	public int getBoardCount() {
+		
+		return reviewDao.selectCount();
+	}
+
+	@Override
+	public ReviewBoard findBoardByNo(int brNo) {
+		return reviewDao.selectBoardDetail(brNo);
 	}
 
 }

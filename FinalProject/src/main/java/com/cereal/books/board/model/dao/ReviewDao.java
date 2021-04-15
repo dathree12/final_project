@@ -16,4 +16,8 @@ public interface ReviewDao {
 
 		List<ReviewBoard> selectBoardList(RowBounds rowBounds);
 
+		int selectCount();
+
+		ReviewBoard selectBoardDetail(int brNo);
+
 }

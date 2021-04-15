@@ -66,38 +66,71 @@
             </form>    
         </div>
         <section class="brboard-mid-container">
-            <div class="brboard-reviewbox" id="bookreview1">
-                <div class="thumbnail">
-                    <a href="#" name="thumbnailbox"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU" id="thumbnailpic"></a>
-                </div>    
-                <div class="review-description">
-                    <div class="book-description">
-                        <p id="review-title"><a href="#">리뷰제목</a></p>
-                        <p id="review-booktitle">책제목</p>
-                        <p id="review-writer">리뷰작성자</p>
-                    </div>
-                    <div class="count-description">
-                        <p id="review-writedate">2021.03.25</p>
-                        <span id="review-viewcount"><img src="${ path }/images/storytelling.png" id="viewcount-icon">조회수</span>
-                        <span id="review-recocount"><img src="${ path }/images/redheart.png" id="recocount-icon">추천수</span>
-                    </div>
-                </div>
-            </div> 
+        	<c:if test="${list != null }">
+        		<c:forEach var="board" items="${list}">
+		            <div class="brboard-reviewbox" id="bookreview1">
+		                <div class="thumbnail">
+		                    <a href="${path}/board/br_board/brReviewDetail?brNo=${board.brNo}" name="thumbnailbox" id="reviewthumbnail_${board.brNo}"></a>
+		                </div>    
+		                <div class="review-description">
+		                    <div class="book-description">
+		                        <p id="review-title"><a href="#"><c:out value="${board.brTitle}" /></a></p>
+		                        <p id="review-bookisbn_${board.brNo}" style="display:none"><c:out value="${board.brIsbn}"/></p>
+		                        <p id="review-booktitle_${board.brNo}"></p>
+		                        <p id="review-writer"><c:out value="${board.userNname}" /></p>
+		                    </div>
+		                    <div class="count-description">
+		                        <p id="review-writedate"><c:out value="${board.brModifyDate}" /></p>
+		                        <span id="review-viewcount"><img src="${ path }/images/storytelling.png" id="viewcount-icon"><c:out value="${board.brViewCount}" /></span>
+		                        <span id="review-recocount"><img src="${ path }/images/redheart.png" id="recocount-icon"><c:out value="${board.brLike}" /></span>
+		                    </div>
+		                </div>
+		           	  </div>
+		           </c:forEach> 
+            </c:if>
         </section>
     </section>
     <section class="brboard-bot">
         <div class="brboard-pagination">
-            <a href="#">&laquo;</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">&raquo;</a>
+            <a href="${path}/board/br_board/brBoardMain?page=1">&lt;&lt;</a> &nbsp &nbsp
+            <a href="${path}/board/br_board/brBoardMain?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+			<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+				<c:if test="${status.current == pageInfo.currentPage}">
+					<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+   				</c:if>
+				<c:if test="${status.current != pageInfo.currentPage}">
+					<a href="${path}/board/br_board/brBoardMain?page=${status.current}"><c:out value="${status.current}"/></a>
+					&nbsp &nbsp
+   				</c:if>
+			</c:forEach>            
+            
+            <a href="${path}/board/br_board/brBoardMain?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+            <a href="${path}/board/br_board/brBoardMain?page=${pageInfo.maxPage}">&gt;&gt;</a>
         </div>
 <!--http://ecudemo121656.cafe24.com/ 참고하기-->
     </section>
-</div>    
-</div>    
+	</div>    
+</div>
+	<script>
+	 $(document).ready(function () {
+		 //나중에 RestTemplate으로 바꾸기
+		 	<c:forEach var="board" items="${list}">
+		 	 var isbn = document.getElementById("review-bookisbn_${board.brNo}").innerText
+		 	 
+             $.ajax({
+                 method: "GET",
+                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+                 data: { query: isbn },
+                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+             })
+                 .done(function (msg) {
+                     console.log(msg.documents[0].title);
+                     console.log(msg.documents[0].thumbnail);
+                     $("#reviewthumbnail_${board.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                     $("#review-booktitle_${board.brNo}").append(msg.documents[0].title)
+                 });
+             </c:forEach> 
+
+     });
+	</script>
 <%@ include file="../../common/footer.jsp" %>

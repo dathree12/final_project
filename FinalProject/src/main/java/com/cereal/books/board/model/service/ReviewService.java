@@ -11,4 +11,9 @@ public interface ReviewService {
 	int saveBoard(ReviewBoard reviewboard);
 	
 	List<ReviewBoard> getBoardList(PageInfo pageInfo);
+
+	int getBoardCount();
+
+	ReviewBoard findBoardByNo(int brNo);
+
 }
