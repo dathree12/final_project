@@ -7,23 +7,22 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-<!DOCTYPE html>
-<html lang="ko">
+<%@ include file="../../common/header.jsp" %>
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
+    <title>게시판 상세보기</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardDetail.css" type="text/css">
+    <link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.min.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-   	<link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.min.css">
-    <script src="https://kit.fontawesome.com/2d323a629b.js" crossorigin="anonymous" ></script>
     <style type="text/css">
     	ul {
     		margin-top: 16px
     	}
+    	
+    	a {
+    		color: #000;
+    	}
     </style>
 </head>
-<%@ include file="../../common/header.jsp" %>
     <section>
         <!-- content top -->
         <article class="detailArea" style="margin: auto;">
@@ -63,10 +62,10 @@
                                             선택 (필수)
                                         </a>
                                         <div class="dropdown-menu" 
-                                            style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 0; box-shadow: none; border-radius: 0; border-top: 1px solid rgba(0, 0, 0, 0.003); width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999; max-width: 399px">
+                                            style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 1px 1px;  box-shadow: none; border-radius: 0; border-top: 1px solid rgba(0, 0, 0, 0.003); width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999; max-width: 399px">
                                             <div class="dropdown-item" onclick="event.stopPropagation();">
                                                 <a style="padding: 3px 0px; line-height: normal; display: block;" class="blocked _requireOption" onclick="selectBoxCliked();">
-                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="display: block; margin-bottom: 4px;">[온라인] <c:out value="${ clubBoard.bcStartDate }"></c:out></span>
+                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="margin-bottom: 4px; display: inline-block; text-align: left;">[온라인] <c:out value="${ clubBoard.bcStartDate }"></c:out></span>
                                                     <span class="no-margin blocked">
                                                         <strong></strong>
                                                     </span>
@@ -120,7 +119,7 @@
                 <li><a href="#tag2">Q&A</a></li>
             </ul>
             <div class="cont">
-                <img src="./images/detail.png" alt="">
+                <img src="" alt="">
             </div>
         </article>
 
@@ -149,20 +148,21 @@
                                 <col style="width: auto;">
                                 <col style="width: 150px;">
                             </colgroup>
-                            <tbody class="center">
-                                <tr class="xans-record-">
-                                    <td>1</td>
-                                    <td class="thumb_photo">
-                                        <img src="images/test-img.jpg" alt="">
+                            <tbody class="center dropdown" style="padding: 0;">
+                                <tr style="background: #fff; border-collapse: collapse; border-radius: 0; width: 100%; margin: 0; margin-bottom: -1px; border: 1px solid #f1f1f1;" class="xans-record-"
+                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <td style="width: 50px;">1</td>
+                                    <td style="width: 150px;" class="thumb_photo">
+                                        <img src="" alt="">
                                     </td>
-                                    <td>
+                                    <td style="width: 848.89px;">
                                         <ul class="d_review_cont">
                                             <li>
                                                 <a href="#">만족</a>
                                             </li>
                                         </ul>
                                     </td>
-                                    <td>
+                                    <td style="width: 150px;">
                                         <ul class="d_review_info">
                                             <li>
                                                 <span> 대표 관리자</span>
@@ -172,8 +172,8 @@
                                         </ul>
                                     </td>
                                 </tr>
-                                <tr id="product-review-read">
-                                    <td colspan="4">
+                                <tr id="product-review-read" class="dropdown-menu" aria-labelledby="dLabel" style="margin: 0; width: 100%; padding: 0; border: none;">
+                                    <td colspan="4" style="width: 1280px; margin: 0">
                                         <div class="view">
                                             <div id="ec-ucc-media-box-8">
                                                 <p></p>
@@ -190,6 +190,7 @@
                                                 </p>
                                             </div>
                                         </div>
+                                        <!-- 
                                         <ul class="boardComment">
                                             <li>
                                                 <strong class="name"> 대표 관리자</strong>
@@ -204,6 +205,7 @@
                                                 <p></p>
                                             </div>
                                         </form>
+                                        -->
                                     </td>
                                 </tr>
                             </tbody>
@@ -212,7 +214,7 @@
                 </div>
                 <p class="ec-base-button typeBoarder">
                     <span class="gRight">
-                        <a href="#">
+                        <a href="${ path }/board/bc_board/bcReviewWrite">
                             <span class="-cbtn -c-medium -c-black">
                                 상품후기쓰기
                             </span>
@@ -274,7 +276,7 @@
                     </tbody>
                 </table>
                 <p class="review_button">
-                    <span class="gRight">
+                    <span class="gRight" style="margin-top: 10px;">
                         <a href="#">
                             <span class="-cbtn -c-medium -c-black">
                                 상품후기쓰기
@@ -297,40 +299,5 @@
             </div>
         </article>
     </section>
-    <script>
-        $(function() {
-            var jbOffset = $('.nav_header').offset();
-            $(window).scroll( function() {
-                if ($(document).scrollTop() > jbOffset.top) {
-                    $('.menuArea').addClass('jbFixed');
-                }
-                else {
-                    $('.menuArea').removeClass('jbFixed');
-                }
-            });
-        });
-        function selectBoxCliked () {
-            // 잊어버린 내용 innerHTML은 <div>, <span>의 텍스트 노드값을 자식으로 갖고있으면 복사해온다.
-            var selectVal = document.querySelector('#selectVal');
-            var resultProduct = document.querySelector('.resultProduct');
-            var opt_block = document.querySelector('.opt_block');
-
-            resultProduct.innerHTML = selectVal.innerHTML;
-
-            if (!(resultProduct === null) && resultProduct !== "") {
-                opt_block.style.display = 'block';
-                selectVal.addEventListener('click', function() {
-                    alert('이미 선택한 상품입니다.');
-                });
-            }
-        }
-        
-        function goPayment() {
-        	location.href = "${ path }/board/bc_board/bcBoardPayment";
-        }
-        
-        $(function() {
-            $('.dropdown-toggle').dropdown();
-        });
-    </script>
+    <script src="${ path }/js/club/bcBoardDetail.js"></script>
 <%@ include file="../../common/footer.jsp" %>

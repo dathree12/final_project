@@ -50,7 +50,8 @@
 			   BF_LIKE,
 			   BF_CONTENT,
 			   BF_ORI_IMGNAME,
-			   BF_RE_IMGNAME
+			   BF_RE_IMGNAME,
+			   BF_ADMIN_COMMENT
 		FROM BOOK_FUNDING_BOARD
 	</sql>
 	
@@ -152,10 +153,10 @@
 		</if>
 	</select>
 	<!-- 펀드 상태 변경 -->
-	<update id="updateFundStatus" parameterType="map">
+	<update id="adminUpdateFundStatus" parameterType="map">
 		UPDATE BOOK_FUNDING_BOARD
 		SET
-            STATUS=#{status}
+            BF_STATUS=#{status}
         WHERE BF_NO IN
         <foreach item="bfNo" index="i" collection="bfNo" open="(" separator="," close=")">
         	#{bfNo}
@@ -173,7 +174,7 @@
 		WHERE P.USER_NO = #{userNo} AND P.PAY_PROGRESS = 'Y' AND P.PAY_ITEM = 'F' AND P.PAY_STATUS = 'N'
   		ORDER BY BF_NO DESC
   	</select>
-  	<select id="selectMyFundCount" parameterType="map" resultType="_int">
+  	<select id="selectMyFundCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOOK_FUNDING_BOARD F 
 		JOIN PAYMENT P ON(F.BF_NO = P.BF_NO)
@@ -186,11 +187,51 @@
 		WHERE USER_NO = #{userNo}
   		ORDER BY BF_NO DESC
   	</select>
-  	<select id="selectMyAplcFundCount" parameterType="map" resultType="_int">
+  	<select id="selectMyAplcFundCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOOK_FUNDING_BOARD
 		WHERE USER_NO = #{userNo}
 	</select>
+	
+	<!-- viewDetail 해당 번호 찾는 메소드 -->
+	<select id="selectBoardDetail" parameterType="_int" resultMap="fundResultMap">
+		SELECT B.BF_NO,
+			   B.USER_NO,
+			   B.BF_TITLE,
+			   B.BF_PRICE,
+			   B.BF_ENROLL_DATE,
+			   B.BF_END_DATE,
+			   B.BF_MODIFY_DATE,
+			   B.BF_REMAIN_DATE,
+			   B.BF_TARGET_PRICE,
+			   B.BF_REACH_PRICE,
+			   B.BF_ATTAIN_RATE,
+			   B.BF_VIEW_COUNT,
+			   B.BF_BUY_COUNT,
+			   B.BF_STATUS,
+			   B.BF_AGREEMENT,
+			   B.BF_LIKE,
+			   B.BF_CONTENT,
+			   B.BF_ORI_IMGNAME,
+			   B.BF_RE_IMGNAME,
+			   B.BF_ADMIN_COMMENT
+		FROM BOOK_FUNDING_BOARD B
+		JOIN MEMBER M ON(B.USER_NO = M.USER_NO)
+		WHERE B.BF_STATUS='P' AND B.BF_NO=#{bfNo}
+	</select>
+	
+	<!-- 북펀딩 조회수 올리기 -->
+	<update id="increateViewcnt" parameterType="FundBoard">
+		UPDATE BOOK_FUNDING_BOARD
+		SET 
+			BF_VIEW_COUNT = (BF_VIEW_COUNT + 1)
+		WHERE 
+			BF_NO = #{bfNo}
+	</update>
+	
+	
+	
+	
 </mapper>
 
 

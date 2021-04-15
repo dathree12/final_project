@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ReviewService;
 import com.cereal.books.board.model.vo.ReviewBoard;
+import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,10 +35,30 @@ public class ReviewController {
 	@Autowired
 	private ReviewService service;
 	
-	@RequestMapping(value="/brBoardMain")
-	public String brBoardMain() {
+	@RequestMapping(value="/brBoardMain", method = {RequestMethod.GET})
+	public ModelAndView mainView(
+			ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
 		
-		return "board/br_board/brBoardMain";
+		List<ReviewBoard> list = null;
+		
+		int boardCount = service.getBoardCount();
+		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+		
+		System.out.println(boardCount);
+		
+		// remainDate 업데이트 하는 과정
+		
+		list = service.getBoardList(pageInfo);
+		
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("board/br_board/brBoardMain");
+		
+		System.out.println(list);
+		System.out.println(model);
+		return model;
 	}
 
 	@RequestMapping(value="/brBoardWrite", method = {RequestMethod.GET})
@@ -44,37 +67,14 @@ public class ReviewController {
 		//return "board/br_board/brBoardWrite";
 	}
 	
-//	
-//	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
-//	public ModelAndView brWrite (HttpServletRequest request, 
-//								 ReviewBoard reviewboard, ModelAndView model) {
-//
-//			int result = 0;
-//
-//			result = service.saveBoard(reviewboard);
-//			
-//			if(result > 0) {
-//				model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-//				model.addObject("location", "/board/br_board/brBoardMain");
-//			} else {
-//				model.addObject("msg", "게시글 등록을 실패하였습니다.");
-//				model.addObject("location", "/board/list");
-//			}			
-//			
-//		
-//		model.setViewName("common/msg");
-//		
-//		return model;
-//		}
-//	
 	
-	@RequestMapping(value = "/brBoardWrite", method = { RequestMethod.POST })
+	@RequestMapping(value = "/brBoardWrite", method = {RequestMethod.POST})
 	public ModelAndView brWrite(HttpServletRequest request, MultipartFile upload,
-							ReviewBoard reviewboard, ModelAndView model, @RequestParam("userNo") int userNo, @RequestParam("userId") String userId)
+							ReviewBoard reviewboard, ModelAndView model)
 			throws Exception {
 		
 		int result = 0;
-
+		
 		result = service.saveBoard(reviewboard);
 		
 		if(result > 0) {

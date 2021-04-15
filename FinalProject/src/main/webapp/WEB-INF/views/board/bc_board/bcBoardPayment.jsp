@@ -5,8 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-<!DOCTYPE html>
-<html lang="ko">
+<%@ include file="../../common/header.jsp" %>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,14 +13,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardPayment.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="../../js/jquery-3.5.1.js"></script>
-    <script 
-    src="https://kit.fontawesome.com/2d323a629b.js" 
-    crossorigin="anonymous"
-    ></script>
 </head>
-<%@ include file="../../common/header.jsp" %>
     <section class="payment-list-section-1th payment-wrap">
         <div class="shop-title">
             결제하기

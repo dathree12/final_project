@@ -11,19 +11,19 @@
 		       BR.BR_PRESENT_PIC,
 		       BR.BR_TITLE,
 		       BR.BR_CREATE_DATE,
-		       BR.BR_MODIFY_DATE
+		       BR.BR_MODIFY_DATE,
 		       BR.BR_BOOKTYPE,
 		       BR.BR_CONTENT,
 		       BR.BR_VIEWCOUNT,
 		       BR.BR_LIKE,
-		       BR.STATUS,
+		       BR.BR_STATUS,
 		       BR.BR_RATING
 		FROM BOOK_REVIEW_BOARD BR
 		JOIN MEMBER M ON(BR.USER_NO = M.USER_NO)		
-		WHERE BR.STATUS='Y'
+		WHERE BR.BR_STATUS='Y'
 	</sql>
 
-	<resultMap type="Board" id="brResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
+	<resultMap type="ReviewBoard" id="brResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
 		<id property="brNo" column="BR_NO"/>
 		<result property="userNo" column="USER_NO"/>
 		<result property="userNname" column="USER_NNAME"/>
@@ -33,35 +33,47 @@
 		<result property="brCreateDate" column="BR_CREATE_DATE"/>
 		<result property="brModifyDate" column="BR_MODIFY_DATE"/>
 		<result property="brBookType" column="BR_BOOKTYPE"/>
-		<result property="ckeditor" column="BR_CONTENT"/>
+		<result property="brContent" column="BR_CONTENT"/>
 		<result property="brViewCount" column="BR_VIEWCOUNT"/>
 		<result property="brLike" column="BR_LIKE"/>
-		<result property="status" column="STATUS"/>
+		<result property="status" column="BR_STATUS"/>
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
  
 
 	<insert id="insertReviewBoard" parameterType="map"
-		useGeneratedKeys="true" keyProperty="boardNo" keyColumn="BOARD_NO">
+		useGeneratedKeys="true" keyProperty="brNo" keyColumn="BR_NO">
   		
 	  	INSERT INTO BOOK_REVIEW_BOARD
 	  		VALUES(
-	  			SEQ_BOARD_NO.NEXTVAL,
+	  			SEQ_BR_NO.NEXTVAL,
 	  			#{userNo},
-	  			#{userNname},
 	  			#{brIsbn},
 	  			DEFAULT,
-	  			brTitle,
+	  			#{brTitle},
 	  			DEFAULT,
 	  			DEFAULT,
 	  			#{brBookType},
-	  			#{ckeditor},
+	  			#{brContent},
 	  			DEFAULT,
 	  			DEFAULT,
 	  			'Y',
 	  			DEFAULT
  		)
 	</insert>
-
+	
+	<!-- ist불러오고 전체 보드 수 구해서 페이징처리까지 -->
+	<select id="selectBoardList" parameterType="map" resultMap="brResultMap">
+		<include refid="brListSql"></include>
+		ORDER BY BR.BR_NO DESC
+	</select>
+	
+	<select id="selectCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_REVIEW_BOARD BR
+		WHERE BR.BR_STATUS='Y'
+	</select>
+	
+	
 	
 </mapper>

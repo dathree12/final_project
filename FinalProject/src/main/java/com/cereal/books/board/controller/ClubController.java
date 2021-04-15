@@ -54,6 +54,13 @@ public class ClubController {
 		return "board/bc_board/bcBoardMain";
 	}
 	
+	// 북 클럽 메인페이지
+	@RequestMapping("/bcReviewWrite")
+	public String clubReview() {
+		
+		return "board/bc_board/bcReviewWrite";
+	}
+	
 	// 북 클럽 메인페이지(관리자)
 	@RequestMapping("/bcAdminWrite")
 	public String adminWrite() {
@@ -153,7 +160,7 @@ public class ClubController {
 	@RequestMapping(value = "/bcBoardMain", method = RequestMethod.GET)
 	public ModelAndView list(ModelAndView model, 
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
-			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
 		
 		List<ClubBoard> list = null;
 		List<ClubBoard> dlList = null;

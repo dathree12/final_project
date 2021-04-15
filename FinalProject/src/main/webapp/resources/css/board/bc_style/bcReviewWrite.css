@@ -1,0 +1,150 @@
+* {
+	-webkit-font-smoothing: antialiased;
+	box-sizing: border-box;
+}
+
+#wrap {
+	position: relative;
+	width: 100%;
+	min-width: 1200px;
+	margin: 0 auto;
+}
+
+#contents {
+	width: 100%;
+	min-height: 500px;
+	padding: 0 0 50px;
+	position: relative;
+}
+
+._board_wrap {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+.xans-board-title .title {
+	padding: 30px 0 20px;
+	text-align: center;
+}
+
+.xans-board-title .title h2 {
+	color: #2e2e2e;
+	font-size: 14px;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+h3, h2 {
+	font-weight: normal;
+}
+
+.xans-board-title .title p {
+	color: #939393;
+	margin: 5px 0 0;
+	display: none;
+}
+
+form {
+	display: block;
+}
+
+input, select, textarea {
+	color: #353535;
+	vertical-align: middle;
+}
+
+.xans-xans-board-write .ec-base-box.typeProduct {
+	margin: 0 0 20px;
+}
+
+.ec-base-box .typeProduct {
+	display: table;
+	table-layout: fixed;
+	padding: 15px 0;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.ec-base-box {
+	padding: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #f1f1f1;
+	color: #656565;
+}
+
+.ec-base-box .typeProduct .thumbnail {
+	width: 130px;
+}
+
+.ec-base-box.typeProduct .thumbnail, .ec-base-box.typeProduct .information
+	{
+	display: table-cell;
+	padding: 0 20px;
+	vertical-align: middle;
+}
+
+img, fieldset {
+	border: none;
+	vertical-align: top;
+}
+
+.ec-base-box .typeProduct .thumbnail img {
+	max-width: 90px;
+}
+
+.ec-base-box .typeProduct .information {
+	padding-left: 0;
+}
+
+.xans-board-write .information h3 {
+	margin: 17px 0 5px;
+	font-size: 12px;
+	color: #767676;
+}
+
+.xans-board-write .ec-base-button {
+	margin: 10px 0 40px;
+}
+
+.ec-base-button {
+	padding: 10px 0;
+	text-align: center;
+}
+
+.-c-medium {
+	height: 32px;
+	line-height: 32px;
+}
+
+.-cbtn {
+	display: inline-block;
+	zoom: 1;
+	vertical-align: middle;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 0;
+	font-size: 11px;
+	text-align: center;
+	padding-left: 15px;
+	padding-right: 15px;
+	outline: none;
+	cursor: pointer;
+	box-sizing: border-box;
+	position: relative;
+	border: 1px solid #e7e7e7;
+	background: #eee;
+	transform: perspective(1px) translateZ(0);
+	box-shadow: 0 0 1px transparent;
+	transition-property: color;
+	transition-duration: 0.3s;
+}
+
+.-c-black {
+	background: #162b41;
+	border-color: #000;
+	color: #fff;
+}

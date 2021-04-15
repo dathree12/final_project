@@ -80,15 +80,6 @@
             </div>
         </article>
     </section>
-
-    <script>
-        $(document).ready(function() {
-            $('.comment_body').on('keyup', function(e) {
-                $(this).css('height', 'auto');
-                $(this).height(this.scrollHeight);
-            });
-            $('.comment_body').keyup();
-        })
-    </script>
+    <script src="${ path }/js/club/bcBoardRead.js"></script>
 
 <%@ include file="../../common/footer.jsp" %>

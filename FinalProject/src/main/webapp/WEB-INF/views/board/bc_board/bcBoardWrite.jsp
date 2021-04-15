@@ -10,9 +10,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>제안서작성</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardWrite.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -56,19 +54,8 @@
                 <div class="table-cell">
                     <input id="post_subject" class="post_subject" name="subject" value="" placeholder="제목" type="text">
                 </div>
-                <textarea name="ckeditor" id="ckeditor" rows="10" cols="80"></textarea>
-   	                <script>
-					CKEDITOR.replace( "ckeditor", {//해당 이름으로 된 textarea에 에디터를 적용
-						height: 1000,
-						getUploadUrl: type='image',
-						filebrowserUploadUrl: '<c:url value="/board/bc_board/bcBoardWrite" />?${_csrf.parameterName}=${_csrf.token}' //여기 경로로 파일을 전달하여 업로드 시킨다.
-							
-
-					});
-					CKEDITOR.editorConfig = function( config ) { config.filebrowserUploadUrl = '/board/bc_board/bcBoardWrite'; };
-
-
-					</script>
+                <textarea name="bcContent" id="bcContent" rows="10" cols="80"></textarea>
+   	                <script src="${ path }/js/club/bcBoardWrite.js"></script>
 	                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
             </form>
         </article>

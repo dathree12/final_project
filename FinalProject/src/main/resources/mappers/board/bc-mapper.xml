@@ -68,7 +68,38 @@
 		<result property="bcAgreement" column="BC_AGREEMENT" />
 	</resultMap>
 	
-	<!-- 리플관련 resultMap -->
+	<!-- 댓글 resultMap -->
+	<resultMap type="Comment" id="bcCommentResultMap">
+		<id property="comNo" column="COM_NO"/>
+		<result property="qaNO" column="QA_NO"/>
+		<result property="comBoard" column="COM_BOARD"/>
+		<result property="comWriter" column="COM_WRITER"/>
+		<result property="comContent" column="COM_CONTENT"/>
+		<result property="comCreateDate" column="COM_CREATE_DATE"/>
+		<result property="comEditDate" column="COM_EDIT_DATE"/>
+		<result property="comStatus" column="COM_STATUS"/>
+		<result property="comItem" column="COM_ITEM"/>
+		<result property="bcNo" column="BC_NO"/>
+		<result property="brNo" column="BR_NO"/>
+		<result property="bfNo" column="BF_NO"/>
+	</resultMap>
+	
+	<!-- Q&A resultMap -->
+	<resultMap type="QnA" id="bcQnAResultMap">
+		<id property="qaNo" column="QA_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="qaWriter" column="QA_WRITER"/>
+		<result property="qaTitle" column="QA_TITLE"/>
+		<result property="qaContent" column="QA_CONTENT"/>
+		<result property="qaViewCount" column="QA_VIEWCOUNT"/>
+		<result property="qaEnrollDate" column="QA_ENROLL_DATE"/>
+		<result property="qaModifyDate" column="QA_MODIFY_DATE"/>
+		<result property="qaStatus" column="QA_STATUS"/>
+		<result property="qaItem" column="QA_ITEM"/>
+		<result property="bcNo" column="BC_NO"/>
+		<result property="brNo" column="BR_NO"/>
+		<result property="bfNo" column="BF_NO"/>
+	</resultMap>
 
 	<!-- 2. club board detail -->
 	<select id="selectClubDetail" parameterType="_int"
@@ -157,6 +188,25 @@
 		'P', 
 		'Y'
 		)
+	</insert>
+	
+	<insert id="">
+		insert into 
+		comment_board 
+		values(
+		SEQ_COM_NO.NEXTVAL, 
+		4, 
+		DEFAULT, 
+		'관리자', 
+		'잘했어요', 
+		SYSDATE, 
+		DEFAULT, 
+		DEFAULT, 
+		'C', 
+		1, 
+		DEFAULT, 
+		DEFAULT
+		);
 	</insert>
 	
 	<update id="saveRemainDate" parameterType="ClubBoard">

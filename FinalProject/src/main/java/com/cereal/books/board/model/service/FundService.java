@@ -2,6 +2,8 @@ package com.cereal.books.board.model.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.common.util.PageInfo;
 
@@ -22,6 +24,8 @@ public interface FundService {
 
 	int getFundCount(String status);
 	
+	int adminFundStatus(String status, int bfNo);
+	
 	// 마이페이지 (참여 / 제안)
 	int getMyFundCount(int userNo);
 
@@ -30,5 +34,10 @@ public interface FundService {
 	int getMyAplctFundCount(int userNo);
 	
 	List<FundBoard> getMyAplctFundList(PageInfo pageInfo, int userNo);
+
+	FundBoard findBoardByNo(int bfNo);
+
+	// 조회수, 일정시간 이후 조회수 +1 구현해야
+	int increaseViewcnt(int bfNo);
 	
 }
