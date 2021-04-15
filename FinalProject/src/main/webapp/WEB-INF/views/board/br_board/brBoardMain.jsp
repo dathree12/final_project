@@ -70,13 +70,13 @@
         		<c:forEach var="board" items="${list}">
 		            <div class="brboard-reviewbox" id="bookreview1">
 		                <div class="thumbnail">
-		                    <a href="${path}/board/br_board/brReviewDetail?brNo=${board.brNo}" name="thumbnailbox" id="reviewthumbnail"></a>
+		                    <a href="${path}/board/br_board/brReviewDetail?brNo=${board.brNo}" name="thumbnailbox" id="reviewthumbnail_${board.brNo}"></a>
 		                </div>    
 		                <div class="review-description">
 		                    <div class="book-description">
 		                        <p id="review-title"><a href="#"><c:out value="${board.brTitle}" /></a></p>
-		                        <p id="review-bookisbn" style="display:none"><c:out value="${board.brIsbn}"/></p>
-		                        <p id="review-booktitle"></p>
+		                        <p id="review-bookisbn_${board.brNo}" style="display:none"><c:out value="${board.brIsbn}"/></p>
+		                        <p id="review-booktitle_${board.brNo}"></p>
 		                        <p id="review-writer"><c:out value="${board.userNname}" /></p>
 		                    </div>
 		                    <div class="count-description">
@@ -113,7 +113,10 @@
 </div>
 	<script>
 	 $(document).ready(function () {
-		 	 var isbn = document.getElementById("review-bookisbn").innerText
+		 //나중에 RestTemplate으로 바꾸기
+		 	<c:forEach var="board" items="${list}">
+		 	 var isbn = document.getElementById("review-bookisbn_${board.brNo}").innerText
+		 	 
              $.ajax({
                  method: "GET",
                  url: "https://dapi.kakao.com/v3/search/book?target=isbn",
@@ -123,9 +126,11 @@
                  .done(function (msg) {
                      console.log(msg.documents[0].title);
                      console.log(msg.documents[0].thumbnail);
-                     $("#reviewthumbnail").append("<img src='" + msg.documents[0].thumbnail + "'/>");
-                     $("#review-booktitle").append(msg.documents[0].title);
+                     $("#reviewthumbnail_${board.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                     $("#review-booktitle_${board.brNo}").append(msg.documents[0].title)
                  });
+             </c:forEach> 
+
      });
 	</script>
 <%@ include file="../../common/footer.jsp" %>

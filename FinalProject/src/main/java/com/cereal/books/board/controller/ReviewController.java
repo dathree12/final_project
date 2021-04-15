@@ -52,6 +52,14 @@ public class ReviewController {
 		
 		list = service.getBoardList(pageInfo);
 		
+		
+//		for (ReviewBoard reviewBoard : list) {
+//			
+//			reviewBoard.setBrIsbn(null);
+//		}
+		
+		
+		
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("board/br_board/brBoardMain");
