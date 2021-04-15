@@ -39,16 +39,24 @@
     <hr>
     <div class="fdboard_mid">
         <div class="fdboard_mid_searchbar">
-            <form class="fdboard_mid_searchbar_form" action="test" method="GET">
+        
+            <form class="fdboard_mid_searchbar_form" action="${path}/board/bf_board/bf_searchList" method="get">
+                <%-- <select name="fd_search_sort" class="fdboard_mid_searchbar_item sort">
+                    <option value="bfTitle" <c:out value="${map.fd_search_sort == 'bfTitle'?'selected':''}"/> >제목</option>
+                    <option value="bfContent" <c:out value="${map.fd_search_sort == 'bfContent'?'selected':''}"/> >내용</option>
+                    <option value="all" <c:out value="${map.fd_search_sort == 'all'?'selected':''}"/> >제목 + 내용</option>
+                </select> --%>
+                
                 <select name="fd_search_sort" class="fdboard_mid_searchbar_item sort">
-                    <option value="fd_search_id" selected>작성자</option>
-                    <option value="fd_search_title">제목</option>
-                    <option value="fd_search_content">내용</option>
+                    <option value="bfTitle">제목</option>
+                    <option value="bfContent" >내용</option>
                 </select>
-                <div class="fdboard_mid_searchbar_item inputbox">
+                <input name="keyword" value="keyword" placeholder="검색어를 입력해주세요">
+                <input type="submit" value=" 검색 ">
+                <!-- <a  onclick="document.getElementById('bf_searchList').submit();">검색</a> -->
+                <!-- <div class="fdboard_mid_searchbar_item inputbox">
                     <input type="search" class="fd_search_inputbox" placeholder="검색어를 입력해주세요" name="fd_searchword">
-                </div>
-                <a href="">검색</a>
+                </div> -->
             </form>
         </div>
         <div class="fdboard_mid_sortprice">
@@ -98,7 +106,7 @@
         </div>
         
     </div>
-    
+    <c:if test = "${list11 == null }">
     <div class="fdboard_mid_bottom">
         <div class="fdboard_mid_pageCount">
             <a href="${path}/board/bf_board/bf_boardList?page=1">&lt;&lt;</a> &nbsp &nbsp
@@ -112,12 +120,31 @@
 					&nbsp &nbsp
    				</c:if>
 			</c:forEach>            
-            
+      
             <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
             <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.maxPage}">&gt;&gt;</a>
         </div>
     </div>	
-	
+	</c:if>
+	<c:if test = "${list11 != null }">
+    <div class="fdboard_mid_bottom">
+        <div class="fdboard_mid_pageCount">
+            <a href="${path}/board/bf_board/bf_searchList?page=1">&lt;&lt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+			<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+				<c:if test="${status.current == pageInfo.currentPage}">
+					<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+   				</c:if>
+				<c:if test="${status.current != pageInfo.currentPage}">
+					<a href="${path}/board/bf_board/bf_searchList?page=${status.current}"><c:out value="${status.current}"/></a>
+					&nbsp &nbsp
+   				</c:if>
+			</c:forEach>
+            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.maxPage}">&gt;&gt;</a>
+        </div>
+    </div>			            
+	</c:if> 
 	</div>
 	
 <%@ include file="../../common/footer.jsp" %>

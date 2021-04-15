@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -47,11 +48,11 @@ public class FundController {
 		int boardCount = service.getBoardCount();
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 		
-		System.out.println(boardCount);
+//		System.out.println(boardCount);
 		
 		// remainDate 업데이트 하는 과정
-		int result = service.saveRemainDate();
-		int result2 = service.changeStatus();
+		service.saveRemainDate();
+		service.changeStatus();
 		
 		list = service.getBoardList(pageInfo);
 		
@@ -59,8 +60,8 @@ public class FundController {
 		model.addObject("pageInfo", pageInfo);
 		model.setViewName("board/bf_board/bf_boardList");
 		
-		System.out.println(list);
-		System.out.println(model);
+//		System.out.println(list);
+//		System.out.println(model);
 		return model;
 	}
 	
@@ -76,7 +77,7 @@ public class FundController {
 			@RequestParam("upfile") MultipartFile upfile, @RequestParam("userNo") int userNo, @RequestParam("userId") String userId) {
 		
 		int result = 0;
-		System.out.println("param 체크 : " + userNo);
+//		System.out.println("param 체크 : " + userNo);
 		
 		if(userId != null) {
 			fundboard.setUserNo(userNo);
@@ -247,20 +248,152 @@ public class FundController {
 		return "board/bf_board/bf_paySuccess";
 	}
 	
-	// 게시판 상세조회 + 조회수
+	// 게시판 상세조회 + 조회수 증가(반복조회 방지)
 	@RequestMapping(value="/bf_viewDetail", method = {RequestMethod.GET})
-	public ModelAndView viewDetail(@RequestParam("bfNo") int bfNo, ModelAndView model) {
-		// 조회수 증가, 일정시간 이후 조회수 +1 구현해야
-		int result = service.increaseViewcnt(bfNo);
-		
-		System.out.println("viewDetailTest : " + bfNo);
+	public ModelAndView viewDetail(@RequestParam("bfNo") int bfNo, ModelAndView model, HttpServletRequest request, HttpServletResponse response) {
+
+//		System.out.println("viewDetailTest : " + bfNo);
+		// 해당번호에 해당하는 게시글 상세조회
 		FundBoard board = service.findBoardByNo(bfNo);
 		
-		model.addObject("board", board);
-		model.setViewName("board/bf_board/bf_viewDetail");		
+		// 조회수 증가, 쿠키를 이용한 중복 조회수 증가방지
+		Cookie[] cookies = request.getCookies();
+		// 비교하기 위해 새로운 쿠키생성
+		Cookie viewCookie = null;
+		
+		// 쿠키가 있을 경우 
+        if (cookies != null && cookies.length > 0) {
+            for (int i = 0; i < cookies.length; i++) {
+            	
+                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
+                if (cookies[i].getName().equals("cookie"+bfNo)) { 
+                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+                    
+                    viewCookie = cookies[i];
+                }
+            }
+        }
+        
+        if (board != null) {
+            System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
+            
+            model.addObject("board", board);
+ 
+            // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+            if (viewCookie == null) {    
+                System.out.println("cookie 없음");
+                
+                // 쿠키 생성(이름, 값)
+                Cookie newCookie = new Cookie("cookie"+bfNo, "|" + bfNo + "|");
+                                
+                // 쿠키 추가
+                response.addCookie(newCookie);
+ 
+                // 쿠키를 추가 시키고 조회수 증가시킴
+                int result = service.increaseViewcnt(bfNo);
+                
+                if(result>0) {
+                    System.out.println("조회수 증가");
+                }else {
+                    System.out.println("조회수 증가 에러");
+                }
+            }
+            // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+            else {
+                System.out.println("cookie 있음");
+                
+                // 쿠키 값 받아옴.
+                String value = viewCookie.getValue();
+                
+                System.out.println("cookie 값 : " + value);
+        
+            }
+ 
+            model.setViewName("board/bf_board/bf_viewDetail");
+            return model;
+        } 
+        else {
+            // 에러 페이지 설정
+        	model.setViewName("/");
+            return model;
+        }
+	}
+	
+	// 검색을 통한 조회
+//	@RequestMapping(value = "bf_searchList", method = {RequestMethod.POST})
+//	public ModelAndView searchList(
+//			ModelAndView model,
+//			@RequestParam(defaultValue = "bfTitle") String fd_search_sort,
+//			@RequestParam(defaultValue = "") String keyword,
+//			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+//			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit ) {
+//		
+//		List<FundBoard> list = null;
+//		
+//		int boardCount = service.getSearchCount(fd_search_sort, keyword);
+//		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+//		
+//		System.out.println(boardCount);
+//		
+//		// remainDate 업데이트 하는 과정
+//		service.saveRemainDate();
+//		service.changeStatus();
+//		
+//		list = service.getSearchList(pageInfo, fd_search_sort, keyword);
+//		
+//		model.addObject("list", list);
+//		model.addObject("pageInfo", pageInfo);
+//		model.setViewName("board/bf_board/bf_boardList");
+//		
+//		System.out.println(list);
+//		
+//		return model;
+//	}
+	
+	@RequestMapping(value = "bf_searchList", method = {RequestMethod.GET})
+	public ModelAndView searchList(
+			ModelAndView model,
+			@RequestParam(defaultValue = "bfTitle") String bfTitle,
+			@RequestParam(value = "keyword") String keyword,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit ) {
+		
+		List<FundBoard> list11 = null;
+		int boardCount = 0;
+		
+		if(bfTitle != null) {
+			boardCount = service.getSearchCount111(keyword);
+		} 
+//		else {
+//			boardCount = service.getSearchCount222(keyword);
+//		}
+		
+		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+		
+		System.out.println(boardCount);
+		
+		// remainDate 업데이트 하는 과정
+		service.saveRemainDate();
+		service.changeStatus();
+		
+		if(bfTitle != null) {
+			list11 = service.getSearchList111(pageInfo, keyword);
+		} 
+//		else {
+//			list = service.getSearchList222(pageInfo, keyword);
+//		}
+		
+		model.addObject("list", list11);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("board/bf_board/bf_boardList");
+		
+		System.out.println(list11);
 		
 		return model;
 	}
+	
+	
+	
 }
 
 
