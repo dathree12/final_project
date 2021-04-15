@@ -37,7 +37,16 @@ public interface FundService {
 
 	FundBoard findBoardByNo(int bfNo);
 
-	// 조회수, 일정시간 이후 조회수 +1 구현해야
+	// 조회수 증가(반복조회 방지)
 	int increaseViewcnt(int bfNo);
+
+	// 검색을 통한 조회
+//	int getSearchCount(String fd_search_sort, String keyword);
+//
+//	List<FundBoard> getSearchList(PageInfo pageInfo, String fd_search_sort, String keyword);
+
+	int getSearchCount111(String keyword);
+
+	List<FundBoard> getSearchList111(PageInfo pageInfo, String keyword);
 	
 }
