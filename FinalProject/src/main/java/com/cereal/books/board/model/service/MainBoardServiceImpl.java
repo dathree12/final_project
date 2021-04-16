@@ -34,8 +34,9 @@ public class MainBoardServiceImpl implements MainBoardService {
 	public List<ReviewBoard> getBoardList(PageInfo pageInfo) {
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit(); 
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-				
-		return mainBoardDao.selectBoardList(rowBounds);
+		List<ReviewBoard> list = mainBoardDao.selectBoardList(rowBounds);	
+		
+		return list;
 	}
 
 
