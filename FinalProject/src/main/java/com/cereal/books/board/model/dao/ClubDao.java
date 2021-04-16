@@ -44,8 +44,8 @@ public interface ClubDao {
 	
 	ClubBoard findClubByNo(int bcNo);
 	
-	List<ClubBoard> selectClubList(RowBounds rowBounds);
-	
 	List<ClubBoard> selectDlClubList();
+
+	List<ClubBoard> selectClubList(RowBounds rowBounds);
 	
 }

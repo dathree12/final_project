@@ -14,10 +14,6 @@
     <link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.min.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <style type="text/css">
-    	ul {
-    		margin-top: 16px
-    	}
-    	
     	a {
     		color: #000;
     	}
@@ -65,7 +61,7 @@
                                             style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 1px 1px;  box-shadow: none; border-radius: 0; border-top: 1px solid rgba(0, 0, 0, 0.003); width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999; max-width: 399px">
                                             <div class="dropdown-item" onclick="event.stopPropagation();">
                                                 <a style="padding: 3px 0px; line-height: normal; display: block;" class="blocked _requireOption" onclick="selectBoxCliked();">
-                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="margin-bottom: 4px; display: inline-block; text-align: left;">[온라인] <c:out value="${ clubBoard.bcStartDate }"></c:out></span>
+                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="margin-bottom: 4px; display: inline-block; text-align: left;">[온라인] <c:out value="${ clubBoard.bcDetailDate }"></c:out></span>
                                                     <span class="no-margin blocked">
                                                         <strong></strong>
                                                     </span>
@@ -119,7 +115,7 @@
                 <li><a href="#tag2">Q&A</a></li>
             </ul>
             <div class="cont">
-                <img src="" alt="">
+                <c:out value="${ clubBoard.bcContent }" escapeXml="false"/>
             </div>
         </article>
 

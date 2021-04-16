@@ -98,13 +98,9 @@
                     <div class="normalpackage">
                         <div class="normalmenu">
                             <div class="function">
-                                <p class="prdCount">총 클럽 : <strong>${ clubBoard.boardCount }</strong>개</p>
+                                <p class="prdCount">총 클럽 게시물 : <strong>${ boardCount }</strong>개</p>
                                 <h2><span id="recruiting_club">모집 중인 클럽</span></h2>
                                 <div></div>
-                                <!-- <ul id="type">
-                                    <li>낮은가격</li>
-                                    <li>높은가격</li>
-                                </ul> -->
                             </div>
                         </div>
                         <div class="ec-base-product">
@@ -140,7 +136,7 @@
 		                                                    <strong class="title">
 		                                                        <p style="font-size: 11px; color: #000;">
 		                                                        	<span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">등록</span>&nbsp;<c:out value="${ clubBoard.bcRegDate }"></c:out>
-		                                                        	<c:out value="${ clubBoard.bcRemainDate }"></c:out>
+		                                                        	<br/><span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">세부일정</span>&nbsp;<c:out value="${ clubBoard.bcDetailDate }"></c:out>
 		                                                            <!--  
 		                                                            2021-03-08 / 11:30 AM / 매주2회
 		                                                            -->
@@ -158,47 +154,27 @@
                             	</c:if>
                             </ul>
                         </div>
-                        <!-- 
-                            <div class="fdboard_mid_bottom">
-						        <div class="fdboard_mid_pageCount">
-						            <a href="${path}/board/bf_board/bf_boardList?page=1">&lt;&lt;</a> &nbsp &nbsp
-						            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
-									<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
-										<c:if test="${status.current == pageInfo.currentPage}">
-											<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
-						   				</c:if>
-										<c:if test="${status.current != pageInfo.currentPage}">
-											<a href="${path}/board/bf_board/bf_boardList?page=${status.current}"><c:out value="${status.current}"/></a>
-											&nbsp &nbsp
-						   				</c:if>
-									</c:forEach>            
-						            
-						            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
-						            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.maxPage}">&gt;&gt;</a>
-						        </div>
-						    </div>	
-                         -->
                         <!--
 	                        currentPage 현재 페이지
 	                        pageLimit 한 페이지에 보여질 페이지의 수
 	                        listCOunt 전체 리스트 수
 	                        listLimit 한 페이지에 표시될 페이지 수 
                         -->
-                          <div class="bcboard_mid_bottom" style="/*border: 1px solid black;*/ text-align: center;">
-					        <div class="bcboard_mid_pageCount">
-					            <a href="${path}/board/bc_board/bcBoardMain?page=1">&lt;&lt;</a> &nbsp &nbsp
-					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+                        <div class="bcboard_mid_bottom" style="/*border: 1px solid black;*/ text-align: center;">
+					      	<div class="bcboard_mid_pageCount">
+					            <a href="${path}/board/bc_board/bcBoardMain?page=1">&lt;&lt;</a> &nbsp; &nbsp;
+					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.prvePage}">&lt;</a> &nbsp; &nbsp;
 								<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
 									<c:if test="${status.current == pageInfo.currentPage}">
-										<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+										<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp; &nbsp;
 					   				</c:if>
 									<c:if test="${status.current != pageInfo.currentPage}">
 										<a href="${path}/board/bc_board/bcBoardMain?page=${status.current}"><c:out value="${status.current}"/></a>
-										&nbsp &nbsp
+										&nbsp; &nbsp;
 					   				</c:if>
 								</c:forEach>            
 					            
-					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.nextPage}">&gt;</a> &nbsp; &nbsp;
 					            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.maxPage}">&gt;&gt;</a>
 					        </div>
 					    </div>	

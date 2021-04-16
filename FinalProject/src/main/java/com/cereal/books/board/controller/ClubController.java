@@ -2,7 +2,6 @@ package com.cereal.books.board.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.security.Principal;
@@ -67,13 +66,6 @@ public class ClubController {
 		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다. 
 		
 		 return "board/bc_board/bcAdminWrite";
-	}
-
-	// 북 클럽 제안 리스트
-	@RequestMapping("/bcBoardList")
-	public String proposeList() {
-
-		return "board/bc_board/bcBoardList";
 	}
 
 	// 북 클럽 제안페이지
@@ -170,8 +162,6 @@ public class ClubController {
 		int noneResult = service.noneRemainDate();
 		
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
-		
-		System.out.println("boardCount : " + boardCount);
 		
 		list = service.getBoardList(pageInfo);
 		dlList = service.getDlBoardList();

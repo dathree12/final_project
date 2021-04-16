@@ -43,6 +43,7 @@
                         <div class="author">
 		              		<security:authentication property="principal" var="user"/> 
 		                    <input style="border: none; margin-top: 10px" id="post_subject" class="post_subject" name="userName" value="${ user.name }" type="text" readonly>
+		                    <input style="visibility: hidden;" type="text" name="userNo" value="${ user.userNo }" readonly>
 		                    <input style="visibility: hidden;" type="text" name="userId" value="${ user.userId }" readonly>
                         </div>
                     </div>
@@ -55,6 +56,9 @@
                 </div>
                 <div class="table-cell">
                     <input id="post_subject" class="post_subject" name="bcPrice" value="${ clubBoard.bcPrice }" placeholder="가격" type="number" style="width: 120px;">
+                </div>
+                <div class="table-cell">
+                    <input id="post_subject" class="post_subject" name="bcDetailDate" value="${ clubBoard.bcDetailDate }" placeholder="세부 일정" type="text" style="width: 200px;">
                 </div>
                 <div class="table-cell">
                     <input id="post_subject" class="post_subject" name="bcStartDate" value="${ clubBoard.bcStartDate }" placeholder="일정" type="date" style="width: 200px;">
