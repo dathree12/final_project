@@ -36,10 +36,10 @@
 		<security:intercept-url pattern="/member/NnameCheck" access="isAnonymous()" />
 		<security:intercept-url pattern="/member/emailCheck" access="isAnonymous()" />
 		<security:intercept-url pattern="/member/phoneCheck" access="isAnonymous()" />
-		<security:intercept-url pattern="/member/userIdSerch" access="isAnonymous()" />
-		<security:intercept-url pattern="/member/serchIdEmail" access="isAnonymous()" />
-		<security:intercept-url pattern="/member/serchIdPhone" access="isAnonymous()" />
-		<security:intercept-url pattern="/member/userPwdSerch" access="isAnonymous()" />
+		<security:intercept-url pattern="/member/userIdSearch" access="isAnonymous()" />
+		<security:intercept-url pattern="/member/searchIdEmail" access="isAnonymous()" />
+		<security:intercept-url pattern="/member/searchIdPhone" access="isAnonymous()" />
+		<security:intercept-url pattern="/member/userPwdSearch" access="isAnonymous()" />
 		<security:intercept-url pattern="/member/findpw" access="isAnonymous()" />
 		<security:intercept-url pattern="/member/enrollTerms" access="isAnonymous()" />
 		<security:intercept-url pattern="/member/enroll" access="isAnonymous()" />

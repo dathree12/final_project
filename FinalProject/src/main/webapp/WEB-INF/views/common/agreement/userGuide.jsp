@@ -4,7 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
-<c:set var="path" value="${ pageContext.request.contextPath }"/>   
+<c:set var="path" value="${ pageContext.request.contextPath }"/>
+<%@ include file="../header.jsp" %>   
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,13 +13,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
- <link rel="stylesheet" href="${path}/css/common/agreement/userGuide.css" type="text/css">
- <link rel="preconnect" href="https://fonts.gstatic.com/%22%3E">
- <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="${path}/css/common/agreement/userGuide.css">
+  <script src="${path}/js/member/test.js"></script>  
 
 </head>
 <body>
-<%@ include file="../header.jsp" %>
 
          <h1 class="terms_agree">이용 안내</h1>
 	    <hr>
@@ -70,5 +69,6 @@
             <button class="agree_btn" onclick="location.href='${path}/'">메인화면 가기</button>
         </div>
 		 <br>
-
+	
 <%@ include file="../footer.jsp" %>
+

@@ -87,8 +87,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String serchIdEmail(String name, String userEmail) {
-		Member member = memberDao.userSerchIdE(name, userEmail);
+	public String searchIdEmail(String name, String userEmail) {
+		Member member = memberDao.userSearchIdE(name, userEmail);
 		
 		if(member != null) {
 			String result = member.getUserId();		
@@ -101,8 +101,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String serchIdPhone(String name, String userPhone) {
-		Member member = memberDao.userSerchIdP(name, userPhone);
+	public String searchIdPhone(String name, String userPhone) {
+		Member member = memberDao.userSearchIdP(name, userPhone);
 		 System.out.println("dPDPD" +  member);
 		if(member != null) {
 			String result = member.getUserId();		
@@ -220,8 +220,11 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String findPwd(String userId, String name, String userEmail) throws Exception {
-		Member member = memberDao.userSerchPwd(userId, name, userEmail );
+		Member member = memberDao.userSearchPwd(userId, name, userEmail );
+		List<Member> list = memberDao.selectUserName(name);
 		String result = null;
+		
+		System.out.println(list + " zjsc");
 		if(memberDao.selectUserInfoOne(userId) == null) {
 			
 			result ="등록된 아이디가 없습니다.";
@@ -229,7 +232,7 @@ public class MemberServiceImpl implements MemberService {
 		}else if(memberDao.selectUserEmail(userEmail) == null ){
 			result ="등록된 이메일이 없습니다.";
 			
-		}else if(memberDao.selectUserName(name)== null ){
+		}else if(list.isEmpty()){
 			result ="입력하신 이름과 일치하는 계정이 없습니다.";
 			
 		}else {

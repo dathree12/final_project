@@ -42,7 +42,16 @@ public interface FundDao {
 	// viewDetail 해당 번호 찾는 메소드
 	FundBoard selectBoardDetail(int bfNo);
 	
-	// 조회수, 일정시간 이후 조회수 +1 구현해야
+	// 조회수 증가(반복조회 방지)
 	int increateViewcnt(int bfNo);
+
+	// 검색을 통한 조회
+//	int getSearchCount(String fd_search_sort, String keyword);
+//	List<FundBoard> getSearchList(RowBounds rowBounds, String fd_search_sort, String keyword);
+
+	int getSearchCount111(String keyword);
+	List<FundBoard> selectBoardList111(RowBounds rowBounds, String keyword);
+
+	
 
 }

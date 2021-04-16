@@ -121,33 +121,45 @@ public class FundServiceImpl implements FundService {
 		return fundDao.selectBoardDetail(bfNo);
 	}
 
-	// 조회수, 일정시간 이후 조회수 +1 구현해야
+	// 조회수 증가(반복조회 방지)
 	@Override
 	public int increaseViewcnt(int bfNo) {
-		int result = 0;
-//		long update_time = 0; //null을 방지하기 위해 초기값을 null로 설정함
-//		
-//		if(session.getAttribute("update_time_" + bfNo) !=null) {
-//			
-//			//최근에 조회수를 올린 시간이 null이 아니면
-//			update_time = (long)session.getAttribute("update_time_" + bfNo);
-//		}
-//		
-//		long current_time = System.currentTimeMillis();
-//		
-//		//일정 시간이 경과한 후에 조회수를 증가시킨다.
-//		if(current_time - update_time > 5 * 1000) {
-//			
-//		//조회수가 1증가했을때로부터 5000초 후에 다시 클릭을 해야 조회수가 다시 1 증가한다는 말이다.
-//		//조회수 증가 처리
-			result = fundDao.increateViewcnt(bfNo);
-			
-//			//조회수를 올린 시간을 저장함
-//			session.setAttribute("update_time_" + bfNo, current_time);
-//			
-//		}
 		
-		return result;
+		return fundDao.increateViewcnt(bfNo);
 	}
+	
+	// 검색을 통한 조회
+	@Override
+	public int getSearchCount111(String keyword) {
+		
+		return fundDao.getSearchCount111(keyword);
+	}
+
+	@Override
+	public List<FundBoard> getSearchList111(PageInfo pageInfo, String keyword) {
+		
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());		
+		
+		return fundDao.selectBoardList111(rowBounds, keyword);
+	}
+	
+//	@Override
+//	public int getSearchCount(String fd_search_sort, String keyword) {
+//		
+//		return fundDao.getSearchCount(fd_search_sort, keyword);
+//	}
+//
+//	@Override
+//	public List<FundBoard> getSearchList(PageInfo pageInfo, String fd_search_sort, String keyword) {
+//		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+//		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());		
+//		
+//		return fundDao.getSearchList(rowBounds, fd_search_sort, keyword);
+//	}
+
+
+	
+	
 	
 }

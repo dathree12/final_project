@@ -47,24 +47,26 @@
             </section>
             <section class="brboard-review">
                 <div class="brboard-review-header">
-                    <p id="reviewheader-bookclass">소설(분류)</p>
-                    <p id="reviewheader-reviewtitle">꿈제작자가 꿈을 만드는 거였어?(제목)</p>
-                    <p id="reviewheader-reviewwriter">flash8282(작성자)</p>
-                    <p id="reviewheader-reviewdate">2021.03.29(날짜)</p>
+                	<p style="none">${board.brNo}</p>
+                    <p id="reviewheader-bookclass">${board.brBookType}</p>
+                    <p id="reviewheader-reviewtitle">${board.brTitle}</p>
+                    <p id="reviewheader-reviewwriter">${board.userNname}</p>
+                    <p id="reviewheader-reviewdate">${board.brModifyDate}</p>
                 </div>
                 <hr>
                 <div class="brboard-review-book">
                     <div class="review-book-cover">
-                        <a href="#" name="thumbnailbox"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU" id="bookcover-pic"></a>
+                        <a href="#" name="thumbnailbox" id="thumbnailbox"></a>
                     </div>    
                     <div class="review-book-description">
                         <div class="book-description">
-                            <p id="book-description-booktitle"><a href="#">책제목</a></p>
-                            <p id="book-description-bookwriter">책지은이</p>
-                            <p id="book-description-bookpublisher">출판사</p>
-                            <p id="book-description-bookpublish">책출판일</p>
-                            <p id="book-description-bookstarrate">책평점</p>
-                            <p id="book-description-bookreviewcount">리뷰개수</p>
+                        	<p id="review-bookisbn" style="display:none" value="${board.brIsbn}"/>
+                            <p id="book-description-booktitle"><a href="#"></a></p>
+                            <p id="book-description-bookwriter"></p>
+                            <p id="book-description-bookpublisher"></p>
+                            <p id="book-description-bookpublish"></p>
+                            <p id="book-description-bookstarrate">${board.brRating}</p>
+                         <!--    <p id="book-description-bookreviewcount"></p>--> 
                         </div>
                     </div>
                 </div>    
@@ -228,6 +230,29 @@
 	        });
 	        $('.comment_body').keyup();
 	    })
+	</script>
+	<script>
+	 $(document).ready(function () {
+		 	 var isbn = document.getElementById("review-bookisbn").innerText
+             $.ajax({
+                 method: "GET",
+                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+                 data: { query: isbn },
+                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+             })
+                 .done(function (msg) {
+                     console.log(msg.documents[0].title);
+                     console.log(msg.documents[0].thumbnail);
+                     console.log(msg.documents[0].datetime);
+                     console.log(msg.documents[0].authors);
+                     console.log(msg.documents[0].publisher);
+                     $("#thumbnailbox").append("<img src='" + msg.documents[0].thumbnail + " id=\"bookcover-pic\"/>");
+                     $("#book-description-booktitle").append(msg.documents[0].title);
+                     $("#book-description-bookwriter").append(msg.documents[0].authors);
+                     $("#book-description-bookpublisher").append(msg.documents[0].publisher);
+                     $("#book-description-bookpublish").append(msg.documents[0].datetime);
+                 });
+     });
 	</script>
 
 <%@ include file="../../common/footer.jsp" %>

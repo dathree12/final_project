@@ -4,7 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
-<c:set var="path" value="${ pageContext.request.contextPath }"/>   
+<c:set var="path" value="${ pageContext.request.contextPath }"/>
+<%@ include file="../header.jsp" %>   
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,6 @@
 
 </head>
 <body>
-<%@ include file="../header.jsp" %>
       <section>
          <h2 class="terms_agree">개인정보 취급 방침</h2>
 	    <hr>
