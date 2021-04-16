@@ -24,7 +24,7 @@ public interface FundService {
 
 	int getFundCount(String status);
 	
-	int adminFundStatus(String status, int bfNo);
+	int adminFundStatus(String status, List<Integer> bfNo);
 	
 	// 마이페이지 (참여 / 제안)
 	int getMyFundCount(int userNo);

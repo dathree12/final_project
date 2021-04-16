@@ -142,7 +142,7 @@
 	  		WHERE 
 	  			BF_STATUS =#{status}
 		</if>
-  		ORDER BY USER_NO DESC
+  		ORDER BY BF_NO DESC
   	</select>
   	<select id="selectFundStatusCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
