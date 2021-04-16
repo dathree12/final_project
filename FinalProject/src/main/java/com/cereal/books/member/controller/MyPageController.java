@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.service.FundService;
+import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.common.util.PageInfo;
 import com.cereal.books.member.model.service.MemberService;
@@ -41,15 +42,15 @@ public class MyPageController {
 	@RequestMapping(value = "member/mypage/mypage", method= {RequestMethod.GET})
 	public ModelAndView bookFunding(ModelAndView model, @AuthenticationPrincipal Member member) {
 		int userNo = member.getUserNo();
+		
 		// 참여중인 펀드
 		List<FundBoard> myFundList = null;
 		
 		int myFundCount = fService.getMyFundCount(userNo);
-		PageInfo myFundPageInfo = new PageInfo(1, 5, myFundCount, 5);
-		
-		System.out.println(myFundCount);
+		PageInfo myFundPageInfo = new PageInfo(1, 3, myFundCount, 3);
 		
 		myFundList = fService.getMyFundList(myFundPageInfo, userNo);
+		
 		System.out.println(myFundList);
 		
 		// 개설 신청한 펀드
@@ -58,14 +59,32 @@ public class MyPageController {
 		int myAplctFundCount = fService.getMyAplctFundCount(userNo);
 		PageInfo pageInfo = new PageInfo(1, 5, myAplctFundCount, 5);
 		
-		System.out.println(myAplctFundCount);
-		
 		myAplctFundList = fService.getMyAplctFundList(pageInfo, userNo);
 		
+		// 참여중인 클럽
+//		List<ClubBoard> myClubList = null;
+//		
+//		int myClubCount = cService.getMyClubCount(userNo);
+//		PageInfo myClubPageInfo = new PageInfo(1, 3, myClubCount, 3);
+//		
+//		myClubList = fService.getMyClubList(myClubPageInfo, userNo);
+		
+		// 개설 신청한 클럽
+//		List<ClubBoard> myAplctClubList = null;
+//		
+//		int myAplctClubCount = fService.getMyAplctClubCount(userNo);
+//		PageInfo myAplctClubpageInfo = new PageInfo(1, 5, myAplctClubCount, 5);
+//		
+//		myAplctClubList = cService.getMyAplctClubList(myAplctClubpageInfo, userNo);
+//		
 		model.addObject("myFundList", myFundList);
 		model.addObject("myFundPageInfo", myFundPageInfo);
 		model.addObject("myAplctFundList", myAplctFundList);
 		model.addObject("pageInfo", pageInfo);
+//		model.addObject("myClubList", myClubList);
+//		model.addObject("myClubPageInfo", myClubPageInfo);
+//		model.addObject("myAplctClubList", myAplctClubList);
+//		model.addObject("myAplctClubpageInfo", myAplctClubpageInfo);
 		model.addObject("member", member);
 		model.setViewName("member/mypage/mypage");
 		
@@ -75,8 +94,6 @@ public class MyPageController {
 	// 회원정보 수정
 	@RequestMapping("member/mypage/profile")
 	public String profile(Model model, @AuthenticationPrincipal Member member) {
-		
-//		System.out.println(member);
 		
 		return "/member/mypage/profile";
 	}
@@ -111,7 +128,6 @@ public class MyPageController {
 			result = service.saveMember(member);
 			
 			if(result > 0) {
-//				model.addObject("loginMember", service.findMemberByUserId(loginMember.getUserId()));
 				model.addObject("msg", "회원정보 수정을 완료했습니다.");
 				model.addObject("location", "/member/mypage/mypage");
 			} else {
@@ -141,15 +157,13 @@ public class MyPageController {
 			@RequestParam("userPwd") String userPwd) {
 		int result = 0;
 		
+		System.out.println(userPwd);
 		result = service.updatePwd(member.getUserId(), userPwd);
 		
-//		System.out.println("result : " + result);
-			
 			if(result > 0) {
 				model.addObject("msg", "정상적으로 변경되었습니다.");
 			} else {
 				model.addObject("msg", "변경 실패하였습니다.");
-				model.addObject("location", "/member/newPwd");
 			}
 			
 			model.setViewName("common/msg");
@@ -168,8 +182,6 @@ public class MyPageController {
 	public ModelAndView withdrawal(ModelAndView model, @AuthenticationPrincipal Member member,
 			 @RequestParam("userPwd") String userPwd) {
 		
-//		System.out.println(userPwd);
-//		System.out.println(member.getUserId());
 		int result = 0;
 		
 		if(member.getUserId().equals(member.getUserId())) {

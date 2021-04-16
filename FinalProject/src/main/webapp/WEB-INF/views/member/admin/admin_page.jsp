@@ -25,10 +25,11 @@
                     <div class="content">
                         <!-- 제안된 클럽 -->
                         <select class="usertype" name="bcStatus">
-                            <option id="bcStatus" value="">클럽제안현황</option>
-                            <option id="bcStatus" value="">운영중인클럽</option>
-                            <option id="bcStatus" value="">취소된클럽</option>
-                            <option id="bcStatus" value="">마감된클럽</option>
+                            <option id="bcStatus" value="ALL">전체클럽목록</option>
+                            <option id="bcStatus" value="N">클럽제안현황</option>
+                            <option id="bcStatus" value="P">운영중인클럽</option>
+                            <option id="bcStatus" value="D">취소된클럽</option>
+                            <option id="bcStatus" value="Q">마감된클럽</option>
                         </select>
                         <table class="list_table">
                             <tr>
@@ -37,36 +38,25 @@
                                 <th class="th">Title</th>
                                 <th class="th">Status</th>
                             </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>1</td>
-                                <td>책스초코의 비밀</td>
-                                <td>검토중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>2</td>
-                                <td>책스초코의 비밀</td>
-                                <td>검토중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>3</td>
-                                <td>책스초코의 비밀</td>
-                                <td>검토중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>4</td>
-                                <td>책스초코의 비밀</td>
-                                <td>검토중</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>5</td>
-                                <td>책스초코의 비밀</td>
-                                <td>검토중</td>
-                            </tr>
+                            <tbody id="clubTbody">
+								<c:if test="${bcList == null}">
+									<tr>
+										<td colspan="6">
+											조회된 펀딩이 없습니다.
+										</td>
+									</tr>	
+								</c:if>
+								<c:if test="${bcList != null}">
+									<c:forEach var="bookclub" items="${bcList}">
+										<tr>
+											<td><input name="upcst" type="checkbox" value="${bookclub.bcNo}"></td>
+											<td><c:out value="${bookclub.bcNo}"/></td>
+											<td><c:out value="${bookclub.bcTitle}"/></td>
+											<td><c:out value="${bookclub.bcStatus}"/></td>
+										</tr>
+									</c:forEach>
+								</c:if>
+							</tbody>
                         </table>
                     </div>
                     <div class="pageBar">
@@ -135,13 +125,18 @@
 	                    <div class="pageBar">
 	                        <div id="pageBarAndBtn">
 	                            <!-- 이전 페이지로 -->
-	                            <button>&lt;</button>
+	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${fundPageInfo.prvePage}&listLimit=${fundPageInfo.listLimit}'">&lt;</button>
 	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-	                            <button disabled>1</button>
-	                            <button>2</button>
-	                            <button>3</button>
+	                            <c:forEach begin="${fundPageInfo.startPage}" end="${fundPageInfo.endPage}" step="1" varStatus="status">
+									<c:if test="${status.current == fundPageInfo.currentPage}">
+										<button disabled><c:out value="${status.current}"/></button>
+					   				</c:if>
+									<c:if test="${status.current != fundPageInfo.currentPage}">
+										<button onclick="location.href='${path}/member/admin/admin_page?page=${status.current}&listLimit=${fundPageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+					   				</c:if>
+								</c:forEach>
 	                            <!-- 다음 페이지로 -->
-	                            <button >&gt;</button>
+	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${fundPageInfo.nextPage}&listLimit=${fundPageInfo.listLimit}'">&gt;</button>
 	                        </div>
 	                        <div class="bnt">
 		                        <button type="button" id="fpbtn"value="P">수락</button>
@@ -260,7 +255,7 @@ $(function() {
 				
 				for(key in tc){
 				html += '<tr>';
-				html += '<td><input name="upfst" id="fcb" type="checkbox" value="'+tc[key].id+'"></td>';
+				html += '<td><input name="upfst" id="fcb" type="checkbox" value="'+tc[key].no+'"></td>';
 				html += '<td>'+tc[key].no+'</td>';
 				html += '<td>'+tc[key].title+'</td>';
 				html += '<td>'+tc[key].status+'</td>';
@@ -292,7 +287,7 @@ $(function() {
 		} else {
 		    newstatus = "D";
 		}
-		
+		console.log(newstatus);
 		$.ajax({
 			type: "post",
 			url: "${path}/member/admin/updateFundlist",

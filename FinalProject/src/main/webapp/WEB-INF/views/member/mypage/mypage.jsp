@@ -24,7 +24,7 @@
             <p class="scrap_title">scrap</p>
             <div class="scrap">
                 <div>
-                    <a><img class="btn_img" src="./images/left.png" style="margin-right: 5%;"></a>
+                    <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
                     <div class="book_info" id="book1">
                         <a href="#" name="thumbnailbox"><img class="scrap_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                         <p>책이름</p>
@@ -58,7 +58,7 @@
                             <span class="starR">★</span>
                         </div>
                     </div>
-                    <a><img class="btn_img" src="./images/right.png" style="margin-left: 5%;"></a>
+                    <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
                 </div>
                 <div class="small_pageBar" id="pageBar">
                     <!-- 이전 페이지로 -->
@@ -199,7 +199,7 @@
             <div class="club">
                 <div class="join_club">
                     <div class="content">
-                        <a><img class="btn_img" src="./images/left.png" style="margin-right: 5%;"></a>
+                        <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
                         <div class="book_info" id="book1">
                             <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                             <p>클럽이름</p>
@@ -212,7 +212,7 @@
                             <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
                             <p>클럽이름</p>
                         </div>
-                        <a><img class="btn_img" src="./images/right.png" style="margin-left: 5%;"></a>
+                        <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
                     </div>
                     <div class="pageBar">
                         <div class="small_pageBar" id="pageBar">
@@ -285,33 +285,19 @@
             <div class="funding">
 	                <div class="join_club">
 	                    <div class="content">
-	                        <a><img class="btn_img" src="./images/left.png" style="margin-right: 5%;"></a>
-	                        <!-- 
-	                        <div class="book_info" id="book1">
-	                            <a href="#" name="thumbnailbox"><img class="image" onclick="bookfunding();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-	                            <p>클럽이름</p>
-	                        </div>
-	                        <div class="book_info" id="book1">
-	                            <a href="#" name="thumbnailbox"><img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-	                            <p>클럽이름</p>
-	                        </div>
-	                        <div class="book_info" id="book1">
-	                            <a href="#" name="thumbnailbox"><img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-	                            <p>클럽이름</p>
-	                        </div>
-	                         -->
+	                        <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
 	                        <div class="book_info" id="book1">
 	                            <c:if test="${myFundList == null}">
 											참여한 펀딩이 없습니다.
 								</c:if>
 								<c:if test="${myFundList != null}">
 									<c:forEach var="fundlist" items="${myFundList}">
-										<a href="#" name="thumbnailbox"><img class="image" onclick="bookfunding();" value="${fundlist.bfNo}" src="./imeges/${fundlist.bfReImgName}.png"></a>
+										<a href="#" name="thumbnailbox"><img class="image" onclick="bookfunding();" value="${fundlist.bfNo}" src="${path}/upload/bf_board/${fundlist.bfReImgName}"></a>
 	                            		<p>${fundlist.bfTitle}</p>
 									</c:forEach>
 								</c:if>
 	                        </div>
-	                        <a><img class="btn_img" src="./images/right.png" style="margin-left: 5%;"></a>
+	                        <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
 	                    </div>
 	                    <div class="pageBar">
 	                        <div class="small_pageBar" id="pageBar">

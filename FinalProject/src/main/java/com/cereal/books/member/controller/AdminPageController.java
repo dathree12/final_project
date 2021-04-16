@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.service.FundService;
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.common.util.PageInfo;
@@ -26,12 +27,15 @@ public class AdminPageController {
 	private MemberService mService;
 	@Autowired
 	private FundService fService;
+	@Autowired
+	private ClubService cService;
 	
 	// 관리자 페이지 불러오기
 	@RequestMapping("/member/admin/admin_page")
 	public ModelAndView mypage(ModelAndView model) {
 		String status = null;
 		String fStatus = null;
+		String cStatus = null;
 		
 		// 회원관련
 		List<Member> list = null;
@@ -45,12 +49,21 @@ public class AdminPageController {
 		PageInfo fundPageInfo = new PageInfo(1, 10, fBoardCount, 10);
 		bfList = fService.getFundList(fundPageInfo, fStatus);
 		
+		// 북클럽
+//		List<FundBoard> bcList = null;
+//		int cBoardCount = cService.getAdminClubCount(cStatus);
+//		PageInfo clubPageInfo = new PageInfo(1, 10, cBoardCount, 10);
+//		bfList = fService.getAdminClubList(clubPageInfo, cStatus);
+		
 		System.out.println(fBoardCount);
 		System.out.println(bfList);
 				
 		model.addObject("list", list);
 		model.addObject("bfList", bfList);
+//		model.addObject("bcList", bcList);
 		model.addObject("pageInfo", pageInfo);
+		model.addObject("fundPageInfo", fundPageInfo);
+//		model.addObject("clubPageInfo", clubPageInfo);
 		model.setViewName("member/admin/admin_page");
 		
 		return model;
