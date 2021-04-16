@@ -34,6 +34,20 @@ public class ProposeServiceImpl implements ProposeService {
 		return dao.selectProposeList(rowBounds);
 	}
 
+	@Override
+	public int saveBoard(Propose propose) {
+		
+		int result = 0;
+		
+		if (propose.getProposeNo() != 0) {
+			// 업데이트 구문 작성
+		} else {
+			result = dao.insertPropose(propose);
+		}
+		
+		return result;
+	}
+
 
 	
 }

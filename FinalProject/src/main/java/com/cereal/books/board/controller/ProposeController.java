@@ -1,5 +1,6 @@
 package com.cereal.books.board.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cereal.books.board.model.service.ProposeService;
 import com.cereal.books.board.model.vo.Propose;
 import com.cereal.books.common.util.PageInfo;
+import com.cereal.books.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/board/bc_board")
@@ -20,6 +22,7 @@ public class ProposeController {
 	@Autowired
 	ProposeService service;
 	
+	// 리스트 불러오기
 	@RequestMapping(value = "/bcBoardList", method = RequestMethod.GET)
 	public ModelAndView list(ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
@@ -34,6 +37,7 @@ public class ProposeController {
 		list = service.getProposeList(pageInfo);
 		
 		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
 		model.addObject("boardCount", boardCount);
 		model.setViewName("board/bc_board/bcBoardList");
 		
@@ -41,4 +45,35 @@ public class ProposeController {
 		
 		return model;
 	}
+	
+	// 리스트 추가하기
+	@RequestMapping(value = "/bcBoardWrite", method = RequestMethod.POST)
+	public ModelAndView insert(ModelAndView model,
+			Principal user, Propose propose) {
+		
+		if(user.getName().equals(propose.getUserId())) {
+			propose.setUserId(user.getName());
+
+			int result = 0;
+			
+			result = service.saveBoard(propose);
+			
+			if(result > 0 ) {
+				model.addObject("msg", "게시글 등록 성공");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			} else {
+				model.addObject("msg", "게시글 등록 실패");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			}
+		} 
+		else {
+			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/board/bc_board/bcBoardMain");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
+	
 }

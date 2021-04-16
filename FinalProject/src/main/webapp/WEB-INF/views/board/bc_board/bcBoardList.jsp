@@ -95,8 +95,7 @@
 										location.href="${ path }/board/bc_board/bcBoardRead?proposeNo=${ list.proposeNo }";
 									}
 								</script>
-								<security:authentication property="principal" var="user"/> 
-		                        <td><c:out value="${ user.name }"></c:out></td>
+		                        <td><c:out value="${ propose.userName }"></c:out></td>
 		                        <td><c:out value="${ propose.proposeRegDate }"></c:out></td>
 		                        <td><c:out value="${ propose.proposeViewCount }"></c:out></td>
 		                    </tr>

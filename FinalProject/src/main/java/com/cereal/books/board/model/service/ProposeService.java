@@ -9,6 +9,8 @@ public interface ProposeService {
 
 	int getProposeCount();
 
+	int saveBoard(Propose propose);
+
 	List<Propose> getProposeList(PageInfo pageInfo);
 
 }

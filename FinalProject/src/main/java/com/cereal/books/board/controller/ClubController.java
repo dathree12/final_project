@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.common.util.PageInfo;
+import com.cereal.books.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -100,7 +101,7 @@ public class ClubController {
 		return model;
 	}
 
-//	// CKEDITOR {BoardWrite, AdminWrite}
+	// CKEDITOR
 	@RequestMapping(value = "/imageUpload", method = RequestMethod.POST)
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
@@ -208,8 +209,6 @@ public class ClubController {
 		}
 		
 		model.setViewName("common/msg");
-		
-//		==================================
 		
 		return model;
 	}

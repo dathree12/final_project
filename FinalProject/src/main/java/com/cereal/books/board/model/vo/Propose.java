@@ -15,6 +15,8 @@ public class Propose {
 	
 	private int userNo;
 	
+	private int userName;
+	
 	private String userId;
 	
 	private String proposeTitle;

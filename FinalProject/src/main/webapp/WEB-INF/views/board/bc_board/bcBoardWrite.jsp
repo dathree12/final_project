@@ -27,8 +27,12 @@
             <div class="write-header">
                 <div class="board-name">북 클럽 제안서 작성</div>
                 <div class="write-btn">
-                    <a href="${ path }/board/bc_board/bcBoardList">취소</a>
-                    <a href="#">작성</a>
+	                <form action="${ path }/board/bc_board/bcBoardWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
+	                	<input type="submit">
+	                    <a href="${ path }/board/bc_board/bcBoardList">취소</a>
+	                    <a href="#">작성</a>
+	                    <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
+	                </form>
                 </div>
             </div>
         </article>
@@ -42,7 +46,10 @@
                             <img alt="프로필 이미지" src="https://cdn.imweb.me/thumbnail/20161214/5850d6a2c09a8.jpg" class="avatar-image">
                         </div>
                         <div class="author">
-                            <div class="write">${ user.name }</div>
+		              		<security:authentication property="principal" var="user"/> 
+		                    <input style="border: none; margin-top: 10px" id="post_subject" class="post_subject" name="userName" value="${ user.name }" type="text" readonly>
+		                    <input style="visibility: hidden;" type="text" name="userNo" value="${ user.userNo }" readonly>
+		                    <input style="visibility: hidden;" type="text" name="userId" value="${ user.userId }" readonly>
                         </div>
                     </div>
                 </div>

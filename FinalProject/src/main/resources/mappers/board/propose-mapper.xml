@@ -8,6 +8,7 @@
 		SELECT 
 		P.PROPOSE_NO, 
 		M.USER_NO, 
+		M.USER_NAME, 
 		P.PROPOSE_TITLE, 
 		P.PROPOSE_REG_DATE, 
 		P.PROPOSE_VIEW_COUNT, 
@@ -23,6 +24,8 @@
 		<id property="proposeNo" column="PROPOSE_NO" />
 		<result property="userNo" column="USER_NO"/>
 		<result property="userId" column="USER_ID"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="proposePwd" column="PROPOSE_PWD" />
 		<result property="proposeTitle" column="PROPOSE_TITLE" />
 		<result property="proposeRegDate" column="PROPOSE_REG_DATE" />
 		<result property="proposeViewCount" column="PROPOSE_VIEW_COUNT" />
@@ -33,7 +36,6 @@
 	<!-- 제안하기 리스트 -->
 	<select id="selectProposeList" parameterType="map" resultMap="proposeResultMap">
 		<include refid="proposeListSql"></include>
-		AND P.PROPOSE_NO=#{ proposeNo }
 		ORDER BY P.PROPOSE_NO DESC
 	</select>
 
@@ -53,6 +55,8 @@
 		SEQ_PROPOSE_NO.NEXTVAL,
 		#{userNo}, 
 		#{userId},
+		#{userName},
+		#{proposePwd}
 		#{proposeTitle},
 		TO_DATE(SYSDATE, 'yy-mm-dd'),
 		DEFAULT, 

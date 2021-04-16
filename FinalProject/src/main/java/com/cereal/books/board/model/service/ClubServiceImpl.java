@@ -46,10 +46,6 @@ public class ClubServiceImpl implements ClubService {
 		
 		int result = 0;
 		
-		System.out.println("saveBoard result : " + result);
-		
-		result = clubDao.insertClub(clubBoard);
-		
 		if(clubBoard.getBcNo() != 0) {
 //			result = clubDao.updateClub(clubBoard);
 			System.out.println("updateClub");
