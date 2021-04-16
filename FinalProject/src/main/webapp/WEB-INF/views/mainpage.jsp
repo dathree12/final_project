@@ -31,20 +31,20 @@
 		                <a href=""> 
 		                   <div class="reco_div">
 		                    <div class="reco_img_div">
-		                   		   <a href="#" class="imgsize" id="reviewthumbnail_${board.brNo}" ></a>
-		                  		   <p id="review-bookisbn_${board.brNo}" style="display:none"><c:out value="${board.brIsbn}"/></p>
+		                   		   <a href="#" class="imgsize" id="reviewthumbnail_${board.brIsbn}" ></a>
+		                  		   <p id="review-bookisbn_${board.brIsbn}" style="display:none"><c:out value="${board.brIsbn}"/></p>
 		                    </div>
 		                    <div class="reco_content">
 		                       <div class="reco_content_title">
-		                           <strong style="font-size: 0.8em;" id="review-booktitle_${board.brNo}"></strong>
+		                           <strong style="font-size: 0.8em;" id="review-booktitle_${board.brIsbn}"></strong>
 		                       </div>  
 		                       <div class="reco_content_ctt">
-		                           <p class="reco_content_p" id="bookContents_${board.brNo}"> </p>
+		                           <p class="reco_content_p" id="bookContents_${board.brIsbn}"> </p>
 		                       </div> 
 		                       <div class="reco_content_t">
-		                           <p class="reco_content_p" id="bookauthors_${board.brNo}">저자 : </p>
-		                           <p class="reco_content_p" id="bookpublisher_${board.brNo}">출판사 : </p>
-		                           <p class="reco_content_p" id="bookSale_${board.brNo}">가격 : </p>
+		                           <p class="reco_content_p" id="bookauthors_${board.brIsbn}">저자 : </p>
+		                           <p class="reco_content_p" id="bookpublisher_${board.brIsbn}">출판사 : </p>
+		                           <p class="reco_content_p" id="bookSale_${board.brIsbn}">가격 : </p>
 		                       </div> 
 		                    </div>
 		                   </div>
@@ -53,29 +53,45 @@
                 </c:if>
             </div>
 			</security:authorize>
-			<security:authorize access="hasAnyRole('USER','ADMIN')">
+			<security:authorize access="hasRole('USER')">
 			<security:authentication property="principal" var="user"/>
             <div id="inner_reco_div">
                 <span id="inner_reco_div_span">${user.name}님 추천 도서</span>
-                <c:if test="${list != null}">
-            		<c:forEach var="board" items="${list}">
+              <c:if test="${list != null}">
+            	<c:forEach var="board" items="${list}">
 		                <a href=""> 
 		                   <div class="reco_div">
 		                    <div class="reco_img_div">
-		                        <img src="${path}/images/바다.jpg" alt="" class="img_size">
+		                   		   <a href="#" class="imgsize" id="reviewthumbnail_${board.brIsbn}" ></a>
+		                  		   <p id="review-bookisbn_${board.brIsbn}" style="display:none"><c:out value="${board.brIsbn}"/></p>
 		                    </div>
 		                    <div class="reco_content">
 		                       <div class="reco_content_title">
-		                           <strong style="font-size: 16px;"><c:out value="${board.brTitle}"/></strong>
+		                           <strong style="font-size: 0.8em;" id="review-booktitle_${board.brIsbn}"></strong>
 		                       </div>  
 		                       <div class="reco_content_ctt">
-		                            <span><c:out value="${board.brContent}"/></span>
+		                           <p class="reco_content_p" id="bookContents_${board.brIsbn}"> </p>
+		                       </div> 
+		                       <div class="reco_content_t">
+		                           <p class="reco_content_p" id="bookauthors_${board.brIsbn}">저자 : </p>
+		                           <p class="reco_content_p" id="bookpublisher_${board.brIsbn}">출판사 : </p>
+		                           <p class="reco_content_p" id="bookSale_${board.brIsbn}">가격 : </p>
 		                       </div> 
 		                    </div>
 		                   </div>
 		                </a>
                 	</c:forEach>
                 </c:if>
+            </div>
+			</security:authorize>
+			<security:authorize access="hasRole('ADMIN')">
+			<security:authentication property="principal" var="user"/>
+            <div id="inner_reco_div">
+                <span id="inner_reco_div_span">${user.name}님 페이지 입니다.</span>
+           
+		                   
+		                      
+		                       
             </div>
 			</security:authorize>
         </div>
@@ -207,7 +223,7 @@
 	 $(document).ready(function () {
 		 //나중에 RestTemplate으로 바꾸기
 		 	<c:forEach var="board" items="${list}">
-		 	 var isbn = document.getElementById("review-bookisbn_${board.brNo}").innerText
+		 	 var isbn = document.getElementById("review-bookisbn_${board.brIsbn}").innerText
 		 	 
              $.ajax({
                  method: "GET",
@@ -216,12 +232,12 @@
                  headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
              })
                  .done(function (msg) {
-                     $("#reviewthumbnail_${board.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
-                     $("#review-booktitle_${board.brNo}").append(msg.documents[0].title)
-                     $("#bookContents_${board.brNo}").append(msg.documents[0].contents)
-                     $("#bookSale_${board.brNo}").append(msg.documents[0].sale_price)
-                     $("#bookpublisher_${board.brNo}").append(msg.documents[0].publisher)
-                     $("#bookauthors_${board.brNo}").append(msg.documents[0].authors)
+                     $("#reviewthumbnail_${board.brIsbn}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                     $("#review-booktitle_${board.brIsbn}").append(msg.documents[0].title)
+                     $("#bookContents_${board.brIsbn}").append(msg.documents[0].contents)
+                     $("#bookSale_${board.brIsbn}").append(msg.documents[0].sale_price)
+                     $("#bookpublisher_${board.brIsbn}").append(msg.documents[0].publisher)
+                     $("#bookauthors_${board.brIsbn}").append(msg.documents[0].authors)
                  });
              </c:forEach> 
 

@@ -49,17 +49,21 @@
 
 
 	<select id="selectBoardList" parameterType="map" resultMap="mainResultMap">
-		<include refid="brListSql"></include>
-		ORDER BY BR.BR_LIKE DESC
+		SELECT BR_ISBN, COUNT(*)
+		FROM BOOK_REVIEW_BOARD
+		GROUP BY BR_ISBN 
+		ORDER BY COUNT(*) DESC
 	</select>
 	
 	<select id="selectBoardListbest" parameterType="arraylist" resultMap="mainResultMap">
-		
-		<include refid="brListSql"></include>
-		 AND BR.BR_BOOKTYPE IN 
+		SELECT BR_BOOKTYPE, BR_ISBN, COUNT(*)
+		FROM BOOK_REVIEW_BOARD
+		WHERE BR_STATUS='Y' AND BR_BOOKTYPE IN 
 		<foreach item="book" collection="arr" index="index" open="(" separator="," close=")">
 			#{book}
 		</foreach>
-		ORDER BY BR.BR_LIKE DESC
+		GROUP BY BR_BOOKTYPE, BR_ISBN
+		ORDER BY COUNT(*) DESC
+		
 	</select>
 </mapper>
