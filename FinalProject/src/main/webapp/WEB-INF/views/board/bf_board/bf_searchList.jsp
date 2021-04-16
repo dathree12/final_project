@@ -64,13 +64,10 @@
             <a href="">낮은가격</a>&nbsp
             <a href="">높은가격</a>
         </div>
-        
-        <security:authorize access="hasRole('USER')">
-	        <div class="fdboard_top_enroll">
-	            <a href="${path}/board/bf_board/bf_agreement">프로젝트 신청하기</a>
-	        </div>
- 		</security:authorize>
- 		
+        <div class="fdboard_top_enroll">
+            <a href="${path}/board/bf_board/bf_agreement">프로젝트 신청하기</a>
+        </div>
+
         <div class="fdboard_mid_container">
         	<c:if test="${list == null}">
 	            <div class="fdboard_mid_box" id="fdboard_01">
@@ -109,24 +106,64 @@
         </div>
     </div>
     
-    <div class="fdboard_mid_bottom">
+<%--     <div class="fdboard_mid_bottom">
         <div class="fdboard_mid_pageCount">
-            <a href="${path}/board/bf_board/bf_boardList?page=1">&lt;&lt;</a> &nbsp &nbsp
-            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_searchList?page=1">&lt;&lt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
 			<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
 				<c:if test="${status.current == pageInfo.currentPage}">
 					<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
    				</c:if>
 				<c:if test="${status.current != pageInfo.currentPage}">
-					<a href="${path}/board/bf_board/bf_boardList?page=${status.current}"><c:out value="${status.current}"/></a>
+					<a href="${path}/board/bf_board/bf_searchList?page=${status.current}"><c:out value="${status.current}"/></a>
 					&nbsp &nbsp
    				</c:if>
 			</c:forEach>            
       
-            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
-            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.maxPage}">&gt;&gt;</a>
+            <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.maxPage}">&gt;&gt;</a>
         </div>
-    </div>	
+    </div>	 --%>
 	
+     <div class="fdboard_mid_bottom">
+        <div class="fdboard_mid_pageCount">
+            <a href="${path}/board/bf_board/bf_searchList?page=1?fd_search_sort=${fd_search_sort}&keyword=${keyword}">&lt;&lt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.prvePage}?fd_search_sort=${fd_search_sort}&keyword=${keyword}">&lt;</a> &nbsp &nbsp
+			<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+				<c:if test="${status.current == pageInfo.currentPage}">
+					<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+   				</c:if>
+				<c:if test="${status.current != pageInfo.currentPage}">
+					<a href="${path}/board/bf_board/bf_searchList?page=${status.current}?fd_search_sort=${fd_search_sort}&keyword=${keyword}"><c:out value="${status.current}"/></a>
+					&nbsp &nbsp
+   				</c:if>
+			</c:forEach>            
+      
+            <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.nextPage}?fd_search_sort=${fd_search_sort}&keyword=${keyword}">&gt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.maxPage}?fd_search_sort=${fd_search_sort}&keyword=${keyword}">&gt;&gt;</a>
+        </div>
+    </div>
+    
+    
+    
+<%--     <div class="fdboard_mid_bottom">
+        <div class="fdboard_mid_pageCount">
+            <a href="${path}/board/bf_board/bf_searchList?page=1">&lt;&lt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+			<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+				<c:if test="${status.current == pageInfo.currentPage}">
+					<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+   				</c:if>
+				<c:if test="${status.current != pageInfo.currentPage}">
+					<a href="${path}/board/bf_board/bf_searchList?page=${status.current}"><c:out value="${status.current}"/></a>
+					&nbsp &nbsp
+   				</c:if>
+			</c:forEach>            
+      
+            <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.maxPage}">&gt;&gt;</a>
+        </div>
+    </div>	 --%>
+    
 <%@ include file="../../common/footer.jsp" %>
 
