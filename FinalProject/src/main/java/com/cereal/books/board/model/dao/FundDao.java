@@ -28,7 +28,7 @@ public interface FundDao {
 
 	int selectFundStatusCount(String status);
 	
-	int adminUpdateFundStatus(@Param("status") String status, @Param("bfNo") int bfNo);
+	int adminUpdateFundStatus(@Param("status") String status, @Param("bfNo") List<Integer> bfNo);
 	
 	// 마이페이지 (참여 / 제안)
 	List<FundBoard> myFundList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);

@@ -51,6 +51,21 @@ body { background-color: #eaeaea;}
     padding: 20px;
 }
 
+/* 비밀번호 변경 */
+#updatePwd {
+	margin: 0 auto;
+}
+#update{
+	height: 30px;
+    background-color: black;
+    color: white;
+    border-style: none;
+    float: center;
+    margin: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 /* 반응형 */
 @media screen and (max-width:768px) {
     .profile_wrap { width: 100%; margin:0 auto; padding: 0px;}

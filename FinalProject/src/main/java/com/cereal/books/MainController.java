@@ -44,11 +44,13 @@ public class MainController {
 		if (member == null) {
 			list = service.getBoardList(pageInfo);
 			
+		}else if(member.getUserId().equals("admin")){
+			
+			model.setViewName("mainpage");
+			return model;
 		}else {
 			
-			list = service.getBoardListNo(pageInfo);
-	
-			
+			list = service.getBoardListNo(pageInfo);		
 		}
 		
 		model.addObject("list", list);

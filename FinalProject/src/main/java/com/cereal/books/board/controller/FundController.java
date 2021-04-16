@@ -353,15 +353,15 @@ public class FundController {
 	@RequestMapping(value = "bf_searchList", method = {RequestMethod.GET})
 	public ModelAndView searchList(
 			ModelAndView model,
-			@RequestParam(defaultValue = "bfTitle") String bfTitle,
+			@RequestParam(defaultValue = "bfTitle") String fd_search_sort,
 			@RequestParam(value = "keyword") String keyword,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit ) {
 		
-		List<FundBoard> list11 = null;
+		List<FundBoard> list = null;
 		int boardCount = 0;
 		
-		if(bfTitle != null) {
+		if(fd_search_sort.equals("bfTitle")) {
 			boardCount = service.getSearchCount111(keyword);
 		} 
 //		else {
@@ -376,18 +376,18 @@ public class FundController {
 		service.saveRemainDate();
 		service.changeStatus();
 		
-		if(bfTitle != null) {
-			list11 = service.getSearchList111(pageInfo, keyword);
+		if(fd_search_sort.equals("bfTitle")) {
+			list = service.getSearchList111(pageInfo, keyword);
 		} 
 //		else {
 //			list = service.getSearchList222(pageInfo, keyword);
 //		}
 		
-		model.addObject("list", list11);
+		model.addObject("fd_search_sort", fd_search_sort);
+		model.addObject("keyword", keyword);
+		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
-		model.setViewName("board/bf_board/bf_boardList");
-		
-		System.out.println(list11);
+		model.setViewName("board/bf_board/bf_searchList");
 		
 		return model;
 	}

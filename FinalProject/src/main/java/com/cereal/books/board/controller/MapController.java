@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MapController {
 	
-	@RequestMapping("map")
+	@RequestMapping("board/map")
 	public String map() {
 		
 		return "board/map";

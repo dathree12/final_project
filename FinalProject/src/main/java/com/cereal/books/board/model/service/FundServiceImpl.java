@@ -81,7 +81,7 @@ public class FundServiceImpl implements FundService {
 	}
 	
 	@Override
-	public int adminFundStatus(String status, int bfNo) {
+	public int adminFundStatus(String status, List<Integer> bfNo) {
 		return fundDao.adminUpdateFundStatus(status, bfNo);
 	}
 

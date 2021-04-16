@@ -55,7 +55,7 @@
 		FROM BOOK_FUNDING_BOARD
 	</sql>
 	
-	<resultMap type="FundBoard" id="fundResultMap">
+ 	<resultMap type="FundBoard" id="fundResultMap">
 		<id property="bfNo" column="BF_NO"/>
 		<result property="userNo" column="USER_NO"/>
 		<result property="bfTitle" column="BF_TITLE"/>
@@ -117,7 +117,7 @@
 		 	#{bfEnrollDate},
 		 	#{bfEndDate},
 		 	DEFAULT,
-		 	99999,
+		 	NULL,
 		 	#{bfTargetPrice},
 		 	0,
 		 	0,
@@ -142,7 +142,7 @@
 	  		WHERE 
 	  			BF_STATUS =#{status}
 		</if>
-  		ORDER BY USER_NO DESC
+  		ORDER BY BF_NO DESC
   	</select>
   	<select id="selectFundStatusCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
