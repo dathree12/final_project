@@ -48,6 +48,4 @@ public class ProposeServiceImpl implements ProposeService {
 		return result;
 	}
 
-
-	
 }

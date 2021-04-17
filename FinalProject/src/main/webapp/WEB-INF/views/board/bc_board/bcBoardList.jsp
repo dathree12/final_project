@@ -117,7 +117,6 @@
 	            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.nextPage}">&gt;</a> &nbsp; &nbsp;
 	            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.maxPage}">&gt;&gt;</a>
 	            <!-- 여기에 입력값있음 -->
-	            <input id="secretPwd" name="secretPwd">
 	        </div>
 	    </div>	
     </section>
@@ -139,9 +138,13 @@
 
             // (open할 window, "자식창 이름", "OPTION"), 부모창 : 자식창을 띄워준다.
             window.open('secret', 'secret', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top + ", resizable = no, scrollbars = no, status = no");
-            
-            var secretPwd = document.querySelector('input[name="secretPwd"]').value;
-            
+			
+            var password = '<c:out value="${proposePwd}"/>'
+            if (password == 1234) {
+            	alert('1234');
+            } else {
+            	alert('4567');
+            }
 		}
         
 	</script>

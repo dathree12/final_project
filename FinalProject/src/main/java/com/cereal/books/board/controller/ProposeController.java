@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ProposeService;
@@ -36,22 +37,32 @@ public class ProposeController {
 		
 		return "board/bc_board/secret";
 	}
+	
+	@RequestMapping(value = "/bcBoardRead")
+	public String read() {
+		
+		return "board/bc_board/bcBoardRead";
+	}
 
 	// 리스트 불러오기
+	@ResponseBody
 	@RequestMapping(value = "/bcBoardList", method = RequestMethod.GET)
 	public ModelAndView list(ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit
+			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit,
+			@ModelAttribute("propose") Propose propose
 			) {
-
+		
 		List<Propose> proposeList = null;
 
 		int boardCount = service.getProposeCount();
 
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 		
+		
 		proposeList = service.getProposeList(pageInfo);
-
+		
+		model.addObject("proposePwd", propose.getProposePwd());
 		model.addObject("proposeList", proposeList);
 		model.addObject("pageInfo", pageInfo);
 		model.addObject("boardCount", boardCount);
