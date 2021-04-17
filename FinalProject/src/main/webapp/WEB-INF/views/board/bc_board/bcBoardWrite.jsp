@@ -27,11 +27,9 @@
             <div class="write-header">
                 <div class="board-name">북 클럽 제안서 작성</div>
                 <div class="write-btn">
-	                <form action="${ path }/board/bc_board/bcBoardWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
 	                	<input type="submit">
 	                    <a href="${ path }/board/bc_board/bcBoardList">취소</a>
 	                    <a href="#">작성</a>
-	                    <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
 	                </form>
                 </div>
             </div>
@@ -40,6 +38,7 @@
     <section class="propose-write-section-2th">
         <article class="propose-write-article-2th" style="min-height: 600px;">
             <form action="${ path }/board/bc_board/bcBoardWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
+            	<input type="submit">
                 <div class="board_summary">
                     <div class="left">
                         <div class="avatar">
@@ -55,11 +54,11 @@
                 </div>
                 <div class="editor_box">
                     <span>
-                        <input name="member_secret_pass" class="basic_input" type="password" value="" placeholder="비밀번호">
+                        <input name="proposePwd" class="basic_input" type="password" value="${ list.proposePwd }" placeholder="비밀번호">
                     </span>
                 </div>
                 <div class="table-cell">
-                    <input id="post_subject" class="post_subject" name="subject" value="" placeholder="제목" type="text">
+                    <input id="post_subject" class="post_subject" name="proposeTitle" value="${ list.proposeTitle }" placeholder="제목" type="text">
                 </div>
                 <textarea name="bcContent" id="bcContent" rows="10" cols="80"></textarea>
    	                <script src="${ path }/js/club/bcBoardWrite.js"></script>

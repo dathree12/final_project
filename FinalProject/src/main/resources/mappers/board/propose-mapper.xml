@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
+<!-- 
+	에러내역
+	 : invalid host/bind variable name -> (,) 안넣어서.. 
+-->
+
 <mapper namespace="com.cereal.books.board.model.dao.ProposeDao">
 	<!-- 반복되는 쿼리문 -->
 	<sql id="proposeListSql">
@@ -47,21 +52,20 @@
 	</select>
 
 	<!-- 제안하기 게시판 추가 -->
-	<insert id="insertPropose" parameterType="map"
-		useGeneratedKeys="true" keyProperty="proposeNo" keyColumn="PROPOSE_NO">
+	<insert id="insertPropose" parameterType="map" useGeneratedKeys="true" keyProperty="proposeNo" keyColumn="PROPOSE_NO">
 		INSERT INTO 
 		PROPOSE 
 		VALUES(
 		SEQ_PROPOSE_NO.NEXTVAL,
-		#{userNo}, 
+		#{userNo},
 		#{userId},
 		#{userName},
-		#{proposePwd}
+		#{proposePwd},
 		#{proposeTitle},
 		TO_DATE(SYSDATE, 'yy-mm-dd'),
 		DEFAULT, 
 		#{proposeContent},
-		DEFAULT)
+		'Y'
 		)
 	</insert>
 </mapper>

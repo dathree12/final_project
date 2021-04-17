@@ -35,9 +35,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/board/bc_board")
 public class ClubController {
-	
-	// No qualifying bean of type -> @Service...
-	@Autowired
+
+	@Autowired // No qualifying bean of type -> @Service...
 	private ClubService service;
 
 	// 북 클럽 상세페이지
@@ -46,27 +45,27 @@ public class ClubController {
 
 		return "board/bc_board/bcBoardDetail";
 	}
-	
+
 	// 북 클럽 메인페이지
 	@RequestMapping("/bcBoardMain")
 	public String clubMain() {
 
 		return "board/bc_board/bcBoardMain";
 	}
-	
+
 	// 북 클럽 메인페이지
 	@RequestMapping("/bcReviewWrite")
 	public String clubReview() {
-		
+
 		return "board/bc_board/bcReviewWrite";
 	}
-	
+
 	// 북 클럽 메인페이지(관리자)
 	@RequestMapping("/bcAdminWrite")
 	public String adminWrite() {
-		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다. 
-		
-		 return "board/bc_board/bcAdminWrite";
+		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
+
+		return "board/bc_board/bcAdminWrite";
 	}
 
 	// 북 클럽 제안페이지
@@ -82,22 +81,22 @@ public class ClubController {
 
 		return "board/bc_board/bcBoardWrite";
 	}
-	
+
 	// 북 클럽 결제페이지
 	@RequestMapping("/bcBoardPayment")
 	public String clubPayment() {
 
 		return "board/bc_board/bcBoardPayment";
 	}
-	
+
 	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
 	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo) {
-		
+
 		ClubBoard clubBoard = service.findClubByNo(bcNo);
-		
+
 		model.addObject("clubBoard", clubBoard);
 		model.setViewName("board/bc_board/bcBoardDetail");
-		
+
 		return model;
 	}
 
@@ -151,68 +150,62 @@ public class ClubController {
 
 	// 북 클럽 메인페이지
 	@RequestMapping(value = "/bcBoardMain", method = RequestMethod.GET)
-	public ModelAndView list(ModelAndView model, 
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
+	public ModelAndView list(ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
-		
+
 		List<ClubBoard> list = null;
 		List<ClubBoard> dlList = null;
-		
+
 		int boardCount = service.getBoardCount();
 		int result = service.saveRemainDate();
 		int noneResult = service.noneRemainDate();
-		
+
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
-		
+
 		list = service.getBoardList(pageInfo);
 		dlList = service.getDlBoardList();
-		
+
 		model.addObject("list", list);
 		model.addObject("dlList", dlList);
 		model.addObject("pageInfo", pageInfo);
 		model.addObject("boardCount", boardCount);
 		model.setViewName("board/bc_board/bcBoardMain");
-		
+
 		System.out.println(list);
-		
+
 		return model;
 	}
-	
 
 	// 북 클럽 메인페이지(관리자)
 	@RequestMapping(value = "/bcAdminWrite", method = RequestMethod.POST)
-	public ModelAndView adminWrite(
-			ModelAndView model, 
-			Principal user,
-			ClubBoard clubBoard
-			) throws Exception {
+	public ModelAndView adminWrite(ModelAndView model, Principal user, ClubBoard clubBoard) throws Exception {
 		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
-		
-		if(user.getName().equals(clubBoard.getUserId())) {
+
+		if (user.getName().equals(clubBoard.getUserId())) {
 			clubBoard.setUserId(user.getName());
 
 			int result = 0;
-			
+
 			result = service.saveBoard(clubBoard);
-			
-			if(result > 0 ) {
+
+			if (result > 0) {
 				model.addObject("msg", "게시글 등록 성공");
 				model.addObject("location", "/board/bc_board/bcBoardMain");
 			} else {
 				model.addObject("msg", "게시글 등록 실패");
 				model.addObject("location", "/board/bc_board/bcBoardMain");
 			}
-		} 
-		else {
+		} else {
 			model.addObject("msg", "잘못된 접근입니다.");
 			model.addObject("location", "/board/bc_board/bcBoardMain");
 		}
-		
+
 		model.setViewName("common/msg");
-		
+
 		return model;
 	}
-	
+
 //	// 해당 게시판 번호를 타고 들어가서 결제창까지 가야할듯? POST방식 써야하나 GET으로 테스트해볼까
 //	// 결제할 상품정보를 가져와야하니까, 상품정보를 갖고있는 번호의 게시판 정보 가져오면 될 듯
 //	@RequestMapping(value = "/bcBoardPayment", method = RequestMethod.GET)
@@ -227,5 +220,5 @@ public class ClubController {
 //		
 //		return model;
 //	}
-	
+
 }
