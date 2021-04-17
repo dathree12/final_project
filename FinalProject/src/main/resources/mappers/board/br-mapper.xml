@@ -23,6 +23,7 @@
 		WHERE BR.BR_STATUS='Y'
 	</sql>
 
+	<!-- 글쓰기 resultmap -->
 	<resultMap type="ReviewBoard" id="brResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
 		<id property="brNo" column="BR_NO"/>
 		<result property="userNo" column="USER_NO"/>
@@ -39,7 +40,8 @@
 		<result property="status" column="BR_STATUS"/>
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
- 	
+	
+ 	<!-- 글상세보기 resultmap(댓글포함) -->
  	<resultMap type="ReviewBoard" id="brDetailResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
 		<id property="brNo" column="BR_NO"/>
 		<result property="userNo" column="USER_NO"/>
@@ -55,14 +57,26 @@
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
 	
+	<!-- 댓글 resultmap -->
 	<resultMap type="Comment" id="boardCommentResultMap">
-		<id property="replyNO" column="COM_NO"/>
-		<result property="boardNO" column="BOARD_NO"/>
-		<result property="userId" column="R_USER_ID"/>
-		<result property="replyContent" column="REPLY_CONTENT"/>
-		<result property="status" column="R_STATUS"/>
-		<result property="replyCreateDate" column="REPLY_CREATE_DATE"/>
-		<result property="replyModifyDate" column="REPLY_MODIFY_DATE"/>
+		<id property="comNo" column="COM_NO"/>
+		<result property="boardNO" column="COM_WRITER"/>
+		<result property="userId" column="COM_CONTENT"/>
+		<result property="replyContent" column="COM_CREATE_DATE"/>
+		<result property="status" column="COM_EDIT_DATE"/>
+		<result property="replyCreateDate" column="COM_STATUS"/>
+		<result property="replyModifyDate" column="QA_NO"/>
+		<result property="replyModifyDate" column="BC_NO"/>
+		<result property="replyModifyDate" column="BR_NO"/>
+		<result property="replyModifyDate" column="BF_NO"/>
+	</resultMap>
+	
+	<!-- 스크랩 resultmap -->
+	<resultMap type="BookScrap" id="bookScrapResultMap">
+		<id property="scrapNo" column="SCRAP_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="bsIsbn" column="BS_ISBN"/> <!-- 주의!! bs임 br아님 -->
+		<result property="scrapStatus" column="SCRAP_STATUS"/>
 	</resultMap>
 
 	<insert id="insertReviewBoard" parameterType="map"
@@ -111,11 +125,25 @@
 		       BR.BR_VIEWCOUNT,
 		       BR.BR_LIKE,	
 		       BR.BR_STATUS,
-		       BR.BR_RATING
+		       BR.BR_RATING,
+		       BS.SCRAP_NO,
+		       BS.USER_NO,
+		       BS.SCRAP_STATUS
 		FROM BOOK_REVIEW_BOARD BR
 		JOIN MEMBER M ON(BR.USER_NO = M.USER_NO)
+		LEFT OUTER JOIN BOOK_SCRAP BS ON(BR.BR_ISBN = BS.BS_ISBN)
 		WHERE BR.BR_NO = #{brNo}	
 	</select>
 	
-	
+	<insert id="insertBookScrap" parameterType="map"
+		useGeneratedKeys="true" keyProperty="scrapNo" keyColumn="SCRAP_NO">
+  		
+	  	INSERT INTO BOOK_SCRAP
+	  		VALUES(
+				SEQ_BR_NO.NEXTVAL,
+				#{userNo},
+				#{bsIsbn},
+				#{status)
+ 		)
+	</insert>
 </mapper>

@@ -11,17 +11,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ReviewService;
+import com.cereal.books.board.model.vo.BookScrap;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
 
@@ -176,7 +176,8 @@ public class ReviewController {
 			
 			return renameFileName;
 		}
-		
+	
+	// 북리뷰글 쓸때 책검색창 열기
 	@RequestMapping(value="/bookSearch")
 		public void brBookSearch() {
 			
@@ -195,5 +196,12 @@ public class ReviewController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/brBookScrap", method= {RequestMethod.POST})
+	public void brBookScrap(@RequestParam("userId") String userId, @RequestParam("bsIsbn") String bsIsbn, @RequestParam("scrap") String scrap,
+			@RequestParam("scrapNo") String scrapNo, BookScrap bookscrap) {
+		int result = 0;
+		result = service.saveScrapStatus(bookscrap);
+	}
 	
 }

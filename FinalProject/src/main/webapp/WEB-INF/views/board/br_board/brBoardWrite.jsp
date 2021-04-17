@@ -76,6 +76,7 @@
 							  <div id="selectedBook" name="brBookTitle">책을 선택해주세요</div>
 							  <input type="text" id="brIsbn" name="brIsbn"  style="display:none">
 							  <input id="selectedBookThumb" name="brPresentPic" style="display:none">
+							  <P>평점:나중에구현</P>
 	                    </div>
 	                </div>
 	                <textarea name="brContent" id="brContent"></textarea>

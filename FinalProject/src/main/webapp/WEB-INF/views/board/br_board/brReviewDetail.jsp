@@ -54,6 +54,10 @@
                     <p id="reviewheader-reviewdate">${board.brModifyDate}</p>
                 </div>
                 <hr>
+                <div class="review-book-bookscrap">
+                		<a class="scrap-button" id="scrap-icon1"><img src="${ path }/images/scrap_0.png" class="scrapicon">스크랩하기</a>
+                		<a class="scrap-button" id="scrap-icon2"><img src="${ path }/images/scrap_1.png" class="scrapicon">스크랩취소</a>
+                </div>
                 <div class="brboard-review-book">
                     <div class="review-book-cover">
                         <a href="#" name="thumbnailbox" id="thumbnailbox"></a>
@@ -167,6 +171,8 @@
 
 	<script>
 	    $(document).ready(function(){
+	            
+	            /*추천 버튼 눌렀을때*/
 	            /*웹페이지 열었을 때*/
 	            $("#recommend-icon1").show();
 	            $("#recommend-icon2").hide();
@@ -180,6 +186,8 @@
 	                $("#recommend-icon1").show();
 	                $("#recommend-icon2").hide();
 	            });
+	            
+	            
 	        });
 	</script>
 	<script>
@@ -214,6 +222,83 @@
                      $("#book-description-bookcontents").append(msg.documents[0].contents);
                  });
      });
+	</script>
+	<script>
+	 $(document).ready(function () {
+		 		scrapNo = ${BookScrap.scrapNo};
+				scrap = ${BookScrap.status}; 	//페이지 시작시 가져온 스크랩 정보를 저장 (스크랩 체크 변경시 변수 변경)
+				scrapOrigin = scrap;			//페이지 시작시 가져온 스크랩 정보를 저장
+				likeCheck(like);				// 좋아요 상태에 따라 버튼의 상태 변경
+				
+				console.log(scrap);
+				
+				if(scrapNo == null || scrap == 'N'){	//스크랩정보가 저장안되어있거나 N일경우 scrap-icon1 보여주기
+					 $("#scrap-icon1").show();
+			         $("#scrap-icon2").hide();
+				}
+				else {
+					$("#scrap-icon2").show();		////스크랩정보가 Y일경우 scrap-icon2 보여주기
+			        $("#scrap-icon1").hide();
+				}
+	            /*img1을 클릭했을 때 img2를 보여줌*/
+	            $("#recommend-icon1").click(function(){
+	                $("#recommend-icon1").hide();
+	                $("#recommend-icon2").show();
+	                scrap = 'Y';
+	            });
+	            /*img2를 클릭했을 때 img1을 보여줌*/
+	            $("#recommend-icon2").click(function(){
+	                $("#recommend-icon1").show();
+	                $("#recommend-icon2").hide();
+	                scrap = 'N'
+	            });
+				
+				
+				$(window).on('beforeunload',function() { // 페이지 나갈 때, 변경 된 좋아요 정보 DB update
+					
+					if(scrap != scrapOrigin){
+						$.ajax({
+							type: "post",
+							url : "${path}/board/br_board/brBookScrap",
+							data : {
+								userId : ${member.userId},
+								bsIsbn : ${board.brIsbn},
+								scrapNo : scrapNo,
+								scrap : scrap,
+								scrapOrigin : scrapOrigin
+							},
+							success : function() {
+								alert('스크랩 성공! 마이페이지에서 확인하세요')
+							}
+							error : function(e) {
+								alert('스크랩 실패!')
+							}
+						})
+					}
+				})
+				
+				/* 좋아요 버튼 함수
+				$('#likeButton').click(function() {		// 좋아요 버튼 클릭 시 변경 함수
+					if(like == 1){						//좋아요(1) 상태 였을 때, 
+						like = 0;						//불이 꺼진(좋아요 싫어요 모두 꺼진 상태)로 변경	
+						like_num -= 1;					//전체 좋아요 숫자에서 -1
+						$('#likeNum').html(like_num);   //좋아요 숫자 div에 반영
+					
+					}else{								//좋아요(1) 상태가 아닐때,
+						if(like == 2){					// 싫어요(2) 상태일 때,
+							dislike_num -= 1;			// 싫어요 전체 숫자 -1
+						}
+						like = 1;						//좋아요(1) 상태로 변경
+						like_num++;						//전체 좋아요 숫자 +1
+						$('#likeNum').html(like_num);	
+						$('#dislikeNum').html(dislike_num);	// 좋아요 and 싫어요 숫자 반영
+					}
+				likeCheck(like);						// 버튼의 css 변경 함수 실행
+				}) */
+
+				
+
+	 });
 	</script>
 
 <%@ include file="../../common/footer.jsp" %>
