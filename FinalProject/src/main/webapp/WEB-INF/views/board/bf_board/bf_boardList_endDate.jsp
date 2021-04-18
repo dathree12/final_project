@@ -31,7 +31,7 @@
         <div class="fdboard_top_menu">
             <li><a href="${path}/board/bf_board/bf_boardList_viewCount">인기 프로젝트</a></li>
             <li><a href="${path}/board/bf_board/bf_boardList">전체보기</a></li>
-            <li><a href="${path}/board/bf_board/bf_boardList_remainDate">성공 임박 프로젝트</a></li>
+            <li><a href="${path}/board/bf_board/bf_boardList_remainDate">마감 임박 프로젝트</a></li>
             <li><a href="${path}/board/bf_board/bf_boardList_endDate">마감된 프로젝트</a></li>
         </div>
     </div>
@@ -93,9 +93,13 @@
 		                    </a>
 		                </div>
 		                <div class="fdboard_contants">
+		                    <c:if test="${board.bfRemainDate < 0}">
+		                    <p>마감되었습니다.</p>
+		                    </c:if>
 		                    <p><c:out value="${board.bfTitle}"/></p>
-		                    <p><c:out value="${board.bfPrice}"/>원</p>
-		                    <p><c:out value="${board.bfRemainDate}"/>일 남음</p>
+		                    <%-- <p><c:out value="${board.bfPrice}"/>원</p> --%>
+		                    <p><c:out value="${-board.bfRemainDate}"/>일 지남</p>
+		                    
 		                </div>
 		            </div>        			
         		</c:forEach>
@@ -105,20 +109,20 @@
     
     <div class="fdboard_mid_bottom">
         <div class="fdboard_mid_pageCount">
-            <a href="${path}/board/bf_board/bf_boardList?page=1">&lt;&lt;</a> &nbsp &nbsp
-            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_boardList_endDate?page=1">&lt;&lt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_boardList_endDate?page=${pageInfo.prvePage}">&lt;</a> &nbsp &nbsp
 			<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
 				<c:if test="${status.current == pageInfo.currentPage}">
 					<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
    				</c:if>
 				<c:if test="${status.current != pageInfo.currentPage}">
-					<a href="${path}/board/bf_board/bf_boardList?page=${status.current}"><c:out value="${status.current}"/></a>
+					<a href="${path}/board/bf_board/bf_boardList_endDate?page=${status.current}"><c:out value="${status.current}"/></a>
 					&nbsp &nbsp
    				</c:if>
 			</c:forEach>            
       
-            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
-            <a href="${path}/board/bf_board/bf_boardList?page=${pageInfo.maxPage}">&gt;&gt;</a>
+            <a href="${path}/board/bf_board/bf_boardList_endDate?page=${pageInfo.nextPage}">&gt;</a> &nbsp &nbsp
+            <a href="${path}/board/bf_board/bf_boardList_endDate?page=${pageInfo.maxPage}">&gt;&gt;</a>
         </div>
     </div>	
 	

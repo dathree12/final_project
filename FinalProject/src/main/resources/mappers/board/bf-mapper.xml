@@ -217,7 +217,7 @@
 			   B.BF_ADMIN_COMMENT
 		FROM BOOK_FUNDING_BOARD B
 		JOIN MEMBER M ON(B.USER_NO = M.USER_NO)
-		WHERE B.BF_STATUS='P' AND B.BF_NO=#{bfNo}
+		WHERE B.BF_NO=#{bfNo}
 	</select>
 	
 	<!-- 조회수 증가(반복조회 방지) -->
@@ -229,59 +229,63 @@
 			BF_NO = #{bfNo}
 	</update>
 	
-	<!-- 검색을 통한 조회 -->
-<!-- 	<select id="getSearchCount" parameterType="map" resultType="_int">
-		SELECT COUNT(*)
-		FROM BOOK_FUNDING_BOARD B
-		
-		<choose>
-			작성자+제목+내용의 검색조건으로 게시물을 검색하는 쿼리
-            <when test="fd_search_sort == 'all' ">
-                where  
-                      bfTitle like '%' || #{keyword}||'%'
-                      or bfContent like '%'||#{keyword}||'%'   
-            </when>
-            
-            내가 지정한 조건 (작성자, 제목, 내용) 의 검색조건으로 게시물을 검색하는 쿼리
-            <otherwise>
-                where ${fd_search_sort} like '%'||#{keyword}||'%'
-            </otherwise>
-		</choose>
-		AND B.BF_STATUS='P'
-	</select>
-	
-	<select id="getSearchList" parameterType="map" resultMap="fundResultMap">
-		<include refid="fundListSql"></include>
-		
-		<choose>
-			작성자+제목+내용의 검색조건으로 게시물을 검색하는 쿼리
-            <when test="fd_search_sort == 'all' ">
-                where  
-                      bfTitle like '%' || #{keyword}||'%'
-                      or bfContent like '%'||#{keyword}||'%'     
-            </when>
-            
-            내가 지정한 조건 (작성자, 제목, 내용) 의 검색조건으로 게시물을 검색하는 쿼리
-            <otherwise>
-                where ${fd_search_sort} like '%'||#{keyword}||'%'
-            </otherwise>
-		</choose>
-	
-	</select> -->
-	
-	<select id="selectBoardList111" parameterType="map" resultMap="fundResultMap">
+	<!-- 검색을 통한 리스트 조회, 페이징 처리x -->
+	<select id="getSearchList_Title" parameterType="map" resultMap="fundResultMap">
 		<include refid="fundListSql"></include>
 		AND B.BF_TITLE LIKE '%'||#{keyword}||'%'
 		ORDER BY B.BF_TITLE DESC
 	</select>
-	<select id="getSearchCount111" parameterType="map" resultType="_int">
-		SELECT COUNT(*)
-		FROM BOOK_FUNDING_BOARD B
-		WHERE B.BF_STATUS='P' AND B.BF_TITLE LIKE '%'||#{keyword}||'%'
+	<select id="getSearchList_Content" parameterType="map" resultMap="fundResultMap">
+		<include refid="fundListSql"></include>
+		AND B.BF_CONTENT LIKE '%'||#{keyword}||'%'
+		ORDER BY B.BF_CONTENT DESC
 	</select>
 	
+	<!-- 인기프로젝트 조회(조회수순) -->
+	<select id="getBoardList_viewCount" parameterType="map" resultMap="fundResultMap">
+		<include refid="fundListSql"></include>
+		ORDER BY B.BF_VIEW_COUNT DESC
+	</select>
+	<select id="getBoardList_remainDate" parameterType="map" resultMap="fundResultMap">
+		<include refid="fundListSql"></include>
+		ORDER BY B.BF_REMAIN_DATE
+	</select>
+	<!-- 마감된프로젝트 조회(마감항목, 최근마감날짜순) -->
+	<select id="getBoardCount_endDate" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_FUNDING_BOARD B
+		WHERE B.BF_STATUS='Q'
+	</select>
+	<select id="getBoardList_endDate" parameterType="map" resultMap="fundResultMap">
+		SELECT B.BF_NO,
+			   B.USER_NO,
+			   B.BF_TITLE,
+			   B.BF_PRICE,
+			   B.BF_ENROLL_DATE,
+			   B.BF_END_DATE,
+			   B.BF_MODIFY_DATE,
+			   B.BF_REMAIN_DATE,
+			   B.BF_TARGET_PRICE,
+			   B.BF_REACH_PRICE,
+			   B.BF_ATTAIN_RATE,
+			   B.BF_VIEW_COUNT,
+			   B.BF_BUY_COUNT,
+			   B.BF_STATUS,
+			   B.BF_AGREEMENT,
+			   B.BF_LIKE,
+			   B.BF_CONTENT,
+			   B.BF_ORI_IMGNAME,
+			   B.BF_RE_IMGNAME,
+			   B.BF_ADMIN_COMMENT
+		FROM BOOK_FUNDING_BOARD B
+		JOIN MEMBER M ON(B.USER_NO = M.USER_NO)
+		WHERE B.BF_STATUS='Q'
+		ORDER BY B.BF_REMAIN_DATE DESC
+	</select>
+
 	
 	
+		
 </mapper>
 
 
