@@ -31,7 +31,7 @@
         <div class="fdboard_top_menu">
             <li><a href="${path}/board/bf_board/bf_boardList_viewCount">인기 프로젝트</a></li>
             <li><a href="${path}/board/bf_board/bf_boardList">전체보기</a></li>
-            <li><a href="${path}/board/bf_board/bf_boardList_remainDate">성공 임박 프로젝트</a></li>
+            <li><a href="${path}/board/bf_board/bf_boardList_remainDate">마감 임박 프로젝트</a></li>
             <li><a href="${path}/board/bf_board/bf_boardList_endDate">마감된 프로젝트</a></li>
         </div>
     </div>
