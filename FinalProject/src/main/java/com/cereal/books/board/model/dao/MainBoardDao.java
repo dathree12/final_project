@@ -18,5 +18,9 @@ public interface MainBoardDao {
 	List<ReviewBoard> selectBoardListNo(RowBounds rowBounds, @Param("userNo") int userNo);
 
 	List<ReviewBoard> selectBoardListbest(RowBounds rowBounds, @Param("arr") String[] arr);
+
+	List<ReviewBoard> selectBoardListMB(RowBounds rowBounds);
+
+	List<ReviewBoard> selectBoardListBeforeMB(RowBounds rowBounds);
 	
 }

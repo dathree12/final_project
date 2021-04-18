@@ -5,10 +5,12 @@ import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Propose {
 	
 	private int proposeNo;
@@ -16,6 +18,10 @@ public class Propose {
 	private int userNo;
 	
 	private String userId;
+	
+	private String userName;
+	
+	private String proposePwd;
 	
 	private String proposeTitle;
 	

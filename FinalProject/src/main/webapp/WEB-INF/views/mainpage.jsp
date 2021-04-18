@@ -97,63 +97,55 @@
         </div>
         <br>
         <div id="middle_div_text"> 
-            <span> 4월의 베스트 추천 도서</span>
+            <span id="month_span">${month+""}</span><span> 월의 베스트 추천 도서</span>
         </div>
         <div id="middle_div">
             <div id="innner_container">
+             <c:if test="${mBest != null}">
+             <c:forEach var="best" items="${mBest}" varStatus="ct">
+       			<p id="review-bestisbn_${best.brIsbn}" style="display:none"><c:out value="${best.brIsbn}"/></p>
+                     <c:if test="${ct.count == 1}">
                     <div id="l_inner_cont">
                         <a href="">   
                             <div id="l_inner_cont_div">
-                                <div id="l_inner_cont_count">1st.</div>
-                                <img src="${path}/images/바다.jpg" alt="" id="l_cont_img">
-                                        <div class="l_text_tw"> <span id="l_text_title"> 바다 도시의 아이들  </span></div>
-                                        <div class="l_text_tw"> <span id="l_text_writer"> 저자 : 아무개  </span></div>   
-                                         <p id="l_text_con">가벼운 마음으로 읽으려고 선택한 책이다. 청소년 판타지 소설을 잘 읽는 편이 아닌데 왠지 모르게 끌렸다. 분량이 좀 되는 책인데 청소년 판타지라 그런지 가독성이 상당히 좋다. 어떻게 보면 전형적인 청소년 판타지의 설정을 따라가는데 세계관이 흥미롭다. 가파른 산 위에 세워진 도시, 바다 위에 우뚝 솟은 산이다. 뭐지? 하고 읽다보면 이 세계가 대홍수 이후 생존한 사람들이 높은 산 위 도시에 살고 있음을 알 수 있다. 그...</p>
+                            		 <p class="best_p">${ct.count}st. </p>
+                                	 <a href="#" id="mBestImage_${best.brIsbn}" ></a>
+                                     <div class="l_text_tw"> <p class="l_text_title" id="mBestTitle_${best.brIsbn}"> </p></div>
+                                     <div class="l_text_tw"> <p class="l_text_writer" id="mBestAuthors_${best.brIsbn}"> 저자 :   </p></div>   
+                                     <p class="l_text_con" id="mBestContents_${best.brIsbn}"></p>
                             </div>
                         </a>
-                         
-                    </div>   
-                <div id="r_inner_cont_se">
-                    <a href=""> 
-                        <div class="r_inner_cont">
-                            <div class="r_inner_img">
-                                <div class="r_inner_cont_count">2nd.</div>
-                                <img src="${path}/images/바다.jpg" alt="" >
-                            </div>
-                            <div class="r_inner_con">
-                                <div class="r_text_tw"><span class="r_text_title">코스모스</span></div>
-                                <div class="r_text_tw"><span  class="r_text_writer">저자 : 아무개 </span> </div>
-                                <div class="r_text_text">
-                                    <span>칼 세이건(Carl Sagan, 1934~1996)이라고 하면 대부분 <코스모스(Cosmos)>(1980)라는 이름의 책이나 다큐멘터리를 떠올린다.의 저자인 앤 드루얀(Ann Druyan, 1949~ )은 바로 그 칼 세이건의 아내이자 천문학자인 스티븐 소터(Steven Soter, 1943~ )와 함께 <코스모스>의 원고를 함께 작성한 사람이다.
+                    </div> 
+                    </c:if> 
+              	   <c:if test="${ct.count == 2}">
+                       <div id="l_inner_cont">
+	                        <a href="">   
+	                            <div id="l_inner_cont_div">
+	                            		 <p class="best_p">${ct.count}nd. </p>
+	                                	 <a href="#" id="mBestImage_${best.brIsbn}" ></a>
+	                                     <div class="l_text_tw"> <p class="l_text_title" id="mBestTitle_${best.brIsbn}"> </p></div>
+	                                     <div class="l_text_tw"> <p class="l_text_writer" id="mBestAuthors_${best.brIsbn}"> 저자 :   </p></div>   
+	                                     <p class="l_text_con" id="mBestContents_${best.brIsbn}"></p>
+	                            </div>
+	                        </a>
+                    	</div>
+                    </c:if>
+                      <c:if test="${ct.count == 3}">
+                       <div id="l_inner_cont">
+	                        <a href="">   
+	                            <div id="l_inner_cont_div">
+	                            		 <p class="best_p">${ct.count}rd. </p>
+	                                	 <a href="#" id="mBestImage_${best.brIsbn}" ></a>
+	                                     <div class="l_text_tw"> <p class="l_text_title" id="mBestTitle_${best.brIsbn}"> </p></div>
+	                                     <div class="l_text_tw"> <p class="l_text_writer" id="mBestAuthors_${best.brIsbn}"> 저자 :   </p></div>   
+	                                     <p class="l_text_con" id="mBestContents_${best.brIsbn}"></p>
+	                            </div>
+	                        </a>
+                    	</div>
+                    </c:if>
 
-                                    그래서일까? 1996년 칼 세이건이 사망한 후에도 그녀는 그의 유지를 이어받아 스티븐 소터와 함께 2014년 <코스모스>(1980)의 업데이트 버전이라고 할 수 있는 에 대한 시나리오를 작성했을 뿐 아니라 제작 및 감독에 참여했다.
-                                    
-                                    그렇기에 40년의 시간이 흐른 2020년에 앤 드루얀이 칼 세이건의 <코스모스>와 같은 방식으로을 출간하고 동명의 다큐멘터리를 제작한 것은 어쩌면 당연한 결과일지도 모른다.</span>
-                                </div>
-                            </div>
-                        </div> 
-                    </a>
-                    <br>
-                    <a href=""> 
-                        <div class="r_inner_cont">
-                            <div class="r_inner_img">
-                                <div class="r_inner_cont_count">3rd.</div>
-                                <img src="${path}/images/바다.jpg" alt="" >
-                            </div>
-                            <div class="r_inner_con">
-                                <div class="r_text_tw"><span class="r_text_title">코스모스</span></div>
-                                <div class="r_text_tw"><span  class="r_text_writer">저자 : 아무개 </span> </div>
-                                <div class="r_text_text">
-                                    <span>칼 세이건(Carl Sagan, 1934~1996)이라고 하면 대부분 <코스모스(Cosmos)>(1980)라는 이름의 책이나 다큐멘터리를 떠올린다. 의 저자인 앤 드루얀(Ann Druyan, 1949~ )은 바로 그 칼 세이건의 아내이자 천문학자인 스티븐 소터(Steven Soter, 1943~ )와 함께 <코스모스>의 원고를 함께 작성한 사람이다.
-
-                                    그래서일까? 1996년 칼 세이건이 사망한 후에도 그녀는 그의 유지를 이어받아 스티븐 소터와 함께 2014년 <코스모스>(1980)의 업데이트 버전이라고 할 수 있는 에 대한 시나리오를 작성했을 뿐 아니라 제작 및 감독에 참여했다.
-                                    
-                                    그렇기에 40년의 시간이 흐른 2020년에 앤 드루얀이 칼 세이건의 <코스모스>와 같은 방식으로을 출간하고 동명의 다큐멘터리를 제작한 것은 어쩌면 당연한 결과일지도 모른다.</span>
-                                </div>
-                            </div>
-                        </div> 
-                    </a>
-                </div>
+                </c:forEach>
+                </c:if>
              </div>
         </div>
         <br>
@@ -221,7 +213,6 @@
 
 	<script>
 	 $(document).ready(function () {
-		 //나중에 RestTemplate으로 바꾸기
 		 	<c:forEach var="board" items="${list}">
 		 	 var isbn = document.getElementById("review-bookisbn_${board.brIsbn}").innerText
 		 	 
@@ -238,6 +229,24 @@
                      $("#bookSale_${board.brIsbn}").append(msg.documents[0].sale_price)
                      $("#bookpublisher_${board.brIsbn}").append(msg.documents[0].publisher)
                      $("#bookauthors_${board.brIsbn}").append(msg.documents[0].authors)
+                 });
+             </c:forEach> 
+		 	<c:forEach var="best" items="${mBest}">
+		 	 var isbn = document.getElementById("review-bestisbn_${best.brIsbn}").innerText
+		 	 
+             $.ajax({
+                 method: "GET",
+                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+                 data: { query: isbn },
+                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+             })
+                 .done(function (msg) {
+                     $("#mBestImage_${best.brIsbn}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                     $("#mBestTitle_${best.brIsbn}").append(msg.documents[0].title)
+                     $("#mBestContents_${best.brIsbn}").append(msg.documents[0].contents)
+                     $("#mBestSale_${best.brIsbn}").append(msg.documents[0].sale_price)
+                     $("#mBestPublisher_${best.brIsbn}").append(msg.documents[0].publisher)
+                     $("#mBestAuthors_${best.brIsbn}").append(msg.documents[0].authors)
                  });
              </c:forEach> 
 

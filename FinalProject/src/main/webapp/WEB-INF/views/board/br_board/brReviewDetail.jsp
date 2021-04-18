@@ -3,14 +3,15 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>    
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
+<security:authentication property="principal" var="user"/>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>북리뷰 상세보기</title>
     <link rel="stylesheet" href="${ path }/css/board/br_style/brReviewDetail.css" type="text/css">
@@ -47,13 +48,17 @@
             </section>
             <section class="brboard-review">
                 <div class="brboard-review-header">
-                	<p style="none">${board.brNo}</p>
+                	<p style="display:none">${board.brNo}</p>
                     <p id="reviewheader-bookclass">${board.brBookType}</p>
                     <p id="reviewheader-reviewtitle">${board.brTitle}</p>
                     <p id="reviewheader-reviewwriter">${board.userNname}</p>
-                    <p id="reviewheader-reviewdate">${board.brModifyDate}</p>
+                    <p id="reviewheader-reviewdate">${board.brCreateDate}</p>
                 </div>
                 <hr>
+                <div class="review-book-bookscrap">
+                		<a class="scrap-button" id="scrap-icon1"><img src="${ path }/images/scrap_0.png" class="scrapicon">스크랩하기</a>
+                		<a class="scrap-button" id="scrap-icon2"><img src="${ path }/images/scrap_1.png" class="scrapicon">스크랩취소</a>
+                </div>
                 <div class="brboard-review-book">
                     <div class="review-book-cover">
                         <a href="#" name="thumbnailbox" id="thumbnailbox"></a>
@@ -66,24 +71,20 @@
                             <p id="book-description-bookpublisher"></p>
                             <p id="book-description-bookpublish"></p>
                             <p id="book-description-bookstarrate">${board.brRating}</p>
+                            <p id="book-description-bookcontents"></p>
                          <!--    <p id="book-description-bookreviewcount"></p>--> 
                         </div>
                     </div>
                 </div>    
                 <hr>
                 <div class="brboard-review-content">
-                    <div id="articleBodyContents" class="_article_body_contents" style="-webkit-tap-highlight-color: rgba(0,0,0,0)">
-                    <script type="text/javascript">
-                    function _flash_removeCallback() {}
-                    </script>
-                        <strong class="media_end_summary">인치케이프 "긴급구조팀이 에버기븐호 일부 부양 성공"<br>선체 정상 항로로 복귀…엔진 가동 시작, 견인선 동원<br><span data-type="ore" data-lang="en">450</span>여척 대기 선박 통과 필요…운하 재개시점은 미정</strong>[이데일리 이정훈 기자] 이집트 수에즈 운하에서 좌초해 항로를 가로 막고 있던 대형 컨테이너선인 에버기븐호의 부양작업이 성공했다고 <span data-type="ore" data-lang="en">AP</span>통신이 <span data-type="ore" data-lang="en">29</span>일(현지시간) 보도했다. 이로 인해 해당 선박이 정상 항로로 돌아선 것으로 알려졌다.<br><br><table cellspacing="5" cellpadding="0" width="498" align="CENTER" bgcolor="ffffff" border="0"><tbody><tr><td style="PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px;" bgcolor="ffffff"><table cellspacing="5" cellpadding="0" bgcolor="ffffff" border="0"><tbody><tr><td><span class="end_photo_org"><img src="https://imgnews.pstatic.net/image/018/2021/03/29/0004887339_001_20210329141254628.jpg?type=w647" alt=""></span></td></tr></tbody></table></td></tr></tbody></table><br><br>통신에 따르면 이날 해상운송서비스업체인 인치케이프 시핑서비스시스는 회사 트위터를 통해 “이날 오전 4시<span data-type="ore" data-lang="en">30</span>분 쯤 긴급구조팀이 수에즈 운하를 가로 막고 있던 에버기븐호를 일부 부양하는데 성공했다”는 트윗을 올렸다.<br><br>이로써 수에즈 운하에서 좌초해 일주일 째 운하를 가로막고 있던 에버기븐호는 운하의 양쪽 제방과 평행하게 위치해 정상 항로로 복귀했다. 이에 긴급구조팀은 에버기븐호를 끌어내기 위해 견인선을 동원한 것으로 알려졌다. <br><br>이와 관련, 통신은 에버기븐호의 엔진도 가동을 시작해 이동을 준비하고 있다고 전했다.<br><br>다만 현 시점에서 운하 개통을 기다리며 대기하고 있던 약 <span data-type="ore" data-lang="en">450</span>척의 선박이 모두 통과할 때까지 기다려야 하는 만큼 수에즈 운하의 정확한 항행 재개 시기는 알려지지 않은 상태라고 전했다. <br><br>앞서 지난 <span data-type="ore" data-lang="en">23</span>일 파나마 선적의 컨테이너선 에버 기븐호가 수에즈 운하를 지나다 좌초되면서 운하가 마비된 바 있다. 에버기븐호는 길이가 <span data-type="ore" data-lang="en">400</span>ｍ, 폭이 <span data-type="ore" data-lang="en">59</span>ｍ인 <span data-type="ore" data-lang="en">22</span>만t급 세계 최대 규모 컨테이너선으로, 중국에서 출발해 네덜란드 로테르담으로 향하는 중이었다.<br><br>이정훈 (<span data-type="ore" data-lang="en">futures</span>@<span data-type="ore" data-lang="en">edaily.co.kr</span>)<br><br><a target="_blank" href="https://www.edaily.co.kr/newsplus">▶ #24시간 빠른 #미리보는 뉴스 #eNews+</a><br><a target="_blank" href="http://media.naver.com/channel/promotion.nhn?oid=018">▶ 네이버에서 '이데일리 뉴스'를 만나보세요</a><br><a target="_blank" href="http://snaptime.edaily.co.kr/">▶ 빡침해소, 청춘뉘우스 '스냅타임'</a><br><br><p><br>＜ⓒ종합 경제정보 미디어 이데일리 - 무단전재 &amp; 재배포 금지＞</p>
-                        </div>
+                 	<c:out value="${board.brContent}" escapeXml="false"/>
                 </div>
                 <div class="brboard-review-contentlower">
                     <span id="review-recommend-btn">
                         <a href="#" class="recommend-button"><img src="${ path }/images/heart.png" class="recoicon" id="recommend-icon1"></a>
                         <a href="#" class="recommend-button"><img src="${ path }/images/redheart.png" class="recoicon" id="recommend-icon2"></a>
-                        <span id="review-recommend-btn">공감</span>
+                        <span id="review-recommend-btn">추천 ${board.brLike}</span>
                     </span>
                     <span id="review-edit-btn">
                         <a href="#" id="edit-button">수정</a>
@@ -91,6 +92,7 @@
                     </span>
                 </div>
                 <hr>
+                <!--  
                 <div class="brboard-review-comment">
                     <article class="propose-read-article-1th">
                         <div class="board_title">
@@ -110,17 +112,24 @@
                                  댓글입니다~
                                 </p>
                             </div>
-                    <div class="comment_textarea">
-                        <form action="" method="" class="comment_form">
+                            -->
+			<div class="container">
+					<form id="commentListForm" name="commentListForm" method="post">
+						<div id="commentList"></div>
+					</form>
+				</div>
+				<div class="comment_textarea">
+                        <form id="commentForm" name="commentForm" method="post" class="comment_form">
                             <div class="custom-textarea">
-                                <textarea class="comment_body" style="border: 0px; width: auto; outline: none;" name="comment_body" id="comment_body" rows="1" placeholder="댓글을 남겨주세요"></textarea>
+                                <textarea class="comment_body" style="border: 0px; width: auto; outline: none;" name="comContent" id="comContent" rows="1" placeholder="댓글을 남겨주세요"></textarea>
                                 <div class="write_button_wrap">
                                     <div class="none"></div>
                                     <div class="write_button">
-                                        <a href="#" style="color: #fff;">작성</a>
+                                        <a href='#' id="commentBtn" class="btn pull-right btn-success">등록</a>
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="b_code" name="b_code" value="${result.code }" /> 
                         </form>
                     </div>
                 </div>    
@@ -139,42 +148,6 @@
                             <th id="blind">조회수</th>
                         </thead>
                         <tbody style="border-bottom: 1px solid rgb(241, 241, 241); border-top: 1px solid rgb(241, 241, 241);">
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <a>네이버/페이스북/카카오톡등 SNS로그인 가능합니다!</a>
-                                </td>
-                                <td>대표 관리자</td>
-                                <td id="blind">2019-04-15</td>
-                                <td id="blind">19</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <a>네이버/페이스북/카카오톡등 SNS로그인 가능합니다!</a>
-                                </td>
-                                <td>대표 관리자</td>
-                                <td id="blind">2019-04-15</td>
-                                <td id="blind">19</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <a>네이버/페이스북/카카오톡등 SNS로그인 가능합니다!</a>
-                                </td>
-                                <td>대표 관리자</td>
-                                <td id="blind">2019-04-15</td>
-                                <td id="blind">19</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <a>네이버/페이스북/카카오톡등 SNS로그인 가능합니다!</a>
-                                </td>
-                                <td>대표 관리자</td>
-                                <td id="blind">2019-04-15</td>
-                                <td id="blind">19</td>
-                            </tr>
                             <tr>
                                 <td>1</td>
                                 <td>
@@ -207,6 +180,8 @@
 
 	<script>
 	    $(document).ready(function(){
+	            
+	            /*추천 버튼 눌렀을때*/
 	            /*웹페이지 열었을 때*/
 	            $("#recommend-icon1").show();
 	            $("#recommend-icon2").hide();
@@ -220,6 +195,8 @@
 	                $("#recommend-icon1").show();
 	                $("#recommend-icon2").hide();
 	            });
+	            
+	            
 	        });
 	</script>
 	<script>
@@ -233,11 +210,10 @@
 	</script>
 	<script>
 	 $(document).ready(function () {
-		 	 var isbn = document.getElementById("review-bookisbn").innerText
              $.ajax({
                  method: "GET",
                  url: "https://dapi.kakao.com/v3/search/book?target=isbn",
-                 data: { query: isbn },
+                 data: { query: ${board.brIsbn} },
                  headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
              })
                  .done(function (msg) {
@@ -246,13 +222,123 @@
                      console.log(msg.documents[0].datetime);
                      console.log(msg.documents[0].authors);
                      console.log(msg.documents[0].publisher);
-                     $("#thumbnailbox").append("<img src='" + msg.documents[0].thumbnail + " id=\"bookcover-pic\"/>");
+                     console.log(msg.documents[0].contents);
+                     $("#thumbnailbox").append("<img src='" + msg.documents[0].thumbnail + "'/>");
                      $("#book-description-booktitle").append(msg.documents[0].title);
                      $("#book-description-bookwriter").append(msg.documents[0].authors);
                      $("#book-description-bookpublisher").append(msg.documents[0].publisher);
                      $("#book-description-bookpublish").append(msg.documents[0].datetime);
+                     $("#book-description-bookcontents").append(msg.documents[0].contents);
                  });
      });
 	</script>
+	<script>
+	$(document).ready(function(){
+	function getComments() {
+		var recipeNo = $("#recipeNo").data("recipeno");
+
+		$.ajax({
+			type: "GET",
+			url: "/api/recipes/" + recipeNo + "/comments",
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			success: function (result) {
+				var content = `<div class="comment-option">
+									<h3 id="comment-title">댓글<span class="badge">${result.length}</span></h3>
+								</div>`;
+				$.each(result, function (index, item) {
+
+					content += `<li class="list-group-item">
+									<p><strong>${item.commentWriter}</strong></p>
+									<p>${item.commentContent}</p>`;
+
+					// 삭제 댓글인지 아닌지를 확인하기 위함
+					if (item.commentStatus != "N") {
+						content += `<p><span>최종 수정일: ${item.fullDate} </span><span><button type="button" class="btn-reply">답글쓰기</button>`
+					}
+
+					// 댓글작성자이면 수정 삭제가 가능하게 하기 위함
+					if (item.commentStatus != "N" && item.role == "w") {
+						content += `<button class="btn-update">수정</button><button class="btn-delete">삭제</button>`;
+					}
+					content += `</span></p></li></ul>`;
+
+				})
+				$("#comment-show").empty().append(content);
+				// 댓글 등록 활성화
+				saveComment();
+				// 답변하기 Add 창 활성화
+				attachReplyDiv();
+				// 자신의 댓글 수정버튼 누를시 수정창으로 바뀌는 것 활성화
+				changeCommentDiv();
+				// 자신 댓글 삭제 기능 활성화
+				deleteComment();
+			}
+		})
+	}
+
+	/*
+	 * 댓글 삭제 
+	 */
+	function deleteComment() {
+		$(".btn-delete").off().on('click', function () {
+
+			var commentNo = $(this).closest("ul").data("comment-no")
+			var recipeNo = $("#recipeNo").data("recipeno");
+			$.ajax({
+				method: "DELETE",
+				url: "/api/recipes/" + recipeNo + "/comments/" + commentNo
+			}).done(function () {
+				alert("삭제가 완료되었습니다.");
+				getComments();
+			}).fail(function () {
+				alert("알수 없는 오류가 발생하였습니다.")
+				location.href = "/recipes/" + recipeNo;
+			})
+		})
+	}
+
+	/*
+	 * 새 댓글을 등록한다.
+	 */
+	function saveComment() {
+		var recipeNo = $("#recipeNo").data("recipeno");
+		var nickName = $("#nickname").data("user-nickname");
+
+		$(".attach-comment").off().on('click', function () {
+			var data = {}
+
+			var content = $(this).closest("#comment-writer").find("textarea").val();
+
+			if (content == null) {
+
+				content = $(this).closest("#comment-reply").find("textarea").val();
+				data.commentParentNo = $(this).closest("ul").data("comment-no");
+				$(this).closest("#comment-reply").find("textarea").val("");
+
+			} else {
+				$(this).closest("#comment-writer").find("textarea").val("");
+			}
+			if (content.trim().length < 15) {
+				alert("현재 타이핑수: " + content.trim().length + " 최소 타이핑 수는 15 이상입니다.");
+				return;
+			}
+			data.commentContent = content;
+			data.recipeNo = recipeNo;
+			data.commentWriter = nickName;
+
+			$.post("/api/recipes/" + recipeNo + "/comments", data, function () {
+				getComments();
+				alert("댓글이 등록되었습니다.");
+			}).fail(function () {
+				alert("알수없는 오류가 발생하였습니다");
+			})
+		})
+	}
+	
+	});
+	</script>
+
+	
 
 <%@ include file="../../common/footer.jsp" %>

@@ -14,6 +14,8 @@ public interface ProposeDao {
 
 	int proposeCount();
 
+	int insertPropose(Propose propose);
+	
 	List<Propose> selectProposeList(RowBounds rowBounds);
 
 }

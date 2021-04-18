@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cereal.books.board.model.dao.ClubDao;
 import com.cereal.books.board.model.vo.ClubBoard;
+import com.cereal.books.board.model.vo.Exp;
 import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,10 +47,6 @@ public class ClubServiceImpl implements ClubService {
 		
 		int result = 0;
 		
-		System.out.println("saveBoard result : " + result);
-		
-		result = clubDao.insertClub(clubBoard);
-		
 		if(clubBoard.getBcNo() != 0) {
 //			result = clubDao.updateClub(clubBoard);
 			System.out.println("updateClub");
@@ -83,5 +80,40 @@ public class ClubServiceImpl implements ClubService {
 	public List<ClubBoard> getDlBoardList() {
 		return clubDao.selectDlClubList();
 	}
+
+	@Override
+	public int getExpCount() {
+		return clubDao.selectExpCount();
+	}
+
+	@Override
+	public List<ClubBoard> getExpList(PageInfo pageInfo) {
+		/*
+		 * RowBounds (import org.apache.ibatis.session.RowBounds;)
+		 *  1) offset : 데이터를 가져오는 시작점에서 얼마나 떨어진 데이터값인지 의미
+		 *  2) limit : 몇 개의 값을 가져올지를 의미한다.
+		 */
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return clubDao.selectExp(rowBounds);
+	}
+
+	@Transactional
+	@Override
+	public int saveExpList(Exp exp) {
+		
+		int result = 0;
+		
+		if(exp.getExpNo() != 0) {
+//			result = clubDao.updateClub(clubBoard);
+			System.out.println("updateClub");
+		} else {
+			result = clubDao.insertExp(exp);
+		}
+		
+		return result;
+	}
+
 	
 }

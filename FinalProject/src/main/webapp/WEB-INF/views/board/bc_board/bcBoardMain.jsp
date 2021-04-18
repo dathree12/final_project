@@ -37,8 +37,8 @@
 				        </div>
                     </div>
                     <ul class="menuCategory" style="display: block;">
-                        <li class="headcategory"><a href="#" style="text-decoration: none; color: black;" onclick="addFunc();">전체 클럽</a></li>
-                        <li class="headcategory"><a href="#" style="text-decoration: none; color: black;" onclick="removeFunc();">모집 중인 클럽</a></li>
+                        <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardMain" style="text-decoration: none; color: black;" onclick="addFunc();">전체 클럽</a></li>
+                        <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardMain" style="text-decoration: none; color: black;" onclick="removeFunc();">모집 중인 클럽</a></li>
                         <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardList" style="text-decoration: none; color: black;">클럽 제안하기</a></li>
                     </ul>
                 </div>
