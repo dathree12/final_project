@@ -2,27 +2,33 @@ package com.cereal.books.board.model.vo;
 
 import java.sql.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
 	
 	private int comNo;
 	
-	private int qaNo;
+	private String comWriter;
 	
-	private char comBoard; // char
+	private String comContent; 
 	
-	private String comContent;
+	private String comCreateDate;
 	
-	private Date comCreateDate; // java.sql.Date
-	
-	private Date comEditDate;
+	private String comEditDate;
 	
 	private String comStatus;
 	
-	private String comItem;
+	private int qaNo;
 	
 	private int bcNo;
 	
 	private int brNo;
 	
 	private int bfNo;
+
 }
