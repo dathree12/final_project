@@ -81,11 +81,6 @@ public class ClubServiceImpl implements ClubService {
 		return clubDao.selectDlClubList();
 	}
 
-//	@Override
-//	public ClubBoard findExpByNo(int bcNo) {
-//		return clubDao.selectExp(bcNo);
-//	}
-
 	@Override
 	public int getExpCount() {
 		return clubDao.selectExpCount();
@@ -102,6 +97,22 @@ public class ClubServiceImpl implements ClubService {
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		
 		return clubDao.selectExp(rowBounds);
+	}
+
+	@Transactional
+	@Override
+	public int saveExpList(Exp exp) {
+		
+		int result = 0;
+		
+		if(exp.getExpNo() != 0) {
+//			result = clubDao.updateClub(clubBoard);
+			System.out.println("updateClub");
+		} else {
+			result = clubDao.insertExp(exp);
+		}
+		
+		return result;
 	}
 
 	

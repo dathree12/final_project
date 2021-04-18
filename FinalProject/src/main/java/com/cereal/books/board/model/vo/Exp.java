@@ -1,6 +1,7 @@
 package com.cereal.books.board.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +34,8 @@ public class Exp {
 	private String expStatus;
 	
 	private int bcNo; // FK
+	
+	private List<ClubBoard> clubBoard;
 	
 //	private int bfNo; // FK
 }

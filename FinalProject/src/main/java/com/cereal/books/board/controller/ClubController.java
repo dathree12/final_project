@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.vo.ClubBoard;
+import com.cereal.books.board.model.vo.Exp;
 import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,13 +42,11 @@ public class ClubController {
 	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
 	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit
+			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit
 			) {
 
 		List<ClubBoard> findExp = null;
-		
 		ClubBoard clubBoard = service.findClubByNo(bcNo);
-		
 		int expCount = service.getExpCount();
 		
 		System.out.println("expCount : " + expCount);
@@ -55,8 +54,6 @@ public class ClubController {
 		PageInfo pageInfo = new PageInfo(page, 5, expCount, listLimit);
 		
 		findExp = service.getExpList(pageInfo);
-//		ClubBoard findExp = service.findExpByNo(bcNo);
-		
 		
 		model.addObject("findExp", findExp);
 		model.addObject("clubBoard", clubBoard);
@@ -156,6 +153,35 @@ public class ClubController {
 			int result = 0;
 
 			result = service.saveBoard(clubBoard);
+
+			if (result > 0) {
+				model.addObject("msg", "게시글 등록 성공");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			} else {
+				model.addObject("msg", "게시글 등록 실패");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			}
+		} else {
+			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/board/bc_board/bcBoardMain");
+		}
+
+		model.setViewName("common/msg");
+
+		return model;
+	}
+	
+	// 북 클럽 메인페이지(관리자)
+	@RequestMapping(value = "/bcExpWrite", method = {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView ExpWrite(ModelAndView model, Principal user, ClubBoard clubBoard, Exp exp) throws Exception {
+		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
+
+		if (user.getName().equals(clubBoard.getUserId())) {
+			clubBoard.setUserId(user.getName());
+
+			int result = 0;
+
+			result = service.saveExpList(exp);
 
 			if (result > 0) {
 				model.addObject("msg", "게시글 등록 성공");

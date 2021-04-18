@@ -25,7 +25,7 @@
 					<p>상품 사용후기입니다.</p>
 				</div>
 			</div>
-			<form action="${ path }/board/bc_board/bcAdminWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
+			<form action="${ path }/board/bc_board/bcExpWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
 				<div class="xans-element- xans-board xans-board-write-4 xans-board-write xans-board-4">
 					<div class="ec-base-box typeProduct">
 						<p class="thumbnail">
@@ -34,12 +34,6 @@
 							</a>
 						</p>
 						<div class="information">
-           			       <div class="author" style="visibility: hidden;">
-			              		<security:authentication property="principal" var="user"/> 
-			                    <input style="visibility: hidden; margin-top: 10px" id="post_subject" class="post_subject" name="userName" value="${ user.name }" type="text" readonly>
-			                    <input style="visibility: hidden;" type="text" name="userNo" value="${ user.userNo }" readonly>
-			                    <input style="visibility: hidden;" type="text" name="userId" value="${ user.userId }" readonly>
-	                        </div>
 							<h3>
 								<a href id="aPrdNameLink"> <span id="sPrdName">샘플상품1</span>
 								</a>

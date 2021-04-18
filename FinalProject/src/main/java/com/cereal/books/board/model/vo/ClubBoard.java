@@ -48,6 +48,6 @@ public class ClubBoard {
 	
 	private String bcAgreement; // 북클럽 약관
 	
-	private List<Exp> exp; // Mybatis에서 테이블간의 1:N관계를 select 할 때, resultMap을 통한 서브쿼리로 가져올 때
+	private List<Exp> exps; // Mybatis에서 테이블간의 1:N관계를 select 할 때, resultMap을 통한 서브쿼리로 가져올 때
 	
 }

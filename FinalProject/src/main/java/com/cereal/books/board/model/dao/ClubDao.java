@@ -53,5 +53,7 @@ public interface ClubDao {
 	List<ClubBoard> selectClubList(RowBounds rowBounds);
 	
 	List<ClubBoard> selectExp(RowBounds rowBounds);
+
+	int insertExp(Exp exp);
 	
 }

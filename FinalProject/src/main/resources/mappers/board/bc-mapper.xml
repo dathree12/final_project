@@ -2,22 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<!-- 에러내역 : 
-	parent key not found -> 부모클래스에 들어갈 수 있어야 하는데 부모클래스의 범위를 넘어섰기 때문에 발생 
-	SQL command not properly ended -> 콜론, AS 등 잘못 된 끝맺음
--->
+<!-- 에러내역 : parent key not found -> 부모클래스에 들어갈 수 있어야 하는데 부모클래스의 범위를 넘어섰기 
+	때문에 발생 SQL command not properly ended -> 콜론, AS 등 잘못 된 끝맺음 -->
 
 <mapper namespace="com.cereal.books.board.model.dao.ClubDao">
 	<!-- 반복되는 쿼리문 -->
 	<sql id="clubListSql">
-		SELECT 
+		SELECT
 		B.BC_NO,
 		M.USER_NO,
 		B.BC_ORIGIN_TITLE,
 		B.BC_SUB_TITLE,
 		B.BC_REG_DATE,
-		B.BC_DETAIL_DATE, 
-		B.BC_START_DATE, 
+		B.BC_DETAIL_DATE,
+		B.BC_START_DATE,
 		B.BC_DL_DATE,
 		B.BC_VIEW_COUNT,
 		B.BC_CONTENT,
@@ -28,14 +26,15 @@
 		FROM
 		BOOK_CLUB_BOARD B
 		JOIN MEMBER M ON (B.USER_NO = M.USER_NO)
-		WHERE B.BC_STATUS='P'
+		WHERE
+		B.BC_STATUS='P'
 	</sql>
 
 	<!-- 북 클럽 메인페이지 -->
 	<resultMap type="ClubBoard" id="clubResultMap">
 		<id property="bcNo" column="BC_NO" />
-		<result property="userNo" column="USER_NO"/>
-		<result property="userId" column="USER_ID"/>
+		<result property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
 		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE" />
 		<result property="bcSubTitle" column="BC_SUB_TITLE" />
 		<result property="bcPrice" column="BC_PRICE" />
@@ -51,12 +50,12 @@
 		<result property="bcStatus" column="BC_STATUS" />
 		<result property="bcAgreement" column="BC_AGREEMENT" />
 	</resultMap>
-	
+
 	<!-- 북 클럽 상세페이지 / 댓글 수 -->
 	<resultMap type="ClubBoard" id="clubDetailResultMap">
 		<id property="bcNo" column="BC_NO" />
-		<result property="userNo" column="USER_NO"/>
-		<result property="userId" column="USER_ID"/>
+		<result property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
 		<result property="bcOriginTitle" column="BC_ORIGIN_TITLE" />
 		<result property="bcSubTitle" column="BC_SUB_TITLE" />
 		<result property="bcPrice" column="BC_PRICE" />
@@ -67,49 +66,41 @@
 		<result property="bcRemainDate" column="BC_REMAIN_DATE" />
 		<result property="bcViewCount" column="BC_VIEW_COUNT" />
 		<result property="bcContent" column="BC_CONTENT" />
-		<result property="bcCommentCount" column="BC_COM_COUNT"/>
+		<result property="bcCommentCount" column="BC_COM_COUNT" />
 		<result property="bcOriginImage" column="BC_ORIGIN_IMAGE" />
 		<result property="bcModifyImage" column="BC_MODIFY_IMAGE" />
 		<result property="bcStatus" column="BC_STATUS" />
 		<result property="bcAgreement" column="BC_AGREEMENT" />
-		<collection property="exp" javaType="java.util.ArrayList" resultMap="expResultMap"/>
+		<collection property="exps" column="expNo" javaType="java.util.ArrayList" select="expResultMap" ofType="com.cereal.books.board.model.vo.Exp" />
 	</resultMap>
-	
+
 	<!-- 후기 맵 -->
-	<resultMap type="Exp" id="expResultMap">
+	<resultMap type="com.cereal.books.board.model.vo.Exp" id="expResultMap">
 		<id property="expNo" column="EXP_NO" />
-		<result property="userNo" column="USER_NO"/>
-		<result property="userName" column="USER_NAME"/>
-		<result property="expTitle" column="EXP_TITLE"/>
-		<result property="expViewCount" column="EXP_VIEWCOUNT"/>
-		<result property="expContent" column="EXP_CONTENT"/>
-		<result property="expRegDate" column="USEEXP_REG_DATE"/>
-		<result property="expStatus" column="EXP_STATUS"/>
-		<result property="bcNo" column="BC_NO"/>
+		<result property="userNo" column="USER_NO" />
+		<result property="userName" column="USER_NAME" />
+		<result property="expTitle" column="EXP_TITLE" />
+		<result property="expViewCount" column="EXP_VIEWCOUNT" />
+		<result property="expContent" column="EXP_CONTENT" />
+		<result property="expRegDate" column="USEEXP_REG_DATE" />
+		<result property="expStatus" column="EXP_STATUS" />
+		<result property="bcNo" column="BC_NO" />
 	</resultMap>
-	
-	<!-- 회원 맵 
-	<resultMap type="Member" id="memberResultSet">
-		<id property="userNo" column="USER_NO"/>
-		<result property="userId" column="USER_ID"/>
-		<result property="userPwd" column="USER_PWD"/>
-		<result property="name" column="USER_NAME"/>
-		<result property="userNname" column="USER_NNAME"/>
-		<result property="userRole" column="USER_ROLE"/>
-		<result property="userPhone" column="USER_PHONE"/>
-		<result property="userEmail" column="USER_EMAIL"/>
-		<result property="userAddress" column="USER_ADDRESS"/>
-		<result property="userGenre" column="USER_GENRE"/>
-		<result property="userAgreement" column="USER_AGREEMENT"/>
-		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
-		<result property="userModifyDate" column="USER_MODIFY_DATE"/>
-		<result property="status" column="STATUS"/>
-	</resultMap>
-	-->
-	
+
+	<!-- 회원 맵 <resultMap type="Member" id="memberResultSet"> <id property="userNo" 
+		column="USER_NO"/> <result property="userId" column="USER_ID"/> <result property="userPwd" 
+		column="USER_PWD"/> <result property="name" column="USER_NAME"/> <result 
+		property="userNname" column="USER_NNAME"/> <result property="userRole" column="USER_ROLE"/> 
+		<result property="userPhone" column="USER_PHONE"/> <result property="userEmail" 
+		column="USER_EMAIL"/> <result property="userAddress" column="USER_ADDRESS"/> 
+		<result property="userGenre" column="USER_GENRE"/> <result property="userAgreement" 
+		column="USER_AGREEMENT"/> <result property="userEnrollDate" column="USER_ENROLL_DATE"/> 
+		<result property="userModifyDate" column="USER_MODIFY_DATE"/> <result property="status" 
+		column="STATUS"/> </resultMap> -->
+
 	<!-- 북 클럽 상세페이지 조회 / 북 클럽 게시판 번호로 조회 -->
 	<select id="selectClubDetail" parameterType="_int" resultMap="clubDetailResultMap">
-		SELECT 
+		SELECT
 		B.BC_NO,
 		M.USER_NO,
 		B.BC_ORIGIN_TITLE,
@@ -130,19 +121,18 @@
 		FROM BOOK_CLUB_BOARD B
 		JOIN MEMBER M ON (B.USER_NO= M.USER_NO)
 		JOIN EXP E ON (E.USER_NO = B.USER_NO)
-		WHERE
-		B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
+		WHERE B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
 	</select>
 
 	<!-- 메인페이지 클럽 게시판 전체 조회 -->
-	<select id="selectClubList" parameterType="map"	resultMap="clubResultMap">
+	<select id="selectClubList" parameterType="map" resultMap="clubResultMap">
 		<include refid="clubListSql"></include>
 		ORDER BY B.BC_NO DESC
 	</select>
-	
+
 	<!-- 진행중(모집 마감 된) 게시판 조회 -->
 	<select id="selectDlClubList" parameterType="map" resultMap="clubResultMap">
-		SELECT 
+		SELECT
 		B.BC_NO,
 		M.USER_NO,
 		B.BC_ORIGIN_TITLE,
@@ -151,8 +141,7 @@
 		B.BC_VIEW_COUNT,
 		B.BC_ORIGIN_IMAGE,
 		B.BC_MODIFY_IMAGE
-		FROM
-		BOOK_CLUB_BOARD B
+		FROM BOOK_CLUB_BOARD B
 		JOIN MEMBER M ON (B.USER_NO = M.USER_NO)
 		WHERE B.BC_STATUS='Q'
 	</select>
@@ -163,16 +152,17 @@
 		FROM BOOK_CLUB_BOARD
 		WHERE BC_STATUS = 'P'
 	</select>
-	
+
 	<!-- 후기 찾기 -->
 	<select id="selectExp" parameterType="map" resultMap="clubResultMap">
-		SELECT B.BC_NO, E.EXP_NO, E.EXP_TITLE, M.USER_NAME, E.EXP_REG_DATE, E.EXP_VIEWCOUNT, B.BC_ORIGIN_TITLE, B.BC_PRICE
+		SELECT B.BC_NO, E.EXP_NO, E.EXP_TITLE, M.USER_NAME,
+		E.EXP_REG_DATE, E.EXP_VIEWCOUNT, B.BC_ORIGIN_TITLE, B.BC_PRICE
 		FROM BOOK_CLUB_BOARD B
 		JOIN MEMBER M ON(M.USER_NO = B.USER_NO)
 		JOIN EXP E ON(E.USER_NO = M.USER_NO)
-		WHERE B.BC_STATUS='P'
+		WHERE B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
 	</select>
-	
+
 	<!-- 후기 총 리스트 수 -->
 	<select id="selectExpCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
@@ -182,39 +172,55 @@
 	</select>
 
 	<!-- 북 클럽 게시판 추가 -->
-	<insert id="insertClub" parameterType="map"
-		useGeneratedKeys="true" keyProperty="bcNo" keyColumn="BC_NO">
-		INSERT INTO 
-		BOOK_CLUB_BOARD 
+	<insert id="insertClub" parameterType="map" useGeneratedKeys="true" keyProperty="bcNo" keyColumn="BC_NO">
+		INSERT INTO
+		BOOK_CLUB_BOARD
 		VALUES(
 		SEQ_BC_NO.NEXTVAL,
 		#{userNo},
 		#{userId},
 		#{bcOriginTitle},
-		#{bcSubTitle}, 
-		#{bcPrice}, 
-		TO_DATE(#{bcRegDate}, 'yy-mm-dd'), 
-		#{bcDetailDate}, 
+		#{bcSubTitle},
+		#{bcPrice},
+		TO_DATE(#{bcRegDate}, 'yy-mm-dd'),
+		#{bcDetailDate},
 		TO_DATE(#{bcStartDate}, 'yy-mm-dd'),
 		TO_DATE(#{bcDeadLineDate}, 'yy-mm-dd'),
 		DEFAULT,
-		DEFAULT, 
-		#{bcContent}, 
-		DEFAULT, 
-		#{bcOriginImage}, 
-		#{bcModifyImage}, 
-		'P', 
+		DEFAULT,
+		#{bcContent},
+		DEFAULT,
+		#{bcOriginImage},
+		#{bcModifyImage},
+		'P',
 		'Y'
 		)
 	</insert>
 	
+	<!-- 후기 추가 --> 
+	<insert id="insertExp" parameterType="map" useGeneratedKeys="true" keyProperty="expNo" keyColumn="EXP_NO">
+		INSERT INTO 
+		EXP 
+		VALUES(
+		SEQ_EXP_NO.NEXTVAL,
+		#{userNo},
+		#{userName},
+		#{expTitle},
+		DEFAULT,
+		#{expContent},
+		TO_DATE(SYSDATE, 'yy-mm-dd'),
+		'Y', 
+		#{bcNo}
+		)
+	</insert>
+
 	<!-- 클럽 모집 마감 일정 -->
 	<update id="saveRemainDate" parameterType="ClubBoard">
 		UPDATE BOOK_CLUB_BOARD
-		SET 
+		SET
 		BC_REMAIN_DATE = TRUNC(BC_START_DATE - SYSDATE)
 	</update>
-	
+
 	<!-- 클럽 시작일정과 현재 날짜가 동일해지거나 음수가 되면 진행중(모집 마감) -> index(Q) -->
 	<update id="noneRemainDate" parameterType="ClubBoard">
 		UPDATE BOOK_CLUB_BOARD
