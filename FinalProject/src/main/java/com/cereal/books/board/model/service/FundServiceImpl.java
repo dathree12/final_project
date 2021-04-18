@@ -2,8 +2,6 @@ package com.cereal.books.board.model.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -128,38 +126,48 @@ public class FundServiceImpl implements FundService {
 		return fundDao.increateViewcnt(bfNo);
 	}
 	
-	// 검색을 통한 조회
+	// 검색을 통한 리스트 조회, 페이징 처리x
 	@Override
-	public int getSearchCount111(String keyword) {
+	public List<FundBoard> getSearchList_Title(String keyword) {
 		
-		return fundDao.getSearchCount111(keyword);
+		return fundDao.getSearchList_Title(keyword);
+	}
+	@Override
+	public List<FundBoard> getSearchList_Content(String keyword) {
+		
+		return fundDao.getSearchList_Content(keyword);
 	}
 
+	// 인기프로젝트 조회(조회수순), 성공임박프로젝트 조회(남은시간순)
 	@Override
-	public List<FundBoard> getSearchList111(PageInfo pageInfo, String keyword) {
-		
+	public List<FundBoard> getBoardList_viewCount(PageInfo pageInfo) {
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());		
 		
-		return fundDao.selectBoardList111(rowBounds, keyword);
+		return fundDao.getBoardList_viewCount(rowBounds);
 	}
-	
-//	@Override
-//	public int getSearchCount(String fd_search_sort, String keyword) {
-//		
-//		return fundDao.getSearchCount(fd_search_sort, keyword);
-//	}
-//
-//	@Override
-//	public List<FundBoard> getSearchList(PageInfo pageInfo, String fd_search_sort, String keyword) {
-//		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
-//		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());		
-//		
-//		return fundDao.getSearchList(rowBounds, fd_search_sort, keyword);
-//	}
+	@Override
+	public List<FundBoard> getBoardList_remainDate(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());		
+		
+		return fundDao.getBoardList_remainDate(rowBounds);
+	}
+	// 마감된프로젝트 조회(마감항목, 최근마감날짜순)
+	@Override
+	public int getBoardCount_endDate() {
+		
+		return fundDao.getBoardCount_endDate();
+	}
+	@Override
+	public List<FundBoard> getBoardList_endDate(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());		
+		
+		return fundDao.getBoardList_endDate(rowBounds);
+	}
 
+	
+	
 
-	
-	
-	
 }

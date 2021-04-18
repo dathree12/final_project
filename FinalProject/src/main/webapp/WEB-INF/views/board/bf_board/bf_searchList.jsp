@@ -29,10 +29,10 @@
         </div>
         
         <div class="fdboard_top_menu">
-            <li><a href="#">인기 프로젝트</a></li>
-            <li><a href="#">전체보기</a></li>
-            <li><a href="#">성공 임박 프로젝트</a></li>
-            <li><a href="#">마감된 프로젝트</a></li>
+            <li><a href="${path}/board/bf_board/bf_boardList_viewCount">인기 프로젝트</a></li>
+            <li><a href="${path}/board/bf_board/bf_boardList">전체보기</a></li>
+            <li><a href="${path}/board/bf_board/bf_boardList_remainDate">마감 임박 프로젝트</a></li>
+            <li><a href="${path}/board/bf_board/bf_boardList_endDate">마감된 프로젝트</a></li>
         </div>
     </div>
     
@@ -41,22 +41,12 @@
         <div class="fdboard_mid_searchbar">
         
             <form class="fdboard_mid_searchbar_form" action="${path}/board/bf_board/bf_searchList" method="get">
-                <%-- <select name="fd_search_sort" class="fdboard_mid_searchbar_item sort">
-                    <option value="bfTitle" <c:out value="${map.fd_search_sort == 'bfTitle'?'selected':''}"/> >제목</option>
-                    <option value="bfContent" <c:out value="${map.fd_search_sort == 'bfContent'?'selected':''}"/> >내용</option>
-                    <option value="all" <c:out value="${map.fd_search_sort == 'all'?'selected':''}"/> >제목 + 내용</option>
-                </select> --%>
-                
                 <select name="fd_search_sort" class="fdboard_mid_searchbar_item sort">
                     <option value="bfTitle">제목</option>
                     <option value="bfContent" >내용</option>
                 </select>
-                <input name="keyword" value="keyword" placeholder="검색어를 입력해주세요">
+                <input name="keyword" placeholder="검색어를 입력해주세요">
                 <input type="submit" value=" 검색 ">
-                <!-- <a  onclick="document.getElementById('bf_searchList').submit();">검색</a> -->
-                <!-- <div class="fdboard_mid_searchbar_item inputbox">
-                    <input type="search" class="fd_search_inputbox" placeholder="검색어를 입력해주세요" name="fd_searchword">
-                </div> -->
             </form>
         </div>
         <div class="fdboard_mid_sortprice">
@@ -64,9 +54,12 @@
             <a href="">낮은가격</a>&nbsp
             <a href="">높은가격</a>
         </div>
+        
+        <security:authorize access="hasRole('USER')">
         <div class="fdboard_top_enroll">
             <a href="${path}/board/bf_board/bf_agreement">프로젝트 신청하기</a>
         </div>
+        </security:authorize>
 
         <div class="fdboard_mid_container">
         	<c:if test="${list == null}">
@@ -125,7 +118,7 @@
         </div>
     </div>	 --%>
 	
-     <div class="fdboard_mid_bottom">
+<%--      <div class="fdboard_mid_bottom">
         <div class="fdboard_mid_pageCount">
             <a href="${path}/board/bf_board/bf_searchList?page=1?fd_search_sort=${fd_search_sort}&keyword=${keyword}">&lt;&lt;</a> &nbsp &nbsp
             <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.prvePage}?fd_search_sort=${fd_search_sort}&keyword=${keyword}">&lt;</a> &nbsp &nbsp
@@ -142,9 +135,7 @@
             <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.nextPage}?fd_search_sort=${fd_search_sort}&keyword=${keyword}">&gt;</a> &nbsp &nbsp
             <a href="${path}/board/bf_board/bf_searchList?page=${pageInfo.maxPage}?fd_search_sort=${fd_search_sort}&keyword=${keyword}">&gt;&gt;</a>
         </div>
-    </div>
-    
-    
+    </div> --%>
     
 <%--     <div class="fdboard_mid_bottom">
         <div class="fdboard_mid_pageCount">

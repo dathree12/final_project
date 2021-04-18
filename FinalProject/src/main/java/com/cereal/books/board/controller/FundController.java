@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -13,11 +12,10 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.	bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -319,80 +317,102 @@ public class FundController {
         }
 	}
 	
-	// 검색을 통한 조회
-//	@RequestMapping(value = "bf_searchList", method = {RequestMethod.POST})
-//	public ModelAndView searchList(
-//			ModelAndView model,
-//			@RequestParam(defaultValue = "bfTitle") String fd_search_sort,
-//			@RequestParam(defaultValue = "") String keyword,
-//			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-//			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit ) {
-//		
-//		List<FundBoard> list = null;
-//		
-//		int boardCount = service.getSearchCount(fd_search_sort, keyword);
-//		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
-//		
-//		System.out.println(boardCount);
-//		
-//		// remainDate 업데이트 하는 과정
-//		service.saveRemainDate();
-//		service.changeStatus();
-//		
-//		list = service.getSearchList(pageInfo, fd_search_sort, keyword);
-//		
-//		model.addObject("list", list);
-//		model.addObject("pageInfo", pageInfo);
-//		model.setViewName("board/bf_board/bf_boardList");
-//		
-//		System.out.println(list);
-//		
-//		return model;
-//	}
-	
+	// 검색을 통한 리스트 조회, 페이징 처리x
 	@RequestMapping(value = "bf_searchList", method = {RequestMethod.GET})
 	public ModelAndView searchList(
 			ModelAndView model,
 			@RequestParam(defaultValue = "bfTitle") String fd_search_sort,
-			@RequestParam(value = "keyword") String keyword,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit ) {
+			@RequestParam(value = "keyword") String keyword ) {
 		
 		List<FundBoard> list = null;
-		int boardCount = 0;
-		
-		if(fd_search_sort.equals("bfTitle")) {
-			boardCount = service.getSearchCount111(keyword);
-		} 
-//		else {
-//			boardCount = service.getSearchCount222(keyword);
-//		}
-		
-		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
-		
-		System.out.println(boardCount);
 		
 		// remainDate 업데이트 하는 과정
 		service.saveRemainDate();
 		service.changeStatus();
 		
 		if(fd_search_sort.equals("bfTitle")) {
-			list = service.getSearchList111(pageInfo, keyword);
+			list = service.getSearchList_Title(keyword);
 		} 
-//		else {
-//			list = service.getSearchList222(pageInfo, keyword);
-//		}
-		
+		else if(fd_search_sort.equals("bfContent")){
+			list = service.getSearchList_Content(keyword);
+		}
+	
 		model.addObject("fd_search_sort", fd_search_sort);
 		model.addObject("keyword", keyword);
 		model.addObject("list", list);
-		model.addObject("pageInfo", pageInfo);
 		model.setViewName("board/bf_board/bf_searchList");
 		
 		return model;
 	}
 	
-	
+	// 인기프로젝트(조회수순정렬), 성공임박프로젝트(남은시간순정렬), 마감된프로젝트(마감항목표시)
+	@RequestMapping(value="/bf_boardList_viewCount", method = {RequestMethod.GET})
+	public ModelAndView listViewCount(
+			ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit	) {
+		
+		List<FundBoard> list = null;
+		
+		int boardCount = service.getBoardCount();
+		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+		
+		service.saveRemainDate();
+		service.changeStatus();
+		
+		list = service.getBoardList_viewCount(pageInfo);
+		
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("board/bf_board/bf_boardList_viewCount");
+		
+		return model;
+	}
+	@RequestMapping(value="/bf_boardList_remainDate", method = {RequestMethod.GET})
+	public ModelAndView listremainDate(
+			ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit	) {
+		
+		List<FundBoard> list = null;
+		
+		int boardCount = service.getBoardCount();
+		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+		
+		service.saveRemainDate();
+		service.changeStatus();
+		
+		list = service.getBoardList_remainDate(pageInfo);
+		
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("board/bf_board/bf_boardList_remainDate");
+		
+		return model;
+	}
+	// 마감된 프로젝트 조회(마감항목 받아와서 조회하기)
+	@RequestMapping(value="/bf_boardList_endDate", method = {RequestMethod.GET})
+	public ModelAndView listendDate(
+			ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit	) {
+		
+		List<FundBoard> list = null;
+		
+		int boardCount = service.getBoardCount_endDate();
+		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+		
+		service.saveRemainDate();
+		service.changeStatus();
+		
+		list = service.getBoardList_endDate(pageInfo);
+		
+		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
+		model.setViewName("board/bf_board/bf_boardList_endDate");
+		
+		return model;
+	}	
 	
 }
 
