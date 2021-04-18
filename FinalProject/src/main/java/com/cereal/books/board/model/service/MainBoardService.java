@@ -14,6 +14,10 @@ public interface MainBoardService {
 
 	List<ReviewBoard> getBoardListNo(PageInfo pageInfo);
 
+	List<ReviewBoard> getBoardListMB(PageInfo pageInfo);
+
+	List<ReviewBoard> getBoardListBeforeMB(PageInfo pageInfo);
+
 	
 
 	

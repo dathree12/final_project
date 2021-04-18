@@ -1,6 +1,9 @@
 package com.cereal.books.board.model.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,6 +74,29 @@ public class MainBoardServiceImpl implements MainBoardService {
 				
 
 		return  mainBoardDao.selectBoardListbest(rowBounds, arr);
+	}
+
+
+
+	@Override
+	public List<ReviewBoard> getBoardListMB(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit(); 
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		List<ReviewBoard> mBest = new ArrayList<>();
+	
+		mBest = mainBoardDao.selectBoardListMB(rowBounds);			
+		return mBest;
+	}
+
+
+
+	@Override
+	public List<ReviewBoard> getBoardListBeforeMB(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit(); 
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		List<ReviewBoard> mBest = new ArrayList<>();
+		mBest = mainBoardDao.selectBoardListBeforeMB(rowBounds);
+		return mBest;
 	}
 
 
