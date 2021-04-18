@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import com.cereal.books.board.model.vo.BookScrap;
+import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.ReviewBoard;
 
 @Mapper
@@ -24,5 +25,7 @@ public interface ReviewDao {
 		int updateBookScrap(BookScrap bookscrap);
 		
 		int insertBookScrap(BookScrap bookscrap);
+		
+		int insertComment(Comment comment);
 
 }

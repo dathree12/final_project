@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cereal.books.board.model.dao.ReviewDao;
 import com.cereal.books.board.model.vo.BookScrap;
+import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
 
@@ -65,5 +66,13 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return result;
 	}
+
+	@Override
+	public int insertComment(Comment comment) {
+		int result = 0;
+		result = reviewDao.insertComment(comment);
+		return result;
+	}
+
 
 }

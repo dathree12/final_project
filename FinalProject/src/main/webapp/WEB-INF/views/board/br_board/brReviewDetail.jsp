@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>    
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
+<security:authentication property="principal" var="user"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -51,7 +52,7 @@
                     <p id="reviewheader-bookclass">${board.brBookType}</p>
                     <p id="reviewheader-reviewtitle">${board.brTitle}</p>
                     <p id="reviewheader-reviewwriter">${board.userNname}</p>
-                    <p id="reviewheader-reviewdate">${board.brModifyDate}</p>
+                    <p id="reviewheader-reviewdate">${board.brCreateDate}</p>
                 </div>
                 <hr>
                 <div class="review-book-bookscrap">
@@ -91,6 +92,7 @@
                     </span>
                 </div>
                 <hr>
+                <!--  
                 <div class="brboard-review-comment">
                     <article class="propose-read-article-1th">
                         <div class="board_title">
@@ -110,17 +112,24 @@
                                  댓글입니다~
                                 </p>
                             </div>
-                    <div class="comment_textarea">
-                        <form action="" method="" class="comment_form">
+                            -->
+			<div class="container">
+					<form id="commentListForm" name="commentListForm" method="post">
+						<div id="commentList"></div>
+					</form>
+				</div>
+				<div class="comment_textarea">
+                        <form id="commentForm" name="commentForm" method="post" class="comment_form">
                             <div class="custom-textarea">
-                                <textarea class="comment_body" style="border: 0px; width: auto; outline: none;" name="comment_body" id="comment_body" rows="1" placeholder="댓글을 남겨주세요"></textarea>
+                                <textarea class="comment_body" style="border: 0px; width: auto; outline: none;" name="comContent" id="comContent" rows="1" placeholder="댓글을 남겨주세요"></textarea>
                                 <div class="write_button_wrap">
                                     <div class="none"></div>
                                     <div class="write_button">
-                                        <a href="#" style="color: #fff;">작성</a>
+                                        <a href='#' id="commentBtn" class="btn pull-right btn-success">등록</a>
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="b_code" name="b_code" value="${result.code }" /> 
                         </form>
                     </div>
                 </div>    
@@ -224,81 +233,112 @@
      });
 	</script>
 	<script>
-	 $(document).ready(function () {
-		 		scrapNo = ${BookScrap.scrapNo};
-				scrap = ${BookScrap.status}; 	//페이지 시작시 가져온 스크랩 정보를 저장 (스크랩 체크 변경시 변수 변경)
-				scrapOrigin = scrap;			//페이지 시작시 가져온 스크랩 정보를 저장
-				likeCheck(like);				// 좋아요 상태에 따라 버튼의 상태 변경
-				
-				console.log(scrap);
-				
-				if(scrapNo == null || scrap == 'N'){	//스크랩정보가 저장안되어있거나 N일경우 scrap-icon1 보여주기
-					 $("#scrap-icon1").show();
-			         $("#scrap-icon2").hide();
-				}
-				else {
-					$("#scrap-icon2").show();		////스크랩정보가 Y일경우 scrap-icon2 보여주기
-			        $("#scrap-icon1").hide();
-				}
-	            /*img1을 클릭했을 때 img2를 보여줌*/
-	            $("#recommend-icon1").click(function(){
-	                $("#recommend-icon1").hide();
-	                $("#recommend-icon2").show();
-	                scrap = 'Y';
-	            });
-	            /*img2를 클릭했을 때 img1을 보여줌*/
-	            $("#recommend-icon2").click(function(){
-	                $("#recommend-icon1").show();
-	                $("#recommend-icon2").hide();
-	                scrap = 'N'
-	            });
-				
-				
-				$(window).on('beforeunload',function() { // 페이지 나갈 때, 변경 된 좋아요 정보 DB update
-					
-					if(scrap != scrapOrigin){
-						$.ajax({
-							type: "post",
-							url : "${path}/board/br_board/brBookScrap",
-							data : {
-								userId : ${member.userId},
-								bsIsbn : ${board.brIsbn},
-								scrapNo : scrapNo,
-								scrap : scrap,
-								scrapOrigin : scrapOrigin
-							},
-							success : function() {
-								alert('스크랩 성공! 마이페이지에서 확인하세요')
-							}
-							error : function(e) {
-								alert('스크랩 실패!')
-							}
-						})
+	$(document).ready(function(){
+	function getComments() {
+		var recipeNo = $("#recipeNo").data("recipeno");
+
+		$.ajax({
+			type: "GET",
+			url: "/api/recipes/" + recipeNo + "/comments",
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			success: function (result) {
+				var content = `<div class="comment-option">
+									<h3 id="comment-title">댓글<span class="badge">${result.length}</span></h3>
+								</div>`;
+				$.each(result, function (index, item) {
+
+					content += `<li class="list-group-item">
+									<p><strong>${item.commentWriter}</strong></p>
+									<p>${item.commentContent}</p>`;
+
+					// 삭제 댓글인지 아닌지를 확인하기 위함
+					if (item.commentStatus != "N") {
+						content += `<p><span>최종 수정일: ${item.fullDate} </span><span><button type="button" class="btn-reply">답글쓰기</button>`
 					}
+
+					// 댓글작성자이면 수정 삭제가 가능하게 하기 위함
+					if (item.commentStatus != "N" && item.role == "w") {
+						content += `<button class="btn-update">수정</button><button class="btn-delete">삭제</button>`;
+					}
+					content += `</span></p></li></ul>`;
+
 				})
-				
-				/* 좋아요 버튼 함수
-				$('#likeButton').click(function() {		// 좋아요 버튼 클릭 시 변경 함수
-					if(like == 1){						//좋아요(1) 상태 였을 때, 
-						like = 0;						//불이 꺼진(좋아요 싫어요 모두 꺼진 상태)로 변경	
-						like_num -= 1;					//전체 좋아요 숫자에서 -1
-						$('#likeNum').html(like_num);   //좋아요 숫자 div에 반영
-					
-					}else{								//좋아요(1) 상태가 아닐때,
-						if(like == 2){					// 싫어요(2) 상태일 때,
-							dislike_num -= 1;			// 싫어요 전체 숫자 -1
-						}
-						like = 1;						//좋아요(1) 상태로 변경
-						like_num++;						//전체 좋아요 숫자 +1
-						$('#likeNum').html(like_num);	
-						$('#dislikeNum').html(dislike_num);	// 좋아요 and 싫어요 숫자 반영
-					}
-				likeCheck(like);						// 버튼의 css 변경 함수 실행
-				}) */
+				$("#comment-show").empty().append(content);
+				// 댓글 등록 활성화
+				saveComment();
+				// 답변하기 Add 창 활성화
+				attachReplyDiv();
+				// 자신의 댓글 수정버튼 누를시 수정창으로 바뀌는 것 활성화
+				changeCommentDiv();
+				// 자신 댓글 삭제 기능 활성화
+				deleteComment();
+			}
+		})
+	}
 
-				
+	/*
+	 * 댓글 삭제 
+	 */
+	function deleteComment() {
+		$(".btn-delete").off().on('click', function () {
 
-	 });
+			var commentNo = $(this).closest("ul").data("comment-no")
+			var recipeNo = $("#recipeNo").data("recipeno");
+			$.ajax({
+				method: "DELETE",
+				url: "/api/recipes/" + recipeNo + "/comments/" + commentNo
+			}).done(function () {
+				alert("삭제가 완료되었습니다.");
+				getComments();
+			}).fail(function () {
+				alert("알수 없는 오류가 발생하였습니다.")
+				location.href = "/recipes/" + recipeNo;
+			})
+		})
+	}
+
+	/*
+	 * 새 댓글을 등록한다.
+	 */
+	function saveComment() {
+		var recipeNo = $("#recipeNo").data("recipeno");
+		var nickName = $("#nickname").data("user-nickname");
+
+		$(".attach-comment").off().on('click', function () {
+			var data = {}
+
+			var content = $(this).closest("#comment-writer").find("textarea").val();
+
+			if (content == null) {
+
+				content = $(this).closest("#comment-reply").find("textarea").val();
+				data.commentParentNo = $(this).closest("ul").data("comment-no");
+				$(this).closest("#comment-reply").find("textarea").val("");
+
+			} else {
+				$(this).closest("#comment-writer").find("textarea").val("");
+			}
+			if (content.trim().length < 15) {
+				alert("현재 타이핑수: " + content.trim().length + " 최소 타이핑 수는 15 이상입니다.");
+				return;
+			}
+			data.commentContent = content;
+			data.recipeNo = recipeNo;
+			data.commentWriter = nickName;
+
+			$.post("/api/recipes/" + recipeNo + "/comments", data, function () {
+				getComments();
+				alert("댓글이 등록되었습니다.");
+			}).fail(function () {
+				alert("알수없는 오류가 발생하였습니다");
+			})
+		})
+	}
+	
+	});
 	</script>
+
+	
 
 <%@ include file="../../common/footer.jsp" %>

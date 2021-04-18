@@ -60,15 +60,15 @@
 	<!-- 댓글 resultmap -->
 	<resultMap type="Comment" id="boardCommentResultMap">
 		<id property="comNo" column="COM_NO"/>
-		<result property="boardNO" column="COM_WRITER"/>
-		<result property="userId" column="COM_CONTENT"/>
-		<result property="replyContent" column="COM_CREATE_DATE"/>
-		<result property="status" column="COM_EDIT_DATE"/>
-		<result property="replyCreateDate" column="COM_STATUS"/>
-		<result property="replyModifyDate" column="QA_NO"/>
-		<result property="replyModifyDate" column="BC_NO"/>
-		<result property="replyModifyDate" column="BR_NO"/>
-		<result property="replyModifyDate" column="BF_NO"/>
+		<result property="comWriter" column="COM_WRITER"/>
+		<result property="comContent" column="COM_CONTENT"/>
+		<result property="comCreateDate" column="COM_CREATE_DATE"/>
+		<result property="comEditDate" column="COM_EDIT_DATE"/>
+		<result property="comStatus" column="COM_STATUS"/>
+		<result property="qaNo" column="QA_NO"/>
+		<result property="bcNo" column="BC_NO"/>
+		<result property="brNo" column="BR_NO"/>
+		<result property="bfNo" column="BF_NO"/>
 	</resultMap>
 	
 	<!-- 스크랩 resultmap -->
@@ -134,6 +134,25 @@
 		LEFT OUTER JOIN BOOK_SCRAP BS ON(BR.BR_ISBN = BS.BS_ISBN)
 		WHERE BR.BR_NO = #{brNo}	
 	</select>
+	
+	<insert id="insertComment" parameterType="map"
+		useGeneratedKeys="true" keyProperty="comNo" keyColumn="COM_NO">
+  		
+	  	INSERT INTO COMMENT_BOARD
+	  		VALUES(
+	  			SEQ_BR_NO.NEXTVAL,
+	  			#{userNname},
+	  			#{comContent},
+	  			DEFAULT,
+	  			DEFAULT,
+	  			DEFAULT,
+	  			'Y',
+	  			DEFAULT,
+	  			DEFAULT,
+	  			#{brNo},
+	  			DEFAULT
+ 		)
+	</insert>
 	
 	<insert id="insertBookScrap" parameterType="map"
 		useGeneratedKeys="true" keyProperty="scrapNo" keyColumn="SCRAP_NO">

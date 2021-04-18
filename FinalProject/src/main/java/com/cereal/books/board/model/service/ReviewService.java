@@ -3,6 +3,7 @@ package com.cereal.books.board.model.service;
 import java.util.List;
 
 import com.cereal.books.board.model.vo.BookScrap;
+import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
 
@@ -17,5 +18,9 @@ public interface ReviewService {
 	ReviewBoard findBoardByNo(int brNo);
 
 	int saveScrapStatus(BookScrap bookscrap);
+
+	int insertComment(Comment comment);
+	
+	 
 
 }
