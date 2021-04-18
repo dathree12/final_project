@@ -15,10 +15,18 @@ public interface ClubService {
 
 	int noneRemainDate();
 
+	int getExpCount();
+
 	List<ClubBoard> getBoardList(PageInfo pageInfo);
 	
 	List<ClubBoard> getDlBoardList();
 	
 	ClubBoard findClubByNo(int bcNo);
+
+//	ClubBoard findExpByNo(int bcNo);
+
+	List<ClubBoard> getExpList(PageInfo pageInfo);
+
+
 
 }

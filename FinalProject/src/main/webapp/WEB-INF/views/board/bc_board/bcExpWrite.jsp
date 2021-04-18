@@ -10,7 +10,7 @@
 <%@ include file="../../common/header.jsp"%>
 <head>
 	<title>리뷰작성페이지</title>
-	<link rel="stylesheet" href="${ path }/css/board/bc_style/bcReviewWrite.css" type="text/css">
+	<link rel="stylesheet" href="${ path }/css/board/bc_style/bcExpWrite.css" type="text/css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<script src="${ path }/ckeditor/ckeditor.js"></script>
 </head>
@@ -34,6 +34,12 @@
 							</a>
 						</p>
 						<div class="information">
+           			       <div class="author" style="visibility: hidden;">
+			              		<security:authentication property="principal" var="user"/> 
+			                    <input style="visibility: hidden; margin-top: 10px" id="post_subject" class="post_subject" name="userName" value="${ user.name }" type="text" readonly>
+			                    <input style="visibility: hidden;" type="text" name="userNo" value="${ user.userNo }" readonly>
+			                    <input style="visibility: hidden;" type="text" name="userId" value="${ user.userId }" readonly>
+	                        </div>
 							<h3>
 								<a href id="aPrdNameLink"> <span id="sPrdName">샘플상품1</span>
 								</a>
@@ -54,7 +60,7 @@
 							</tbody>
 						</table>
 						<textarea name="bcContent" id="bcContent" rows="10" cols="80"></textarea>
-						<script src="${ path }/js/club/bcReviewWrite.js"></script>
+						<script src="${ path }/js/club/bcExpWrite.js"></script>
 						<input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
 					</div>
 				</div>

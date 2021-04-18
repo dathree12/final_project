@@ -72,16 +72,49 @@
 		<result property="bcModifyImage" column="BC_MODIFY_IMAGE" />
 		<result property="bcStatus" column="BC_STATUS" />
 		<result property="bcAgreement" column="BC_AGREEMENT" />
+		<collection property="exp" javaType="java.util.ArrayList" resultMap="expResultMap"/>
 	</resultMap>
 	
+	<!-- 후기 맵 -->
+	<resultMap type="Exp" id="expResultMap">
+		<id property="expNo" column="EXP_NO" />
+		<result property="userNo" column="USER_NO"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="expTitle" column="EXP_TITLE"/>
+		<result property="expViewCount" column="EXP_VIEWCOUNT"/>
+		<result property="expContent" column="EXP_CONTENT"/>
+		<result property="expRegDate" column="USEEXP_REG_DATE"/>
+		<result property="expStatus" column="EXP_STATUS"/>
+		<result property="bcNo" column="BC_NO"/>
+	</resultMap>
+	
+	<!-- 회원 맵 
+	<resultMap type="Member" id="memberResultSet">
+		<id property="userNo" column="USER_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="name" column="USER_NAME"/>
+		<result property="userNname" column="USER_NNAME"/>
+		<result property="userRole" column="USER_ROLE"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userAddress" column="USER_ADDRESS"/>
+		<result property="userGenre" column="USER_GENRE"/>
+		<result property="userAgreement" column="USER_AGREEMENT"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userModifyDate" column="USER_MODIFY_DATE"/>
+		<result property="status" column="STATUS"/>
+	</resultMap>
+	-->
+	
 	<!-- 북 클럽 상세페이지 조회 / 북 클럽 게시판 번호로 조회 -->
-	<select id="selectClubDetail" parameterType="_int"
-		resultMap="clubDetailResultMap">
+	<select id="selectClubDetail" parameterType="_int" resultMap="clubDetailResultMap">
 		SELECT 
 		B.BC_NO,
 		M.USER_NO,
 		B.BC_ORIGIN_TITLE,
 		B.BC_SUB_TITLE,
+		B.BC_PRICE,
 		B.BC_REG_DATE,
 		B.BC_DETAIL_DATE,
 		B.BC_START_DATE,
@@ -92,11 +125,13 @@
 		B.BC_ORIGIN_IMAGE,
 		B.BC_MODIFY_IMAGE,
 		B.BC_STATUS,
-		B.BC_AGREEMENT
+		B.BC_AGREEMENT,
+		E.EXP_NO
 		FROM BOOK_CLUB_BOARD B
 		JOIN MEMBER M ON (B.USER_NO= M.USER_NO)
+		JOIN EXP E ON (E.USER_NO = B.USER_NO)
 		WHERE
-		B.BC_STATUS='P' AND B.BC_NO=#{ bcNo }
+		B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
 	</select>
 
 	<!-- 메인페이지 클럽 게시판 전체 조회 -->
@@ -127,6 +162,23 @@
 		SELECT COUNT(*)
 		FROM BOOK_CLUB_BOARD
 		WHERE BC_STATUS = 'P'
+	</select>
+	
+	<!-- 후기 찾기 -->
+	<select id="selectExp" parameterType="map" resultMap="clubResultMap">
+		SELECT B.BC_NO, E.EXP_NO, E.EXP_TITLE, M.USER_NAME, E.EXP_REG_DATE, E.EXP_VIEWCOUNT, B.BC_ORIGIN_TITLE, B.BC_PRICE
+		FROM BOOK_CLUB_BOARD B
+		JOIN MEMBER M ON(M.USER_NO = B.USER_NO)
+		JOIN EXP E ON(E.USER_NO = M.USER_NO)
+		WHERE B.BC_STATUS='P'
+	</select>
+	
+	<!-- 후기 총 리스트 수 -->
+	<select id="selectExpCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_CLUB_BOARD B
+		JOIN EXP E ON(E.USER_NO = B.USER_NO)
+		WHERE B.BC_STATUS='P'
 	</select>
 
 	<!-- 북 클럽 게시판 추가 -->
@@ -170,37 +222,3 @@
 		WHERE BC_STATUS = 'P' AND BC_REMAIN_DATE &lt; 0
 	</update>
 </mapper>
-
-
-<!-- 
-	<resultMap type="Comment" id="bcCommentResultMap">
-		<id property="comNo" column="COM_NO"/>
-		<result property="qaNO" column="QA_NO"/>
-		<result property="comBoard" column="COM_BOARD"/>
-		<result property="comWriter" column="COM_WRITER"/>
-		<result property="comContent" column="COM_CONTENT"/>
-		<result property="comCreateDate" column="COM_CREATE_DATE"/>
-		<result property="comEditDate" column="COM_EDIT_DATE"/>
-		<result property="comStatus" column="COM_STATUS"/>
-		<result property="comItem" column="COM_ITEM"/>
-		<result property="bcNo" column="BC_NO"/>
-		<result property="brNo" column="BR_NO"/>
-		<result property="bfNo" column="BF_NO"/>
-	</resultMap>
-	
-	<resultMap type="QnA" id="bcQnAResultMap">
-		<id property="qaNo" column="QA_NO"/>
-		<result property="userNo" column="USER_NO"/>
-		<result property="qaWriter" column="QA_WRITER"/>
-		<result property="qaTitle" column="QA_TITLE"/>
-		<result property="qaContent" column="QA_CONTENT"/>
-		<result property="qaViewCount" column="QA_VIEWCOUNT"/>
-		<result property="qaEnrollDate" column="QA_ENROLL_DATE"/>
-		<result property="qaModifyDate" column="QA_MODIFY_DATE"/>
-		<result property="qaStatus" column="QA_STATUS"/>
-		<result property="qaItem" column="QA_ITEM"/>
-		<result property="bcNo" column="BC_NO"/>
-		<result property="brNo" column="BR_NO"/>
-		<result property="bfNo" column="BF_NO"/>
-	</resultMap>
--->

@@ -1,6 +1,7 @@
 package com.cereal.books.board.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,5 +47,7 @@ public class ClubBoard {
 	private String bcStatus; // 북클럽 상태, (Nonepass, Pass, Deque, Queue)
 	
 	private String bcAgreement; // 북클럽 약관
+	
+	private List<Exp> exp; // Mybatis에서 테이블간의 1:N관계를 select 할 때, resultMap을 통한 서브쿼리로 가져올 때
 	
 }

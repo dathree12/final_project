@@ -23,7 +23,7 @@
             <div class="title" style="text-align: center;">
                 <h2 style="padding-left: 80px; padding-top: 10px"><span>북 클럽</span></h2>
                 <div class="btn-block-right">
-        			<a href="${ path }/board/bc_board/bcAdminWrite">글쓰기</a>
+        			<a href="${ path }/board/bc_board/bcBoardWrite">글쓰기</a>
 	   		    </div>
             </div>
             <div style="text-align: center;">
@@ -89,7 +89,7 @@
        			                        <td style="width: 700px;" onclick="insertPopup();"><img alt="" src="${ path }/images/iconfinder_lock_close.png">&nbsp;&nbsp;&nbsp;<span style="cursor: pointer;">비밀글</span></td>
                         			</c:when>
                         			<c:when test="${ (user.name eq writer) or (user.name eq '관리자') }">
-				                        <td style="width: 700px;" onclick="detail();"><c:out value="${ proposeList.proposeTitle }"></c:out></td>
+				                        <td style="width: 700px;" onclick="detail();"><c:out value="${ proposeList.proposeTitle }"/><c:out value="${ proposeList.proposePwd }"/></td>
                         			</c:when>
                         		</c:choose>
 		                        <td style="width: 90px"><c:out value="${ proposeList.userName }"></c:out></td>
@@ -120,32 +120,24 @@
 	        </div>
 	    </div>	
     </section>
-    
-    <script type="text/javascript">
+	<script type="text/javascript">
 		function detail() {
 			location.href="${ path }/board/bc_board/bcBoardRead?proposeNo=${ list.proposeNo }";
 		}
 		
-        function insertPopup() {
-        	
-            window.name = "bcBoardList";
-            var _width = '464px';
-            var _height = '280px';
-
-            // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-            var _left = Math.ceil(( window.screen.width - _width )/2);
-            var _top = Math.ceil(( window.screen.height - _height )/2); 
-
-            // (open할 window, "자식창 이름", "OPTION"), 부모창 : 자식창을 띄워준다.
-            window.open('secret', 'secret', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top + ", resizable = no, scrollbars = no, status = no");
-			
-            var password = '<c:out value="${proposePwd}"/>'
-            if (password == 1234) {
-            	alert('1234');
-            } else {
-            	alert('4567');
-            }
+		      function insertPopup() {
+		      	
+		          window.name = "bcBoardList";
+		          var _width = '464px';
+		          var _height = '280px';
+		
+		          // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+		          var _left = Math.ceil(( window.screen.width - _width )/2);
+		          var _top = Math.ceil(( window.screen.height - _height )/2); 
+		
+		          // (open할 window, "자식창 이름", "OPTION"), 부모창 : 자식창을 띄워준다.
+		          var childWin = window.open('secret', 'secret', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top + ", resizable = no, scrollbars = no, status = no");
 		}
-        
-	</script>
+     </script>    
+
 <%@ include file="../../common/footer.jsp" %>

@@ -21,7 +21,7 @@ public class Propose {
 	
 	private String userName;
 	
-	private int proposePwd;
+	private String proposePwd;
 	
 	private String proposeTitle;
 	

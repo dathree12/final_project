@@ -54,11 +54,11 @@
                 </div>
                 <div class="editor_box">
                     <span>
-                        <input name="proposePwd" class="basic_input" type="password" value="${ list.proposePwd }" placeholder="비밀번호">
+                        <input id="proposePwd" name="proposePwd" class="basic_input" type="text" placeholder="비밀번호">
                     </span>
                 </div>
                 <div class="table-cell">
-                    <input id="post_subject" class="post_subject" name="proposeTitle" value="${ list.proposeTitle }" placeholder="제목" type="text">
+                    <input id="post_subject" class="post_subject" name="proposeTitle" placeholder="제목" type="text">
                 </div>
                 <textarea name="bcContent" id="bcContent" rows="10" cols="80"></textarea>
    	                <script src="${ path }/js/club/bcBoardWrite.js"></script>

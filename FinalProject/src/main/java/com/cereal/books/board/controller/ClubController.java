@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.common.util.PageInfo;
-import com.cereal.books.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,63 +38,32 @@ public class ClubController {
 	@Autowired // No qualifying bean of type -> @Service...
 	private ClubService service;
 
-	// 북 클럽 상세페이지
-	@RequestMapping("/bcBoardDetail")
-	public String clubDetail() {
-
-		return "board/bc_board/bcBoardDetail";
-	}
-
-	// 북 클럽 메인페이지
-	@RequestMapping("/bcBoardMain")
-	public String clubMain() {
-
-		return "board/bc_board/bcBoardMain";
-	}
-
-	// 북 클럽 메인페이지
-	@RequestMapping("/bcReviewWrite")
-	public String clubReview() {
-
-		return "board/bc_board/bcReviewWrite";
-	}
-
-	// 북 클럽 메인페이지(관리자)
-	@RequestMapping("/bcAdminWrite")
-	public String adminWrite() {
-		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
-
-		return "board/bc_board/bcAdminWrite";
-	}
-
-	// 북 클럽 제안페이지
-	@RequestMapping("/bcBoardPropose")
-	public String clubPropose() {
-
-		return "board/bc_board/bcBoardPropose";
-	}
-
-	// 북 클럽 글쓰기페이지
-	@RequestMapping("/bcBoardWrite")
-	public String clubWrite() {
-
-		return "board/bc_board/bcBoardWrite";
-	}
-
-	// 북 클럽 결제페이지
-	@RequestMapping("/bcBoardPayment")
-	public String clubPayment() {
-
-		return "board/bc_board/bcBoardPayment";
-	}
-
 	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
-	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo) {
+	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit
+			) {
 
+		List<ClubBoard> findExp = null;
+		
 		ClubBoard clubBoard = service.findClubByNo(bcNo);
-
+		
+		int expCount = service.getExpCount();
+		
+		System.out.println("expCount : " + expCount);
+		
+		PageInfo pageInfo = new PageInfo(page, 5, expCount, listLimit);
+		
+		findExp = service.getExpList(pageInfo);
+//		ClubBoard findExp = service.findExpByNo(bcNo);
+		
+		
+		model.addObject("findExp", findExp);
 		model.addObject("clubBoard", clubBoard);
 		model.setViewName("board/bc_board/bcBoardDetail");
+		
+		System.out.println(clubBoard);
+		System.out.println(findExp);
 
 		return model;
 	}
@@ -206,6 +174,56 @@ public class ClubController {
 		return model;
 	}
 
+	// 북 클럽 상세페이지
+	@RequestMapping("/bcBoardDetail")
+	public String clubDetail() {
+		
+		return "board/bc_board/bcBoardDetail";
+	}
+	
+	// 북 클럽 메인페이지
+	@RequestMapping("/bcBoardMain")
+	public String clubMain() {
+		
+		return "board/bc_board/bcBoardMain";
+	}
+	
+	// 북 클럽 메인페이지
+	@RequestMapping("/bcReviewWrite")
+	public String clubReview() {
+		
+		return "board/bc_board/bcReviewWrite";
+	}
+	
+	// 북 클럽 메인페이지(관리자)
+	@RequestMapping("/bcAdminWrite")
+	public String adminWrite() {
+		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
+		
+		return "board/bc_board/bcAdminWrite";
+	}
+	
+	// 북 클럽 제안페이지
+	@RequestMapping("/bcBoardPropose")
+	public String clubPropose() {
+		
+		return "board/bc_board/bcBoardPropose";
+	}
+	
+	// 북 클럽 글쓰기페이지
+	@RequestMapping("/bcBoardWrite")
+	public String clubWrite() {
+		
+		return "board/bc_board/bcBoardWrite";
+	}
+	
+	// 북 클럽 결제페이지
+	@RequestMapping("/bcBoardPayment")
+	public String clubPayment() {
+		
+		return "board/bc_board/bcBoardPayment";
+	}
+	
 //	// 해당 게시판 번호를 타고 들어가서 결제창까지 가야할듯? POST방식 써야하나 GET으로 테스트해볼까
 //	// 결제할 상품정보를 가져와야하니까, 상품정보를 갖고있는 번호의 게시판 정보 가져오면 될 듯
 //	@RequestMapping(value = "/bcBoardPayment", method = RequestMethod.GET)
@@ -222,3 +240,5 @@ public class ClubController {
 //	}
 
 }
+
+
