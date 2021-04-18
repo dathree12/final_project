@@ -14,10 +14,6 @@
     <link rel="stylesheet" href="${ path }/bootstrap/dist/css/bootstrap.min.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <style type="text/css">
-    	ul {
-    		margin-top: 16px
-    	}
-    	
     	a {
     		color: #000;
     	}
@@ -65,7 +61,7 @@
                                             style="font-size: 14px; text-align: left; list-style: none; top: 100%; position: absolute; float: left; background-color: #fff; border: 1px solid rgba(0, 0, 0, .15); border-color: #212121; margin: 1px 1px;  box-shadow: none; border-radius: 0; border-top: 1px solid rgba(0, 0, 0, 0.003); width: 100%; padding: 0; min-width: auto; max-height: 400px; overflow-y: auto; z-index: 9999; max-width: 399px">
                                             <div class="dropdown-item" onclick="event.stopPropagation();">
                                                 <a style="padding: 3px 0px; line-height: normal; display: block;" class="blocked _requireOption" onclick="selectBoxCliked();">
-                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="margin-bottom: 4px; display: inline-block; text-align: left;">[온라인] <c:out value="${ clubBoard.bcStartDate }"></c:out></span>
+                                                    <span id="selectVal" class="blocked margin-bottom-1g" style="margin-bottom: 4px; display: inline-block; text-align: left;">[온라인] <c:out value="${ clubBoard.bcDetailDate }"></c:out></span>
                                                     <span class="no-margin blocked">
                                                         <strong></strong>
                                                     </span>
@@ -119,7 +115,7 @@
                 <li><a href="#tag2">Q&A</a></li>
             </ul>
             <div class="cont">
-                <img src="" alt="">
+                <c:out value="${ clubBoard.bcContent }" escapeXml="false"/>
             </div>
         </article>
 
@@ -139,82 +135,89 @@
                     </div>
                     <p class="imgArea"></p>
                 </div>
-                <div class="xans-product-review">
-                    <div class="typeList">
-                        <table border="1">
-                            <colgroup>
-                                <col style="width: 50px;">
-                                <col style="width: 150px;">
-                                <col style="width: auto;">
-                                <col style="width: 150px;">
-                            </colgroup>
-                            <tbody class="center dropdown" style="padding: 0;">
-                                <tr style="background: #fff; border-collapse: collapse; border-radius: 0; width: 100%; margin: 0; margin-bottom: -1px; border: 1px solid #f1f1f1;" class="xans-record-"
-                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <td style="width: 50px;">1</td>
-                                    <td style="width: 150px;" class="thumb_photo">
-                                        <img src="" alt="">
-                                    </td>
-                                    <td style="width: 848.89px;">
-                                        <ul class="d_review_cont">
-                                            <li>
-                                                <a href="#">만족</a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td style="width: 150px;">
-                                        <ul class="d_review_info">
-                                            <li>
-                                                <span> 대표 관리자</span>
-                                                <span>2019-04-15</span>
-                                                <span>hit 13</span>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr id="product-review-read" class="dropdown-menu" aria-labelledby="dLabel" style="margin: 0; width: 100%; padding: 0; border: none;">
-                                    <td colspan="4" style="width: 1280px; margin: 0">
-                                        <div class="view">
-                                            <div id="ec-ucc-media-box-8">
-                                                <p></p>
-                                                <div class="fr-view fr-view-article">
-                                                    <p>받아보니 훨씬 좋네요~</p>
-                                                </div>
-                                                <p></p>
-                                                <p>
-                                                    <img src="" alt="">
-                                                    <br>
-                                                </p>
-                                                <p class="ec-base-button">
-                                                    <span class="gLeft"></span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <!-- 
-                                        <ul class="boardComment">
-                                            <li>
-                                                <strong class="name"> 대표 관리자</strong>
-                                                <span class="date">2019-04-15 16:31:55</span>
-                                                <p class="comment">
-                                                    <span id="comment_contents1">Thank you~~ :)</span>
-                                                </p>
-                                            </li>
-                                        </ul>
-                                        <form name="commentSecretForm_4" id="commentSecretForm_4" style="display: none;" action="">
-                                            <div class="commentSecret">
-                                                <p></p>
-                                            </div>
-                                        </form>
-                                        -->
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <c:if test="${ findExp == null }">
+                	<div style="text-align: center;"><span>조회된 후기가 없습니다.</span></div>
+                </c:if>
+                <c:if test="${ findExp != null }">
+                	<c:forEach var="exp" items="findExp">
+		                <div class="xans-product-review">
+		                    <div class="typeList">
+		                        <table border="1">
+		                            <colgroup>
+		                                <col style="width: 50px;">
+		                                <col style="width: 150px;">
+		                                <col style="width: auto;">
+		                                <col style="width: 150px;">
+		                            </colgroup>
+		                            <tbody class="center dropdown" style="padding: 0;">
+		                                <tr style="background: #fff; border-collapse: collapse; border-radius: 0; width: 100%; margin: 0; margin-bottom: -1px; border: 1px solid #f1f1f1;" class="xans-record-"
+		                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                                    <td style="width: 50px;">1</td>
+		                                    <td style="width: 150px;" class="thumb_photo">
+		                                        <img src="" alt="">
+		                                    </td>
+		                                    <td style="width: 848.89px;">
+		                                        <ul class="d_review_cont">
+		                                            <li>
+		                                                <a href="#">제목</a>
+		                                            </li>
+		                                        </ul>
+		                                    </td>
+		                                    <td style="width: 150px;">
+		                                        <ul class="d_review_info">
+		                                            <li style="margin-top: 5px">
+		                                                <span> 이름</span>
+		                                                <span> 날짜</span>
+		                                                <span> 조회수</span>
+		                                            </li>
+		                                        </ul>
+		                                    </td>
+		                                </tr>
+		                                <tr id="product-review-read" class="dropdown-menu" aria-labelledby="dLabel" style="margin: 0; width: 100%; padding: 0; border: none;">
+		                                    <td colspan="4" style="width: 1280px; margin: 0">
+		                                        <div class="view">
+		                                            <div id="ec-ucc-media-box-8">
+		                                                <p></p>
+		                                                <div class="fr-view fr-view-article">
+		                                                    <p>받아보니 훨씬 좋네요~</p>
+		                                                </div>
+		                                                <p></p>
+		                                                <p>
+		                                                    <img src="" alt="">
+		                                                    <br>
+		                                                </p>
+		                                                <p class="ec-base-button">
+		                                                    <span class="gLeft"></span>
+		                                                </p>
+		                                            </div>
+		                                        </div>
+		                                        <!-- 
+		                                        <ul class="boardComment">
+		                                            <li>
+		                                                <strong class="name"> 대표 관리자</strong>
+		                                                <span class="date">2019-04-15 16:31:55</span>
+		                                                <p class="comment">
+		                                                    <span id="comment_contents1">Thank you~~ :)</span>
+		                                                </p>
+		                                            </li>
+		                                        </ul>
+		                                        <form name="commentSecretForm_4" id="commentSecretForm_4" style="display: none;" action="">
+		                                            <div class="commentSecret">
+		                                                <p></p>
+		                                            </div>
+		                                        </form>
+		                                        -->
+		                                    </td>
+		                                </tr>
+		                            </tbody>
+		                        </table>
+		                    </div>
+		                </div>
+                	</c:forEach>
+                </c:if>
                 <p class="ec-base-button typeBoarder">
                     <span class="gRight">
-                        <a href="${ path }/board/bc_board/bcReviewWrite">
+                        <a href="${ path }/board/bc_board/bcExpWrite">
                             <span class="-cbtn -c-medium -c-black">
                                 상품후기쓰기
                             </span>
@@ -227,13 +230,30 @@
                     </span>
                 </p>
             </div>
-            <div class="pageBar" style="padding: 30px 0; text-align: center; line-height: 0;">
-                <a href="#" class="first">«</a>
-                <a href="#" class="prev">‹</a>
-                <a href="#" class="p_number">1</a>
-                <a href="#" class="next">›</a>
-                <a href="#" class="last">»</a>
-            </div>
+            <!--
+             currentPage 현재 페이지
+             pageLimit 한 페이지에 보여질 페이지의 수
+             listCOunt 전체 리스트 수
+             listLimit 한 페이지에 표시될 페이지 수 
+            -->
+            <div class="bcboard_mid_bottom" style="/*border: 1px solid black;*/ text-align: center;">
+		      	<div class="bcboard_mid_pageCount">
+		            <a href="${path}/board/bc_board/bcBoardMain?page=1">&lt;&lt;</a> &nbsp; &nbsp;
+		            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.prvePage}">&lt;</a> &nbsp; &nbsp;
+					<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+						<c:if test="${status.current == pageInfo.currentPage}">
+							<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp; &nbsp;
+		   				</c:if>
+						<c:if test="${status.current != pageInfo.currentPage}">
+							<a href="${path}/board/bc_board/bcBoardMain?page=${status.current}"><c:out value="${status.current}"/></a>
+							&nbsp; &nbsp;
+		   				</c:if>
+					</c:forEach>            
+		            
+		            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.nextPage}">&gt;</a> &nbsp; &nbsp;
+		            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.maxPage}">&gt;&gt;</a>
+		        </div>
+		    </div>	
         </article>
 
         <article id="prdQnA" class="ec-base-tab grid5 ">

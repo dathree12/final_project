@@ -10,7 +10,7 @@
 <%@ include file="../../common/header.jsp"%>
 <head>
 	<title>리뷰작성페이지</title>
-	<link rel="stylesheet" href="${ path }/css/board/bc_style/bcReviewWrite.css" type="text/css">
+	<link rel="stylesheet" href="${ path }/css/board/bc_style/bcExpWrite.css" type="text/css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<script src="${ path }/ckeditor/ckeditor.js"></script>
 </head>
@@ -25,7 +25,7 @@
 					<p>상품 사용후기입니다.</p>
 				</div>
 			</div>
-			<form action="${ path }/board/bc_board/bcAdminWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
+			<form action="${ path }/board/bc_board/bcExpWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
 				<div class="xans-element- xans-board xans-board-write-4 xans-board-write xans-board-4">
 					<div class="ec-base-box typeProduct">
 						<p class="thumbnail">
@@ -54,7 +54,7 @@
 							</tbody>
 						</table>
 						<textarea name="bcContent" id="bcContent" rows="10" cols="80"></textarea>
-						<script src="${ path }/js/club/bcReviewWrite.js"></script>
+						<script src="${ path }/js/club/bcExpWrite.js"></script>
 						<input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
 					</div>
 				</div>

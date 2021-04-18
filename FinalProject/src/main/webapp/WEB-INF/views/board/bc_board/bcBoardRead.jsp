@@ -33,14 +33,11 @@
                         <img alt="프로필 이미지" src="https://cdn.imweb.me/thumbnail/20161214/5850d6a2c09a8.jpg" class="avatar-image">
                     </div>
                     <div class="author">
-                        <div class="write">김동민</div>
+                        <div class="write"><c:out value="${ list.userName }"></c:out></div>
                     </div>
                 </div>
                 <div class="board_txt_area">
-                    <p>
-                      dwaddawdwadwad 
-                    
-                    </p>
+                	<c:out value="${ list.proposeContent }"></c:out>
                 </div>
                 <div class="comment_section">
                     <div class="comment-block">

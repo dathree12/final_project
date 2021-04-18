@@ -2,7 +2,6 @@ package com.cereal.books.board.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.security.Principal;
@@ -21,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.vo.ClubBoard;
+import com.cereal.books.board.model.vo.Exp;
 import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,80 +35,37 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/board/bc_board")
 public class ClubController {
-	
-	// No qualifying bean of type -> @Service...
-	@Autowired
+
+	@Autowired // No qualifying bean of type -> @Service...
 	private ClubService service;
 
-	// 북 클럽 상세페이지
-	@RequestMapping("/bcBoardDetail")
-	public String clubDetail() {
-
-		return "board/bc_board/bcBoardDetail";
-	}
-	
-	// 북 클럽 메인페이지
-	@RequestMapping("/bcBoardMain")
-	public String clubMain() {
-
-		return "board/bc_board/bcBoardMain";
-	}
-	
-	// 북 클럽 메인페이지
-	@RequestMapping("/bcReviewWrite")
-	public String clubReview() {
-		
-		return "board/bc_board/bcReviewWrite";
-	}
-	
-	// 북 클럽 메인페이지(관리자)
-	@RequestMapping("/bcAdminWrite")
-	public String adminWrite() {
-		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다. 
-		
-		 return "board/bc_board/bcAdminWrite";
-	}
-
-	// 북 클럽 제안 리스트
-	@RequestMapping("/bcBoardList")
-	public String proposeList() {
-
-		return "board/bc_board/bcBoardList";
-	}
-
-	// 북 클럽 제안페이지
-	@RequestMapping("/bcBoardPropose")
-	public String clubPropose() {
-
-		return "board/bc_board/bcBoardPropose";
-	}
-
-	// 북 클럽 글쓰기페이지
-	@RequestMapping("/bcBoardWrite")
-	public String clubWrite() {
-
-		return "board/bc_board/bcBoardWrite";
-	}
-	
-	// 북 클럽 결제페이지
-	@RequestMapping("/bcBoardPayment")
-	public String clubPayment() {
-
-		return "board/bc_board/bcBoardPayment";
-	}
-	
 	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
-	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo) {
-		
+	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit
+			) {
+
+		List<ClubBoard> findExp = null;
 		ClubBoard clubBoard = service.findClubByNo(bcNo);
+		int expCount = service.getExpCount();
 		
+		System.out.println("expCount : " + expCount);
+		
+		PageInfo pageInfo = new PageInfo(page, 5, expCount, listLimit);
+		
+		findExp = service.getExpList(pageInfo);
+		
+		model.addObject("findExp", findExp);
 		model.addObject("clubBoard", clubBoard);
 		model.setViewName("board/bc_board/bcBoardDetail");
 		
+		System.out.println(clubBoard);
+		System.out.println(findExp);
+
 		return model;
 	}
 
-//	// CKEDITOR {BoardWrite, AdminWrite}
+	// CKEDITOR
 	@RequestMapping(value = "/imageUpload", method = RequestMethod.POST)
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
@@ -158,70 +115,139 @@ public class ClubController {
 
 	// 북 클럽 메인페이지
 	@RequestMapping(value = "/bcBoardMain", method = RequestMethod.GET)
-	public ModelAndView list(ModelAndView model, 
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
+	public ModelAndView list(ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
-		
+
 		List<ClubBoard> list = null;
 		List<ClubBoard> dlList = null;
-		
+
 		int boardCount = service.getBoardCount();
 		int result = service.saveRemainDate();
 		int noneResult = service.noneRemainDate();
-		
+
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
-		
-		System.out.println("boardCount : " + boardCount);
-		
+
 		list = service.getBoardList(pageInfo);
 		dlList = service.getDlBoardList();
-		
+
 		model.addObject("list", list);
 		model.addObject("dlList", dlList);
 		model.addObject("pageInfo", pageInfo);
 		model.addObject("boardCount", boardCount);
 		model.setViewName("board/bc_board/bcBoardMain");
-		
+
 		System.out.println(list);
-		
+
 		return model;
 	}
-	
 
 	// 북 클럽 메인페이지(관리자)
 	@RequestMapping(value = "/bcAdminWrite", method = RequestMethod.POST)
-	public ModelAndView adminWrite(
-			ModelAndView model, 
-			Principal user,
-			ClubBoard clubBoard
-			) throws Exception {
+	public ModelAndView adminWrite(ModelAndView model, Principal user, ClubBoard clubBoard) throws Exception {
 		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
-		
-		if(user.getName().equals(clubBoard.getUserId())) {
+
+		if (user.getName().equals(clubBoard.getUserId())) {
 			clubBoard.setUserId(user.getName());
 
 			int result = 0;
-			
+
 			result = service.saveBoard(clubBoard);
-			
-			if(result > 0 ) {
+
+			if (result > 0) {
 				model.addObject("msg", "게시글 등록 성공");
 				model.addObject("location", "/board/bc_board/bcBoardMain");
 			} else {
 				model.addObject("msg", "게시글 등록 실패");
 				model.addObject("location", "/board/bc_board/bcBoardMain");
 			}
-		} 
-		else {
+		} else {
 			model.addObject("msg", "잘못된 접근입니다.");
 			model.addObject("location", "/board/bc_board/bcBoardMain");
 		}
-		
+
 		model.setViewName("common/msg");
-		
-//		==================================
-		
+
 		return model;
+	}
+	
+	// 북 클럽 메인페이지(관리자)
+	@RequestMapping(value = "/bcExpWrite", method = {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView ExpWrite(ModelAndView model, Principal user, ClubBoard clubBoard, Exp exp) throws Exception {
+		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
+
+		if (user.getName().equals(clubBoard.getUserId())) {
+			clubBoard.setUserId(user.getName());
+
+			int result = 0;
+
+			result = service.saveExpList(exp);
+
+			if (result > 0) {
+				model.addObject("msg", "게시글 등록 성공");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			} else {
+				model.addObject("msg", "게시글 등록 실패");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			}
+		} else {
+			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/board/bc_board/bcBoardMain");
+		}
+
+		model.setViewName("common/msg");
+
+		return model;
+	}
+
+	// 북 클럽 상세페이지
+	@RequestMapping("/bcBoardDetail")
+	public String clubDetail() {
+		
+		return "board/bc_board/bcBoardDetail";
+	}
+	
+	// 북 클럽 메인페이지
+	@RequestMapping("/bcBoardMain")
+	public String clubMain() {
+		
+		return "board/bc_board/bcBoardMain";
+	}
+	
+	// 북 클럽 메인페이지
+	@RequestMapping("/bcReviewWrite")
+	public String clubReview() {
+		
+		return "board/bc_board/bcReviewWrite";
+	}
+	
+	// 북 클럽 메인페이지(관리자)
+	@RequestMapping("/bcAdminWrite")
+	public String adminWrite() {
+		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
+		
+		return "board/bc_board/bcAdminWrite";
+	}
+	
+	// 북 클럽 제안페이지
+	@RequestMapping("/bcBoardPropose")
+	public String clubPropose() {
+		
+		return "board/bc_board/bcBoardPropose";
+	}
+	
+	// 북 클럽 글쓰기페이지
+	@RequestMapping("/bcBoardWrite")
+	public String clubWrite() {
+		
+		return "board/bc_board/bcBoardWrite";
+	}
+	
+	// 북 클럽 결제페이지
+	@RequestMapping("/bcBoardPayment")
+	public String clubPayment() {
+		
+		return "board/bc_board/bcBoardPayment";
 	}
 	
 //	// 해당 게시판 번호를 타고 들어가서 결제창까지 가야할듯? POST방식 써야하나 GET으로 테스트해볼까
@@ -238,5 +264,7 @@ public class ClubController {
 //		
 //		return model;
 //	}
-	
+
 }
+
+

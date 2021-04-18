@@ -35,7 +35,12 @@
                     <!-- info : title -->
                     <div class="infoArea__box">
                         <div class="infoArea">
-                            <h1 id="_deadline"><span><c:out value="${board.bfRemainDate}"/> </span> 일 남음</h1>
+                        	<c:if test="${board.bfRemainDate >= 0}">
+                        		<h1 id="_deadline"><span><c:out value="${board.bfRemainDate}"/> </span> 일 남음</h1>
+                        	</c:if>
+                        	<c:if test="${board.bfRemainDate < 0}">
+                        		<h1 id="_deadline"><span><c:out value="${-board.bfRemainDate}"/> </span> 일 지남</h1>
+                        	</c:if>
                             <h2><c:out value="${board.bfTitle}"/></h2>
                             <div class="sub_title" style="margin-top: 5px;">
                                 <!-- <span>부제목</span> -->
@@ -67,8 +72,8 @@
                             <hr>
                             <table>
                                 <tr>
-                                    <p style="font-size: 16px;"><b>수량을 선택해주세요.</b></p>
-                                    <input name="_schedule" id="_schedule" type="number" placeholder="1">
+                                    <!-- <p style="font-size: 16px;"><b>수량을 선택해주세요.</b></p>
+                                    <input name="_schedule" id="_schedule" type="number" placeholder="1"> -->
                                     <!-- <select name="_schedule" id="_schedule">
                                         <option value="">선택 (필수)</option>
                                         <option value="">(화) 3.13 ~ 3.28 / 4주간</option>
@@ -79,12 +84,19 @@
                             <br>
                             <br>
                             <div class="ec-base-button">
-                                <div class="_d_btn_1th"> 
-                                    <input type="submit" value="바로구매하기">
+                                <div class="_d_btn_1th">
+                                	<c:if test="${board.bfRemainDate >= 0}">
+                                		<input type="submit" value="바로구매하기">
+                                	</c:if>
+                                	<c:if test="${board.bfRemainDate < 0}">
+                                		<input type="text" value="종료되었습니다.">
+                                	</c:if>
                                 </div>
                                 <div class="_d_btn_2th">
-                                    <input type="submit" value="장바구니" id="_btn_cart">
-                                    <input type="submit" value="관심상품" id="_btn_likely">
+                                	<c:if test="${board.bfRemainDate >= 0}">
+                                    	<input type="submit" value="장바구니" id="_btn_cart">
+                                    	<input type="submit" value="관심상품" id="_btn_likely">
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

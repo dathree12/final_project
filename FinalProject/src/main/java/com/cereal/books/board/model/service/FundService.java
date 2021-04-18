@@ -2,8 +2,6 @@ package com.cereal.books.board.model.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.common.util.PageInfo;
 
@@ -40,13 +38,18 @@ public interface FundService {
 	// 조회수 증가(반복조회 방지)
 	int increaseViewcnt(int bfNo);
 
-	// 검색을 통한 조회
-//	int getSearchCount(String fd_search_sort, String keyword);
-//
-//	List<FundBoard> getSearchList(PageInfo pageInfo, String fd_search_sort, String keyword);
+	// 검색을 통한 리스트 조회, 페이징 처리x
+	List<FundBoard> getSearchList_Title(String keyword);
+	List<FundBoard> getSearchList_Content(String keyword);
 
-	int getSearchCount111(String keyword);
+	// 인기프로젝트 조회(조회수순), 성공임박프로젝트 조회(남은시간순)
+	List<FundBoard> getBoardList_viewCount(PageInfo pageInfo);
+	List<FundBoard> getBoardList_remainDate(PageInfo pageInfo);
+	// 마감된프로젝트 조회(마감항목, 최근마감날짜순)
+	int getBoardCount_endDate();
+	List<FundBoard> getBoardList_endDate(PageInfo pageInfo);
 
-	List<FundBoard> getSearchList111(PageInfo pageInfo, String keyword);
+	
+	
 	
 }
