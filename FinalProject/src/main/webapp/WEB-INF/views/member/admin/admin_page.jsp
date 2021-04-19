@@ -37,7 +37,7 @@
                                 <th class="th">Status</th>
                             </tr>
                             <tbody id="clubTbody">
-                            <!-- 
+                            <!-- 나중에 주석풀기
 								<c:if test="${bcList == null}">
 									<tr>
 										<td colspan="3">
