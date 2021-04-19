@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -225,11 +227,12 @@ public class ReviewController {
         return result;
     }
 	
-	@RequestMapping(value="/commentList", method = {RequestMethod.GET})
+	@RequestMapping(value="/commentList/{brNo}", method = {RequestMethod.GET})
 	@ResponseBody
-	public ModelAndView getComment(Comment comment, ModelAndView model) throws Exception {
+	public ModelAndView getCommentList(@PathVariable int brNo, ModelAndView model) throws Exception {
+		List<Comment> list = null;
 		
-		model.setViewName("board/br_board/brReviewDetail");
+		list = service.listComment(brNo);
 		return model;
 	}
 	

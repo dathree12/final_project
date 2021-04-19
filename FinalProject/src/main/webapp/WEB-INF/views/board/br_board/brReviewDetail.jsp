@@ -48,7 +48,7 @@
             </section>
             <section class="brboard-review">
                 <div class="brboard-review-header">
-                	<p style="display:none">${board.brNo}</p>
+                	<p id="reviewheader-brNo" style="display:none">${board.brNo}</p>
                     <p id="reviewheader-bookclass">${board.brBookType}</p>
                     <p id="reviewheader-reviewtitle">${board.brTitle}</p>
                     <p id="reviewheader-reviewwriter">${board.userNname}</p>
@@ -121,7 +121,7 @@
 				<div class="comment_textarea">
                         <form id="commentForm" name="commentForm" method="post" class="comment_form">
                             <div class="custom-textarea">
-                            <input type="hidden" name="userName" value="${user.userNname}" >
+                            	<p class="comment_profile" id="loginNname" >${user.userNname}</p>
                                 <textarea class="comment_body" style="border: 0px; width: auto; outline: none;" name="comContent" id="comContent" rows="1" placeholder="댓글을 남겨주세요"></textarea>
                                 <div class="write_button_wrap">
                                     <div class="none"></div>
@@ -130,7 +130,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" id="b_code" name="b_code" value="${result.code }" /> 
                         </form>
                     </div>
                 </div>    
@@ -178,7 +177,42 @@
         </section>    
     </div>
 </body>
+	
+	<script>
+		$(document).ready(function() {
+			fbcommentList();
+			
+			// 게시글 번호 저장
+			var brNo = document.getElementById("reviewheader-brNo").value;
 
+			// 로그인한 회원 아이디 저장
+			var memberNname = document.getElementById("loginNname").value;
+
+			// 댓글 목록 보기
+			function commentList() {
+				$.ajax({
+					url:	"/board/br_board/commentList/" + brNo,
+					type:	"get",
+					data:	{"brNo": brNo},
+					success: function(data) {
+						var str = '';
+						$.each(data, function(key, value){ 
+							if (key == 0) {
+								str += '<div class="col-sm-12" style="padding-top: 5px;">';
+							} else {
+								str += '<div class="col-sm-12" style="border-top: 1px solid #dddddd; margin-top: 15px; padding-top: 15px;">';
+							}
+							str += '<div class="col-sm-2">' + value.comWriter + '</div>';
+							str += '<div class="col-sm-7 commentContent' + value.comNo + '" align="left"><p>' + value.comContent +'</div>';				
+							str += '<div class="col-sm-3">';
+							str += '</div></div>';
+						});
+						$("#commentList").html(str);
+					}
+				});
+			}
+		})
+	</script>
 	<script>
 	    $(document).ready(function(){
 	            
@@ -233,84 +267,5 @@
                  });
      });
 	</script>
-	<!--  
-	<script>
-	$(document).ready(function () {
-
-	    $.ajax({
-	        type:'POST',
-	        url : "<c:url value='/board/br_board/insertComment'/>",
-	        data:$("#commentForm").serialize(),
-	        success : function(data){
-	            if(data=="success")
-	            {
-	            	alert("댓글등록")
-	                getCommentList();
-	                $("#comment_body").val("");
-	            }
-	        },
-	        error:function(request,status,error){
-	            //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	       }
-	        
-	    });
-
-	 
-	/**
-	 * 초기 페이지 로딩시 댓글 불러오기
-	 */
-	$(function(){
-	    
-	    getCommentList();
-	    
-	});
-	 
-	/**
-	 * 댓글 불러오기(Ajax)
-	 */
-	function getCommentList(){
-	    
-	    $.ajax({
-	        type:'GET',
-	        url : "<c:url value='/board/br_board/commentList'/>",
-	        dataType : "json",
-	        data:$("#commentForm").serialize(),
-	        contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
-	        success : function(data){
-	            
-	            var html = "";
-	            
-	            if(data.length > 0){
-	                
-	                for(i=0; i<data.length; i++){
-	                    html += "<div>";
-	                    html += "<div><table class='table'><h6><strong>"+data[i].writer+"</strong></h6>";
-	                    html += data[i].comment + "<tr><td></td></tr>";
-	                    html += "</table></div>";
-	                    html += "</div>";
-	                }
-	                
-	            } else {
-	                
-	                html += "<div>";
-	                html += "<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>";
-	                html += "</table></div>";
-	                html += "</div>";
-	                
-	            }
-	            
-	            $("#commentList").html(html);
-	            
-	        },
-	        error:function(request,status,error){
-	            
-	       }
-	        
-	    });
-	}
-	}
-	 
-	</script>
-		-->
 
 <%@ include file="../../common/footer.jsp" %>

@@ -165,7 +165,7 @@
 			   CB.COM_STATUS,
 			   CB.BR_NO
 		FROM COMMENT_BOARD CB
-		WHERE CB.BR_NO = #{brNo}
+		WHERE CB.BR_NO = #{brNo} AND CB.COM_STATUS='Y'
 	</select>
 	
 	<insert id="insertBookScrap" parameterType="map"
