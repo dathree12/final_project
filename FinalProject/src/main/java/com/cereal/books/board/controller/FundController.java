@@ -422,7 +422,48 @@ public class FundController {
 		model.setViewName("board/bf_board/bf_boardList_endDate");
 		
 		return model;
+	}
+	
+	// 펀딩 프로젝트 관리자 상세조회 페이지
+	@RequestMapping(value="/bf_adminCheck", method = {RequestMethod.GET})
+	public ModelAndView adminCheck(@RequestParam("bfNo") int bfNo, ModelAndView model) {
+
+		FundBoard board = service.findBoardByNo(bfNo);
+        
+        model.addObject("board", board);
+        model.setViewName("board/bf_board/bf_adminCheck");
+            
+        return model;
 	}	
+	
+	@RequestMapping(value = "bf_adminWrite", method = {RequestMethod.POST})
+	public ModelAndView adminWrite(ModelAndView model, HttpServletRequest request,	FundBoard fundboard,
+			@RequestParam("bfNo") int bfNo ) {
+		
+		int result = 0;
+		
+		if(bfNo != 0) {
+			
+			// board 객체를 DB에 저장할 수 있도록 service에 넘겨주는 과정
+			result = service.updateAdminCheck(fundboard);
+			
+			if(result > 0) {
+				model.addObject("msg", "관리자 체크 완료!");
+				model.addObject("location", "/member/admin/admin_page");
+			} else {
+				model.addObject("msg", "관리자 체크 실패!");
+				model.addObject("location", "/member/admin/admin_page");
+			}
+		} else {
+			model.addObject("msg", "로그인 후 작성해주세요.");
+			model.addObject("location", "/");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
+	
 	
 }
 

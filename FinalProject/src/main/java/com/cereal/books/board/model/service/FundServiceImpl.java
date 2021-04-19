@@ -179,6 +179,12 @@ public class FundServiceImpl implements FundService {
 		return fundDao.getBoardList_endDate(rowBounds);
 	}
 
+	@Override
+	public int updateAdminCheck(FundBoard fundboard) {
+		// TODO Auto-generated method stub
+		return fundDao.updateAdminCheck(fundboard);
+	}
+
 
 
 	

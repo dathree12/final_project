@@ -296,7 +296,14 @@
 		ORDER BY B.BF_REMAIN_DATE DESC
 	</select>
 
-	
+ 	<update id="updateAdminCheck" parameterType="FundBoard">
+		UPDATE BOOK_FUNDING_BOARD
+		SET 
+			BF_STATUS = #{bfStatus},
+			BF_ADMIN_COMMENT = #{bfAdminComment}
+		WHERE 
+			BF_NO = #{bfNo}
+	</update>
 	
 		
 </mapper>

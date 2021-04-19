@@ -51,6 +51,8 @@ public interface FundService {
 	int getBoardCount_endDate();
 	List<FundBoard> getBoardList_endDate(PageInfo pageInfo);
 
+	int updateAdminCheck(FundBoard fundboard);
+
 
 
 	

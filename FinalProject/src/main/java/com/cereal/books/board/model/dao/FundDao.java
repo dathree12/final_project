@@ -56,6 +56,9 @@ public interface FundDao {
 	int getBoardCount_endDate();
 	List<FundBoard> getBoardList_endDate(RowBounds rowBounds);
 
+	// 관리자페이지에서 관리자가 펀딩 게시판 승인,거절 & 코멘트 업데이트 메소드
+	int updateAdminCheck(FundBoard fundboard);
+
 
 	
 
