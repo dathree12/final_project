@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.service.FundService;
+import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.common.util.PageInfo;
 import com.cereal.books.member.model.service.MemberService;
@@ -50,13 +51,10 @@ public class AdminPageController {
 		bfList = fService.getFundList(fundPageInfo, fStatus);
 		
 		// 북클럽
-//		List<FundBoard> bcList = null;
+//		List<ClubBoard> bcList = null;
 //		int cBoardCount = cService.getAdminClubCount(cStatus);
 //		PageInfo clubPageInfo = new PageInfo(1, 10, cBoardCount, 10);
-//		bfList = fService.getAdminClubList(clubPageInfo, cStatus);
-		
-		System.out.println(fBoardCount);
-		System.out.println(bfList);
+//		bcList = cService.getAdminClubList(clubPageInfo, cStatus);
 				
 		model.addObject("list", list);
 		model.addObject("bfList", bfList);
@@ -69,6 +67,29 @@ public class AdminPageController {
 		return model;
 	}
 	
+	// 클럽 목록 비동기
+	@RequestMapping("/member/admin/club")
+	@ResponseBody
+	public Map<String, Object> clublist(
+			@RequestParam(value = "bcStatus", required = false) String cStatus
+			) {
+		
+//		if(cStatus.equals("ALL")) {
+//			cStatus = null;
+//		}
+//		
+//		List<ClubBoard> cList = null;
+//		int cBoardCount = cService.getAdminClubCount(cStatus);
+//		PageInfo clubPageInfo = new PageInfo(1, 10, cBoardCount, 10);
+//		cList = cService.getAdminClubList(clubPageInfo, cStatus);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+//		result.put("bcList", cList);
+//		result.put("clubPageInfo", clubPageInfo);
+		
+		return result;
+	}
 	// 펀드 목록 비동기
 	@RequestMapping("/member/admin/funding")
 	@ResponseBody

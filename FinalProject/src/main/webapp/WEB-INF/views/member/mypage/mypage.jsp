@@ -200,18 +200,19 @@
                 <div class="join_club">
                     <div class="content">
                         <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
-                        <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-                            <p>클럽이름</p>
-                        </div>
-                        <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-                            <p>클럽이름</p>
-                        </div>
-                        <div class="book_info" id="book1">
-                            <a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-                            <p>클럽이름</p>
-                        </div>
+                        <!-- 
+                        <c:if test="${myClubList == null}">
+									참여중인 클럽이 없습니다.
+						</c:if>
+						<c:if test="${myClubList != null}">
+							<c:forEach var="clublist" items="${myClubList}">
+								<div class="book_info" id="book1">
+								<a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" value="${clublist.bcNo}" src="${path}/upload/bf_board/${clublist.bcModifyImage}"></a>
+                           		<p>${clublist.bcOriginTitle}</p>
+                           		</div>
+							</c:forEach>
+						</c:if>
+						 -->
                         <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
                     </div>
                     <div class="pageBar">
@@ -229,38 +230,31 @@
                 </div>
                 <div class="my_list">
                     <div class="content">
-                        <p>개설신청현황</p>
+                        <p>클럽제안현황</p>
                         <table class="list_table">
                             <tr>
                                 <th class="th">No</th>
                                 <th class="th">Title</th>
                                 <th class="th">Status</th>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>책스초코의 비밀</td>
-                                <td>모집중</td>
-                            </tr>
+                            <!-- 
+                            <c:if test="${myAplctClubList == null}">
+								<tr>
+									<td colspan="6">
+										제안 된 클럽 내역이 없습니다.
+									</td>
+								</tr>	
+							</c:if>
+							<c:if test="${myAplctClubList != null}">
+								<c:forEach var="aplctBC" items="${myAplctClubList}">
+									<tr>
+										<td><c:out value="${aplctBC.proposeNo}"/></td>
+										<td><a href="#"><c:out value="${aplctBC.proposeTitle}"/></a></td>
+										<td><c:out value="${aplctBC.proposeStatus}"/></td>
+									</tr>
+								</c:forEach>
+							</c:if>
+							 -->
                         </table>
                     </div>
                     <div class="pageBar">
@@ -334,7 +328,7 @@
 									<c:forEach var="aplctBF" items="${myAplctFundList}">
 										<tr>
 											<td><c:out value="${aplctBF.bfNo}"/></td>
-											<td><c:out value="${aplctBF.bfTitle}"/></td>
+											<td><a href="#"><c:out value="${aplctBF.bfTitle}"/></a></td>
 											<td><c:out value="${aplctBF.bfStatus}"/></td>
 										</tr>
 									</c:forEach>

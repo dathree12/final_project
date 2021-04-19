@@ -26,36 +26,35 @@
                         <!-- 제안된 클럽 -->
                         <select class="usertype" name="bcStatus">
                             <option id="bcStatus" value="ALL">전체클럽목록</option>
-                            <option id="bcStatus" value="N">클럽제안현황</option>
                             <option id="bcStatus" value="P">운영중인클럽</option>
-                            <option id="bcStatus" value="D">취소된클럽</option>
                             <option id="bcStatus" value="Q">마감된클럽</option>
                         </select>
+                        <button type="button" class="p_btn" style="float: right; background-color: black; color: white; margin: 25px" onclick="location.href='${path}/board/bc_board/bcBoardList'">제안현황&gt;</button>
                         <table class="list_table">
                             <tr>
-                                <th></th>
                                 <th class="th">No</th>
                                 <th class="th">Title</th>
                                 <th class="th">Status</th>
                             </tr>
                             <tbody id="clubTbody">
+                            <!-- 
 								<c:if test="${bcList == null}">
 									<tr>
-										<td colspan="6">
-											조회된 펀딩이 없습니다.
+										<td colspan="3">
+											조회된 클럽이 없습니다.
 										</td>
 									</tr>	
 								</c:if>
 								<c:if test="${bcList != null}">
 									<c:forEach var="bookclub" items="${bcList}">
 										<tr>
-											<td><input name="upcst" type="checkbox" value="${bookclub.bcNo}"></td>
 											<td><c:out value="${bookclub.bcNo}"/></td>
-											<td><c:out value="${bookclub.bcTitle}"/></td>
+											<td><a href="${path}/board/bf_board/bf_adminCheck?bfNo=${bookfunding.bfNo}"><c:out value="${bookclub.bcOriginTitle}"/></a></td>
 											<td><c:out value="${bookclub.bcStatus}"/></td>
 										</tr>
 									</c:forEach>
 								</c:if>
+							 -->
 							</tbody>
                         </table>
                     </div>
@@ -69,10 +68,6 @@
                             <button>3</button>
                             <!-- 다음 페이지로 -->
                             <button >&gt;</button>
-                        </div>
-                        <div class="bnt">
-	                        <button>수락</button>
-	                        <button>거절</button>
                         </div>
                     </div>
                 </div>
@@ -114,7 +109,7 @@
 											<tr>
 												<td><input name="upfst" type="checkbox" value="${bookfunding.bfNo}"></td>
 												<td><c:out value="${bookfunding.bfNo}"/></td>
-												<td><c:out value="${bookfunding.bfTitle}"/></td>
+												<td><a href="${path}/board/bf_board/bf_adminCheck?bfNo=${bookfunding.bfNo}"><c:out value="${bookfunding.bfTitle}"/></a></td>
 												<td><c:out value="${bookfunding.bfStatus}"/></td>
 											</tr>
 										</c:forEach>
@@ -123,6 +118,10 @@
 	                        </table>
 	                    </div>
 	                    <div class="pageBar">
+	                        <div class="bnt">
+		                        <button type="button" id="fpbtn"value="P">수락</button>
+		                        <button type="button" id="fdbtn"value="D">거절</button>
+	                        </div>
 	                        <div id="pageBarAndBtn">
 	                            <!-- 이전 페이지로 -->
 	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${fundPageInfo.prvePage}&listLimit=${fundPageInfo.listLimit}'">&lt;</button>
@@ -137,10 +136,6 @@
 								</c:forEach>
 	                            <!-- 다음 페이지로 -->
 	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${fundPageInfo.nextPage}&listLimit=${fundPageInfo.listLimit}'">&gt;</button>
-	                        </div>
-	                        <div class="bnt">
-		                        <button type="button" id="fpbtn"value="P">수락</button>
-		                        <button type="button" id="fdbtn"value="D">거절</button>
 	                        </div>
 	                    </div>
                     </form>
@@ -194,6 +189,10 @@
 	                        </div>
 	                    </div>
 	                    <div class="pageBar">
+	                        <div class="bnt">
+		                        <button type="button" id="mbtn"value="N">정지</button>
+		                        <button type="button" id="membtn"value="Y">복구</button>
+	                        </div>
 	                        <div id="pageBarAndBtn">
 	                            <!-- 이전 페이지로 -->
 	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${pageInfo.prvePage}&listLimit=${pageInfo.listLimit}'">&lt;</button>
@@ -208,10 +207,6 @@
 								</c:forEach>
 	                            <!-- 다음 페이지로 -->
 	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${pageInfo.nextPage}&listLimit=${pageInfo.listLimit}'">&gt;</button>
-	                        </div>
-	                        <div class="bnt">
-	                        <button type="button" id="mbtn"value="N">정지</button>
-	                        <button type="button" id="membtn"value="Y">복구</button>
 	                        </div>
 	                    </div>
 	                </form>
@@ -228,6 +223,46 @@ $(function() {
         xhr.setRequestHeader(csrfHeader, csrfToken);
     });
     
+    // 클럽 목록 조회
+	$("select[name=bcStatus]").change(function(){
+		var bcStatus = $(this).val();
+		var clist = {};
+		$("#clubTbody").empty();
+	  
+	  	$.ajax({
+			type: "get",
+			url: "${path}/member/admin/club",
+			dataType: "json",
+			data: {
+				bcStatus
+			},
+			success: function(result) {
+				clist = result.bcList;
+				
+				var tc = new Array();
+				var html = '';
+				
+				$.each(clist, function( index, value ) {
+					tc.push({no : value.bcNo ,title : value.bcOriginTitle, status : value.bcStatus}); 
+                 });
+				
+				for(key in tc){
+				html += '<tr>';
+				html += '<td>'+tc[key].no+'</td>';
+				html += '<td><a href="${path}/board/bf_board/bf_adminCheck?bfNo='+tc[key].no+'">'+tc[key].title+'</a></td>';
+				html += '<td>'+tc[key].status+'</td>';
+				html += '</tr>';
+				}
+							
+				$("#clubTbody").empty();
+				$("#clubTbody").append(html);
+				
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+	});
     // 펀드 목록 조회
 	$("select[name=bfStatus]").change(function(){
 		var bfStatus = $(this).val();
@@ -238,7 +273,6 @@ $(function() {
 			type: "get",
 			url: "${path}/member/admin/funding",
 			dataType: "json",
-			async: false,
 			data: {
 				// id(파라미터 키값):id
 				bfStatus // 파라미터의 키값과 변수명이 동일할 경우
@@ -257,7 +291,7 @@ $(function() {
 				html += '<tr>';
 				html += '<td><input name="upfst" id="fcb" type="checkbox" value="'+tc[key].no+'"></td>';
 				html += '<td>'+tc[key].no+'</td>';
-				html += '<td>'+tc[key].title+'</td>';
+				html += '<td><a href="${path}/board/bf_board/bf_adminCheck?bfNo='+tc[key].no+'">'+tc[key].title+'</a></td>';
 				html += '<td>'+tc[key].status+'</td>';
 				html += '</tr>';
 				}
@@ -292,7 +326,6 @@ $(function() {
 			type: "post",
 			url: "${path}/member/admin/updateFundlist",
 			dataType: "json",
-			async: false,
 			data: {
 				newstatus,
 				bfNolist
@@ -317,7 +350,6 @@ $(function() {
 			type: "get",
 			url: "${path}/member/admin",
 			dataType: "json",
-			async: false,
 			data: {
 				// id(파라미터 키값):id
 				mStatus // 파라미터의 키값과 변수명이 동일할 경우
@@ -372,7 +404,6 @@ $(function() {
 			type: "post",
 			url: "${path}/member/admin/updatemst",
 			dataType: "json",
-			async: false,
 			data: {
 				newstatus,
 				idlist

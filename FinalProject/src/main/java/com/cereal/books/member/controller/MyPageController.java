@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.service.FundService;
+import com.cereal.books.board.model.service.ProposeService;
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.common.util.PageInfo;
@@ -38,6 +39,8 @@ public class MyPageController {
 	private FundService fService;
 	@Autowired
 	private ClubService cService;
+	@Autowired
+	private ProposeService pService;
 	
 	@RequestMapping(value = "member/mypage/mypage", method= {RequestMethod.GET})
 	public ModelAndView bookFunding(ModelAndView model, @AuthenticationPrincipal Member member) {
@@ -67,16 +70,16 @@ public class MyPageController {
 //		int myClubCount = cService.getMyClubCount(userNo);
 //		PageInfo myClubPageInfo = new PageInfo(1, 3, myClubCount, 3);
 //		
-//		myClubList = fService.getMyClubList(myClubPageInfo, userNo);
+//		myClubList = cService.getMyClubList(myClubPageInfo, userNo);
 		
 		// 개설 신청한 클럽
 //		List<ClubBoard> myAplctClubList = null;
 //		
-//		int myAplctClubCount = fService.getMyAplctClubCount(userNo);
+//		int myAplctClubCount = pService.getMyAplctClubCount(userNo);
 //		PageInfo myAplctClubpageInfo = new PageInfo(1, 5, myAplctClubCount, 5);
 //		
-//		myAplctClubList = cService.getMyAplctClubList(myAplctClubpageInfo, userNo);
-//		
+//		myAplctClubList = pService.getMyAplctClubList(myAplctClubpageInfo, userNo);
+		
 		model.addObject("myFundList", myFundList);
 		model.addObject("myFundPageInfo", myFundPageInfo);
 		model.addObject("myAplctFundList", myAplctFundList);
