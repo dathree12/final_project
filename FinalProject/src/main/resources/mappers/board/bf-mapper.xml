@@ -229,17 +229,30 @@
 			BF_NO = #{bfNo}
 	</update>
 	
-	<!-- 검색을 통한 리스트 조회, 페이징 처리x -->
+	<!-- 검색을 통한 리스트 조회, 페이징 처리o -->
+	<select id="getBoardCount_Title" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_FUNDING_BOARD B
+		WHERE B.BF_STATUS='P'
+		AND B.BF_TITLE LIKE '%'||#{keyword}||'%'
+	</select>
 	<select id="getSearchList_Title" parameterType="map" resultMap="fundResultMap">
 		<include refid="fundListSql"></include>
 		AND B.BF_TITLE LIKE '%'||#{keyword}||'%'
 		ORDER BY B.BF_TITLE DESC
+	</select>
+	<select id="getBoardCount_Content" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_FUNDING_BOARD B
+		WHERE B.BF_STATUS='P'
+		AND B.BF_CONTENT LIKE '%'||#{keyword}||'%'
 	</select>
 	<select id="getSearchList_Content" parameterType="map" resultMap="fundResultMap">
 		<include refid="fundListSql"></include>
 		AND B.BF_CONTENT LIKE '%'||#{keyword}||'%'
 		ORDER BY B.BF_CONTENT DESC
 	</select>
+	
 	
 	<!-- 인기프로젝트 조회(조회수순) -->
 	<select id="getBoardList_viewCount" parameterType="map" resultMap="fundResultMap">
@@ -283,7 +296,14 @@
 		ORDER BY B.BF_REMAIN_DATE DESC
 	</select>
 
-	
+ 	<update id="updateAdminCheck" parameterType="FundBoard">
+		UPDATE BOOK_FUNDING_BOARD
+		SET 
+			BF_STATUS = #{bfStatus},
+			BF_ADMIN_COMMENT = #{bfAdminComment}
+		WHERE 
+			BF_NO = #{bfNo}
+	</update>
 	
 		
 </mapper>

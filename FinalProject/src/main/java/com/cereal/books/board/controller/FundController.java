@@ -317,29 +317,39 @@ public class FundController {
         }
 	}
 	
-	// 검색을 통한 리스트 조회, 페이징 처리x
+	// 검색을 통한 리스트 조회, 페이징 처리o
 	@RequestMapping(value = "bf_searchList", method = {RequestMethod.GET})
 	public ModelAndView searchList(
 			ModelAndView model,
-			@RequestParam(defaultValue = "bfTitle") String fd_search_sort,
-			@RequestParam(value = "keyword") String keyword ) {
+			@RequestParam(value = "fd_search_sort", defaultValue = "bfTitle") String fd_search_sort,
+			@RequestParam(value = "keyword") String keyword, 
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit ) {
 		
 		List<FundBoard> list = null;
+		
+		int boardCount = 0;
+		PageInfo pageInfo = null;
 		
 		// remainDate 업데이트 하는 과정
 		service.saveRemainDate();
 		service.changeStatus();
 		
 		if(fd_search_sort.equals("bfTitle")) {
-			list = service.getSearchList_Title(keyword);
+			boardCount = service.getBoardCount_Title(keyword);
+			pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			list = service.getSearchList_Title(pageInfo, keyword);
 		} 
-		else if(fd_search_sort.equals("bfContent")){
-			list = service.getSearchList_Content(keyword);
+		else if(fd_search_sort.equals("bfContent")) {
+			boardCount = service.getBoardCount_Content(keyword);
+			pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			list = service.getSearchList_Content(pageInfo, keyword);
 		}
 	
 		model.addObject("fd_search_sort", fd_search_sort);
 		model.addObject("keyword", keyword);
 		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
 		model.setViewName("board/bf_board/bf_searchList");
 		
 		return model;
@@ -412,7 +422,48 @@ public class FundController {
 		model.setViewName("board/bf_board/bf_boardList_endDate");
 		
 		return model;
+	}
+	
+	// 펀딩 프로젝트 관리자 상세조회 페이지
+	@RequestMapping(value="/bf_adminCheck", method = {RequestMethod.GET})
+	public ModelAndView adminCheck(@RequestParam("bfNo") int bfNo, ModelAndView model) {
+
+		FundBoard board = service.findBoardByNo(bfNo);
+        
+        model.addObject("board", board);
+        model.setViewName("board/bf_board/bf_adminCheck");
+            
+        return model;
 	}	
+	
+	@RequestMapping(value = "bf_adminWrite", method = {RequestMethod.POST})
+	public ModelAndView adminWrite(ModelAndView model, HttpServletRequest request,	FundBoard fundboard,
+			@RequestParam("bfNo") int bfNo ) {
+		
+		int result = 0;
+		
+		if(bfNo != 0) {
+			
+			// board 객체를 DB에 저장할 수 있도록 service에 넘겨주는 과정
+			result = service.updateAdminCheck(fundboard);
+			
+			if(result > 0) {
+				model.addObject("msg", "관리자 체크 완료!");
+				model.addObject("location", "/member/admin/admin_page");
+			} else {
+				model.addObject("msg", "관리자 체크 실패!");
+				model.addObject("location", "/member/admin/admin_page");
+			}
+		} else {
+			model.addObject("msg", "로그인 후 작성해주세요.");
+			model.addObject("location", "/");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
+	
 	
 }
 
