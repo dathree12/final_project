@@ -317,29 +317,39 @@ public class FundController {
         }
 	}
 	
-	// 검색을 통한 리스트 조회, 페이징 처리x
+	// 검색을 통한 리스트 조회, 페이징 처리o
 	@RequestMapping(value = "bf_searchList", method = {RequestMethod.GET})
 	public ModelAndView searchList(
 			ModelAndView model,
-			@RequestParam(defaultValue = "bfTitle") String fd_search_sort,
-			@RequestParam(value = "keyword") String keyword ) {
+			@RequestParam(value = "fd_search_sort", defaultValue = "bfTitle") String fd_search_sort,
+			@RequestParam(value = "keyword") String keyword, 
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit ) {
 		
 		List<FundBoard> list = null;
+		
+		int boardCount = 0;
+		PageInfo pageInfo = null;
 		
 		// remainDate 업데이트 하는 과정
 		service.saveRemainDate();
 		service.changeStatus();
 		
 		if(fd_search_sort.equals("bfTitle")) {
-			list = service.getSearchList_Title(keyword);
+			boardCount = service.getBoardCount_Title(keyword);
+			pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			list = service.getSearchList_Title(pageInfo, keyword);
 		} 
-		else if(fd_search_sort.equals("bfContent")){
-			list = service.getSearchList_Content(keyword);
+		else if(fd_search_sort.equals("bfContent")) {
+			boardCount = service.getBoardCount_Content(keyword);
+			pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			list = service.getSearchList_Content(pageInfo, keyword);
 		}
 	
 		model.addObject("fd_search_sort", fd_search_sort);
 		model.addObject("keyword", keyword);
 		model.addObject("list", list);
+		model.addObject("pageInfo", pageInfo);
 		model.setViewName("board/bf_board/bf_searchList");
 		
 		return model;

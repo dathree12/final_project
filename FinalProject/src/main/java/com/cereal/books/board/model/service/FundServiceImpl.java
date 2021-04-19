@@ -126,16 +126,28 @@ public class FundServiceImpl implements FundService {
 		return fundDao.increateViewcnt(bfNo);
 	}
 	
-	// 검색을 통한 리스트 조회, 페이징 처리x
+	// 검색을 통한 리스트 조회, 페이징 처리o
 	@Override
-	public List<FundBoard> getSearchList_Title(String keyword) {
-		
-		return fundDao.getSearchList_Title(keyword);
+	public int getBoardCount_Title(String keyword) {
+		return fundDao.getBoardCount_Title(keyword);
 	}
 	@Override
-	public List<FundBoard> getSearchList_Content(String keyword) {
+	public List<FundBoard> getSearchList_Title(PageInfo pageInfo, String keyword) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());	
 		
-		return fundDao.getSearchList_Content(keyword);
+		return fundDao.getSearchList_Title(rowBounds, keyword);
+	}
+	@Override
+	public int getBoardCount_Content(String keyword) {
+		return fundDao.getBoardCount_Content(keyword);
+	}
+	@Override
+	public List<FundBoard> getSearchList_Content(PageInfo pageInfo, String keyword) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());	
+		
+		return fundDao.getSearchList_Content(rowBounds, keyword);
 	}
 
 	// 인기프로젝트 조회(조회수순), 성공임박프로젝트 조회(남은시간순)
@@ -166,6 +178,11 @@ public class FundServiceImpl implements FundService {
 		
 		return fundDao.getBoardList_endDate(rowBounds);
 	}
+
+
+
+	
+
 
 	
 	
