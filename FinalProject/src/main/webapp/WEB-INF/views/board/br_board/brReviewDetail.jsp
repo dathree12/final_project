@@ -121,6 +121,7 @@
 				<div class="comment_textarea">
                         <form id="commentForm" name="commentForm" method="post" class="comment_form">
                             <div class="custom-textarea">
+                            <input type="hidden" name="userName" value="${user.userNname}" >
                                 <textarea class="comment_body" style="border: 0px; width: auto; outline: none;" name="comContent" id="comContent" rows="1" placeholder="댓글을 남겨주세요"></textarea>
                                 <div class="write_button_wrap">
                                     <div class="none"></div>
@@ -232,113 +233,84 @@
                  });
      });
 	</script>
+	<!--  
 	<script>
-	$(document).ready(function(){
-	function getComments() {
-		var recipeNo = $("#recipeNo").data("recipeno");
+	$(document).ready(function () {
 
-		$.ajax({
-			type: "GET",
-			url: "/api/recipes/" + recipeNo + "/comments",
-			dataType: "json",
-			contentType: "application/json; charset=utf-8",
-			success: function (result) {
-				var content = `<div class="comment-option">
-									<h3 id="comment-title">댓글<span class="badge">${result.length}</span></h3>
-								</div>`;
-				$.each(result, function (index, item) {
+	    $.ajax({
+	        type:'POST',
+	        url : "<c:url value='/board/br_board/insertComment'/>",
+	        data:$("#commentForm").serialize(),
+	        success : function(data){
+	            if(data=="success")
+	            {
+	            	alert("댓글등록")
+	                getCommentList();
+	                $("#comment_body").val("");
+	            }
+	        },
+	        error:function(request,status,error){
+	            //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	       }
+	        
+	    });
 
-					content += `<li class="list-group-item">
-									<p><strong>${item.commentWriter}</strong></p>
-									<p>${item.commentContent}</p>`;
-
-					// 삭제 댓글인지 아닌지를 확인하기 위함
-					if (item.commentStatus != "N") {
-						content += `<p><span>최종 수정일: ${item.fullDate} </span><span><button type="button" class="btn-reply">답글쓰기</button>`
-					}
-
-					// 댓글작성자이면 수정 삭제가 가능하게 하기 위함
-					if (item.commentStatus != "N" && item.role == "w") {
-						content += `<button class="btn-update">수정</button><button class="btn-delete">삭제</button>`;
-					}
-					content += `</span></p></li></ul>`;
-
-				})
-				$("#comment-show").empty().append(content);
-				// 댓글 등록 활성화
-				saveComment();
-				// 답변하기 Add 창 활성화
-				attachReplyDiv();
-				// 자신의 댓글 수정버튼 누를시 수정창으로 바뀌는 것 활성화
-				changeCommentDiv();
-				// 자신 댓글 삭제 기능 활성화
-				deleteComment();
-			}
-		})
-	}
-
-	/*
-	 * 댓글 삭제 
+	 
+	/**
+	 * 초기 페이지 로딩시 댓글 불러오기
 	 */
-	function deleteComment() {
-		$(".btn-delete").off().on('click', function () {
-
-			var commentNo = $(this).closest("ul").data("comment-no")
-			var recipeNo = $("#recipeNo").data("recipeno");
-			$.ajax({
-				method: "DELETE",
-				url: "/api/recipes/" + recipeNo + "/comments/" + commentNo
-			}).done(function () {
-				alert("삭제가 완료되었습니다.");
-				getComments();
-			}).fail(function () {
-				alert("알수 없는 오류가 발생하였습니다.")
-				location.href = "/recipes/" + recipeNo;
-			})
-		})
-	}
-
-	/*
-	 * 새 댓글을 등록한다.
-	 */
-	function saveComment() {
-		var recipeNo = $("#recipeNo").data("recipeno");
-		var nickName = $("#nickname").data("user-nickname");
-
-		$(".attach-comment").off().on('click', function () {
-			var data = {}
-
-			var content = $(this).closest("#comment-writer").find("textarea").val();
-
-			if (content == null) {
-
-				content = $(this).closest("#comment-reply").find("textarea").val();
-				data.commentParentNo = $(this).closest("ul").data("comment-no");
-				$(this).closest("#comment-reply").find("textarea").val("");
-
-			} else {
-				$(this).closest("#comment-writer").find("textarea").val("");
-			}
-			if (content.trim().length < 15) {
-				alert("현재 타이핑수: " + content.trim().length + " 최소 타이핑 수는 15 이상입니다.");
-				return;
-			}
-			data.commentContent = content;
-			data.recipeNo = recipeNo;
-			data.commentWriter = nickName;
-
-			$.post("/api/recipes/" + recipeNo + "/comments", data, function () {
-				getComments();
-				alert("댓글이 등록되었습니다.");
-			}).fail(function () {
-				alert("알수없는 오류가 발생하였습니다");
-			})
-		})
-	}
-	
+	$(function(){
+	    
+	    getCommentList();
+	    
 	});
+	 
+	/**
+	 * 댓글 불러오기(Ajax)
+	 */
+	function getCommentList(){
+	    
+	    $.ajax({
+	        type:'GET',
+	        url : "<c:url value='/board/br_board/commentList'/>",
+	        dataType : "json",
+	        data:$("#commentForm").serialize(),
+	        contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+	        success : function(data){
+	            
+	            var html = "";
+	            
+	            if(data.length > 0){
+	                
+	                for(i=0; i<data.length; i++){
+	                    html += "<div>";
+	                    html += "<div><table class='table'><h6><strong>"+data[i].writer+"</strong></h6>";
+	                    html += data[i].comment + "<tr><td></td></tr>";
+	                    html += "</table></div>";
+	                    html += "</div>";
+	                }
+	                
+	            } else {
+	                
+	                html += "<div>";
+	                html += "<div><table class='table'><h6><strong>등록된 댓글이 없습니다.</strong></h6>";
+	                html += "</table></div>";
+	                html += "</div>";
+	                
+	            }
+	            
+	            $("#commentList").html(html);
+	            
+	        },
+	        error:function(request,status,error){
+	            
+	       }
+	        
+	    });
+	}
+	}
+	 
 	</script>
-
-	
+		-->
 
 <%@ include file="../../common/footer.jsp" %>
