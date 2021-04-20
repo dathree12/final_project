@@ -3,6 +3,7 @@ package com.cereal.books.board.model.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.cereal.books.board.model.vo.ClubBoard;
@@ -53,5 +54,12 @@ public interface ClubDao {
 
 	int selectExpCount(int bcNo);
 
-	
+	// 관리자 페이지
+	List<ClubBoard> adminClubList(@Param("rowBounds") RowBounds rowBounds, @Param("status") String status);
+
+	int adminClubStatusCount(String status);
+	// 마이페이지 (참여, 신청)
+	List<ClubBoard> myClubList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
+
+	int selectMyClubCount(int userNo);
 }

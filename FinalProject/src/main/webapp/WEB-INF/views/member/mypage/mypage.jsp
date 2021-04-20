@@ -328,7 +328,7 @@
 									<c:forEach var="aplctBF" items="${myAplctFundList}">
 										<tr>
 											<td><c:out value="${aplctBF.bfNo}"/></td>
-											<td><a href="#"><c:out value="${aplctBF.bfTitle}"/></a></td>
+											<td><a href="${path}/board/bf_board/bf_userCheck?bfNo=${aplctBF.bfNo}"><c:out value="${aplctBF.bfTitle}"/></a></td>
 											<td><c:out value="${aplctBF.bfStatus}"/></td>
 										</tr>
 									</c:forEach>

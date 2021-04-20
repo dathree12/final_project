@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cereal.books.board.model.dao.ProposeDao;
+import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.Propose;
 import com.cereal.books.common.util.PageInfo;
 
@@ -50,4 +51,17 @@ public class ProposeServiceImpl implements ProposeService {
 		return result;
 	}
 
+	// 마이페이지 (제안 리스트)
+	@Override
+	public List<ClubBoard> getMyAplctClubList(PageInfo myAplctClubpageInfo, int userNo) {
+		int offset = (myAplctClubpageInfo.getCurrentPage() - 1) * myAplctClubpageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, myAplctClubpageInfo.getListLimit());
+		
+		return dao.myAplctClubList(rowBounds, userNo);
+	}
+
+	@Override
+	public int getMyAplctClubCount(int userNo) {
+		return dao.selectMyAplcClubCount(userNo);
+	}
 }
