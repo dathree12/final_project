@@ -10,15 +10,17 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,13 +29,13 @@ import com.cereal.books.board.model.vo.BookScrap;
 import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
-import com.cereal.books.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("board/br_board")
+@SessionAttributes("loginMember")
 public class ReviewController {
 	
 	@Autowired
@@ -165,9 +167,6 @@ public class ReviewController {
 	}
 	
 	
-	
-	
-	
 	// ck에디터 이미지 이름 변경하는 메소드
 		private String saveFileRename(MultipartFile upload, HttpServletRequest request) {
 			// file 이름 뒤에 등록하는 시간 붙여서 rename에 넣기
@@ -206,6 +205,35 @@ public class ReviewController {
 			@RequestParam("scrapNo") String scrapNo, BookScrap bookscrap) {
 		int result = 0;
 		result = service.saveScrapStatus(bookscrap);
+	}
+	
+	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST})
+	@ResponseBody
+    public int saveComment(Comment comment, ModelAndView model) throws Exception{
+        
+        int result = 0;
+		
+    	result = service.insertComment(comment);
+    	
+    	if(result > 0) {
+			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+			model.addObject("location", "/board/br_board/brBoardMain");
+		} else {
+			model.addObject("msg", "게시글 등록을 실패하였습니다.");
+			model.addObject("location", "/board/list");
+		}			
+            
+        
+        return result;
+    }
+	
+	@RequestMapping(value="/commentList", method = {RequestMethod.GET})
+	@ResponseBody
+	public List<Comment> getCommentList(@RequestParam int brNo, ModelAndView model) throws Exception {
+		List<Comment> list = null;
+		list = service.listComment(brNo);
+		System.out.println(list);
+		return list;
 	}
 	
 	

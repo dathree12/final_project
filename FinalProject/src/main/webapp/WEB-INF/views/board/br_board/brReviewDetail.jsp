@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="${ path }/css/board/br_style/brReviewDetail.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="js/jquery-3.5.1.js"></script>
+    <script src="${ path }/js/jquery-3.5.1.js"></script>
     <script 
     src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"
@@ -48,7 +48,7 @@
             </section>
             <section class="brboard-review">
                 <div class="brboard-review-header">
-                	<p style="display:none">${board.brNo}</p>
+                	<p id="reviewheader-brNo" style="display:none">${board.brNo}</p>
                     <p id="reviewheader-bookclass">${board.brBookType}</p>
                     <p id="reviewheader-reviewtitle">${board.brTitle}</p>
                     <p id="reviewheader-reviewwriter">${board.userNname}</p>
@@ -121,15 +121,16 @@
 				<div class="comment_textarea">
                         <form id="commentForm" name="commentForm" method="post" class="comment_form">
                             <div class="custom-textarea">
+                            	<p class="comment_profile" id="loginNname" >${user.userNname}</p>
                                 <textarea class="comment_body" style="border: 0px; width: auto; outline: none;" name="comContent" id="comContent" rows="1" placeholder="댓글을 남겨주세요"></textarea>
                                 <div class="write_button_wrap">
                                     <div class="none"></div>
                                     <div class="write_button">
                                         <a href='#' id="commentBtn" class="btn pull-right btn-success">등록</a>
+                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" id="b_code" name="b_code" value="${result.code }" /> 
                         </form>
                     </div>
                 </div>    
@@ -177,7 +178,71 @@
         </section>    
     </div>
 </body>
+	
+	<script>
+		$(document).ready(function() {
+			
+			// 게시글 번호 저장
+			var brNo = document.getElementById("reviewheader-brNo").innerHTML;
+			// 로그인한 회원 아이디 저장
+			var memberNname = document.getElementById("loginNname").value;
+			
+			var content = document.getElementById("comContent".value);
 
+			commentList();
+			saveComment();
+			// 댓글 목록 보기
+			function commentList() {
+				$.ajax({
+					url:	"commentList",
+					type:	"get",
+					data:	{brNo: brNo},
+					success: function(data) {
+						var str = '';
+						
+						$.each(data, function(key, value){ 
+							if (key == 0) {
+								str += '<div class="col-sm-12" style="padding-top: 5px; font-size: 11px;">';
+							} else {
+								str += '<div class="col-sm-12" style="border-top: 1px solid #dddddd; margin-top: 15px; padding-top: 15px; font-size: 11px;">';
+							}
+							str += '<div class="col-sm-2">' + value.comWriter + '</div>';
+							str += '<div class="col-sm-7 commentContent' + value.comNo + '" align="left"><p>' + value.comContent +'</div>';				
+							str += '<div class="col-sm-3">';
+							str += '</div></div>';
+						});
+						$("#commentList").html(str);
+						
+					}
+				});
+				
+				function saveComment() {
+					if(content == null) {
+						alert("댓글 내용을 입력해주세요")
+					}
+					if(content.trim().length > 1000) {
+						alert("현재 타이핑수: " + content.trim().length + " 최대 타이핑 수는 1000입니다.");
+						return;
+					}
+				$("#commentBtn").on("click", function() {
+						$.ajax({
+							url:	"saveComment",
+							type:	"post",
+							data:	{brNo: brNo,
+									 memberNname: memberNname,
+									 content: content},
+							success: function(data) {
+								alert("댓글 등록 성공");
+							},
+							error: function(data) {
+								alert("댓글 등록 실패")
+							}
+						});
+				})
+			}
+			}
+		})
+	</script>
 	<script>
 	    $(document).ready(function(){
 	            
@@ -232,113 +297,5 @@
                  });
      });
 	</script>
-	<script>
-	$(document).ready(function(){
-	function getComments() {
-		var recipeNo = $("#recipeNo").data("recipeno");
-
-		$.ajax({
-			type: "GET",
-			url: "/api/recipes/" + recipeNo + "/comments",
-			dataType: "json",
-			contentType: "application/json; charset=utf-8",
-			success: function (result) {
-				var content = `<div class="comment-option">
-									<h3 id="comment-title">댓글<span class="badge">${result.length}</span></h3>
-								</div>`;
-				$.each(result, function (index, item) {
-
-					content += `<li class="list-group-item">
-									<p><strong>${item.commentWriter}</strong></p>
-									<p>${item.commentContent}</p>`;
-
-					// 삭제 댓글인지 아닌지를 확인하기 위함
-					if (item.commentStatus != "N") {
-						content += `<p><span>최종 수정일: ${item.fullDate} </span><span><button type="button" class="btn-reply">답글쓰기</button>`
-					}
-
-					// 댓글작성자이면 수정 삭제가 가능하게 하기 위함
-					if (item.commentStatus != "N" && item.role == "w") {
-						content += `<button class="btn-update">수정</button><button class="btn-delete">삭제</button>`;
-					}
-					content += `</span></p></li></ul>`;
-
-				})
-				$("#comment-show").empty().append(content);
-				// 댓글 등록 활성화
-				saveComment();
-				// 답변하기 Add 창 활성화
-				attachReplyDiv();
-				// 자신의 댓글 수정버튼 누를시 수정창으로 바뀌는 것 활성화
-				changeCommentDiv();
-				// 자신 댓글 삭제 기능 활성화
-				deleteComment();
-			}
-		})
-	}
-
-	/*
-	 * 댓글 삭제 
-	 */
-	function deleteComment() {
-		$(".btn-delete").off().on('click', function () {
-
-			var commentNo = $(this).closest("ul").data("comment-no")
-			var recipeNo = $("#recipeNo").data("recipeno");
-			$.ajax({
-				method: "DELETE",
-				url: "/api/recipes/" + recipeNo + "/comments/" + commentNo
-			}).done(function () {
-				alert("삭제가 완료되었습니다.");
-				getComments();
-			}).fail(function () {
-				alert("알수 없는 오류가 발생하였습니다.")
-				location.href = "/recipes/" + recipeNo;
-			})
-		})
-	}
-
-	/*
-	 * 새 댓글을 등록한다.
-	 */
-	function saveComment() {
-		var recipeNo = $("#recipeNo").data("recipeno");
-		var nickName = $("#nickname").data("user-nickname");
-
-		$(".attach-comment").off().on('click', function () {
-			var data = {}
-
-			var content = $(this).closest("#comment-writer").find("textarea").val();
-
-			if (content == null) {
-
-				content = $(this).closest("#comment-reply").find("textarea").val();
-				data.commentParentNo = $(this).closest("ul").data("comment-no");
-				$(this).closest("#comment-reply").find("textarea").val("");
-
-			} else {
-				$(this).closest("#comment-writer").find("textarea").val("");
-			}
-			if (content.trim().length < 15) {
-				alert("현재 타이핑수: " + content.trim().length + " 최소 타이핑 수는 15 이상입니다.");
-				return;
-			}
-			data.commentContent = content;
-			data.recipeNo = recipeNo;
-			data.commentWriter = nickName;
-
-			$.post("/api/recipes/" + recipeNo + "/comments", data, function () {
-				getComments();
-				alert("댓글이 등록되었습니다.");
-			}).fail(function () {
-				alert("알수없는 오류가 발생하였습니다");
-			})
-		})
-	}
-	
-	});
-	</script>
-
-	
 
 <%@ include file="../../common/footer.jsp" %>

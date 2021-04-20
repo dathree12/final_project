@@ -28,4 +28,5 @@ public interface ReviewDao {
 		
 		int insertComment(Comment comment);
 
+		List<Comment> listComment(int brNo);
 }

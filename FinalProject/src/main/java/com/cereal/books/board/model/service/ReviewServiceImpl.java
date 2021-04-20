@@ -74,5 +74,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 
+	@Override
+	public List<Comment> listComment(int brNo) {
+		return reviewDao.listComment(brNo);
+	}
+
 
 }

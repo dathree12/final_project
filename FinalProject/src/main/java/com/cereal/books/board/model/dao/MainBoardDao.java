@@ -22,5 +22,9 @@ public interface MainBoardDao {
 	List<ReviewBoard> selectBoardListMB(RowBounds rowBounds);
 
 	List<ReviewBoard> selectBoardListBeforeMB(RowBounds rowBounds);
+
+	List<ReviewBoard> selectBoardGenreList(RowBounds rowBounds, @Param("brBookType") String brBookType);
+
+	List<ReviewBoard> selectBoardGList(RowBounds rowBounds);
 	
 }
