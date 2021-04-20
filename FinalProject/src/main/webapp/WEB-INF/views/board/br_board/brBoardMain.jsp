@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="${ path }/css/board/br_style/brBoardMain.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="js/jquery-3.5.1.js"></script>
+    <script src="${ path }/js/jquery-3.5.1.js"></script>
     <script 
     src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"

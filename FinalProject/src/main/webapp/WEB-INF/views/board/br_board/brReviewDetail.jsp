@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="${ path }/css/board/br_style/brReviewDetail.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="js/jquery-3.5.1.js"></script>
+    <script src="${ path }/js/jquery-3.5.1.js"></script>
     <script 
     src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"
@@ -127,6 +127,7 @@
                                     <div class="none"></div>
                                     <div class="write_button">
                                         <a href='#' id="commentBtn" class="btn pull-right btn-success">등록</a>
+                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                                     </div>
                                 </div>
                             </div>
@@ -180,22 +181,22 @@
 	
 	<script>
 		$(document).ready(function() {
-			fbcommentList();
 			
 			// 게시글 번호 저장
-			var brNo = document.getElementById("reviewheader-brNo").value;
-
+			var brNo = document.getElementById("reviewheader-brNo").innerHTML;
 			// 로그인한 회원 아이디 저장
 			var memberNname = document.getElementById("loginNname").value;
 
+			commentList();
 			// 댓글 목록 보기
 			function commentList() {
 				$.ajax({
-					url:	"/board/br_board/commentList/" + brNo,
+					url:	"commentList",
 					type:	"get",
-					data:	{"brNo": brNo},
+					data:	{brNo: brNo},
 					success: function(data) {
 						var str = '';
+						
 						$.each(data, function(key, value){ 
 							if (key == 0) {
 								str += '<div class="col-sm-12" style="padding-top: 5px;">';
@@ -208,6 +209,7 @@
 							str += '</div></div>';
 						});
 						$("#commentList").html(str);
+						
 					}
 				});
 			}

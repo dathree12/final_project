@@ -227,13 +227,13 @@ public class ReviewController {
         return result;
     }
 	
-	@RequestMapping(value="/commentList/{brNo}", method = {RequestMethod.GET})
+	@RequestMapping(value="/commentList", method = {RequestMethod.GET})
 	@ResponseBody
-	public ModelAndView getCommentList(@PathVariable int brNo, ModelAndView model) throws Exception {
+	public List<Comment> getCommentList(@RequestParam int brNo, ModelAndView model) throws Exception {
 		List<Comment> list = null;
-		
 		list = service.listComment(brNo);
-		return model;
+		System.out.println(list);
+		return list;
 	}
 	
 	
