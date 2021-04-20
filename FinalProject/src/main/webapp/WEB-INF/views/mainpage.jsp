@@ -1,21 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>     
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
+<%@ include file="../views/common/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
     <title>메인페이지</title>
      <link rel="stylesheet" href="${path}/css/common/mainpage.css">
+       
 </head>
 
-
-<%@ include file="../views/common/header.jsp" %>
     <section id="main_container">
     
         <div id="high_div">
@@ -150,29 +149,32 @@
         </div>
         <br>
         <div id="row_div_text"> 
-            <span> 장르별 추천 도서</span>
+            <span> 장르별 리뷰 추천 도서</span>
         </div>
         <nav class="mnav"> 
             <div id="me_menu">
+            <form method="get" id="menuGenre">
             <ul class="nav_menu">
-                <li><a href="">소설</a></li>
-                <li><a href="">어린이/청소년</a></li>
-                <li><a href="">경제/경영</a></li>
-                <li><a href="">인문/사회/역사</a></li>
-                <li><a href="">종교/역학</a></li>
-                <li><a href="">자기개발</a></li>
+                <li><span id="menu1">소설</span></li>
+                <li><span id="menu2">어린이/청소년</span></li>
+                <li><span id="menu3">경제/경영</span></li>
+                <li><span id="menu4">인문/사회/역사</span></li>
+                <li><span id="menu5">종교/역학</span></li>
+                <li><span id="menu6">자기개발</span></li>
             </ul>
+            </form>
         </div> 
         </nav>
         
         <div id="row_div">
             <div id="row_genre">
                 <div class="me_genre_div">
-                    <div class="genre">
-                        <a href="">
+                    <div class="genre" >
+                        <a href="" >
                             <img src="${path}/images/바다.jpg"alt="" class="genre_img">
-                            <div class="genre_title"><span>바다 도시의 아이들</span></div>
+                            <div class="genre_title"><span id ="gBestImage_${gbest.brIsbn}" ></span></div>
                             <div class="genre_content"><span>청소년 판타지 소설을 잘 읽는 편이 아닌데 왠지 모르게 끌렸다. 분량이 좀 되는 책인데 청소년 판타지라 그런지 가독성이 상당히 좋다. 어떻게 보면 전형적인 청소년 판타지의 설정을 따라가는데 세계관이 흥미롭다. 가파른 산 위에 세워진 도시, 바다 위에 우뚝 솟은 산이다. 뭐지? 하고 읽다보면 이 세계가 대홍수 이후 생존한 사람들이 높은 산 위 도시에 살고 있음을 알 수 있다. 그</span></div>
+                        	  <p id="review-bestisbn_${gbest.brIsbn}" style="display:none"><c:out value="${board.brIsbn}"/></p>
                         </a>
                     </div>
                     <div class="genre">
@@ -249,6 +251,45 @@
                      $("#mBestAuthors_${best.brIsbn}").append(msg.documents[0].authors)
                  });
              </c:forEach> 
-
-     });
+             $("#menu1").on('click',() => {
+      	 		let menu = 'b1';
+  			
+      				 $.ajax({
+       					type: "get",
+      					url: "reviews",
+       					dataType: "json",
+      					data: {
+      						menu
+       					},
+       					success: function(data) {
+       						$(data).each(function(index, obj) {
+       							$("#genrefor").val(obj.brTitle);
+       						});
+   
+       					},
+       					error: function(e) {
+       						console.log(e);
+   	     				}				
+       				});		
+      	 	});	
+                   
+         	<c:forEach var="gbest" items="${data}">
+			var isbn = document.getElementById("review-bestisbn_${gbest.brIsbn}").innerText
+			 	 
+	             $.ajax({
+	                 method: "GET",
+	                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+	                 data: { query: isbn },
+	                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+	             })
+	                 .done(function (msg) {
+	                     $("#gBestImage_${gbest.brIsbn}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+	     
+	             });
+	        </c:forEach> 
+				
+             
+             
+		});	
+     
 	</script>

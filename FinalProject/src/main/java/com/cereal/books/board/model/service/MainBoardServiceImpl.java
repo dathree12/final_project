@@ -100,4 +100,18 @@ public class MainBoardServiceImpl implements MainBoardService {
 	}
 
 
+
+	@Override
+	public List<ReviewBoard> getBoardGenreList(PageInfo pageInfo, String brBookType) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit(); 
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		List<ReviewBoard> genre = new ArrayList<>();
+		genre = mainBoardDao.selectBoardGenreList(rowBounds,brBookType);
+		
+		System.out.println(genre + " 임플");
+		
+		return genre;
+	}
+
+
 }

@@ -18,6 +18,8 @@ public interface MainBoardService {
 
 	List<ReviewBoard> getBoardListBeforeMB(PageInfo pageInfo);
 
+	List<ReviewBoard> getBoardGenreList(PageInfo pageInfo, String brBookType);
+
 	
 
 	

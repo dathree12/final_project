@@ -75,6 +75,7 @@
 		GROUP BY BR_ISBN
 		ORDER BY COUNT(*) DESC
 	</select>
+	
 	<select id="selectBoardListBeforeMB" parameterType="map" resultMap="mainResultMap">
 		SELECT BR_ISBN, COUNT(*)
 		FROM(SELECT BR_ISBN, to_char(BR_CREATE_DATE, 'mm' ) AS BR_CREATE_DATE 
@@ -84,7 +85,11 @@
 		ORDER BY COUNT(*) DESC
 	</select>
 	
-
+	<select id="selectBoardGenreList" parameterType="map" resultMap="mainResultMap">
+		<include refid="brListSql"></include>
+		AND BR_BOOKTYPE = #{brBookType}
+		ORDER BY BR_LIKE DESC
+	</select>
 
 
 </mapper>

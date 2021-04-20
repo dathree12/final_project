@@ -234,14 +234,16 @@ margin: auto 5px;
 }
 
 
-.nav_menu a{
+.nav_menu span{
     font-size: 1em;
     color: #f26722;
+    cursor: pointer;
 }
 
 .nav_menu li:hover{
     font-weight: 900;
     font-size: 1.3em;
+    cursor: pointer;
 }
 
 #row_div{
