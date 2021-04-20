@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cereal.books.board.model.dao.ReviewDao;
+import com.cereal.books.board.model.vo.BookScrap;
+import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
 
@@ -52,5 +54,30 @@ public class ReviewServiceImpl implements ReviewService {
 	public ReviewBoard findBoardByNo(int brNo) {
 		return reviewDao.selectBoardDetail(brNo);
 	}
+
+	@Override
+	public int saveScrapStatus(BookScrap bookscrap) {
+		int result = 0;
+		System.out.println("스크랩 돌아간다.");
+		if(bookscrap.getScrapNo() != 0) {
+			result = reviewDao.updateBookScrap(bookscrap);
+		} else {
+			result = reviewDao.insertBookScrap(bookscrap);
+		}
+		return result;
+	}
+
+	@Override
+	public int insertComment(Comment comment) {
+		int result = 0;
+		result = reviewDao.insertComment(comment);
+		return result;
+	}
+
+	@Override
+	public List<Comment> listComment(int brNo) {
+		return reviewDao.listComment(brNo);
+	}
+
 
 }

@@ -38,9 +38,11 @@ public interface FundService {
 	// 조회수 증가(반복조회 방지)
 	int increaseViewcnt(int bfNo);
 
-	// 검색을 통한 리스트 조회, 페이징 처리x
-	List<FundBoard> getSearchList_Title(String keyword);
-	List<FundBoard> getSearchList_Content(String keyword);
+	// 검색을 통한 리스트 조회, 페이징 처리o
+	int getBoardCount_Title(String keyword);
+	List<FundBoard> getSearchList_Title(PageInfo pageInfo, String keyword);
+	int getBoardCount_Content(String keyword);
+	List<FundBoard> getSearchList_Content(PageInfo pageInfo, String keyword);
 
 	// 인기프로젝트 조회(조회수순), 성공임박프로젝트 조회(남은시간순)
 	List<FundBoard> getBoardList_viewCount(PageInfo pageInfo);
@@ -48,6 +50,10 @@ public interface FundService {
 	// 마감된프로젝트 조회(마감항목, 최근마감날짜순)
 	int getBoardCount_endDate();
 	List<FundBoard> getBoardList_endDate(PageInfo pageInfo);
+
+	int updateAdminCheck(FundBoard fundboard);
+
+
 
 	
 	

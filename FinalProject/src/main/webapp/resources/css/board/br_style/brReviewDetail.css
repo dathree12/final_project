@@ -118,9 +118,16 @@ form {
 .brboard-review-book {
   display: flex;
 }
-
+.review-book-bookscrap {
+	font-size: 11px;
+}
 .review-book-cover {
   margin: 1%;
+}
+
+#thumbnailbox {
+  width: 100px;
+  height: 150px;
 }
 
 .review-book-description p {
@@ -135,7 +142,10 @@ form {
 .brboard-review-contentlower {
   padding: 3px;
 }
-
+.scrapicon {
+	height: 14px;
+  	width: 14px;
+}
 .recoicon {
   height: 12px;
   width: 12px;
