@@ -91,5 +91,10 @@
 		ORDER BY BR_LIKE DESC
 	</select>
 
+	<select id="selectBoardGList" parameterType="map" resultMap="mainResultMap">
+		<include refid="brListSql"></include>
+		ORDER BY BR_LIKE DESC
+	</select>
+
 
 </mapper>

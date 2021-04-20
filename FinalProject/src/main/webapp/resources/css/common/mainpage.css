@@ -253,9 +253,9 @@ margin: auto 5px;
 }
 
 #row_genre{
-    display: flex;
+	 display: flex;
     justify-content: space-between;
-    width: 80%;
+    width: 100%;
     margin: auto;
 }
 
@@ -268,13 +268,18 @@ margin: auto 5px;
 }
 .me_genre_div{
     display: flex;
-    width: 100%
+    margin: auto;
+    width: 100%;
 }
 
+.gimage{
+	
+}
 
 .genre{
-    width: 35%;
+    width: 20%;
     margin: auto;
+    text-align: center;
 }
 
 
@@ -284,9 +289,7 @@ margin: auto 5px;
     color: #f26722;
     border-bottom: 1px solid #f1f1f1;
 }
-.genre_img{
-    width: 100%;
-}
+
 
 .genre_content{
     font-size: 12px;
@@ -364,13 +367,14 @@ margin: auto 5px;
 
 
     #row_genre {
-        flex-direction: column;
-        width: 100%;
+      	flex-direction: column;
+        width: 100%
     
     }
 
     .genre{
-        width: 35%;
+
+        width: 25%;
         margin: 20px auto;
     }
     .nav_menu a{

@@ -37,17 +37,19 @@ public class MainController {
 			@AuthenticationPrincipal Member member) {
 		List<ReviewBoard> list = null;
 		List<ReviewBoard> mBest = null;
+		List<ReviewBoard> gBest = null;
 		int boardCount = 0;
 		int userNo = 0;
 		boardCount = service.getBoardCount();
 		PageInfo pageInfo = new PageInfo(1, 1, boardCount, 3);
+		PageInfo pageInfoGr = new PageInfo(1, 1, boardCount, 4);
 		Date time = new Date();
 		SimpleDateFormat format = new SimpleDateFormat ("MM");
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(time);
 		String month = null; 
 		
-		
+		// 로그인시 추천
 		if (member == null) {
 			list = service.getBoardList(pageInfo);
 			
@@ -62,7 +64,7 @@ public class MainController {
 				list = service.getBoardListNo(pageInfo);		
 			}
 		}
-		
+		// 월간 베스트
 		mBest = service.getBoardListMB(pageInfo);	
 		if(mBest.size() > 2 ) {
 			month = format.format(cal.getTime());
@@ -77,6 +79,11 @@ public class MainController {
 			model.addObject("month", month);	
 		}
 		
+		//장르별 리스트
+		
+		gBest = service.getBoardGList(pageInfoGr);
+		
+		model.addObject("gBest", gBest);
 		model.addObject("list", list);
 		model.setViewName("mainpage");
 		return model;

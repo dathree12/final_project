@@ -168,39 +168,59 @@
         
         <div id="row_div">
             <div id="row_genre">
+                <c:forEach var="gbest" items="${gBest}" varStatus="glist">
+                 <c:if test="${glist.count == 1}">
                 <div class="me_genre_div">
+               
                     <div class="genre" >
                         <a href="" >
-                            <img src="${path}/images/바다.jpg"alt="" class="genre_img">
-                            <div class="genre_title"><span id ="gBestImage_${gbest.brIsbn}" ></span></div>
-                            <div class="genre_content"><span>청소년 판타지 소설을 잘 읽는 편이 아닌데 왠지 모르게 끌렸다. 분량이 좀 되는 책인데 청소년 판타지라 그런지 가독성이 상당히 좋다. 어떻게 보면 전형적인 청소년 판타지의 설정을 따라가는데 세계관이 흥미롭다. 가파른 산 위에 세워진 도시, 바다 위에 우뚝 솟은 산이다. 뭐지? 하고 읽다보면 이 세계가 대홍수 이후 생존한 사람들이 높은 산 위 도시에 살고 있음을 알 수 있다. 그</span></div>
-                        	  <p id="review-bestisbn_${gbest.brIsbn}" style="display:none"><c:out value="${board.brIsbn}"/></p>
+                          	<a  href="#" id="gBestImage_${gbest.brNo}" ></a>
+                          	<p id="review-gbestisbn_${gbest.brNo}" style="display:none"><c:out value="${gbest.brIsbn}"/></p>
+                            <div class="genre_title"><span >${gbest.brTitle}</span></div>
+                            <div class="genre_content"><span>${gbest.brContent}</span></div>
+                        	 
                         </a>
                     </div>
-                    <div class="genre">
-                        <a href="">
-                            <img src="${path}/images/바다.jpg" alt="" class="genre_img">
-                            <div class="genre_title"><span>바다 도시의 아이들</span></div>
-                            <div class="genre_content"><span>청소년 판타지 소설을 잘 읽는 편이 아닌데 왠지 모르게 끌렸다. 분량이 좀 되는 책인데 청소년 판타지라 그런지 가독성이 상당히 좋다. 어떻게 보면 전형적인 청소년 판타지의 설정을 따라가는데 세계관이 흥미롭다. 가파른 산 위에 세워진 도시, 바다 위에 우뚝 솟은 산이다. 뭐지? 하고 읽다보면 이 세계가 대홍수 이후 생존한 사람들이 높은 산 위 도시에 살고 있음을 알 수 있다. 그</span></div>
+                    </c:if>
+                    <c:if test="${glist.count == 2}">
+                    <div class="genre" >
+                        <a href="" >
+                          	<a  href="#" id="gBestImage_${gbest.brNo}" ></a>
+                          	<p id="review-gbestisbn_${gbest.brNo}" style="display:none"><c:out value="${gbest.brIsbn}"/></p>
+                            <div class="genre_title"><span >${gbest.brTitle}</span></div>
+                            <div class="genre_content"><span>${gbest.brContent}</span></div>
+                        	 
                         </a>
                     </div>
                 </div>
+                </c:if>
+                 <c:if test="${glist.count == 3}">
                 <div class="me_genre_div">
-                    <div class="genre">
-                        <a href="">
-                            <img src="${path}/images/바다.jpg" alt="" class="genre_img">
-                            <div class="genre_title"><span>바다 도시의 아이들</span></div>
-                            <div class="genre_content"><span>청소년 판타지 소설을 잘 읽는 편이 아닌데 왠지 모르게 끌렸다. 분량이 좀 되는 책인데 청소년 판타지라 그런지 가독성이 상당히 좋다. 어떻게 보면 전형적인 청소년 판타지의 설정을 따라가는데 세계관이 흥미롭다. 가파른 산 위에 세워진 도시, 바다 위에 우뚝 솟은 산이다. 뭐지? 하고 읽다보면 이 세계가 대홍수 이후 생존한 사람들이 높은 산 위 도시에 살고 있음을 알 수 있다. 그</span></div>
+               
+                    <div class="genre" >
+                        <a href="" >
+                          	<a  href="#" id="gBestImage_${gbest.brNo}" ></a>
+                          	<p id="review-gbestisbn_${gbest.brNo}" style="display:none"><c:out value="${gbest.brIsbn}"/></p>
+                            <div class="genre_title"><span >${gbest.brTitle}</span></div>
+                            <div class="genre_content"><span>${gbest.brContent}</span></div>
+                        	 
                         </a>
                     </div>
-                    <div class="genre">
-                        <a href="">
-                            <img src="${path}/images/바다.jpg" alt="" class="genre_img">
-                            <div class="genre_title"><span>바다 도시의 아이들</span></div>
-                            <div class="genre_content"><span>청소년 판타지 소설을 잘 읽는 편이 아닌데 왠지 모르게 끌렸다. 분량이 좀 되는 책인데 청소년 판타지라 그런지 가독성이 상당히 좋다. 어떻게 보면 전형적인 청소년 판타지의 설정을 따라가는데 세계관이 흥미롭다. 가파른 산 위에 세워진 도시, 바다 위에 우뚝 솟은 산이다. 뭐지? 하고 읽다보면 이 세계가 대홍수 이후 생존한 사람들이 높은 산 위 도시에 살고 있음을 알 수 있다. 그</span></div>
+                    </c:if>
+                    <c:if test="${glist.count == 4}">
+                    <div class="genre" >
+                        <a href="" >
+                          	<a  href="#" id="gBestImage_${gbest.brNo}" ></a>
+                          	<p id="review-gbestisbn_${gbest.brNo}" style="display:none"><c:out value="${gbest.brIsbn}"/></p>
+                            <div class="genre_title"><span >${gbest.brTitle}</span></div>
+                            <div class="genre_content"><span>${gbest.brContent}</span></div>
+                        	 
                         </a>
                     </div>
                 </div>
+                </c:if>
+     			</c:forEach>
+               
             </div> 
             <div id="genre_btn">
                 <a href="" id="genre_btn_a">
@@ -251,42 +271,45 @@
                      $("#mBestAuthors_${best.brIsbn}").append(msg.documents[0].authors)
                  });
              </c:forEach> 
-             $("#menu1").on('click',() => {
-      	 		let menu = 'b1';
-  			
-      				 $.ajax({
-       					type: "get",
-      					url: "reviews",
-       					dataType: "json",
-      					data: {
-      						menu
-       					},
-       					success: function(data) {
-       						$(data).each(function(index, obj) {
-       							$("#genrefor").val(obj.brTitle);
-       						});
-   
-       					},
-       					error: function(e) {
-       						console.log(e);
-   	     				}				
-       				});		
-      	 	});	
-                   
-         	<c:forEach var="gbest" items="${data}">
-			var isbn = document.getElementById("review-bestisbn_${gbest.brIsbn}").innerText
-			 	 
-	             $.ajax({
-	                 method: "GET",
-	                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
-	                 data: { query: isbn },
-	                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
-	             })
-	                 .done(function (msg) {
-	                     $("#gBestImage_${gbest.brIsbn}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
-	     
-	             });
-	        </c:forEach> 
+          
+		 	<c:forEach var="gbest" items="${gBest}">
+		 	 var isbn = document.getElementById("review-gbestisbn_${gbest.brNo}").innerText
+		 	 
+             $.ajax({
+                 method: "GET",
+                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+                 data: { query: isbn },
+                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+             })
+                 .done(function (msg) {
+                     $("#gBestImage_${gbest.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+               
+                 });
+             </c:forEach> 
+             
+             
+             $("#menu1").on('click', () => {
+     	 		let menu ='b1';
+    
+     				 $.ajax({
+     					type: "get",
+     					url: "${path}/reviews",
+     					dataType: "json",
+     					data: {
+     						menu
+     					},
+     					success: function(data) {
+     						console.log(data);
+     					
+     					},
+     					error: function(e) {
+     						console.log(e);
+     					}				
+     				});	
+     			
+     	 	});	
+             
+          
 				
              
              

@@ -20,6 +20,8 @@ public interface MainBoardService {
 
 	List<ReviewBoard> getBoardGenreList(PageInfo pageInfo, String brBookType);
 
+	List<ReviewBoard> getBoardGList(PageInfo pageInfoGr);
+
 	
 
 	
