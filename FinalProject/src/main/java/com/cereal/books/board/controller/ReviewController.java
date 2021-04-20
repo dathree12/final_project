@@ -209,20 +209,20 @@ public class ReviewController {
 	
 	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST})
 	@ResponseBody
-    public int saveComment(Comment comment, ModelAndView model) throws Exception{
-        
+    public int saveComment(@RequestParam int brNo, String memberNname, String content, Comment comment, ModelAndView model) throws Exception{
+
         int result = 0;
 		
-    	result = service.insertComment(comment);
+    	result = service.saveComment(comment);
     	
-    	if(result > 0) {
-			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-			model.addObject("location", "/board/br_board/brBoardMain");
-		} else {
-			model.addObject("msg", "게시글 등록을 실패하였습니다.");
-			model.addObject("location", "/board/list");
-		}			
-            
+//    	if(result > 0) {
+//			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+//			model.addObject("location", "/board/br_board/brBoardMain");
+//		} else {
+//			model.addObject("msg", "게시글 등록을 실패하였습니다.");
+//			model.addObject("location", "/board/list");
+//		}			
+//            
         
         return result;
     }

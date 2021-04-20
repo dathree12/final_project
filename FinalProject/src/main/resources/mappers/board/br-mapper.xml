@@ -136,7 +136,7 @@
 	</select>
 	
 	<!-- 댓글 집어넣기 -->
-	<insert id="insertComment" parameterType="map"
+	<insert id="saveComment" parameterType="map"
 		useGeneratedKeys="true" keyProperty="comNo" keyColumn="COM_NO">
   		
 	  	INSERT INTO COMMENT_BOARD

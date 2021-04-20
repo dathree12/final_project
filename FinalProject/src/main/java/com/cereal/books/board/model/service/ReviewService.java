@@ -19,9 +19,9 @@ public interface ReviewService {
 
 	int saveScrapStatus(BookScrap bookscrap);
 
-	int insertComment(Comment comment);
-
 	List<Comment> listComment(int brNo);
+
+	int saveComment(Comment comment);
 	
 
 }
