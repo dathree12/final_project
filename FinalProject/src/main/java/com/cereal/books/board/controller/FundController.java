@@ -59,7 +59,6 @@ public class FundController {
 		model.setViewName("board/bf_board/bf_boardList");
 		
 //		System.out.println(list);
-//		System.out.println(model);
 		return model;
 	}
 	
@@ -69,6 +68,7 @@ public class FundController {
 		return "board/bf_board/bf_boardWrite";
 	}
 	
+	// 펀딩 프로젝트 신청하기, 대표이미지 파일 저장 로직 포함
 	@RequestMapping(value="/bf_boardWrite", method = {RequestMethod.POST})
 	public ModelAndView write(
 			ModelAndView model, HttpServletRequest request,	FundBoard fundboard,
@@ -103,11 +103,9 @@ public class FundController {
 		}
 		
 		model.setViewName("common/msg");
-//		model.setViewName("board/write");
 		
 		return model;
 	}
-	
 	// 대표사진 저장할 수 있는 메소드
 	private String saveFile(MultipartFile upfile, HttpServletRequest request) {
 		// file 이름 뒤에 등록하는 시간 붙여서 rename에 넣기
@@ -148,7 +146,7 @@ public class FundController {
 		return renameFileName;
 	}
 
-	// ck에디터 이미지 업로드 메소드
+	// ck에디터 이미지 업로드 메소드(글쓰기, 수정하기 둘다 사용)
 	@RequestMapping(value = "/bf_boardWriteCK", method = RequestMethod.POST)
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
@@ -163,15 +161,11 @@ public class FundController {
 		
 		// file이 존재해야 로직실행되도록 null이 아니어야 하고, file 있으면 false이고 !붙여서 true로 로직 실행되도록 한다.
 		if(upload != null && !upload.isEmpty()) {
-			// 파일을 저장하는 로직 작성
+			// 파일을 저장하는 로직 작성(파일 이름 중복방지, 기존 대표이미지 저장 메소드 응용
 			renameFileNameCK = saveFileRename(upload, request);
 			
 			System.out.println(renameFileNameCK);
 			
-//			if(renameFileName != null) {
-//				board.setBoardOriginalFileName(upload.getOriginalFilename());
-//				board.setBoardRenamedFileName(renameFileName);
-//			}
 		}
 		
 		// 파일을 바이트 배열로 변환
@@ -208,8 +202,7 @@ public class FundController {
 		printWriter.flush();
 
 	}
-	
-	// ck에디터 이미지 이름 변경하는 메소드
+	// ck에디터 이미지 이름 변경하는 메소드(중복 방지하기 위해서)
 	private String saveFileRename(MultipartFile upload, HttpServletRequest request) {
 		// file 이름 뒤에 등록하는 시간 붙여서 rename에 넣기
 		String originalFileName = null;
@@ -222,6 +215,7 @@ public class FundController {
 		return renameFileName;
 	}
 
+	
 	@RequestMapping(value="/bf_agreement")
 	public String agreement() {
 		
@@ -246,7 +240,8 @@ public class FundController {
 		return "board/bf_board/bf_paySuccess";
 	}
 	
-	// 게시판 상세조회 + 조회수 증가(반복조회 방지)
+	
+	// 게시판 상세조회 + 조회수 증가(쿠키를 통한 반복조회 방지)
 	@RequestMapping(value="/bf_viewDetail", method = {RequestMethod.GET})
 	public ModelAndView viewDetail(@RequestParam("bfNo") int bfNo, ModelAndView model, HttpServletRequest request, HttpServletResponse response) {
 
@@ -435,7 +430,7 @@ public class FundController {
             
         return model;
 	}	
-	
+	// 펀딩 프로젝트 관리자 상세조회 페이지 코멘트 입력, 승인&거절 보내기
 	@RequestMapping(value = "bf_adminWrite", method = {RequestMethod.POST})
 	public ModelAndView adminWrite(ModelAndView model, HttpServletRequest request,	FundBoard fundboard,
 			@RequestParam("bfNo") int bfNo ) {
@@ -463,6 +458,75 @@ public class FundController {
 		
 		return model;
 	}
+	
+	// 펀딩 프로젝트 일반회원 상세조회 페이지
+	@RequestMapping(value="/bf_userCheck", method = {RequestMethod.GET})
+	public ModelAndView userCheck(@RequestParam("bfNo") int bfNo, ModelAndView model) {
+
+		FundBoard board = service.findBoardByNo(bfNo);
+        
+        model.addObject("board", board);
+        model.setViewName("board/bf_board/bf_userCheck");
+            
+        return model;
+	}
+	// 펀딩 프로젝트 일반회원 상세조회 페이지 수정하기
+	@RequestMapping(value = "/bf_userWrite", method = {RequestMethod.POST})
+	public ModelAndView userWrite(FundBoard board, @RequestParam("userNo") int userNo, @RequestParam("userId") String userId,
+			@RequestParam("reloadFile") MultipartFile reloadFile, HttpServletRequest request, ModelAndView model ) {
+		
+		int result = 0;
+		
+		if(userId != null) {
+			if(reloadFile != null && !reloadFile.isEmpty()) {
+				if(board.getBfReImgName() != null) {
+					// 기존 저장된 파일을 삭제
+					deleteFile(board.getBfReImgName(), request);
+				}
+				
+				String renameFileName = saveFile(reloadFile, request);
+				
+				if(renameFileName != null) {
+					board.setBfOriImgName(reloadFile.getOriginalFilename());
+					board.setBfReImgName(renameFileName);
+				}
+				
+			}
+			
+			result = service.saveBoard(board);
+			
+			if(result > 0) {
+				model.addObject("msg", "펀딩 재신청이 완료되었습니다.");
+				model.addObject("location", "/member/mypage/mypage");
+			} else {
+				model.addObject("msg", "펀딩 재신청이 실패하였습니다.");
+				model.addObject("location", "/member/mypage/mypage");
+			}
+			
+		} else {
+			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
+	// 펀딩 프로젝트 일반회원 상세조회 페이지 수정하기 내에서 새롭게 대표이미지 파일 등록되면 기존파일 삭제
+	private void deleteFile(String fileName, HttpServletRequest request) {
+		String rootPath = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = rootPath + "/upload/bf_board";
+		
+		log.debug("Root Path : " + rootPath);
+		log.debug("Save Path : " + savePath);
+		
+		File file = new File(savePath + "/" + fileName);
+		
+		if(file.exists()) {
+			file.delete();
+		}
+	}	
+	
 	
 	
 }

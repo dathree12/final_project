@@ -17,6 +17,7 @@ public interface FundService {
 
 	int saveBoard(FundBoard fundboard);
 
+	
 	// 관리자
 	List<FundBoard> getFundList(PageInfo fundPageInfo, String status);
 
@@ -33,6 +34,7 @@ public interface FundService {
 	
 	List<FundBoard> getMyAplctFundList(PageInfo pageInfo, int userNo);
 
+	
 	FundBoard findBoardByNo(int bfNo);
 
 	// 조회수 증가(반복조회 방지)
@@ -50,7 +52,8 @@ public interface FundService {
 	// 마감된프로젝트 조회(마감항목, 최근마감날짜순)
 	int getBoardCount_endDate();
 	List<FundBoard> getBoardList_endDate(PageInfo pageInfo);
-
+	
+	// 펀딩 프로젝트 관리자 상세조회 페이지 코멘트 입력, 승인&거절 보내기
 	int updateAdminCheck(FundBoard fundboard);
 
 
