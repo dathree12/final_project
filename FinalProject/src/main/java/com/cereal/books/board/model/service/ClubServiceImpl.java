@@ -19,13 +19,12 @@ import lombok.extern.slf4j.Slf4j;
  *  org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): -> mapper.xml 의 id와 일치하지 않는 경우
  */
 
-@Slf4j
 @Service
 public class ClubServiceImpl implements ClubService {
-	
+
 	@Autowired
 	private ClubDao clubDao;
-	
+
 	@Override
 	public int getBoardCount() {
 		return clubDao.selectCount();
@@ -44,9 +43,9 @@ public class ClubServiceImpl implements ClubService {
 	@Transactional
 	@Override
 	public int saveBoard(ClubBoard clubBoard) {
-		
+
 		int result = 0;
-		
+
 		if(clubBoard.getBcNo() != 0) {
 //			result = clubDao.updateClub(clubBoard);
 			System.out.println("updateClub");
@@ -57,12 +56,6 @@ public class ClubServiceImpl implements ClubService {
 		return result;
 	}
 
-	@Override
-	public ClubBoard findClubByNo(int bcNo) {
-		return clubDao.selectClubDetail(bcNo);
-	}
-
-	
 	@Override
 	public List<ClubBoard> getBoardList(PageInfo pageInfo) {
 		/*
@@ -81,24 +74,6 @@ public class ClubServiceImpl implements ClubService {
 		return clubDao.selectDlClubList();
 	}
 
-	@Override
-	public int getExpCount() {
-		return clubDao.selectExpCount();
-	}
-
-	@Override
-	public List<ClubBoard> getExpList(PageInfo pageInfo) {
-		/*
-		 * RowBounds (import org.apache.ibatis.session.RowBounds;)
-		 *  1) offset : 데이터를 가져오는 시작점에서 얼마나 떨어진 데이터값인지 의미
-		 *  2) limit : 몇 개의 값을 가져올지를 의미한다.
-		 */
-		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-		
-		return clubDao.selectExp(rowBounds);
-	}
-
 	@Transactional
 	@Override
 	public int saveExpList(Exp exp) {
@@ -111,9 +86,26 @@ public class ClubServiceImpl implements ClubService {
 		} else {
 			result = clubDao.insertExp(exp);
 		}
-		
+
 		return result;
 	}
 
-	
+	@Override
+	public ClubBoard findClubByNo(int bcNo, PageInfo pageInfo) {
+		/*
+		 * RowBounds (import org.apache.ibatis.session.RowBounds;)
+		 *  1) offset : 데이터를 가져오는 시작점에서 얼마나 떨어진 데이터값인지 의미
+		 *  2) limit : 몇 개의 값을 가져올지를 의미한다.
+		 */
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return clubDao.selectClubDetail(bcNo, rowBounds);
+	}
+
+	@Override
+	public int selectExpCount(int bcNo) {
+		return clubDao.selectExpCount(bcNo);
+	}
+
 }

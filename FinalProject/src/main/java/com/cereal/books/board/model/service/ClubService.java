@@ -11,25 +11,19 @@ public interface ClubService {
 	int getBoardCount();
 
 	int saveBoard(ClubBoard clubBoard);
-	
+
 	int saveRemainDate();
 
 	int noneRemainDate();
 
-	int getExpCount();
-
-	List<ClubBoard> getBoardList(PageInfo pageInfo);
-	
-	List<ClubBoard> getDlBoardList();
-	
-	ClubBoard findClubByNo(int bcNo);
-
-//	ClubBoard findExpByNo(int bcNo);
-
-	List<ClubBoard> getExpList(PageInfo pageInfo);
-
 	int saveExpList(Exp exp);
 
+	List<ClubBoard> getBoardList(PageInfo pageInfo);
 
+	List<ClubBoard> getDlBoardList();
+
+	ClubBoard findClubByNo(int bcNo, PageInfo pageInfo);
+
+	int selectExpCount(int bcNo);
 
 }

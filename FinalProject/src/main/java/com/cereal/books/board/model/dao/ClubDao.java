@@ -7,7 +7,6 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.Exp;
-import com.cereal.books.board.model.vo.Exp;
 
 /*
  * 작성 순서
@@ -40,20 +39,19 @@ public interface ClubDao {
 	
 	int insertClub(ClubBoard clubBoard);
 	
-	int selectExpCount(); // 왜 안찾아지지..
-
+	int insertExp(Exp exp);
+	
 //	int updateClub(ClubBoard clubBoard);
-
-	ClubBoard selectClubDetail(int bcNo);
+	
+	ClubBoard selectClubDetail(int bcNo, RowBounds rowBounds);
 	
 	ClubBoard findClubByNo(int bcNo);
 	
 	List<ClubBoard> selectDlClubList();
-	
-	List<ClubBoard> selectClubList(RowBounds rowBounds);
-	
-	List<ClubBoard> selectExp(RowBounds rowBounds);
 
-	int insertExp(Exp exp);
+	List<ClubBoard> selectClubList(RowBounds rowBounds);
+
+	int selectExpCount(int bcNo);
+
 	
 }
