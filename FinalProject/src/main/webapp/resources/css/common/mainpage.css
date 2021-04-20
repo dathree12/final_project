@@ -253,7 +253,7 @@ margin: auto 5px;
 }
 
 #row_genre{
-	 display: flex;
+	  display: flex;
     justify-content: space-between;
     width: 100%;
     margin: auto;
@@ -266,15 +266,12 @@ margin: auto 5px;
     margin-top: 10px;
     margin-bottom: 30px;
 }
-.me_genre_div{
-    display: flex;
+#me_genre_div{
+ display: flex;
     margin: auto;
     width: 100%;
 }
 
-.gimage{
-	
-}
 
 .genre{
     width: 20%;
@@ -346,9 +343,6 @@ margin: auto 5px;
     #inner_reco_div{
         width: 100%;
     }
-    .img_size{
-        width: 100%;
-    }    
 
 
     #innner_container{
@@ -367,14 +361,18 @@ margin: auto 5px;
 
 
     #row_genre {
-      	flex-direction: column;
+  
         width: 100%
-    
     }
+    #me_genre_div{
+    display: inline-block;
+    }
+    
+    
 
     .genre{
-
-        width: 25%;
+        float:left;
+        width: 50%;
         margin: 20px auto;
     }
     .nav_menu a{

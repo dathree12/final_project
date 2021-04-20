@@ -153,74 +153,32 @@
         </div>
         <nav class="mnav"> 
             <div id="me_menu">
-            <form method="get" id="menuGenre">
-            <ul class="nav_menu">
-                <li><span id="menu1">소설</span></li>
-                <li><span id="menu2">어린이/청소년</span></li>
-                <li><span id="menu3">경제/경영</span></li>
-                <li><span id="menu4">인문/사회/역사</span></li>
-                <li><span id="menu5">종교/역학</span></li>
-                <li><span id="menu6">자기개발</span></li>
+            <ul class="nav_menu" id="menuselect">
+                <li value="b1"><span >소설</span></li>
+                <li value="b2"><span >어린이/청소년</span></li>
+                <li value="b3"><span >경제/경영</span></li>
+                <li value="b4"><span >인문/사회/역사</span></li>
+                <li value="b5"><span >종교/역학</span></li>
+                <li value="b6"><span >자기개발</span></li>
             </ul>
-            </form>
+
         </div> 
         </nav>
         
         <div id="row_div">
             <div id="row_genre">
-                <c:forEach var="gbest" items="${gBest}" varStatus="glist">
-                 <c:if test="${glist.count == 1}">
-                <div class="me_genre_div">
-               
-                    <div class="genre" >
-                        <a href="" >
-                          	<a  href="#" id="gBestImage_${gbest.brNo}" ></a>
-                          	<p id="review-gbestisbn_${gbest.brNo}" style="display:none"><c:out value="${gbest.brIsbn}"/></p>
-                            <div class="genre_title"><span >${gbest.brTitle}</span></div>
-                            <div class="genre_content"><span>${gbest.brContent}</span></div>
-                        	 
-                        </a>
-                    </div>
-                    </c:if>
-                    <c:if test="${glist.count == 2}">
-                    <div class="genre" >
-                        <a href="" >
-                          	<a  href="#" id="gBestImage_${gbest.brNo}" ></a>
-                          	<p id="review-gbestisbn_${gbest.brNo}" style="display:none"><c:out value="${gbest.brIsbn}"/></p>
-                            <div class="genre_title"><span >${gbest.brTitle}</span></div>
-                            <div class="genre_content"><span>${gbest.brContent}</span></div>
-                        	 
-                        </a>
-                    </div>
-                </div>
-                </c:if>
-                 <c:if test="${glist.count == 3}">
-                <div class="me_genre_div">
-               
-                    <div class="genre" >
-                        <a href="" >
-                          	<a  href="#" id="gBestImage_${gbest.brNo}" ></a>
-                          	<p id="review-gbestisbn_${gbest.brNo}" style="display:none"><c:out value="${gbest.brIsbn}"/></p>
-                            <div class="genre_title"><span >${gbest.brTitle}</span></div>
-                            <div class="genre_content"><span>${gbest.brContent}</span></div>
-                        	 
-                        </a>
-                    </div>
-                    </c:if>
-                    <c:if test="${glist.count == 4}">
-                    <div class="genre" >
-                        <a href="" >
-                          	<a  href="#" id="gBestImage_${gbest.brNo}" ></a>
-                          	<p id="review-gbestisbn_${gbest.brNo}" style="display:none"><c:out value="${gbest.brIsbn}"/></p>
-                            <div class="genre_title"><span >${gbest.brTitle}</span></div>
-                            <div class="genre_content"><span>${gbest.brContent}</span></div>
-                        	 
-                        </a>
-                    </div>
-                </div>
-                </c:if>
-     			</c:forEach>
-               
+                <div id="me_genre_div">
+                	<c:forEach var="board" items="${gBest}">
+                	<div class="genre" >
+	 					 <a href="" >			
+	 					<a  href="#" id="gBestImage_${board.brNo}" ></a>
+	 					<p id="review-gbestisbn_${board.brNo}" style="display:none"><c:out value="${board.brIsbn}"/></p>
+	 					<div class="genre_title"><span >${board.brTitle}</span></div>
+	 					<div class="genre_content"><span>${board.brContent}</span></div>
+	 					</a>
+	 				</div> 
+	 				</c:forEach>	      
+                 </div>
             </div> 
             <div id="genre_btn">
                 <a href="" id="genre_btn_a">
@@ -272,8 +230,8 @@
                  });
              </c:forEach> 
           
-		 	<c:forEach var="gbest" items="${gBest}">
-		 	 var isbn = document.getElementById("review-gbestisbn_${gbest.brNo}").innerText
+		 	<c:forEach var="board" items="${gBest}">
+		 	 var isbn = document.getElementById("review-gbestisbn_${board.brNo}").innerText
 		 	 
              $.ajax({
                  method: "GET",
@@ -282,15 +240,15 @@
                  headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
              })
                  .done(function (msg) {
-                     $("#gBestImage_${gbest.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                     $("#gBestImage_${board.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
                
                  });
              </c:forEach> 
+
              
-             
-             $("#menu1").on('click', () => {
-     	 		let menu ='b1';
-    
+             $("#menuselect").on('click', 'li', function() {
+     	 		let menu = $(this).attr("value");
+
      				 $.ajax({
      					type: "get",
      					url: "${path}/reviews",
@@ -299,8 +257,105 @@
      						menu
      					},
      					success: function(data) {
-     						console.log(data);
-     					
+     						var str = '';
+     						$.each(data, function(key, obj){ 
+									if (key == 0) {
+	 									str += ' <div class="genre" >';
+	 									str += ' <a href="" >';				
+	 									str += '<a  href="#" id="gBestImage0_${obj.brNo}" ></a>';
+	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
+	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
+	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
+	 									str += '</a></div>';
+									}else if(key == 1){
+										str += ' <div class="genre" >';
+	 									str += ' <a href="" >';				
+	 									str += '<a  href="#" id="gBestImage1_${obj.brNo}" ></a>';
+	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
+	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
+	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
+	 									str += '</a></div>';
+	 						
+	 								
+									}else if(key == 2){
+							
+										str += ' <div class="genre" >';
+	 									str += ' <a href="" >';				
+	 									str += '<a  href="#" id="gBestImage2_${obj.brNo}" ></a>';
+	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
+	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
+	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
+	 									str += '</a></div>';
+									
+									}else if(key == 3){
+										str += ' <div class="genre" >';
+	 									str += ' <a href="" >';				
+	 									str += '<a  href="#" id="gBestImage3_${obj.brNo}" ></a>';
+	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
+	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
+	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
+	 									str += '</a></div>';
+	 							
+									}
+     						});
+     						
+     						$("#me_genre_div").html(str);
+	
+     						
+     						$.each(data, function(key, obj){ 
+      					  
+     							 let isbn = obj.brIsbn;
+     							if (key == 0) {	
+								  $.ajax({
+					                 method: "GET",
+					                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+					                 data: { query: isbn },
+					                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+					             })
+					                 .done(function (msg) {
+					                     $("#gBestImage0_${obj.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+					               
+					            });
+     						
+     							}else if (key == 1){
+     								  $.ajax({
+     					                 method: "GET",
+     					                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+     					                 data: { query: isbn },
+     					                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+     					             })
+     					                 .done(function (msg) {
+     					                     $("#gBestImage1_${obj.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+     					               
+     					            });
+     							
+     							}else if (key == 2){
+     								  $.ajax({
+     					                 method: "GET",
+     					                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+     					                 data: { query: isbn },
+     					                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+     					             })
+     					                 .done(function (msg) {
+     					                     $("#gBestImage2_${obj.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+     					               
+     					            });
+     							
+     							}else if (key == 3){
+     								  $.ajax({
+     					                 method: "GET",
+     					                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+     					                 data: { query: isbn },
+     					                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+     					             })
+     					                 .done(function (msg) {
+     					                     $("#gBestImage3_${obj.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+     					               
+     					            });
+     							}
+     						});
+     						
+
      					},
      					error: function(e) {
      						console.log(e);
@@ -308,11 +363,7 @@
      				});	
      			
      	 	});	
-             
-          
-				
-             
-             
+ 
 		});	
      
 	</script>
