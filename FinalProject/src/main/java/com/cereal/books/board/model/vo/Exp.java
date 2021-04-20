@@ -1,7 +1,6 @@
 package com.cereal.books.board.model.vo;
 
 import java.sql.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Exp {
 	
-	/* 구매 정보 가져오니까 필요없을듯? */
-//	private String expOriginImage;
-//	private String expModifyImage;
-//	private int expPrice;
-
 	private int expNo; // PK
 	
 	private int userNo;
@@ -34,8 +28,5 @@ public class Exp {
 	private String expStatus;
 	
 	private int bcNo; // FK
-	
-	private List<ClubBoard> clubBoard;
-	
 //	private int bfNo; // FK
 }

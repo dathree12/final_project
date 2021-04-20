@@ -29,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  * 에러내역
  *  - Field error in object -> VO 객체 타입 확인해볼 것 (Data 이상한듯 일단 String 으로 고쳐보자)
  *  - cannot insert NULL into ("BOOK"."BOOK_CLUB_BOARD"."BC_WRITER")
+ *  - No qualifying bean of type -> @Service...
  */
 
 @Slf4j
@@ -36,32 +37,31 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/board/bc_board")
 public class ClubController {
 
-	@Autowired // No qualifying bean of type -> @Service...
+	@Autowired
 	private ClubService service;
 
 	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
-	public ModelAndView detail(ModelAndView model, @RequestParam("bcNo") int bcNo,
+	public ModelAndView detail(ModelAndView model, 
+			@RequestParam("bcNo") int bcNo,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit
 			) {
 
-		List<ClubBoard> findExp = null;
-		ClubBoard clubBoard = service.findClubByNo(bcNo);
-		int expCount = service.getExpCount();
+		ClubBoard clubBoard = null;
+		PageInfo pageInfo = null;
 		
-		System.out.println("expCount : " + expCount);
+		int count = service.selectExpCount(bcNo);
+		pageInfo = new PageInfo(page, 5, count, listLimit);
+		clubBoard = service.findClubByNo(bcNo, pageInfo);
 		
-		PageInfo pageInfo = new PageInfo(page, 5, expCount, listLimit);
+		System.out.println("clubBoard : " + clubBoard);
+		System.out.println("pageInfo : " + pageInfo);
+		System.out.println("count : " + count);
 		
-		findExp = service.getExpList(pageInfo);
-		
-		model.addObject("findExp", findExp);
+		model.addObject("pageInfo", pageInfo);
 		model.addObject("clubBoard", clubBoard);
 		model.setViewName("board/bc_board/bcBoardDetail");
 		
-		System.out.println(clubBoard);
-		System.out.println(findExp);
-
 		return model;
 	}
 
@@ -70,33 +70,39 @@ public class ClubController {
 	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
 
+		String fileName = null;
+		String uploadPath = null;
+		String callback = null;
+		String fileUrl = null;
+		PrintWriter printWriter = null;
+		OutputStream out = null;
+		
 		log.info("upload 들어온다! ");
 
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 
 		// 파일 이름 가져오기
-		String fileName = upload.getOriginalFilename();
+		fileName = upload.getOriginalFilename();
 
 		// 파일을 바이트 배열로 변환
 		byte[] bytes = upload.getBytes();
 
 		// 이미지를 업로드할 디렉토리를 정해준다
-//		String uploadPath = "C:\\develop\\final_project\\FinalProject\\src\\main\\webapp\\resources\\upload\\";
-		String uploadPath = request.getServletContext().getRealPath("resources/upload/");
-		OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
+		uploadPath = request.getServletContext().getRealPath("resources/upload/");
+		out = new FileOutputStream(new File(uploadPath + fileName));
 
 		// 서버에 write
 		out.write(bytes);
 
 		// 성공여부 가져오기
-		String callback = request.getParameter("CKEditorFuncNum");
+		callback = request.getParameter("CKEditorFuncNum");
 
 		// 클라이언트에 이벤트 추가 (자바스크립트 실행)
-		PrintWriter printWriter = response.getWriter(); // 자바스크립트 쓰기위한 도구
+		printWriter = response.getWriter(); // 자바스크립트 쓰기위한 도구
 
-//		String fileUrl = "http://localhost:8088/books/resources/upload/" + fileName;
-		String fileUrl = request.getContextPath() + "/upload/" + fileName;
+        // String fileUrl = "http://localhost:8088/books/resources/upload/" + fileName;
+		fileUrl = request.getContextPath() + "/upload/" + fileName;
 
 		if (!callback.equals("1")) { // callback이 1일 경우만 성공한 것
 			printWriter.println("<script>alert('이미지 업로드에 실패했습니다.');" + "</script>");
@@ -106,11 +112,8 @@ public class ClubController {
 
 			printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl
 					+ "','이미지가 업로드되었습니다.')" + "</script>");
-
 		}
-
 		printWriter.flush();
-
 	}
 
 	// 북 클럽 메인페이지
@@ -121,12 +124,13 @@ public class ClubController {
 
 		List<ClubBoard> list = null;
 		List<ClubBoard> dlList = null;
+		PageInfo pageInfo = null;
 
 		int boardCount = service.getBoardCount();
 		int result = service.saveRemainDate();
 		int noneResult = service.noneRemainDate();
 
-		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+		pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 
 		list = service.getBoardList(pageInfo);
 		dlList = service.getDlBoardList();
@@ -171,10 +175,9 @@ public class ClubController {
 		return model;
 	}
 	
-	// 북 클럽 메인페이지(관리자)
-	@RequestMapping(value = "/bcExpWrite", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView ExpWrite(ModelAndView model, Principal user, ClubBoard clubBoard, Exp exp) throws Exception {
-		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
+	// 북 클럽 후기 작성
+	@RequestMapping(value = "/bcExpWrite", method = RequestMethod.POST)
+	public ModelAndView expWrite(ModelAndView model, Principal user, ClubBoard clubBoard, Exp exp) throws Exception {
 
 		if (user.getName().equals(clubBoard.getUserId())) {
 			clubBoard.setUserId(user.getName());
@@ -248,6 +251,13 @@ public class ClubController {
 	public String clubPayment() {
 		
 		return "board/bc_board/bcBoardPayment";
+	}
+	
+	// 북 클럽 결제페이지
+	@RequestMapping("/bcExpWrite")
+	public String expWrite() {
+		
+		return "board/bc_board/bcExpWrite";
 	}
 	
 //	// 해당 게시판 번호를 타고 들어가서 결제창까지 가야할듯? POST방식 써야하나 GET으로 테스트해볼까

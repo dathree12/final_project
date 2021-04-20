@@ -3,10 +3,10 @@ package com.cereal.books.board.model.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.cereal.books.board.model.vo.ClubBoard;
-import com.cereal.books.board.model.vo.Exp;
 import com.cereal.books.board.model.vo.Exp;
 
 /*
@@ -40,20 +40,26 @@ public interface ClubDao {
 	
 	int insertClub(ClubBoard clubBoard);
 	
-	int selectExpCount(); // 왜 안찾아지지..
-
+	int insertExp(Exp exp);
+	
 //	int updateClub(ClubBoard clubBoard);
-
-	ClubBoard selectClubDetail(int bcNo);
+	
+	ClubBoard selectClubDetail(int bcNo, RowBounds rowBounds);
 	
 	ClubBoard findClubByNo(int bcNo);
 	
 	List<ClubBoard> selectDlClubList();
-	
-	List<ClubBoard> selectClubList(RowBounds rowBounds);
-	
-	List<ClubBoard> selectExp(RowBounds rowBounds);
 
-	int insertExp(Exp exp);
-	
+	List<ClubBoard> selectClubList(RowBounds rowBounds);
+
+	int selectExpCount(int bcNo);
+
+	// 관리자 페이지
+	List<ClubBoard> adminClubList(@Param("rowBounds") RowBounds rowBounds, @Param("status") String status);
+
+	int adminClubStatusCount(String status);
+	// 마이페이지 (참여, 신청)
+	List<ClubBoard> myClubList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
+
+	int selectMyClubCount(int userNo);
 }

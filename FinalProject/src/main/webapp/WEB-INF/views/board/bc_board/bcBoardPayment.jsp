@@ -34,7 +34,7 @@
                                         <p>
                                             <em style="border: 1px solid lightgrey; color: lightgrey; font-size: 9px; padding: 2px; margin-right: 2px;">필수</em>
                                             <strong style="color: #555555;">선택</strong>
-                                            <span style="color: #555555;">: <c:out value="${ clubBoard. }"></c:out></span>
+                                            <span style="color: #555555;">: awd</span>
                                         </p>
                                     </div>
                                     <div class="shop_item_pay">

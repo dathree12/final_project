@@ -32,7 +32,7 @@
                 <div class="infoArea__box">
                     <div class="infoArea">
                         <h1 id="_deadline"><span>99</span>일 남음</h1>
-                        <h2 style="margin-top: 10px;">${ clubBoard.bcOriginTitle }</h2>
+                        <h2 style="margin-top: 10px;"><c:out value="${ clubBoard.bcOriginTitle }"/></h2>
                     </div>
                     
                     <div class="box">
@@ -135,11 +135,12 @@
                     </div>
                     <p class="imgArea"></p>
                 </div>
-                <c:if test="${ findExp == null }">
+                <c:set var="exps" value="${ clubBoard.exps }"></c:set>
+                <c:if test="${ exps == null }">
                 	<div style="text-align: center;"><span>조회된 후기가 없습니다.</span></div>
                 </c:if>
-                <c:if test="${ findExp != null }">
-                	<c:forEach var="exp" items="findExp">
+                <c:if test="${ exps != null }">
+                	<c:forEach var="exps" items="${ exps }">
 		                <div class="xans-product-review">
 		                    <div class="typeList">
 		                        <table border="1">
@@ -152,23 +153,23 @@
 		                            <tbody class="center dropdown" style="padding: 0;">
 		                                <tr style="background: #fff; border-collapse: collapse; border-radius: 0; width: 100%; margin: 0; margin-bottom: -1px; border: 1px solid #f1f1f1;" class="xans-record-"
 		                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		                                    <td style="width: 50px;">1</td>
+		                                    <td style="width: 50px;"><c:out value="${ exps.expNo }"/></td>
 		                                    <td style="width: 150px;" class="thumb_photo">
 		                                        <img src="" alt="">
 		                                    </td>
 		                                    <td style="width: 848.89px;">
 		                                        <ul class="d_review_cont">
 		                                            <li>
-		                                                <a href="#">제목</a>
+		                                                <a href="#"><c:out value="${ exps.expTitle }"/></a>
 		                                            </li>
 		                                        </ul>
 		                                    </td>
 		                                    <td style="width: 150px;">
 		                                        <ul class="d_review_info">
 		                                            <li style="margin-top: 5px">
-		                                                <span> 이름</span>
-		                                                <span> 날짜</span>
-		                                                <span> 조회수</span>
+		                                                <span> <c:out value="${ exps.userName }"/></span>
+		                                                <span> <c:out value="${ exps.expRegDate }"/></span>
+		                                                <span> <c:out value="${ exps.expViewCount }"/></span>
 		                                            </li>
 		                                        </ul>
 		                                    </td>
@@ -179,7 +180,7 @@
 		                                            <div id="ec-ucc-media-box-8">
 		                                                <p></p>
 		                                                <div class="fr-view fr-view-article">
-		                                                    <p>받아보니 훨씬 좋네요~</p>
+		                                                    <p><c:out value="${ exps.expContent }"/></p>
 		                                                </div>
 		                                                <p></p>
 		                                                <p>
@@ -213,7 +214,7 @@
 		                        </table>
 		                    </div>
 		                </div>
-                	</c:forEach>
+	                	</c:forEach>
                 </c:if>
                 <p class="ec-base-button typeBoarder">
                     <span class="gRight">
