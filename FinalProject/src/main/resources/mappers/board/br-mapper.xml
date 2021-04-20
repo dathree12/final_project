@@ -135,6 +135,7 @@
 		WHERE BR.BR_NO = #{brNo}	
 	</select>
 	
+	<!-- 댓글 집어넣기 -->
 	<insert id="insertComment" parameterType="map"
 		useGeneratedKeys="true" keyProperty="comNo" keyColumn="COM_NO">
   		
@@ -153,6 +154,19 @@
 	  			DEFAULT
  		)
 	</insert>
+	
+	<!-- 댓글 불러오기-->
+	<select id="listComment" parameterType="_int"
+						resultMap="boardCommentResultMap">
+		SELECT CB.COM_NO,
+			   CB.COM_WRITER,
+			   CB.COM_CONTENT,
+			   CB.COM_CREATE_DATE,
+			   CB.COM_STATUS,
+			   CB.BR_NO
+		FROM COMMENT_BOARD CB
+		WHERE CB.BR_NO = #{brNo} AND CB.COM_STATUS='Y'
+	</select>
 	
 	<insert id="insertBookScrap" parameterType="map"
 		useGeneratedKeys="true" keyProperty="scrapNo" keyColumn="SCRAP_NO">
