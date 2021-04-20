@@ -138,7 +138,7 @@
 							<div class="write_button_wrap">
 								<div class="none"></div>
 								<div class="write_button">
-									<a href='#' id="commentBtn" class="btn pull-right btn-success">등록</a>
+									<a onclick="saveComment()" id="commentBtn" class="btn pull-right btn-success">등록</a>
 									<input type="hidden" name="${_csrf.parameterName}"
 										value="${_csrf.token}">
 								</div>
@@ -187,20 +187,18 @@
 </body>
 
 <script>
+var content = document.getElementById("comContent").value;
+// 게시글 번호 저장
+var brNo = document.getElementById("reviewheader-brNo").innerHTML;
+// 로그인한 회원 아이디 저장
+var memberNname = document.getElementById("loginNname").value;
 		$(document).ready(function() {
 			
-			// 게시글 번호 저장
-			var brNo = document.getElementById("reviewheader-brNo").innerHTML;
-			// 로그인한 회원 아이디 저장
-			var memberNname = document.getElementById("loginNname").value;
+
 			
-			var content = document.getElementById("comContent".value);
+			
 
 			commentList();
-			
-			/* $("#commentBtn").on("click", function() {
-				saveComment();
-			}); */
 			
 			// 댓글 목록 보기
 			function commentList() {
@@ -226,33 +224,34 @@
 						
 					}
 					});
-
-				
-			/* 	function saveComment() {
+			}
 			
-					if(content == null) {
-						alert("댓글 내용을 입력해주세요")
+			
+		});
+		function saveComment() {
+			
+			if(content == null) {
+				alert("댓글 내용을 입력해주세요")
+			}
+			if(content.trim().length > 1000) {
+				alert("현재 타이핑수: " + content.trim().length + " 최대 타이핑 수는 1000입니다.");
+				return;
+			}
+				$.ajax({
+					url:	"saveComment",
+					type:	"post",
+					data:	{brNo: brNo,
+							 memberNname: memberNname,
+							 content: content},
+					success: function(data) {
+						alert("댓글 등록 성공");
+						commentList();
+					},
+					error: function(data) {
+						alert("댓글 등록 실패")
 					}
-					if(content.trim().length > 1000) {
-						alert("현재 타이핑수: " + content.trim().length + " 최대 타이핑 수는 1000입니다.");
-						return;
-					}
-						$.ajax({
-							url:	"saveComment",
-							type:	"post",
-							data:	{brNo: brNo,
-									 memberNname: memberNname,
-									 content: content},
-							success: function(data) {
-								alert("댓글 등록 성공");
-								commentList();
-							},
-							error: function(data) {
-								alert("댓글 등록 실패")
-							}
-						});
-			}); */
-
+				});
+		}; 
 </script>
 <script>
 	    $(document).ready(function(){

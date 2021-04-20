@@ -209,9 +209,12 @@ public class ReviewController {
 	
 	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST})
 	@ResponseBody
-    public int saveComment(@RequestParam int brNo, String memberNname, String content, Comment comment, ModelAndView model) throws Exception{
+    public int saveComment(@RequestParam("brNO") int brNo, @RequestParam("memeberNname")String memberNname, 
+    		@RequestParam("content")String content, Comment comment, ModelAndView model) throws Exception{
 
         int result = 0;
+        
+        System.out.println(comment);
 		
     	result = service.saveComment(comment);
     	
