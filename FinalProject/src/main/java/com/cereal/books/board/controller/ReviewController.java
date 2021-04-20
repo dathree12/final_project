@@ -207,9 +207,9 @@ public class ReviewController {
 		result = service.saveScrapStatus(bookscrap);
 	}
 	
-	@RequestMapping(value = "/insertComment" , method = {RequestMethod.POST})
+	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST})
 	@ResponseBody
-    public int insertComment(Comment comment, ModelAndView model) throws Exception{
+    public int saveComment(Comment comment, ModelAndView model) throws Exception{
         
         int result = 0;
 		

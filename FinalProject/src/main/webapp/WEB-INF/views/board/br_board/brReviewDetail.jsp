@@ -186,8 +186,11 @@
 			var brNo = document.getElementById("reviewheader-brNo").innerHTML;
 			// 로그인한 회원 아이디 저장
 			var memberNname = document.getElementById("loginNname").value;
+			
+			var content = document.getElementById("comContent".value);
 
 			commentList();
+			saveComment();
 			// 댓글 목록 보기
 			function commentList() {
 				$.ajax({
@@ -199,9 +202,9 @@
 						
 						$.each(data, function(key, value){ 
 							if (key == 0) {
-								str += '<div class="col-sm-12" style="padding-top: 5px;">';
+								str += '<div class="col-sm-12" style="padding-top: 5px; font-size: 11px;">';
 							} else {
-								str += '<div class="col-sm-12" style="border-top: 1px solid #dddddd; margin-top: 15px; padding-top: 15px;">';
+								str += '<div class="col-sm-12" style="border-top: 1px solid #dddddd; margin-top: 15px; padding-top: 15px; font-size: 11px;">';
 							}
 							str += '<div class="col-sm-2">' + value.comWriter + '</div>';
 							str += '<div class="col-sm-7 commentContent' + value.comNo + '" align="left"><p>' + value.comContent +'</div>';				
@@ -212,6 +215,31 @@
 						
 					}
 				});
+				
+				function saveComment() {
+					if(content == null) {
+						alert("댓글 내용을 입력해주세요")
+					}
+					if(content.trim().length > 1000) {
+						alert("현재 타이핑수: " + content.trim().length + " 최대 타이핑 수는 1000입니다.");
+						return;
+					}
+				$("#commentBtn").on("click", function() {
+						$.ajax({
+							url:	"saveComment",
+							type:	"post",
+							data:	{brNo: brNo,
+									 memberNname: memberNname,
+									 content: content},
+							success: function(data) {
+								alert("댓글 등록 성공");
+							},
+							error: function(data) {
+								alert("댓글 등록 실패")
+							}
+						});
+				})
+			}
 			}
 		})
 	</script>
