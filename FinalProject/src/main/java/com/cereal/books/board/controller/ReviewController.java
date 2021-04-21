@@ -187,7 +187,7 @@ public class ReviewController {
 
 		}
 
-
+	//책 상세보기
 	@RequestMapping(value="/brReviewDetail", method = {RequestMethod.GET})
 	public ModelAndView brReviewDetail(@RequestParam("brNo") int brNo, ModelAndView model) {
 		ReviewBoard reviewboard = service.findBoardByNo(brNo);
@@ -207,6 +207,8 @@ public class ReviewController {
 		result = service.saveScrapStatus(bookscrap);
 	}
 	
+	
+	//코멘트 DB저장하기
 	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
     public int saveComment(@RequestParam("brNO") int brNo, @RequestParam("memeberNname")String memberNname, 
@@ -230,6 +232,7 @@ public class ReviewController {
         return result;
     }
 	
+	//코멘트 불러오기
 	@RequestMapping(value="/commentList", method = {RequestMethod.GET})
 	@ResponseBody
 	public List<Comment> getCommentList(@RequestParam int brNo, ModelAndView model) throws Exception {
@@ -239,5 +242,44 @@ public class ReviewController {
 		return list;
 	}
 	
+	// 검색을 통한 리스트 조회, 페이징 처리o
+		@RequestMapping(value = "brsearchList", method = {RequestMethod.GET})
+		public ModelAndView searchList(
+				ModelAndView model,
+				@RequestParam(value = "br_search_sort", defaultValue = "br_search_id") String br_search_sort,
+				@RequestParam(value = "br_searchword") String searchword, 
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+				@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit ) {
+			
+			List<ReviewBoard> list = null;
+			
+			int boardCount = 0;
+			PageInfo pageInfo = null;
+			
+			// remainDate 업데이트 하는 과정
+			System.out.println(searchword);
+			if(br_search_sort.equals("br_search_id")) {
+				boardCount = service.getBoardCount_Id(searchword);
+				pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+				list = service.getSearchList_Id(pageInfo, searchword);
+			} 
+			else if(br_search_sort.equals("br_search_title")) {
+				boardCount = service.getBoardCount_Title(searchword);
+				pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+				list = service.getSearchList_Title(pageInfo, searchword);
+			}
+			else if(br_search_sort.equals("br_search_content")) {
+				boardCount = service.getBoardCount_Content(searchword);
+				pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+				list = service.getSearchList_Content(pageInfo, searchword);
+			}
+			model.addObject("br_search_sort", br_search_sort);
+			model.addObject("br_searchword", searchword);
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("board/br_board/brBoardMainSearch");
+			
+			return model;
+		}
 	
 }

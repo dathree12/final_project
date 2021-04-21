@@ -22,6 +22,18 @@ public interface ReviewService {
 	List<Comment> listComment(int brNo);
 
 	int saveComment(Comment comment);
+
+	int getBoardCount_Id(String searchword);
+
+	int getBoardCount_Title(String searchword);
+
+	int getBoardCount_Content(String searchword);
+
+	List<ReviewBoard> getSearchList_Id(PageInfo pageInfo, String searchword);
+
+	List<ReviewBoard> getSearchList_Title(PageInfo pageInfo, String searchword);
+
+	List<ReviewBoard> getSearchList_Content(PageInfo pageInfo, String searchword);
 	
 
 }

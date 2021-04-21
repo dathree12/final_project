@@ -40,9 +40,11 @@
 	                <li><a href="#">종교/역학</a></li>
 	                <li><a href="#">자기개발</a></li>
 	            </div>
-	            <div class = "brboard-top-button">
-	                <a href="${path}/board/br_board/brBoardWrite" class="write-button">글쓰기</a>
-	            </div>
+	            <security:authorize access="hasRole('USER')">
+					<div class="brboard-top-button">
+						<a href="${path}/board/br_board/brBoardWrite" class="write-button">글쓰기</a>
+					</div>
+				</security:authorize>
 	            <hr id="line">
 	        </section>
 	        <section class ="brboard-write-body">

@@ -79,5 +79,44 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 
+	@Override
+	public int getBoardCount_Id(String searchword) {
+		return reviewDao.getBoardCount_Id(searchword);
+	}
+
+	@Override
+	public int getBoardCount_Title(String searchword) {
+		return reviewDao.getBoardCount_Title(searchword);
+	}
+
+	@Override
+	public int getBoardCount_Content(String searchword) {
+		return reviewDao.getBoardCount_Content(searchword);
+	}
+
+	@Override
+	public List<ReviewBoard> getSearchList_Id(PageInfo pageInfo, String searchword) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());	
+		
+		return reviewDao.getSearchList_Id(rowBounds, searchword);
+	}
+
+	@Override
+	public List<ReviewBoard> getSearchList_Title(PageInfo pageInfo, String searchword) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());	
+		
+		return reviewDao.getSearchList_Title(rowBounds, searchword);
+	}
+
+	@Override
+	public List<ReviewBoard> getSearchList_Content(PageInfo pageInfo, String searchword) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());	
+		
+		return reviewDao.getSearchList_Content(rowBounds, searchword);
+	}
+
 
 }
