@@ -68,15 +68,54 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int insertComment(Comment comment) {
+	public List<Comment> listComment(int brNo) {
+		return reviewDao.listComment(brNo);
+	}
+
+	@Override
+	public int saveComment(Comment comment) {
 		int result = 0;
-		result = reviewDao.insertComment(comment);
+		result = reviewDao.saveComment(comment);
 		return result;
 	}
 
 	@Override
-	public List<Comment> listComment(int brNo) {
-		return reviewDao.listComment(brNo);
+	public int getBoardCount_Id(String searchword) {
+		return reviewDao.getBoardCount_Id(searchword);
+	}
+
+	@Override
+	public int getBoardCount_Title(String searchword) {
+		return reviewDao.getBoardCount_Title(searchword);
+	}
+
+	@Override
+	public int getBoardCount_Content(String searchword) {
+		return reviewDao.getBoardCount_Content(searchword);
+	}
+
+	@Override
+	public List<ReviewBoard> getSearchList_Id(PageInfo pageInfo, String searchword) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());	
+		
+		return reviewDao.getSearchList_Id(rowBounds, searchword);
+	}
+
+	@Override
+	public List<ReviewBoard> getSearchList_Title(PageInfo pageInfo, String searchword) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());	
+		
+		return reviewDao.getSearchList_Title(rowBounds, searchword);
+	}
+
+	@Override
+	public List<ReviewBoard> getSearchList_Content(PageInfo pageInfo, String searchword) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());	
+		
+		return reviewDao.getSearchList_Content(rowBounds, searchword);
 	}
 
 
