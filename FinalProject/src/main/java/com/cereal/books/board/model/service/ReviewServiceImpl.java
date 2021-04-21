@@ -68,15 +68,15 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int insertComment(Comment comment) {
-		int result = 0;
-		result = reviewDao.insertComment(comment);
-		return result;
+	public List<Comment> listComment(int brNo) {
+		return reviewDao.listComment(brNo);
 	}
 
 	@Override
-	public List<Comment> listComment(int brNo) {
-		return reviewDao.listComment(brNo);
+	public int saveComment(Comment comment) {
+		int result = 0;
+		result = reviewDao.saveComment(comment);
+		return result;
 	}
 
 

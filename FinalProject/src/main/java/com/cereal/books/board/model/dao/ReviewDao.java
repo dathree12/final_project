@@ -26,7 +26,7 @@ public interface ReviewDao {
 		
 		int insertBookScrap(BookScrap bookscrap);
 		
-		int insertComment(Comment comment);
-
 		List<Comment> listComment(int brNo);
+
+		int saveComment(Comment comment);
 }
