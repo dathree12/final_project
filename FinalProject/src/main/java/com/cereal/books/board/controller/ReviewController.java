@@ -209,10 +209,10 @@ public class ReviewController {
 	
 	
 	//코멘트 DB저장하기
-	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST})
 	@ResponseBody
-    public int saveComment(@RequestParam("brNO") int brNo, @RequestParam("memeberNname")String memberNname, 
-    		@RequestParam("content")String content, Comment comment, ModelAndView model) throws Exception{
+    public int saveComment(@RequestParam("brNo") int brNo, @RequestParam("comWriter")String comWriter, 
+    		@RequestParam("comContent")String comContent, Comment comment, ModelAndView model) throws Exception{
 
         int result = 0;
         

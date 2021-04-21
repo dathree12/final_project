@@ -142,9 +142,8 @@
 	  	INSERT INTO COMMENT_BOARD
 	  		VALUES(
 	  			SEQ_BR_NO.NEXTVAL,
-	  			#{userNname},
+	  			#{comWriter},
 	  			#{comContent},
-	  			DEFAULT,
 	  			DEFAULT,
 	  			DEFAULT,
 	  			'Y',
