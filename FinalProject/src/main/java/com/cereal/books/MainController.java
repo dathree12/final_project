@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.MainBoardService;
@@ -32,23 +33,23 @@ public class MainController {
 	
 	
 	@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView main(ModelAndView model, 
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit,
+	public ModelAndView main(ModelAndView model,
 			@AuthenticationPrincipal Member member) {
 		List<ReviewBoard> list = null;
 		List<ReviewBoard> mBest = null;
+		List<ReviewBoard> gBest = null;
 		int boardCount = 0;
 		int userNo = 0;
 		boardCount = service.getBoardCount();
-		PageInfo pageInfo = new PageInfo(page, 3, boardCount, listLimit);
+		PageInfo pageInfo = new PageInfo(1, 1, boardCount, 3);
+		PageInfo pageInfoGr = new PageInfo(1, 1, boardCount, 4);
 		Date time = new Date();
 		SimpleDateFormat format = new SimpleDateFormat ("MM");
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(time);
 		String month = null; 
 		
-		
+		// 로그인시 추천
 		if (member == null) {
 			list = service.getBoardList(pageInfo);
 			
@@ -63,7 +64,7 @@ public class MainController {
 				list = service.getBoardListNo(pageInfo);		
 			}
 		}
-		
+		// 월간 베스트
 		mBest = service.getBoardListMB(pageInfo);	
 		if(mBest.size() > 2 ) {
 			month = format.format(cal.getTime());
@@ -78,9 +79,25 @@ public class MainController {
 			model.addObject("month", month);	
 		}
 		
+		//장르별 리스트
+		
+		gBest = service.getBoardGList(pageInfoGr);
+		
+		model.addObject("gBest", gBest);
 		model.addObject("list", list);
 		model.setViewName("mainpage");
 		return model;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/reviews" , method = {RequestMethod.GET})
+	public List<ReviewBoard> reviews(ModelAndView model, 
+			@RequestParam("menu")String brBookType) {
+		int boardCount = 0;
+		boardCount = service.getBoardCount();
+		PageInfo pageInfo = new PageInfo(1, 1, boardCount, 4);
+
+		return service.getBoardGenreList(pageInfo, brBookType);
 	}
 	
 }

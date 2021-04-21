@@ -30,7 +30,31 @@
       WHERE
       B.BC_STATUS='P'
    </sql>
-
+   
+	<!-- 마이페이지 / 관리자 기본 조회 -->
+	<sql id="myClubListSql">
+		SELECT 
+		BC_NO,
+		USER_NO,
+		USER_ID,
+		BC_ORIGIN_TITLE,
+		BC_SUB_TITLE,
+		BC_PRICE,
+		BC_REG_DATE,
+		BC_START_DATE,
+		BC_DL_DATE,
+		BC_REMAIN_DATE,
+		BC_VIEW_COUNT,
+		BC_CONTENT,
+		BC_COM_COUNT,
+		BC_ORIGIN_IMAGE,
+		BC_MODIFY_IMAGE,
+		BC_STATUS,
+		BC_AGREEMENT
+		FROM
+		BOOK_CLUB_BOARD
+	</sql>
+	
    <!-- 북 클럽 메인페이지 -->
    <resultMap type="ClubBoard" id="clubResultMap">
       <id property="bcNo" column="BC_NO" />
@@ -237,4 +261,40 @@
       SET BC_STATUS = 'Q'
       WHERE BC_STATUS = 'P' AND BC_REMAIN_DATE &lt; 0
    </update>
+   
+	<!-- 관리자 -->
+	<!-- 관리자클럽 조회 -->
+	<select id="adminClubList" parameterType="map" resultMap="clubDetailResultMap">
+		<include refid="myClubListSql"></include>
+		<if test="status != null">
+	  		WHERE BC_STATUS =#{status}
+		</if>
+  		ORDER BY BC_NO DESC
+  	</select>
+  	<select id="adminClubStatusCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_CLUB_BOARD
+		<if test="status != null">
+	  		WHERE 
+	  			BC_STATUS =#{status}
+		</if>
+	</select>
+	
+	<!-- 마이페이지 -->
+	<!-- 참여중인 클럽 조회 -->
+	<select id="myClubList" parameterType="map" resultMap="clubDetailResultMap">
+		SELECT C.BC_NO, 
+			BC_ORIGIN_TITLE,
+			BC_MODIFY_IMAGE
+		FROM BOOK_CLUB_BOARD C 
+		JOIN PAYMENT P ON(C.BC_NO = P.BC_NO)
+		WHERE P.USER_NO = #{userNo} AND P.PAY_PROGRESS = 'Y' AND P.PAY_ITEM = 'C' AND P.PAY_STATUS = 'N'
+  		ORDER BY BC_NO DESC
+  	</select>
+  	<select id="selectMyClubCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_CLUB_BOARD C
+		JOIN PAYMENT P ON(C.BC_NO = P.BC_NO)
+		WHERE P.USER_NO = #{userNo} AND P.PAY_PROGRESS = 'Y' AND P.PAY_ITEM = 'C' AND P.PAY_STATUS = 'N'
+	</select>
 </mapper>

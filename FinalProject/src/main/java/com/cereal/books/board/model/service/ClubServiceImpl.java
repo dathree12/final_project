@@ -107,5 +107,33 @@ public class ClubServiceImpl implements ClubService {
 	public int selectExpCount(int bcNo) {
 		return clubDao.selectExpCount(bcNo);
 	}
+	
+	// 관리자 페이지
+	@Override
+	public List<ClubBoard> getAdminClubList(PageInfo pageInfo, String status) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		
+		return clubDao.adminClubList(rowBounds, status);
+	}
 
+	@Override
+	public int getAdminClubCount(String status) {
+		System.out.println("cStatus : " + status);
+		return clubDao.adminClubStatusCount(status);
+	}
+
+	// 마이페이지
+	@Override
+	public List<ClubBoard> getMyClubList(PageInfo myClubPageInfo, int userNo) {
+		int offset = (myClubPageInfo.getCurrentPage() - 1) * myClubPageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, myClubPageInfo.getListLimit());
+		
+		return clubDao.myClubList(rowBounds, userNo);
+	}
+	
+	@Override
+	public int getMyClubCount(int userNo) {
+		return clubDao.selectMyClubCount(userNo);
+	}
 }

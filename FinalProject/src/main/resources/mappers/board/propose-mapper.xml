@@ -69,4 +69,21 @@
 		'Y'
 		)
 	</insert>
+	
+	<!-- 마이페이지 -->
+	<!-- 내가 제안한 클럽 조회 -->
+	<select id="myAplctClubList" parameterType="map" resultMap="proposeResultMap">
+		SELECT 
+			PROPOSE_NO, 
+			PROPOSE_TITLE, 
+			PROPOSE_STATUS
+		FROM PROPOSE
+		WHERE USER_NO = #{userNo}
+  		ORDER BY PROPOSE_NO DESC
+  	</select>
+  	<select id="selectMyAplcClubCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM PROPOSE
+		WHERE USER_NO = #{userNo}
+	</select>
 </mapper>
