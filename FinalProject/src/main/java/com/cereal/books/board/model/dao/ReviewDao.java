@@ -29,4 +29,16 @@ public interface ReviewDao {
 		List<Comment> listComment(int brNo);
 
 		int saveComment(Comment comment);
+
+		int getBoardCount_Id(String br_searchword);
+
+		int getBoardCount_Title(String br_searchword);
+
+		int getBoardCount_Content(String br_searchword);
+
+		List<ReviewBoard> getSearchList_Id(RowBounds rowBounds, String br_searchword);
+
+		List<ReviewBoard> getSearchList_Title(RowBounds rowBounds, String br_searchword);
+
+		List<ReviewBoard> getSearchList_Content(RowBounds rowBounds, String br_searchword); 
 }

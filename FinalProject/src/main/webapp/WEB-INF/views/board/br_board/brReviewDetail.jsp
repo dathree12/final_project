@@ -167,18 +167,40 @@
 	</section>
 	</div>
 </body>
-
+<script>
+	 $(document).ready(function () {
+             $.ajax({
+                 method: "GET",
+                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+                 data: { query: ${board.brIsbn} },
+                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+             })
+                 .done(function (msg) {
+                     console.log(msg.documents[0].title);
+                     console.log(msg.documents[0].thumbnail);
+                     console.log(msg.documents[0].datetime);
+                     console.log(msg.documents[0].authors);
+                     console.log(msg.documents[0].publisher);
+                     console.log(msg.documents[0].contents);
+                     $("#thumbnailbox").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                     $("#book-description-booktitle").append(msg.documents[0].title);
+                     $("#book-description-bookwriter").append(msg.documents[0].authors);
+                     $("#book-description-bookpublisher").append(msg.documents[0].publisher);
+                     $("#book-description-bookpublish").append(msg.documents[0].datetime);
+                     $("#book-description-bookcontents").append(msg.documents[0].contents);
+                 });
+     });
+</script>
 <script>
 
 // 게시글 번호 저장
-var brNo = document.getElementById("reviewheader-brNo").innerHTML;
-
 		$(document).ready(function() {
-
+		
 			commentList();
 			
 			// 댓글 목록 보기
 			function commentList() {
+				var brNo = document.getElementById("reviewheader-brNo").innerHTML;
 				$.ajax({
 					url:	"commentList",
 					type:	"get",
@@ -205,22 +227,30 @@ var brNo = document.getElementById("reviewheader-brNo").innerHTML;
 			
 			
 		});
+		
 		function saveComment() {
-			var content = document.getElementById("comContent").value;// 로그인한 회원 아이디 저장
-			var memberNname = document.getElementById("loginNname").value;
-			if(content == null) {
+			var csrfToken = $("meta[name='csrf-token']").attr('content');
+		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+		    $(document).ajaxSend(function (e, xhr, options) {
+		        xhr.setRequestHeader(csrfHeader, csrfToken);
+		    });
+			var comContent = document.getElementById("comContent").value;//댓글 내용 저장
+			var comWriter = document.getElementById("loginNname").innerHTML;//댓글 작성자 저장
+			var brNo = document.getElementById("reviewheader-brNo").innerHTML;//댓글 작성한 북리뷰글 번호 저장
+			
+			if(comContent == null) {
 				alert("댓글 내용을 입력해주세요")
 			}
-			if(content.trim().length > 1000) {
-				alert("현재 타이핑수: " + content.trim().length + " 최대 타이핑 수는 1000입니다.");
+			if(comContent.trim().length > 1000) {
+				alert("현재 타이핑수: " + comContent.trim().length + " 최대 타이핑 수는 1000입니다.");
 				return;
 			}
 				$.ajax({
 					url:	"saveComment",
 					type:	"post",
-					data:	{brNo: brNo,
-							 memberNname: memberNname,
-							 content: content},
+					data:	{'brNo': brNo,
+							 'comWriter': comWriter,
+							 'comContent': comContent},
 					success: function(data) {
 						alert("댓글 등록 성공");
 						commentList();
@@ -261,29 +291,10 @@ var brNo = document.getElementById("reviewheader-brNo").innerHTML;
 	        $('.comment_body').keyup();
 	    })
 	</script>
-<script>
-	 $(document).ready(function () {
-             $.ajax({
-                 method: "GET",
-                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
-                 data: { query: ${board.brIsbn} },
-                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
-             })
-                 .done(function (msg) {
-                     console.log(msg.documents[0].title);
-                     console.log(msg.documents[0].thumbnail);
-                     console.log(msg.documents[0].datetime);
-                     console.log(msg.documents[0].authors);
-                     console.log(msg.documents[0].publisher);
-                     console.log(msg.documents[0].contents);
-                     $("#thumbnailbox").append("<img src='" + msg.documents[0].thumbnail + "'/>");
-                     $("#book-description-booktitle").append(msg.documents[0].title);
-                     $("#book-description-bookwriter").append(msg.documents[0].authors);
-                     $("#book-description-bookpublisher").append(msg.documents[0].publisher);
-                     $("#book-description-bookpublish").append(msg.documents[0].datetime);
-                     $("#book-description-bookcontents").append(msg.documents[0].contents);
-                 });
-     });
-	</script>
 
+	<script>
+		function scrap() {
+			
+		}
+	</script>
 <%@ include file="../../common/footer.jsp"%>

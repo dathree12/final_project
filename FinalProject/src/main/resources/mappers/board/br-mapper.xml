@@ -5,7 +5,7 @@
 <mapper namespace="com.cereal.books.board.model.dao.ReviewDao">
 	<sql id="brListSql">
 		SELECT BR.BR_NO,
-		       M.USER_NO,
+		       BR.USER_NO,
 		       M.USER_NNAME,
 		       BR.BR_ISBN,
 		       BR.BR_PRESENT_PIC,
@@ -114,7 +114,7 @@
 	
 	<select id="selectBoardDetail" parameterType="_int" resultMap="brDetailResultMap">
 		SELECT BR.BR_NO,
-		       M.USER_NO,
+		       BR.USER_NO,
 		       M.USER_NNAME,
 		       BR.BR_ISBN,
 		       BR.BR_PRESENT_PIC,
@@ -142,9 +142,8 @@
 	  	INSERT INTO COMMENT_BOARD
 	  		VALUES(
 	  			SEQ_BR_NO.NEXTVAL,
-	  			#{userNname},
+	  			#{comWriter},
 	  			#{comContent},
-	  			DEFAULT,
 	  			DEFAULT,
 	  			DEFAULT,
 	  			'Y',
@@ -179,4 +178,40 @@
 				#{status)
  		)
 	</insert>
+	
+	<!-- 검색을 통한 리스트 조회, 페이징 처리o -->
+	<select id="getBoardCount_Id" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_REVIEW_BOARD BR
+		JOIN MEMBER M ON(BR.USER_NO = M.USER_NO)
+		WHERE BR.BR_STATUS='Y'
+		AND M.USER_NNAME LIKE '%'||#{br_searchword}||'%'
+	</select>
+	<select id="getBoardCount_Title" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_REVIEW_BOARD BR
+		WHERE BR.BR_STATUS='Y'
+		AND BR.BR_TITLE LIKE '%'||#{br_searchword}||'%'
+	</select>
+	<select id="getBoardCount_Content" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_REVIEW_BOARD BR
+		WHERE BR.BR_STATUS='Y'
+		AND BR.BR_CONTENT LIKE '%'||#{br_searchword}||'%'
+	</select>
+	<select id="getSearchList_Id" parameterType="map" resultMap="brResultMap">
+		<include refid="brListSql"></include>
+		AND BR.BR_TITLE LIKE '%'||#{br_searchword}||'%'
+		ORDER BY M.USER_NNAME DESC
+	</select>
+		<select id="getSearchList_Title" parameterType="map" resultMap="brResultMap">
+		<include refid="brListSql"></include>
+		AND BR.BR_TITLE LIKE '%'||#{br_searchword}||'%'
+		ORDER BY BR.BR_TITLE DESC
+	</select>
+	<select id="getSearchList_Content" parameterType="map" resultMap="brResultMap">
+		<include refid="brListSql"></include>
+		AND BR.BR_TITLE LIKE '%'||#{br_searchword}||'%'
+		ORDER BY B.BF_TITLE DESC
+	</select>
 </mapper>
