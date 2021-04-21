@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.cereal.books.board.model.vo.FundBoard;
+import com.cereal.books.board.model.vo.Payment;
 
 @Mapper
 public interface FundDao {
@@ -64,11 +65,10 @@ public interface FundDao {
 	// 펀딩 프로젝트 일반회원 상세조회 페이지 수정하기
 	int updateBoard(FundBoard fundboard);
 
+	// 결제성공 시 결제정보 저장하기
+	int insertPayment(Payment payment);
+	// payment에서 결제 성공 후 결제내역 db에 저장하고 fundboard에 구입내역 추가
+	int plusReachPrice(FundBoard fundboard);
 
-	
-
-
-
-	
 
 }

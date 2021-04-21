@@ -76,7 +76,18 @@
 		<result property="bfOriImgName" column="BF_ORI_IMGNAME"/>
 		<result property="bfReImgName" column="BF_RE_IMGNAME"/>
 		<result property="bfAdminComment" column="BF_ADMIN_COMMENT"/>
+	</resultMap>
 	
+	<resultMap type="Payment" id="paymentResultMap">
+		<id property="payNo" column="PAY_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="payEnrollDate" column="PAY_ENROLL_DATE"/>
+		<result property="payProgress" column="PAY_PROGRESS"/>
+		<result property="payPrice" column="PAY_PRICE"/>
+		<result property="payStatus" column="PAY_STATUS"/>
+		<result property="payItem" column="PAY_ITEM"/>
+		<result property="bcNo" column="BC_NO"/>
+		<result property="bfNo" column="BF_NO"/>
 	</resultMap>
 
 	<!-- list에서 사용 : list불러오고 전체 보드 수 구해서 페이징처리까지 -->
@@ -328,7 +339,34 @@
 			BF_NO = #{bfNo}	
 	</update>
 		
-		
+	<!-- write에서 사용 : fund write 기능 -->
+	<insert id="insertPayment" parameterType="map"
+		 useGeneratedKeys="true" keyProperty="payNo" keyColumn="PAY_NO">
+  		INSERT INTO PAYMENT
+  		VALUES(
+  			SEQ_PAY_NO.NEXTVAL,		 
+		 	#{userNo},
+		 	SYSDATE,
+		 	'Y',
+		 	#{payPrice},
+		 	DEFAULT,
+		 	'F',
+		 	NULL,
+		 	#{bfNo}
+		)
+	</insert>	
+	
+	<!-- payment에서 결제 성공 후 결제내역 db에 저장하고 fundboard에 구입내역 추가 -->
+	<update id="plusReachPrice" parameterType="FundBoard">
+		UPDATE BOOK_FUNDING_BOARD
+		SET 
+			BF_REACH_PRICE = BF_REACH_PRICE + #{bfPrice},
+			BF_BUY_COUNT = BF_BUY_COUNT + 1
+		WHERE
+			BF_NO = #{bfNo}
+	</update>
+	
+	
 </mapper>
 
 
