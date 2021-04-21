@@ -55,10 +55,10 @@
                     <option value="br_search_content">내용</option>
                 </select>
                 <div class="brboard-mid-searchbar_item inputbox">
-                    <input class="br-search-inputbox" placeholder="검색어를 입력해주세요" name="br_searchword"/>
+                    <input type="search" class="br-search-inputbox" placeholder="검색어를 입력해주세요" name="br_searchword"/>
                 </div>
                 <div class = "brboard-mid-searchbar_item searchbutton">
-                    <input type="submit" class="searchbutton" value="검색">
+                    <a class="searchbutton">검색</a>
                 </div>
                 <div class = "brboard-mid-searchbar_item sorting">
                     <a onclick="location.href='#'" id="sorting_newest">최신순</a>

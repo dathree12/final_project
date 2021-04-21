@@ -1,15 +1,6 @@
 package com.cereal.books.board.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,16 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.cereal.books.board.model.service.MainBoardService;
-import com.cereal.books.board.model.service.ReviewService;
-import com.cereal.books.board.model.vo.BookScrap;
-import com.cereal.books.board.model.vo.Comment;
-import com.cereal.books.board.model.vo.ReviewBoard;
+import com.cereal.books.board.model.vo.BookSearch;
+
 import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("board/main_board")
-
 public class MainBoardController {
 	
 	@Autowired
@@ -52,5 +36,21 @@ public class MainBoardController {
 				
 		return model;
 	}
+	
+	@RequestMapping("/boardSearch")
+	public ModelAndView boardSearch(ModelAndView model,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit,
+			@RequestParam("nav_keyword")String search ) {
+		List<BookSearch> list = null;
+		int boardCount = service.getBoardCount();
+		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+		
+		
+		list = service.getBoardSearch(pageInfo, search);
+		
+		return model;
+	}
+	
 		
 }
