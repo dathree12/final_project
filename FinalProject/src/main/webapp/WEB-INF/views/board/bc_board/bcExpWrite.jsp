@@ -9,10 +9,11 @@
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 <%@ include file="../../common/header.jsp"%>
 <head>
-	<title>리뷰작성페이지</title>
-	<link rel="stylesheet" href="${ path }/css/board/bc_style/bcExpWrite.css" type="text/css">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<script src="${ path }/ckeditor/ckeditor.js"></script>
+<title>리뷰작성페이지</title>
+<link rel="stylesheet"
+	href="${ path }/css/board/bc_style/bcExpWrite.css" type="text/css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<script src="${ path }/ckeditor/ckeditor.js"></script>
 </head>
 <section id="wrap">
 	<div id="container">
@@ -35,7 +36,8 @@
 						</p>
 						<div class="information">
 							<h3>
-								<a href id="aPrdNameLink"> <span id="sPrdName">샘플상품1</span>
+								<a href id="aPrdNameLink">
+									<span id="sPrdName">샘플상품1</span>
 								</a>
 							</h3>
 							<p class="price">
@@ -49,7 +51,8 @@
 								<tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
 									<th scope="row" style="border-left: 0; padding: 11px 0 10px 18px; border: 1px solid #f1f1f1; color: #353535; text-align: left; font-weight: normal; background-color: #f7f7f7; word-break: break-all; word-wrap: break-word; vertical-align: top; display: table-cell; font-size: 11px;">제목</th>
 									<td style="padding: 8px 10px 7px; border-top: 1px solid #f1f1f1; color: #353535; vertical-align: middle; word-break: break-all; word-wrap: break-word; border: 0;">
-									<input type="text" id="subject" style="width: 390px; height: 32px; line-height: 32px; padding: 2px 4px; border: 1px solid #f1f1f1; color: #353535; font-size: 12px;"></td>
+										<input type="text" id="subject" style="width: 390px; height: 32px; line-height: 32px; padding: 2px 4px; border: 1px solid #f1f1f1; color: #353535; font-size: 12px;">
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -60,20 +63,30 @@
 				</div>
 			</form>
 			<div class="ec-base-button">
-				<span class="gLeft" style="float: left; text-align: left;"> <span
-					class="displaynone" style="display: none;"> <a href="#none">
-							<!-- 관리자답변보기 -->
-					</a>
-				</span> <a href="#"> <span class="-cbtn -c-medium"
-						style="height: 32px; line-height: 32px;"> 목록 </span>
-				</a>
-				</span> <span class="gRight" style="float: right; text-align: right;">
-					<a href="#"> <span class="-cbtn -c-medium -c-black"> 등록 </span>
-				</a> <a href="#"> <span class="-cbtn -c-medium"> 취소 </span>
-				</a>
+				<span class="gLeft" style="float: left; text-align: left;"> 
+					<span class="displaynone" style="display: none;"><a href="#none"><!-- 관리자답변보기 --></a></span> 
+					<a href="#"><span class="-cbtn -c-medium" style="height: 32px; line-height: 32px;"> 목록 </span></a>
+				</span> 
+				<span class="gRight" style="float: right; text-align: right;">
+					<a href="javascript:;" id="exp_btn"><span class="-cbtn -c-medium -c-black"> 등록 </span></a> 
+					<a href="javascript:;"><span class="-cbtn -c-medium"> 취소 </span></a>
 				</span>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$('#exp_btn').on('click', function() {
+			
+			var subject = $("#subject");
+			var bcContent = $("#bcContent");
+			
+			$.ajax({
+				type: "POST",
+				url: "bcExpWrite",
+				dataType: "html",
+				success: function()
+			});
+		});
+	</script>
 </section>
 <%@ include file="../../common/footer.jsp"%>
