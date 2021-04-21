@@ -104,6 +104,8 @@
       <id property="expNo" column="EXP_NO" />
       <result property="userNo" column="USER_NO" />
       <result property="userName" column="USER_NAME" />
+      <result property="expOriginImage" column="EXP_ORIGIN_IMAGE" />
+      <result property="expModifyImage" column="EXP_MODIFY_IMAGE" />
       <result property="expTitle" column="EXP_TITLE" />
       <result property="expViewCount" column="EXP_VIEWCOUNT" />
       <result property="expContent" column="EXP_CONTENT" />
@@ -228,12 +230,13 @@
       SEQ_EXP_NO.NEXTVAL,
       #{userNo},
       #{userName},
+      #{expOriginImage},
+      #{expModifyImage},
       #{expTitle},
       DEFAULT,
       #{expContent},
       TO_DATE(SYSDATE, 'yy-mm-dd'),
-      'Y',
-      #{bcNo}
+      'Y'
       )
    </insert>
    

@@ -17,6 +17,10 @@
     	a {
     		color: #000;
     	}
+    	
+    	.-board-1th, .-board-2th {
+    		margin-top: 10px; 
+    	}
     </style>
 </head>
     <section>
@@ -25,21 +29,26 @@
             <div class="sub_detailArea">
                 <div class="thumbnail">
                     <div class="_d_name">
-    					<img alt="" src="">
+    					<img src="${ path }/upload/bc_board/${ clubBoard.bcModifyImage }">
                     </div>
                 </div>
                 <!-- info : title -->
                 <div class="infoArea__box">
                     <div class="infoArea">
-                        <h1 id="_deadline"><span>99</span>일 남음</h1>
-                        <h2 style="margin-top: 10px;"><c:out value="${ clubBoard.bcOriginTitle }"/></h2>
+                    <c:if test="${ clubBoard.bcRemainDate >= 0 }">
+                        <h1 id="_deadline"><span><c:out value="${ clubBoard.bcRemainDate }"/></span>일 남음</h1>
+                    </c:if>
+                    <c:if test="${ clubBoard.bcRemainDate < 0 }">
+                        <h1 id="_deadline"><span><c:out value="${ -clubBoard.bcRemainDate }"/></span>일 남음</h1>
+                    </c:if>
+                        <h2 id="bcOriginTitle" name="bcOriginTitle" style="margin-top: 10px;"><c:out value="${ clubBoard.bcOriginTitle }"/></h2>
                     </div>
                     
                     <div class="box">
                         <!-- info : subtitle, schedule, price -->
                         <ul class="box_1th">
                             <p style="margin-top: 15px;">${ clubBoard.bcSubTitle }</p>
-                            <p style="font-size: 30px; margin: 0;"><b><fmt:formatNumber value="${ clubBoard.bcPrice }" />원</b></p>
+                            <p style="font-size: 30px; margin: 0;"><b id="bcPrice" name="bcPrice"><fmt:formatNumber value="${ clubBoard.bcPrice }" />원</b></p>
                         </ul>
                         <!-- -------------------------------------- -->
                         <hr>
@@ -155,7 +164,8 @@
 		                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		                                    <td style="width: 50px;"><c:out value="${ exps.expNo }"/></td>
 		                                    <td style="width: 150px;" class="thumb_photo">
-		                                        <img src="" alt="">
+		                                        <!-- 후기 대표이미지 -->
+		                                        <img alt="이미지가 없습니다." src="${ path }/upload/exp/${ clubBoard.bcModifyImage }">
 		                                    </td>
 		                                    <td style="width: 848.89px;">
 		                                        <ul class="d_review_cont">
@@ -218,7 +228,7 @@
                 </c:if>
                 <p class="ec-base-button typeBoarder">
                     <span class="gRight">
-                        <a href="${ path }/board/bc_board/bcExpWrite">
+                        <a id="expWriteButton" name="expWriteButton" href="${ path }/board/bc_board/bcExpWrite">
                             <span class="-cbtn -c-medium -c-black">
                                 상품후기쓰기
                             </span>
@@ -321,4 +331,33 @@
         </article>
     </section>
     <script src="${ path }/js/club/bcBoardDetail.js"></script>
+    <script>
+ 		// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
+    	$(document).ready(function() {
+    	    var csrfToken = $("meta[name='csrf-token']").attr('content');
+    	    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+    	    $(document).ajaxSend(function (e, xhr, options) {
+    	        xhr.setRequestHeader(csrfHeader, csrfToken);
+    	    });
+    	    
+       		// var thumbnail_img = $('#thumbnail_img');
+       		var bcOriginTitle = $('#bcOriginTitle').text(); // html() 은 자식 태그까지 태그값까지 가져오는 것, text() 문자열 읽어오기, val()은 value 속성 값
+       		var bcPrice = $('#bcPrice').text();
+       		
+       		$.ajax({
+       			type: "POST",
+   				url: "bcExpWrite", // 보내고 싶은 서버의 url...
+       		    data : {
+       		    	bcOriginTitle
+       		    },
+   				success: function(data, status, xhr) {
+   					console.log(data);
+   				},
+   				error: function(xhr, status, data) {
+   					console.log(e);
+   				}
+       		})
+    	});
+    </script>
+    
 <%@ include file="../../common/footer.jsp" %>

@@ -29,13 +29,13 @@ $(function() {
 	});
 });
 
-var val = document.querySelector('._catelist_best');
-var d_none = "d_none";
+   var val = document.querySelector('._catelist_best');
+   var d_none = "d_none";
 
-function removeFunc() {
-    val.classList.add(d_none);
-};
+   function removeFunc() {
+       val.classList.add(d_none);
+   };
 
-function addFunc() {
-	val.classList.remove(d_none);
-};
+   function addFunc() {
+   	val.classList.remove(d_none);
+   };

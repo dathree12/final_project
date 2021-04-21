@@ -16,6 +16,10 @@ public class Exp {
 	private int userNo;
 	
 	private String userName;
+	
+	private String expOriginImage;
+	
+	private String expModifyImage;
 
 	private String expTitle;
 	
@@ -27,6 +31,6 @@ public class Exp {
 	
 	private String expStatus;
 	
-	private int bcNo; // FK
+//	private int bcNo; // FK
 //	private int bfNo; // FK
 }

@@ -40,8 +40,6 @@ public interface ClubDao {
 	
 	int insertClub(ClubBoard clubBoard);
 	
-	int insertExp(Exp exp);
-	
 //	int updateClub(ClubBoard clubBoard);
 	
 	ClubBoard selectClubDetail(int bcNo, RowBounds rowBounds);
