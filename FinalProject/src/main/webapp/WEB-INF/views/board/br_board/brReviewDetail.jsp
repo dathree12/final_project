@@ -43,9 +43,11 @@
 					<li><a href="#">종교/역학</a></li>
 					<li><a href="#">자기개발</a></li>
 				</div>
+				<security:authorize access="hasRole('USER')">
 				<div class="brboard-top-button">
 					<a href="${path}/board/br_board/brBoardWrite" class="write-button">글쓰기</a>
 				</div>
+				</security:authorize>
 				<hr id="line">
 			</section>
 			<section class="brboard-review">
@@ -54,7 +56,7 @@
 					<p id="reviewheader-bookclass">${board.brBookType}</p>
 					<p id="reviewheader-reviewtitle">${board.brTitle}</p>
 					<p id="reviewheader-reviewwriter">${board.userNname}</p>
-					<p id="reviewheader-reviewdate">${board.brCreateDate}</p>
+					<p id="reviewheader-reviewdate">${board.brModifyDate}</p>
 				</div>
 				<hr>
 				<div class="review-book-bookscrap">
@@ -84,7 +86,7 @@
 					</div>
 				</div>
 				<hr>
-				<div class="brboard-review-content">
+				<div class="brboard-review-content" style="height:800px">
 					<c:out value="${board.brContent}" escapeXml="false" />
 				</div>
 				<div class="brboard-review-contentlower">
@@ -100,32 +102,12 @@
 					</span>
 				</div>
 				<hr>
-				<!--  
-                <div class="brboard-review-comment">
-                    <article class="propose-read-article-1th">
-                        <div class="board_title">
-                            <p class="view_title">댓글 테스트</p>
-                        </div>
-                        <div class="board_summary">
-                            <div class="left">
-                                <div class="avatar">
-                                    <img alt="프로필 이미지" src="https://cdn.imweb.me/thumbnail/20161214/5850d6a2c09a8.jpg" class="avatar-image">
-                                </div>
-                                <div class="author">
-                                    <div class="write">김동민</div>
-                                </div>
-                            </div>
-                            <div class="board_txt_area">
-                                <p>
-                                 댓글입니다~
-                                </p>
-                            </div>
-                            -->
 				<div class="container">
 					<form id="commentListForm" name="commentListForm" method="post">
 						<div id="commentList"></div>
 					</form>
 				</div>
+				<security:authorize access="hasRole('USER')">
 				<div class="comment_textarea">
 					<form id="commentForm" name="commentForm" method="post"
 						class="comment_form">
@@ -139,13 +121,13 @@
 								<div class="none"></div>
 								<div class="write_button">
 									<a onclick="saveComment()" id="commentBtn" class="btn pull-right btn-success">등록</a>
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 								</div>
 							</div>
 						</div>
 					</form>
 				</div>
+				</security:authorize>
 	</div>
 	</section>
 	<hr>
@@ -187,16 +169,11 @@
 </body>
 
 <script>
-var content = document.getElementById("comContent").value;
+
 // 게시글 번호 저장
 var brNo = document.getElementById("reviewheader-brNo").innerHTML;
-// 로그인한 회원 아이디 저장
-var memberNname = document.getElementById("loginNname").value;
-		$(document).ready(function() {
-			
 
-			
-			
+		$(document).ready(function() {
 
 			commentList();
 			
@@ -229,7 +206,8 @@ var memberNname = document.getElementById("loginNname").value;
 			
 		});
 		function saveComment() {
-			
+			var content = document.getElementById("comContent").value;// 로그인한 회원 아이디 저장
+			var memberNname = document.getElementById("loginNname").value;
 			if(content == null) {
 				alert("댓글 내용을 입력해주세요")
 			}

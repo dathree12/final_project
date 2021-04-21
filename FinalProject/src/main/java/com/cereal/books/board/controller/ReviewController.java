@@ -207,7 +207,7 @@ public class ReviewController {
 		result = service.saveScrapStatus(bookscrap);
 	}
 	
-	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST})
+	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
     public int saveComment(@RequestParam("brNO") int brNo, @RequestParam("memeberNname")String memberNname, 
     		@RequestParam("content")String content, Comment comment, ModelAndView model) throws Exception{
