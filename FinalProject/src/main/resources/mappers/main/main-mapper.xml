@@ -40,6 +40,15 @@
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
 	
+	<resultMap type="BookSearch" id="mainSearchMap"> 
+		<id property="boardNo" column="BOARNO"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="boardType" column="BOARDTYPE"/>
+		<result property="boardDate" column="BOARDDATE"/>
+	
+	</resultMap>
+	
 	
 	<select id="selectCount" parameterType="map" resultType="_int">
 		SELECT COUNT(*)
@@ -95,6 +104,16 @@
 		<include refid="brListSql"></include>
 		ORDER BY BR_LIKE DESC
 	</select>
+	<select id="selectBoardSearchList" parameterType="map" resultMap="mainSearchMap">
+		SELECT BF_TITLE AS TITLE ,BF_CONTENT AS CONTENT, BF_ADMIN_COMMENT AS BOARDTYPE, BF_NO AS BOARNO , BF_ENROLL_DATE AS BOARDDATE
+		FROM BOOK_FUNDING_BOARD
+		WHERE BF_TITLE LIKE '%'||#{search}||'%' OR BF_CONTENT LIKE '%'||#{search}||'%'
+		UNION All
+		SELECT BR_TITLE, BR_CONTENT, BR_BOOKTYPE, BR_NO ,BR_CREATE_DATE
+		FROM BOOK_REVIEW_BOARD
+		WHERE BR_TITLE LIKE '%'||#{search}||'%' OR BR_CONTENT LIKE '%'||#{search}||'%'
+	</select>
+	
 
 
 </mapper>

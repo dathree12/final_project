@@ -74,13 +74,13 @@
                             </a>
                         </h1>
                         <div class="nav-center">
-                            <form action="" id="searchBarForm" name="" method="get" enctype="" target="">
+                            <form action="${path}/board/main_board/boardSearch" id="searchBarForm" name="" method="get" enctype="" target="">
                                 <input type="text" id="banner_action" name="banner_action" value="" type="">
                                 <div class="-search">
                                     <fieldset>
                                         <legend>검색</legend>
-                                        <input type="text" id="nav_keyword" name="nav_keyword" class="inputTypeText" placeholder="검색 하던지 말던지.." value="">
-                                        <span class="btn_h_search" onclick="location.href=('${path}/board/main_board/boardSearch')">
+                                        <input type="text" id="nav_keyword" name="nav_keyword" class="inputTypeText" placeholder="검색 하던지 말던지..">
+                                        <span class="btn_h_search" id="searchbt">
                                             <i class="fas fa-search"></i>
                                         </span>
                                     </fieldset>
@@ -137,6 +137,18 @@
         		
         		logoutCk.submit();
         	});
+        	
+			$('#searchbt').on('click',() => {
+        		
+				searchBarForm.submit();
+        	});
+        	
+        	
+        	
     	});	
+        
+    	
+        
+        
         
     </script>

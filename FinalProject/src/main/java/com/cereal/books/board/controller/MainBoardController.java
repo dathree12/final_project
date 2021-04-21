@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.cereal.books.board.model.service.MainBoardService;
-import com.cereal.books.board.model.vo.ReviewBoard;
+import com.cereal.books.board.model.vo.BookSearch;
+
 import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,13 +40,14 @@ public class MainBoardController {
 	@RequestMapping("/boardSearch")
 	public ModelAndView boardSearch(ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit) {
-		List<ReviewBoard> list = null;
+			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit,
+			@RequestParam("nav_keyword")String search ) {
+		List<BookSearch> list = null;
 		int boardCount = service.getBoardCount();
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 		
 		
-		
+		list = service.getBoardSearch(pageInfo, search);
 		
 		return model;
 	}
