@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.FundService;
 import com.cereal.books.board.model.vo.FundBoard;
+import com.cereal.books.board.model.vo.Payment;
 import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -527,7 +528,46 @@ public class FundController {
 		}
 	}	
 	
+	// viewDetail -> payment로 이동
+	@RequestMapping(value = "bf_payment", method = {RequestMethod.GET})
+	public ModelAndView bfpayment(
+			FundBoard board, @RequestParam("bfNo") int bfNo, ModelAndView model ) {
+		
+		board = service.findBoardByNo(bfNo);
+        
+        model.addObject("board", board);
+        model.setViewName("board/bf_board/bf_payment");
+		
+		return model;
+	}
+	// payment에서 결제 성공 후 결제내역 db에 저장하고 fundboard에 구입내역 추가
+	@RequestMapping(value = "bf_paymentSave", method = {RequestMethod.POST})
+	public ModelAndView bfpaymentSave(
+			FundBoard fundboard, Payment payment, ModelAndView model, @RequestParam("bfNo") int bfNo, @RequestParam("bfPrice") int payPrice, @RequestParam("userNo") int userNo) {
+		
+		int result = 0;
+		
+//		System.out.println(userNo + " " + payPrice + " " + bfNo);
+		
+		payment.setUserNo(userNo);
+		payment.setPayPrice(payPrice);
+		payment.setBfNo(bfNo);
+		
+		result = service.insertPayment(payment);
+		
+		if(result > 0) {
+			fundboard.setBfNo(bfNo);
+			fundboard.setBfPrice(payPrice);
+			service.plusReachPrice(fundboard);
+		}
+		
+        model.addObject("payment", payment);
+        model.setViewName("board/bf_board/bf_paySuccess");
+		
+		return model;
+	}
 	
+
 	
 }
 
