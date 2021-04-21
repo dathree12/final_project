@@ -296,6 +296,7 @@
 		ORDER BY B.BF_REMAIN_DATE DESC
 	</select>
 
+	<!-- 펀딩 프로젝트 관리자 상세조회 페이지 코멘트 입력, 승인&거절 보내기 -->
  	<update id="updateAdminCheck" parameterType="FundBoard">
 		UPDATE BOOK_FUNDING_BOARD
 		SET 
@@ -305,6 +306,28 @@
 			BF_NO = #{bfNo}
 	</update>
 	
+	<!-- 펀딩 프로젝트 일반회원 상세조회 페이지 수정하기 내에서 새롭게 대표이미지 파일 등록되면 기존파일 삭제 -->
+	<update id="updateBoard" parameterType="FundBoard">
+		UPDATE BOOK_FUNDING_BOARD
+		SET
+			BF_TITLE = #{bfTitle},
+			BF_ENROLL_DATE = #{bfEnrollDate},
+			BF_END_DATE = #{bfEndDate},
+			BF_PRICE = #{bfPrice},
+			BF_TARGET_PRICE = #{bfTargetPrice},
+			BF_CONTENT = #{bfContent},
+			<if test="bfOriImgName != null">
+				BF_ORI_IMGNAME=#{bfOriImgName},
+			</if>
+			<if test="bfReImgName != null">
+				BF_RE_IMGNAME=#{bfReImgName},
+			</if>
+			BF_MODIFY_DATE = SYSDATE,
+			BF_STATUS='N'
+		WHERE
+			BF_NO = #{bfNo}	
+	</update>
+		
 		
 </mapper>
 

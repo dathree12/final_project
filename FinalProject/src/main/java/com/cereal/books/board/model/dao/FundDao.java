@@ -21,6 +21,7 @@ public interface FundDao {
 
 	int insertBoard(FundBoard fundboard);
 
+	
 	// 관리자
 	List<FundBoard> adminFundList(@Param("rowBounds") RowBounds rowBounds, @Param("status") String status);
 
@@ -36,6 +37,7 @@ public interface FundDao {
 	List<FundBoard> myAplctFundList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
 	
 	int selectMyAplcFundCount(int userNo);
+	
 	
 	// viewDetail 해당 번호 찾는 메소드
 	FundBoard selectBoardDetail(int bfNo);
@@ -58,6 +60,9 @@ public interface FundDao {
 
 	// 관리자페이지에서 관리자가 펀딩 게시판 승인,거절 & 코멘트 업데이트 메소드
 	int updateAdminCheck(FundBoard fundboard);
+	
+	// 펀딩 프로젝트 일반회원 상세조회 페이지 수정하기
+	int updateBoard(FundBoard fundboard);
 
 
 	

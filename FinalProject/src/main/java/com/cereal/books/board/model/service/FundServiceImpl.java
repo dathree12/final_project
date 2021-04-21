@@ -55,15 +55,17 @@ public class FundServiceImpl implements FundService {
 	public int saveBoard(FundBoard fundboard) {
 		int result = 0;
 
-//		if(fundboard.getBfNo() != 0) {
-//			result = fundDao.updateBoard(fundboard);
-//		} else {
+		if(fundboard.getBfNo() != 0) {
+			// 펀딩 프로젝트 일반회원 상세조회 페이지 수정하기
+			result = fundDao.updateBoard(fundboard);
+		} else {
 			result = fundDao.insertBoard(fundboard);
-//		}
+		}
 		
 		return result;
 	}
 
+	
 	// 관리자 펀드 조회
 	@Override
 	public List<FundBoard> getFundList(PageInfo fundPageInfo, String status) {
@@ -111,6 +113,7 @@ public class FundServiceImpl implements FundService {
 	public int getMyAplctFundCount(int userNo) {
 		return fundDao.selectMyAplcFundCount(userNo);
 	}
+	
 	
 	// viewDetail 해당 번호 찾는 메소드
 	@Override
@@ -179,9 +182,10 @@ public class FundServiceImpl implements FundService {
 		return fundDao.getBoardList_endDate(rowBounds);
 	}
 
+	// 펀딩 프로젝트 관리자 상세조회 페이지 코멘트 입력, 승인&거절 보내기
 	@Override
 	public int updateAdminCheck(FundBoard fundboard) {
-		// TODO Auto-generated method stub
+		
 		return fundDao.updateAdminCheck(fundboard);
 	}
 
