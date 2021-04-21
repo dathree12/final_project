@@ -16,38 +16,37 @@
 </head>
 
     <section id="main_container">
-    
+    	
         <div id="high_div">
 
             <div id="inner_img_div">
-			
             </div>
             <security:authorize access="isAnonymous()">
             <div id="inner_reco_div">
                 <span id="inner_reco_div_span">추천 도서</span>
             <c:if test="${list != null}">
             	<c:forEach var="board" items="${list}">
-		                <a href=""> 
-		                   <div class="reco_div">
-		                    <div class="reco_img_div">
-		                   		   <a href="#" class="imgsize" id="reviewthumbnail_${board.brIsbn}" ></a>
-		                  		   <p id="review-bookisbn_${board.brIsbn}" style="display:none"><c:out value="${board.brIsbn}"/></p>
-		                    </div>
-		                    <div class="reco_content">
-		                       <div class="reco_content_title">
-		                           <strong style="font-size: 0.8em;" id="review-booktitle_${board.brIsbn}"></strong>
-		                       </div>  
-		                       <div class="reco_content_ctt">
-		                           <p class="reco_content_p" id="bookContents_${board.brIsbn}"> </p>
-		                       </div> 
-		                       <div class="reco_content_t">
-		                           <p class="reco_content_p" id="bookauthors_${board.brIsbn}">저자 : </p>
-		                           <p class="reco_content_p" id="bookpublisher_${board.brIsbn}">출판사 : </p>
-		                           <p class="reco_content_p" id="bookSale_${board.brIsbn}">가격 : </p>
-		                       </div> 
-		                    </div>
-		                   </div>
-		                </a>
+		        	<div class="reco_div">
+			        	<div class="reco_img_div">
+			            	<a href="${path}/board/main_board/mainBoardDetail?brIsbn=${board.brIsbn}" id="reviewthumbnail_${board.brIsbn}" ></a>
+			                <p id="review-bookisbn_${board.brIsbn}" style="display:none"><c:out value="${board.brIsbn}"/></p>
+			            </div>
+			            <div class="reco_content">
+			               	<a href="${path}/board/main_board/mainBoardDetail?brIsbn=${board.brIsbn}"> 
+				            	<div class="reco_content_title">
+				                	<strong style="font-size: 0.8em;" id="review-booktitle_${board.brIsbn}"></strong>
+				                </div>  
+				                <div class="reco_content_ctt">
+				                	<p class="reco_content_p" id="bookContents_${board.brIsbn}"> </p>
+				                </div> 
+				                <div class="reco_content_t">
+				                	<p class="reco_content_p" id="bookauthors_${board.brIsbn}">저자 : </p>
+				                   	<p class="reco_content_p" id="bookpublisher_${board.brIsbn}">출판사 : </p>
+				                    <p class="reco_content_p" id="bookSale_${board.brIsbn}">가격 : </p>
+				                </div> 
+			             	</a>
+			            </div>
+		             </div>
                 	</c:forEach>
                 </c:if>
             </div>
@@ -57,40 +56,37 @@
             <div id="inner_reco_div">
                 <span id="inner_reco_div_span">${user.name}님 추천 도서</span>
               <c:if test="${list != null}">
-            	<c:forEach var="board" items="${list}">
-		                <a href=""> 
-		                   <div class="reco_div">
-		                    <div class="reco_img_div">
-		                   		   <a href="#" class="imgsize" id="reviewthumbnail_${board.brIsbn}" ></a>
-		                  		   <p id="review-bookisbn_${board.brIsbn}" style="display:none"><c:out value="${board.brIsbn}"/></p>
-		                    </div>
-		                    <div class="reco_content">
-		                       <div class="reco_content_title">
-		                           <strong style="font-size: 0.8em;" id="review-booktitle_${board.brIsbn}"></strong>
-		                       </div>  
-		                       <div class="reco_content_ctt">
-		                           <p class="reco_content_p" id="bookContents_${board.brIsbn}"> </p>
-		                       </div> 
-		                       <div class="reco_content_t">
-		                           <p class="reco_content_p" id="bookauthors_${board.brIsbn}">저자 : </p>
-		                           <p class="reco_content_p" id="bookpublisher_${board.brIsbn}">출판사 : </p>
-		                           <p class="reco_content_p" id="bookSale_${board.brIsbn}">가격 : </p>
-		                       </div> 
-		                    </div>
-		                   </div>
-		                </a>
-                	</c:forEach>
-                </c:if>
+              	<c:forEach var="board" items="${list}">
+		        	<div class="reco_div">
+			        	<div class="reco_img_div">
+			            	<a href="${path}/board/main_board/mainBoardDetail?brIsbn=${board.brIsbn}" id="reviewthumbnail_${board.brIsbn}" ></a>
+			                	<p id="review-bookisbn_${board.brIsbn}" style="display:none"><c:out value="${board.brIsbn}"/></p>
+			            </div>
+			            <div class="reco_content">
+				            <a href="${path}/board/main_board/mainBoardDetail?brIsbn=${board.brIsbn}"> 
+					        	<div class="reco_content_title">
+					            	<strong style="font-size: 0.8em;" id="review-booktitle_${board.brIsbn}"></strong>
+					            </div>  
+					            <div class="reco_content_ctt">
+					            	<p class="reco_content_p" id="bookContents_${board.brIsbn}"> </p>
+					            </div> 
+					            <div class="reco_content_t">
+					            	<p class="reco_content_p" id="bookauthors_${board.brIsbn}">저자 : </p>
+					            	<p class="reco_content_p" id="bookpublisher_${board.brIsbn}">출판사 : </p>
+					            	<p class="reco_content_p" id="bookSale_${board.brIsbn}">가격 : </p>
+					            </div> 
+				             </a>
+			            </div>
+		            </div>
+                </c:forEach>
+              </c:if>
             </div>
 			</security:authorize>
 			<security:authorize access="hasRole('ADMIN')">
 			<security:authentication property="principal" var="user"/>
             <div id="inner_reco_div">
                 <span id="inner_reco_div_span">${user.name}님 페이지 입니다.</span>
-           
-		                   
-		                      
-		                       
+         
             </div>
 			</security:authorize>
         </div>
@@ -101,50 +97,49 @@
         <div id="middle_div">
             <div id="innner_container">
              <c:if test="${mBest != null}">
-             <c:forEach var="best" items="${mBest}" varStatus="ct">
-       			<p id="review-bestisbn_${best.brIsbn}" style="display:none"><c:out value="${best.brIsbn}"/></p>
+            	 <c:forEach var="best" items="${mBest}" varStatus="ct">
+       				<p id="review-bestisbn_${best.brIsbn}" style="display:none"><c:out value="${best.brIsbn}"/></p>
                      <c:if test="${ct.count == 1}">
-                    <div id="l_inner_cont">
-                        <a href="">   
+                    	<div id="l_inner_cont">
                             <div id="l_inner_cont_div">
-                            		 <p class="best_p">${ct.count}st. </p>
-                                	 <a href="#" id="mBestImage_${best.brIsbn}" ></a>
-                                     <div class="l_text_tw"> <p class="l_text_title" id="mBestTitle_${best.brIsbn}"> </p></div>
-                                     <div class="l_text_tw"> <p class="l_text_writer" id="mBestAuthors_${best.brIsbn}"> 저자 :   </p></div>   
-                                     <p class="l_text_con" id="mBestContents_${best.brIsbn}"></p>
+                            	<p class="best_p">${ct.count}st. </p>
+                                <a href="${path}/board/main_board/mainBoardDetail?brIsbn=${best.brIsbn}" id="mBestImage_${best.brIsbn}" ></a>
+                        		<a href="${path}/board/main_board/mainBoardDetail?brIsbn=${best.brIsbn}">   
+	                                <div class="l_text_tw"> <p class="l_text_title" id="mBestTitle_${best.brIsbn}"> </p></div>
+	                                <div class="l_text_tw"> <p class="l_text_writer" id="mBestAuthors_${best.brIsbn}"> 저자 :   </p></div>   
+	                                <p class="l_text_con" id="mBestContents_${best.brIsbn}"></p>
+                       			</a>
                             </div>
-                        </a>
-                    </div> 
+                    	</div> 
                     </c:if> 
-              	   <c:if test="${ct.count == 2}">
-                       <div id="l_inner_cont">
-	                        <a href="">   
-	                            <div id="l_inner_cont_div">
-	                            		 <p class="best_p">${ct.count}nd. </p>
-	                                	 <a href="#" id="mBestImage_${best.brIsbn}" ></a>
-	                                     <div class="l_text_tw"> <p class="l_text_title" id="mBestTitle_${best.brIsbn}"> </p></div>
-	                                     <div class="l_text_tw"> <p class="l_text_writer" id="mBestAuthors_${best.brIsbn}"> 저자 :   </p></div>   
-	                                     <p class="l_text_con" id="mBestContents_${best.brIsbn}"></p>
-	                            </div>
-	                        </a>
+              	    <c:if test="${ct.count == 2}">
+                    	<div id="l_inner_cont">
+	                    	<div id="l_inner_cont_div">
+	                        	<p class="best_p">${ct.count}nd. </p>
+	                            <a href="${path}/board/main_board/mainBoardDetail?brIsbn=${best.brIsbn}" id="mBestImage_${best.brIsbn}" ></a>
+	                       	    <a href="${path}/board/main_board/mainBoardDetail?brIsbn=${best.brIsbn}">   
+		                        	<div class="l_text_tw"> <p class="l_text_title" id="mBestTitle_${best.brIsbn}"> </p></div>
+		                        	<div class="l_text_tw"> <p class="l_text_writer" id="mBestAuthors_${best.brIsbn}"> 저자 :   </p></div>   
+		                       	 	<p class="l_text_con" id="mBestContents_${best.brIsbn}"></p>
+				                </a>
+	                        </div>
                     	</div>
                     </c:if>
-                      <c:if test="${ct.count == 3}">
+                    <c:if test="${ct.count == 3}">
                        <div id="l_inner_cont">
-	                        <a href="">   
-	                            <div id="l_inner_cont_div">
-	                            		 <p class="best_p">${ct.count}rd. </p>
-	                                	 <a href="#" id="mBestImage_${best.brIsbn}" ></a>
-	                                     <div class="l_text_tw"> <p class="l_text_title" id="mBestTitle_${best.brIsbn}"> </p></div>
-	                                     <div class="l_text_tw"> <p class="l_text_writer" id="mBestAuthors_${best.brIsbn}"> 저자 :   </p></div>   
-	                                     <p class="l_text_con" id="mBestContents_${best.brIsbn}"></p>
-	                            </div>
-	                        </a>
+	                       <div id="l_inner_cont_div">
+	                       		<p class="best_p">${ct.count}rd. </p>
+	                       		<a href="${path}/board/main_board/mainBoardDetail?brIsbn=${best.brIsbn}" id="mBestImage_${best.brIsbn}" ></a>
+	                       		<a href="${path}/board/main_board/mainBoardDetail?brIsbn=${best.brIsbn}">   
+	                            	<div class="l_text_tw"> <p class="l_text_title" id="mBestTitle_${best.brIsbn}"> </p></div>
+	                            	<div class="l_text_tw"> <p class="l_text_writer" id="mBestAuthors_${best.brIsbn}"> 저자 :   </p></div>   
+	                            	<p class="l_text_con" id="mBestContents_${best.brIsbn}"></p>
+	                        	</a>
+	                       </div>
                     	</div>
-                    </c:if>
-
+                   </c:if>
                 </c:forEach>
-                </c:if>
+              </c:if>
              </div>
         </div>
         <br>
@@ -206,7 +201,7 @@
                      $("#reviewthumbnail_${board.brIsbn}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
                      $("#review-booktitle_${board.brIsbn}").append(msg.documents[0].title)
                      $("#bookContents_${board.brIsbn}").append(msg.documents[0].contents)
-                     $("#bookSale_${board.brIsbn}").append(msg.documents[0].sale_price)
+                     $("#bookSale_${board.brIsbn}").append(msg.documents[0].price)
                      $("#bookpublisher_${board.brIsbn}").append(msg.documents[0].publisher)
                      $("#bookauthors_${board.brIsbn}").append(msg.documents[0].authors)
                  });
@@ -224,7 +219,7 @@
                      $("#mBestImage_${best.brIsbn}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
                      $("#mBestTitle_${best.brIsbn}").append(msg.documents[0].title)
                      $("#mBestContents_${best.brIsbn}").append(msg.documents[0].contents)
-                     $("#mBestSale_${best.brIsbn}").append(msg.documents[0].sale_price)
+                     $("#mBestSale_${best.brIsbn}").append(msg.documents[0].price)
                      $("#mBestPublisher_${best.brIsbn}").append(msg.documents[0].publisher)
                      $("#mBestAuthors_${best.brIsbn}").append(msg.documents[0].authors)
                  });

@@ -1,0 +1,103 @@
+@charset "UTF-8";
+ .dt_container{
+        width: 40%;
+        margin: 10px auto 10px;
+    }
+
+    .dt_info{
+        display: inline-flex;
+        width: 100%;
+        justify-content: space-between;
+        
+    }
+    .dt_img{
+        width: 25%;
+        margin: 15px;
+        
+    }
+    .dt_title{
+        width: 60%;
+        margin-left: 20px;
+        float: right;
+    }
+
+    .dt_content{
+        margin: auto;
+    }
+
+#bookTitle{
+ 	color: #f26722;
+	font-size: 1.1em;
+	font-weight: bolder;
+}
+
+#bookContent{
+   margin: 2px auto 2px;
+    font-size: 1em;
+    width: 100%; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    /* 여러 줄 자르기 추가 스타일 */
+     white-space: normal; 
+     line-height: 1.3; height: 27%; 
+     word-wrap: break-word;
+    display: -webkit-box; 
+    -webkit-line-clamp: 4; 
+    -webkit-box-orient: vertical;
+    color: #999999;
+    word-break: break-all;
+    text-indent: 5px;
+}
+
+.de_btn_div{
+    display: flex;
+    justify-content: center;
+    width: 90%
+}
+
+
+.de_btn{
+    background-color:  #222;
+    color: white;
+    width: 25%;
+    height: 35px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    text-align: center;
+    line-height: 18px;
+}
+
+.de_btn:hover{
+    background-color: white;
+    border: 1px solid #222;
+    color: #222;
+}
+    @media screen and (max-width: 768px){
+        .dt_container{
+            width: 80%;
+            margin-top: 70px;
+        }
+        
+        .dt_img{
+            text-align: center;
+            width: 100%;
+             margin: 0px;
+
+        }
+        .dt_info{
+            flex-direction: column;
+       
+        }
+        
+        .dt_title{
+         text-align: center;
+         width: 100%;
+         margin: 0px;
+        }
+        
+        #bookimage{
+        text-align: center;
+        
+        }
+    }
