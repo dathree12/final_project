@@ -47,7 +47,19 @@ public class MainBoardController {
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 		
 		
+		
 		list = service.getBoardSearch(pageInfo, search);
+		
+		if(list.isEmpty()) {
+			model.addObject("msg", "검색 결과가 없습니다.");
+			model.setViewName("common/msg");
+		}else {
+			
+			model.addObject("list", list);
+			model.setViewName("board/main_board/boardSearch");
+		}
+		
+		
 		
 		return model;
 	}
