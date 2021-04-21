@@ -201,7 +201,7 @@
 	</select>
 	<select id="getSearchList_Id" parameterType="map" resultMap="brResultMap">
 		<include refid="brListSql"></include>
-		AND BR.BR_TITLE LIKE '%'||#{br_searchword}||'%'
+		AND M.USER_NNAME LIKE '%'||#{br_searchword}||'%'
 		ORDER BY M.USER_NNAME DESC
 	</select>
 		<select id="getSearchList_Title" parameterType="map" resultMap="brResultMap">
@@ -211,7 +211,7 @@
 	</select>
 	<select id="getSearchList_Content" parameterType="map" resultMap="brResultMap">
 		<include refid="brListSql"></include>
-		AND BR.BR_TITLE LIKE '%'||#{br_searchword}||'%'
-		ORDER BY B.BF_TITLE DESC
+		AND BR.BR_CONTENT LIKE '%'||#{br_searchword}||'%'
+		ORDER BY BR.BR_CONTENT DESC
 	</select>
 </mapper>

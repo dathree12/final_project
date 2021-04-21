@@ -59,11 +59,15 @@
 					<p id="reviewheader-reviewdate">${board.brModifyDate}</p>
 				</div>
 				<hr>
+				
 				<div class="review-book-bookscrap">
-					<a class="scrap-button" id="scrap-icon1"><img
-						src="${ path }/images/scrap_0.png" class="scrapicon">스크랩하기</a> <a
-						class="scrap-button" id="scrap-icon2"><img
+				<form id="scrapForm" name="scrapForm" method="post"
+						class="scrap_form">
+					<a class="scrap-button" id="scrapOff"><img
+						src="${ path }/images/scrap_0.png" class="scrapicon">스크랩하기</a> 
+					<a class="scrap-button" id="scrapOn"><img
 						src="${ path }/images/scrap_1.png" class="scrapicon">스크랩취소</a>
+				</form>
 				</div>
 				<div class="brboard-review-book">
 					<div class="review-book-cover">
@@ -113,6 +117,7 @@
 						class="comment_form">
 						<div class="custom-textarea">
 							<p class="comment_profile" id="loginNname">${user.userNname}</p>
+							<p class="comment_profile" id="loginNo" style="display: none">${user.userNo}</p>
 							<textarea class="comment_body"
 								style="border: 0px; width: auto; outline: none;"
 								name="comContent" id="comContent" rows="1"
@@ -293,8 +298,41 @@
 	</script>
 
 	<script>
-		function scrap() {
-			
-		}
+	    /*img1을 클릭했을 때 img2를 보여줌*/
+	    $("#scrapOn").click(function(){
+	        $("#scrapOn").hide();
+	        $("##scrapOff).show();
+	    });
+	    /*img2를 클릭했을 때 img1을 보여줌*/
+	    $("#scrapOff").click(function(){
+	        $("#scrapOn").show();
+	        $("#scrapOff").hide();
+	    });
+	/*	1. 화면 불러올때 로그인 정보 불러와서 스크랩 status 확인
+		2. status 'Y'이면 scrapOn 'N'이면 scrapOff	
+		3. 스크랩 버튼 눌러서 DB저장하기 */
+		function scrapGet() {
+			var csrfToken = $("meta[name='csrf-token']").attr('content');
+		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+		    $(document).ajaxSend(function (e, xhr, options) {
+		        xhr.setRequestHeader(csrfHeader, csrfToken);
+		    });
+		    var userNo = document.getElementById("loginNo").innerHTML;//스크랩 한 닉네임 저장
+			var brNo = document.getElementById("reviewheader-brNo").innerHTML;//스크랩한 북리뷰글 번호 저장
+			$.ajax({
+				url:	"scrapGet",
+				type:	"get",
+				data:	{brNo: brNo,
+						 userNo: userNo},
+				success: function(data) {
+						if
+			            $("#scrapOn").show();
+			            $("#scrapOff").hide();
+
+				}
+				});
+		 
+		
+	}
 	</script>
 <%@ include file="../../common/footer.jsp"%>
