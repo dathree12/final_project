@@ -13,6 +13,7 @@ import com.cereal.books.board.model.vo.ReviewBoard;
 public interface MainBoardDao {
 
 	int selectCount();
+	int selectSearchCount(@Param("search")String search);
 
 	List<ReviewBoard> selectBoardList(RowBounds rowBounds);
 
@@ -29,5 +30,7 @@ public interface MainBoardDao {
 	List<ReviewBoard> selectBoardGList(RowBounds rowBounds);
 
 	List<BookSearch> selectBoardSearchList(RowBounds rowBounds, @Param("search")String search);
+
+
 	
 }

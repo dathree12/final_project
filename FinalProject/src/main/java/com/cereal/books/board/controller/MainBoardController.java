@@ -43,7 +43,7 @@ public class MainBoardController {
 			@RequestParam(value = "listLimit", required = false, defaultValue = "5") int listLimit,
 			@RequestParam("nav_keyword")String search ) {
 		List<BookSearch> list = null;
-		int boardCount = service.getBoardCount();
+		int boardCount = service.getBoardSearchCount(search);
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 		
 		
@@ -54,8 +54,9 @@ public class MainBoardController {
 			model.addObject("msg", "검색 결과가 없습니다.");
 			model.setViewName("common/msg");
 		}else {
-			
+			model.addObject("search", search);
 			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
 			model.setViewName("board/main_board/boardSearch");
 		}
 		

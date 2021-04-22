@@ -33,6 +33,13 @@ public class MainBoardServiceImpl implements MainBoardService {
 	}
 
 
+	@Override
+	public int getBoardSearchCount(String search) {
+		
+		return mainBoardDao.selectSearchCount(search);
+	}
+
+
 
 	@Override
 	public List<ReviewBoard> getBoardList(PageInfo pageInfo) {
@@ -134,7 +141,7 @@ public class MainBoardServiceImpl implements MainBoardService {
 		List<BookSearch> searchList = new ArrayList<>();
 		
 		searchList = mainBoardDao.selectBoardSearchList(rowBounds,search);
-	
+		
 		return searchList;
 	}
 
