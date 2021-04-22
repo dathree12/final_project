@@ -47,7 +47,6 @@ public class ExpController {
 
 			int result = 0;
 
-			result = service.saveExpList(exp);
 			
 			String renameFileName = saveFile(upfile, request);
 			
@@ -56,6 +55,9 @@ public class ExpController {
 				exp.setExpModifyImage(renameFileName);
 			}
 			
+			result = service.saveExpList(exp);
+			
+			System.out.println("upfile.getOriginalFilename() : " + upfile.getOriginalFilename());
 			System.out.println("saveExpList : " + result);
 
 			if (result > 0) {
