@@ -30,7 +30,7 @@
 	    <br><br>
 	    <div class="fd_pay_btn">
 	        <a href="#">주문목록</a>
-	        <a href="#">메인페이지</a>
+	        <a href="${path}/">메인페이지</a>
 	    </div>
     </div>	
 <%@ include file="../../common/footer.jsp" %>
