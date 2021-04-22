@@ -10,7 +10,6 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Propose {
 	
 	private int proposeNo;
@@ -21,7 +20,7 @@ public class Propose {
 	
 	private String userName;
 	
-	private String proposePwd;
+	private int proposePwd;
 	
 	private String proposeTitle;
 	

@@ -24,4 +24,6 @@ public interface ProposeDao {
 	List<ClubBoard> myAplctClubList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
 
 	int selectMyAplcClubCount(int userNo);
+
+	Propose selectPropose(int proposeNo);
 }
