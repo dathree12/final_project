@@ -14,7 +14,7 @@ public class BookScrap {
 	
 	private int userNo;
 	
-	private int brIsbn;
+	private int bsIsbn;
 	 
 	private String scrapStatus;
 	

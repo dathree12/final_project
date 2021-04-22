@@ -32,10 +32,10 @@
 		<section class="brboard-body">
 			<section class="brboard-top">
 				<div class="brboard-top-title">
-					<a href="#">북리뷰 게시판</a>
+					<a href="${path}/board/br_board/brBoardMain">북리뷰 게시판</a>
 				</div>
 				<div class="brboard-top-menu">
-					<li><a href="#">전체</a></li>
+					<li><a href="${path}/board/br_board/brBoardMain">전체</a></li>
 					<li><a href="#">소설</a></li>
 					<li><a href="#">어린이/청소년</a></li>
 					<li><a href="#">경제/경영</a></li>
@@ -57,6 +57,7 @@
 					<p id="reviewheader-reviewtitle">${board.brTitle}</p>
 					<p id="reviewheader-reviewwriter">${board.userNname}</p>
 					<p id="reviewheader-reviewdate">${board.brModifyDate}</p>
+					<p style="display: none">${board.brViewCount}</p>
 				</div>
 				<hr>
 				
@@ -200,8 +201,22 @@
 
 // 게시글 번호 저장
 		$(document).ready(function() {
-		
+			
 			commentList();
+			
+			scrapGet();
+			
+			/*img1을 클릭했을 때 img2를 보여줌*/
+		    $("#scrapOn").click(function(){
+		        $("#scrapOn").hide();
+		        $("#scrapOff").show();
+		    });
+		    /*img2를 클릭했을 때 img1을 보여줌*/
+		    $("#scrapOff").click(function(){
+		        $("#scrapOn").show();
+		        $("#scrapOff").hide();
+		    });
+		    
 			
 			// 댓글 목록 보기
 			function commentList() {
@@ -243,13 +258,14 @@
 			var comWriter = document.getElementById("loginNname").innerHTML;//댓글 작성자 저장
 			var brNo = document.getElementById("reviewheader-brNo").innerHTML;//댓글 작성한 북리뷰글 번호 저장
 			
-			if(comContent == null) {
-				alert("댓글 내용을 입력해주세요")
+			if(comContent.trim().length < 5) {
+				alert("댓글 내용을 5자 이상 입력해주세요")
 			}
-			if(comContent.trim().length > 1000) {
+			else if(comContent.trim().length > 1000) {
 				alert("현재 타이핑수: " + comContent.trim().length + " 최대 타이핑 수는 1000입니다.");
 				return;
 			}
+			else {
 				$.ajax({
 					url:	"saveComment",
 					type:	"post",
@@ -264,6 +280,7 @@
 						alert("댓글 등록 실패")
 					}
 				});
+			}
 		}; 
 </script>
 <script>
@@ -298,16 +315,6 @@
 	</script>
 
 	<script>
-	    /*img1을 클릭했을 때 img2를 보여줌*/
-	    $("#scrapOn").click(function(){
-	        $("#scrapOn").hide();
-	        $("##scrapOff).show();
-	    });
-	    /*img2를 클릭했을 때 img1을 보여줌*/
-	    $("#scrapOff").click(function(){
-	        $("#scrapOn").show();
-	        $("#scrapOff").hide();
-	    });
 	/*	1. 화면 불러올때 로그인 정보 불러와서 스크랩 status 확인
 		2. status 'Y'이면 scrapOn 'N'이면 scrapOff	
 		3. 스크랩 버튼 눌러서 DB저장하기 */
@@ -317,22 +324,25 @@
 		    $(document).ajaxSend(function (e, xhr, options) {
 		        xhr.setRequestHeader(csrfHeader, csrfToken);
 		    });
-		    var userNo = document.getElementById("loginNo").innerHTML;//스크랩 한 닉네임 저장
-			var brNo = document.getElementById("reviewheader-brNo").innerHTML;//스크랩한 북리뷰글 번호 저장
+		    var userNo = document.getElementById("loginNo").innerHTML;
+		    var bsIsbn = document.getElementById("review-bookisbn").value;
 			$.ajax({
 				url:	"scrapGet",
 				type:	"get",
-				data:	{brNo: brNo,
-						 userNo: userNo},
+				data:	{'userNo': userNo,
+						 'bsIsbn': bsIsbn},
 				success: function(data) {
-						if
+						if(data != 0){
 			            $("#scrapOn").show();
 			            $("#scrapOff").hide();
-
+						}
+						else {
+							$("#scrapOff").show();
+				            $("#scrapOn").hide();
+						}
 				}
 				});
-		 
-		
 	}
+	
 	</script>
 <%@ include file="../../common/footer.jsp"%>

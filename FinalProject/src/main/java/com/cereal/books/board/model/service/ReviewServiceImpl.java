@@ -6,7 +6,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cereal.books.board.model.dao.ReviewDao;
 import com.cereal.books.board.model.vo.BookScrap;
@@ -66,12 +65,14 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return result;
 	}
-
+	
+	@Transactional
 	@Override
 	public List<Comment> listComment(int brNo) {
 		return reviewDao.listComment(brNo);
 	}
-
+	
+	@Transactional
 	@Override
 	public int saveComment(Comment comment) {
 		int result = 0;
@@ -118,5 +119,21 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.getSearchList_Content(rowBounds, searchword);
 	}
 
+	@Override
+	public int getScrapStatus(String bsIsbn, int userNo) {
+		int result = 0;
+		result = reviewDao.getScrapStatus(bsIsbn, userNo);
+		if(result == 0) {
+			return 0;
+		}
+		else {
+			return 1;
+		}
+	}
 
+	@Override
+	public int increaseViewcnt(int brNo) {
+		return reviewDao.increateViewcnt(brNo);
+	}
+	
 }
