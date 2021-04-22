@@ -38,7 +38,7 @@
                     </div>
                     <ul class="menuCategory" style="display: block;">
                         <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardMain" style="text-decoration: none; color: black;" onclick="addFunc();">전체 클럽</a></li>
-                        <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardMain" style="text-decoration: none; color: black;" onclick="removeFunc();">모집 중인 클럽</a></li>
+                        <li class="headcategory"><a style="cursor: pointer; text-decoration: none; color: black;" onclick="removeFunc();">모집 중인 클럽</a></li>
                         <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardList" style="text-decoration: none; color: black;">클럽 제안하기</a></li>
                     </ul>
                 </div>
@@ -57,7 +57,7 @@
 		                                    <div class="prdImg">
 		                                        <div class="price_rate">7%</div>
 		                                        <a href="#">
-		                                            <img src="${ path }/images/club-test.jpg" alt="샘플">
+		                                            <img src="${ path }/upload/bc_board/${ clubBoard.bcModifyImage }">
 		                                        </a>
 		                                    </div>
 		                                </div>
@@ -82,7 +82,7 @@
 	                                                            -->
 	                                                        </p>
 	                                                        <span style="font-size: 11px; color: #999999; float: left; margin: 0">
-	                                                            <c:out value="${ clubBoard.bcSubTitle }"></c:out> 
+	                                                            <c:out value="${ clubBoard.bcSubTitle }"/> 
 	                                                        </span>
 	                                                    </strong>
 	                                                </li>
@@ -98,8 +98,8 @@
                     <div class="normalpackage">
                         <div class="normalmenu">
                             <div class="function">
-                                <p class="prdCount">총 클럽 게시물 : <strong>${ boardCount }</strong>개</p>
-                                <h2><span id="recruiting_club">모집 중인 클럽</span></h2>
+                                <p class="prdCount">총 클럽 게시물 : <strong><c:out value="${ clubBoard.bcViewCount }"/></strong>개</p>
+                                <h2 style="margin-right: 40px;"><span id="recruiting_club" style="">모집 중인 클럽</span></h2>
                                 <div></div>
                             </div>
                         </div>
@@ -116,14 +116,14 @@
 		                                            <div class="prdImg">
 		                                                <div class="price_rate">7%</div>
 		                                                <a href="${ path }/board/bc_board/bcBoardDetail?bcNo=${ clubBoard.bcNo }">
-		                                                    <img src="${ path }/images/club-test.jpg" alt="샘플">
+		                                                    <img src="${ path }/upload/bc_board/${ clubBoard.bcModifyImage }">
 		                                                </a>
 		                                            </div>
 		                                        </div>
 		                                        <div class="description">
 		                                            <strong class="name">
 		                                                <a href="#">
-		                                                    <span style="font-size: 12px; color: #555555;"><c:out value="${ clubBoard.bcOriginTitle }"></c:out></span>
+		                                                    <span style="font-size: 12px; color: #555555;"><c:out value="${ clubBoard.bcOriginTitle }"/></span>
 		                                                </a>
 		                                            </strong>
 		                                            <ul class="spec" style="height: 100%; padding: 0">
@@ -135,14 +135,14 @@
 		                                                <li class="_inline" style="display: block; width: 100%; text-align: left; margin: 0">
 		                                                    <strong class="title">
 		                                                        <p style="font-size: 11px; color: #000;">
-		                                                        	<span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">등록</span>&nbsp;<c:out value="${ clubBoard.bcRegDate }"></c:out>
-		                                                        	<br/><span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">세부일정</span>&nbsp;<c:out value="${ clubBoard.bcDetailDate }"></c:out>
+		                                                        	<span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">등록</span>&nbsp;<c:out value="${ clubBoard.bcRegDate }"/>
+		                                                        	<br/><span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">세부일정</span>&nbsp;<c:out value="${ clubBoard.bcDetailDate }"/>
 		                                                            <!--  
 		                                                            2021-03-08 / 11:30 AM / 매주2회
 		                                                            -->
 		                                                        </p>
 		                                                        <span style="font-size: 11px; color: #999999; float: left; margin: 0">
-		                                                            <c:out value="${ clubBoard.bcSubTitle }"></c:out>
+		                                                            <c:out value="${ clubBoard.bcSubTitle }"/>
 		                                                        </span>
 		                                                    </strong>
 		                                                </li>
@@ -183,6 +183,5 @@
             </div>
         </div>
     </section>
-
     <script src="${ path }/js/club/bcBoardMain.js"></script>
 <%@ include file="../../common/footer.jsp" %>
