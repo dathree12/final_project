@@ -67,7 +67,7 @@
 		            <h6><fmt:formatDate pattern="yy년 MM월 dd일" value="${board.boardDate }"/> </h6>
 	            </a>
 			</c:when>
-			<c:when test="${board.boardType eq 'b7'}"><h5>게시물 > 북클럽</h5> 
+			<c:when test="${board.boardType eq 'Y'}"><h5>게시물 > 북클럽</h5> 
 				<a href="">
 		            <span>${board.title }</span>
 		            <br>
