@@ -35,29 +35,31 @@ public interface ClubDao {
 	int selectCount();
 
 	int saveRemainDate();
-	
+
 	int noneRemainDate();
-	
+
 	int insertClub(ClubBoard clubBoard);
-	
+
+	int selectExpCount(int bcNo);
+
+	int adminClubStatusCount(String status);
+
+	int selectMyClubCount(int userNo);
+
+	int insertExp(Exp exp);
+
 //	int updateClub(ClubBoard clubBoard);
 	
 	ClubBoard selectClubDetail(int bcNo, RowBounds rowBounds);
 	
 	ClubBoard findClubByNo(int bcNo);
 	
-	List<ClubBoard> selectDlClubList();
-
 	List<ClubBoard> selectClubList(RowBounds rowBounds);
-
-	int selectExpCount(int bcNo);
-
+	
+	List<ClubBoard> selectDlClubList();
 	// 관리자 페이지
 	List<ClubBoard> adminClubList(@Param("rowBounds") RowBounds rowBounds, @Param("status") String status);
-
-	int adminClubStatusCount(String status);
 	// 마이페이지 (참여, 신청)
 	List<ClubBoard> myClubList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
-
-	int selectMyClubCount(int userNo);
+	
 }

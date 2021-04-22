@@ -52,8 +52,8 @@ public class ExpController {
 			String renameFileName = saveFile(upfile, request);
 			
 			if(renameFileName != null) {
-				clubBoard.setBcOriginImage(upfile.getOriginalFilename());
-				clubBoard.setBcModifyImage(renameFileName);
+				exp.setExpOriginImage(upfile.getOriginalFilename());
+				exp.setExpModifyImage(renameFileName);
 			}
 			
 			System.out.println("saveExpList : " + result);

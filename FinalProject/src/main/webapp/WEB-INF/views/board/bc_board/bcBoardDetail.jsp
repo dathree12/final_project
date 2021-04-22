@@ -17,7 +17,6 @@
     	a {
     		color: #000;
     	}
-    	
     	.-board-1th, .-board-2th {
     		margin-top: 10px; 
     	}
@@ -27,16 +26,16 @@
         <!-- content top -->
         <article class="detailArea" style="margin: auto;">
             <div class="sub_detailArea">
-                <div class="thumbnail">
-                    <div class="_d_name">
-    					<img src="${ path }/upload/bc_board/${ clubBoard.bcModifyImage }">
+                <div class="thumbnail" style="text-align: center; border: 1px solid #f1f1f1;">
+                    <div class="_d_name" style="text-align: center;">
+    					<img style="max-width: 600px; max-height: 600px; overflow: hidden;" src="${ path }/upload/bc_board/${ clubBoard.bcModifyImage }">
                     </div>
                 </div>
                 <!-- info : title -->
                 <div class="infoArea__box">
                     <div class="infoArea">
                     <c:if test="${ clubBoard.bcRemainDate >= 0 }">
-                        <h1 id="_deadline"><span><c:out value="${ clubBoard.bcRemainDate }"/></span>일 남음</h1>
+                        <h1 id="_deadline"><span>마감되었습니다</span></h1>
                     </c:if>
                     <c:if test="${ clubBoard.bcRemainDate < 0 }">
                         <h1 id="_deadline"><span><c:out value="${ -clubBoard.bcRemainDate }"/></span>일 남음</h1>
@@ -47,7 +46,7 @@
                     <div class="box">
                         <!-- info : subtitle, schedule, price -->
                         <ul class="box_1th">
-                            <p style="margin-top: 15px;">${ clubBoard.bcSubTitle }</p>
+                            <p style="margin-top: 15px;"><c:out value="${ clubBoard.bcSubTitle }"></c:out></p>
                             <p style="font-size: 30px; margin: 0;"><b id="bcPrice" name="bcPrice"><fmt:formatNumber value="${ clubBoard.bcPrice }" />원</b></p>
                         </ul>
                         <!-- -------------------------------------- -->
@@ -164,8 +163,7 @@
 		                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		                                    <td style="width: 50px;"><c:out value="${ exps.expNo }"/></td>
 		                                    <td style="width: 150px;" class="thumb_photo">
-		                                        <!-- 후기 대표이미지 -->
-		                                        <img alt="이미지가 없습니다." src="${ path }/upload/exp/${ clubBoard.bcModifyImage }">
+		                                        <img src="${ path }/upload/exp/${ exps.expModifyImage }">
 		                                    </td>
 		                                    <td style="width: 848.89px;">
 		                                        <ul class="d_review_cont">
@@ -331,7 +329,9 @@
         </article>
     </section>
     <script src="${ path }/js/club/bcBoardDetail.js"></script>
+    <!--  
     <script>
+    ??multipart에러가 여기서 발생하는거였네
  		// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
     	$(document).ready(function() {
     	    var csrfToken = $("meta[name='csrf-token']").attr('content');
@@ -359,5 +359,5 @@
        		})
     	});
     </script>
-    
+    -->
 <%@ include file="../../common/footer.jsp" %>

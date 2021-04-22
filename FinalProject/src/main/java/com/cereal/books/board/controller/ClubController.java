@@ -49,12 +49,9 @@ public class ClubController {
 	public ModelAndView detail(ModelAndView model, 
 			@RequestParam("bcNo") int bcNo,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit,
-			@RequestParam Map<String, Object> param
+			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit
 			) {
 		
-		String title = (String)param.get("bcOriginTitle");
-		System.out.println(title);
 		ClubBoard clubBoard = null;
 		PageInfo pageInfo = null;
 		

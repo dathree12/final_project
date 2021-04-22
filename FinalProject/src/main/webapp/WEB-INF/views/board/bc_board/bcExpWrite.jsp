@@ -27,7 +27,7 @@
 					<p>상품 사용후기입니다.</p>
 				</div>
 			</div>
-			<form action="${ path }/board/bc_board/bcExpWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" name="post_form" enctype="multipart/form-data">
+			<form action="${ path }/board/bc_board/bcExpWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
 				<div class="xans-element- xans-board xans-board-write-4 xans-board-write xans-board-4">
 					<div class="ec-base-box typeProduct">
                         <div class="author" style="visibility: hidden;">
@@ -102,7 +102,7 @@
 				<span class="gLeft" style="float: left; text-align: left;"> 
 					<span class="displaynone" style="display: none;"><a href="#none"><!-- 관리자답변보기, 시간부족하면 생략 --></a></span> 
 					<!-- history.back(); 뒤로가기 -->
-					<a href="javascript:;" onclick="history.back();"><span class="-cbtn -c-medium" style="height: 32px; line-height: 32px;"> 목록 </span></a>
+					<a onclick="history.back();"><span class="-cbtn -c-medium" style="cursor: pointer; height: 32px; line-height: 32px;"> 목록 </span></a>
 				</span> 
 			</div>
 		</div>
