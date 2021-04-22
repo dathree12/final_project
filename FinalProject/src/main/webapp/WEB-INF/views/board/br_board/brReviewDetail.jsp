@@ -58,6 +58,7 @@
 					<p id="reviewheader-reviewwriter">${board.userNname}</p>
 					<p id="reviewheader-reviewdate">${board.brModifyDate}</p>
 					<p style="display: none">${board.brViewCount}</p>
+					<p id="reviewbookisbn" style="display: none">${board.brIsbn}</p>
 				</div>
 				<hr>
 				
@@ -102,7 +103,9 @@
 							src="${ path }/images/redheart.png" class="recoicon"
 							id="recommend-icon2"></a> <span id="review-recommend-btn">추천
 							${board.brLike}</span>
-					</span> <span id="review-edit-btn"> <a href="#" id="edit-button">수정</a>
+					</span> 
+					<span id="review-edit-btn"> 
+						<a href="#" id="edit-button">수정</a>
 						<a href="#" id="delete-button">삭제</a>
 					</span>
 				</div>
@@ -137,41 +140,6 @@
 	</div>
 	</section>
 	<hr>
-	<section class="brboard-review-bottom">
-		<article class="propose-list-section-3th">
-			<div class="reviewbot-list-head">북리뷰글 목록</div>
-			<table>
-				<thead style="border-top: 2px solid rgb(241, 241, 241);">
-					<th>번호</th>
-					<!-- <th style="display: none;">카테고리</th> -->
-					<th>제목</th>
-					<th>작성자</th>
-					<th id="blind">작성일</th>
-					<th id="blind">조회수</th>
-				</thead>
-				<tbody
-					style="border-bottom: 1px solid rgb(241, 241, 241); border-top: 1px solid rgb(241, 241, 241);">
-					<tr>
-						<td>1</td>
-						<td><a>네이버/페이스북/카카오톡등 SNS로그인 가능합니다!</a></td>
-						<td>대표 관리자</td>
-						<td id="blind">2019-04-15</td>
-						<td id="blind">19</td>
-					</tr>
-				</tbody>
-			</table>
-			<section class="brboard-bot">
-				<div class="brboard-pagination">
-					<a href="#">&laquo;</a> <a href="#">1</a> <a href="#">2</a> <a
-						href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a>
-					<a href="#">&raquo;</a>
-				</div>
-				<!--http://ecudemo121656.cafe24.com/ 참고하기-->
-			</section>
-		</article>
-	</section>
-	</section>
-	</div>
 </body>
 <script>
 	 $(document).ready(function () {
@@ -201,11 +169,7 @@
 
 // 게시글 번호 저장
 		$(document).ready(function() {
-			
-			commentList();
-			
-			scrapGet();
-			
+			commentList();			
 			/*img1을 클릭했을 때 img2를 보여줌*/
 		    $("#scrapOn").click(function(){
 		        $("#scrapOn").hide();
@@ -216,8 +180,7 @@
 		        $("#scrapOn").show();
 		        $("#scrapOff").hide();
 		    });
-		    
-			
+
 			// 댓글 목록 보기
 			function commentList() {
 				var brNo = document.getElementById("reviewheader-brNo").innerHTML;
@@ -244,7 +207,6 @@
 					}
 					});
 			}
-			
 			
 		});
 		
@@ -304,20 +266,12 @@
 	            
 	        });
 	</script>
-<script>
-	    $(document).ready(function() {
-	        $('.comment_body').on('keyup', function(e) {
-	            $(this).css('height', 'auto');
-	            $(this).height(this.scrollHeight);
-	        });
-	        $('.comment_body').keyup();
-	    })
-	</script>
-
 	<script>
 	/*	1. 화면 불러올때 로그인 정보 불러와서 스크랩 status 확인
 		2. status 'Y'이면 scrapOn 'N'이면 scrapOff	
 		3. 스크랩 버튼 눌러서 DB저장하기 */
+		$(document).ready(function() {
+			scrapGet();
 		function scrapGet() {
 			var csrfToken = $("meta[name='csrf-token']").attr('content');
 		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
@@ -325,12 +279,14 @@
 		        xhr.setRequestHeader(csrfHeader, csrfToken);
 		    });
 		    var userNo = document.getElementById("loginNo").innerHTML;
-		    var bsIsbn = document.getElementById("review-bookisbn").value;
+		    console.log(userNo);
+		    var bsIsbn = document.getElementById("reviewbookisbn").innerHTML;
+		    console.log(bsIsbn);
 			$.ajax({
 				url:	"scrapGet",
 				type:	"get",
-				data:	{'userNo': userNo,
-						 'bsIsbn': bsIsbn},
+				data:	{'userNo' : userNo,
+						 'bsIsbn' : bsIsbn},
 				success: function(data) {
 						if(data != 0){
 			            $("#scrapOn").show();
@@ -343,6 +299,16 @@
 				}
 				});
 	}
-	
+		});
 	</script>
+<script>
+	    $(document).ready(function() {
+	        $('.comment_body').on('keyup', function(e) {
+	            $(this).css('height', 'auto');
+	            $(this).height(this.scrollHeight);
+	        });
+	        $('.comment_body').keyup();
+	    })
+	</script>
+
 <%@ include file="../../common/footer.jsp"%>

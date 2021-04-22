@@ -224,7 +224,7 @@
 		FROM BOOK_SCRAP BS
 		WHERE BS.SCRAP_STATUS='Y'
 			AND BS.USER_NO = #{userNo}
-			AND	BS_ISBN = #{bsIsbn}   
+			AND	BS.BS_ISBN = #{bsIsbn}   
 	</select>
 	
 	<!-- 조회수 증가(반복조회 방지) -->

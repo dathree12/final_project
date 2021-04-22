@@ -72,7 +72,7 @@ public class ReviewController {
 		System.out.println(model);
 		return model;
 	}
-
+	
 	@RequestMapping(value="/brBoardWrite", method = {RequestMethod.GET})
 	public void brBoardWriteView() {
 		
@@ -260,7 +260,7 @@ public class ReviewController {
 	@RequestMapping(value = "/scrapGet", method = {RequestMethod.GET})
 	public int brBookScrap(@RequestParam("bsIsbn") String bsIsbn, @RequestParam("userNo") int userNo) {
 		int result = 0;
-		
+		System.out.println(bsIsbn);
 		result = service.getScrapStatus(bsIsbn, userNo);
 		return result;
 	}
