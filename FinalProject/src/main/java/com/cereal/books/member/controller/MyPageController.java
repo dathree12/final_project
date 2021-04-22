@@ -21,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.service.FundService;
 import com.cereal.books.board.model.service.ProposeService;
+import com.cereal.books.board.model.service.ReviewService;
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.FundBoard;
+import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
 import com.cereal.books.member.model.service.MemberService;
 import com.cereal.books.member.model.vo.Member;
@@ -41,10 +43,24 @@ public class MyPageController {
 	private ClubService cService;
 	@Autowired
 	private ProposeService pService;
+	@Autowired
+	private ReviewService rService;
 	
 	@RequestMapping(value = "member/mypage/mypage", method= {RequestMethod.GET})
 	public ModelAndView bookFunding(ModelAndView model, @AuthenticationPrincipal Member member) {
 		int userNo = member.getUserNo();
+		
+		// 내가 쓴 북리뷰
+		List<ReviewBoard> myReviewList = null;
+		
+//		int myReviewCount = fService.getMyFundCount(userNo);
+//		PageInfo myReviewPageInfo = new PageInfo(1, 3, myReviewCount, 3);
+		
+		myReviewList = rService.getMyReviewList(userNo);
+		
+		System.out.println(myReviewList);
+		
+		// 좋아요 목록
 		
 		// 참여중인 펀드
 		List<FundBoard> myFundList = null;
@@ -53,8 +69,6 @@ public class MyPageController {
 		PageInfo myFundPageInfo = new PageInfo(1, 3, myFundCount, 3);
 		
 		myFundList = fService.getMyFundList(myFundPageInfo, userNo);
-		
-		System.out.println(myFundList);
 		
 		// 개설 신청한 펀드
 		List<FundBoard> myAplctFundList = null;
@@ -65,29 +79,30 @@ public class MyPageController {
 		myAplctFundList = fService.getMyAplctFundList(pageInfo, userNo);
 		
 		// 참여중인 클럽
-//		List<ClubBoard> myClubList = null;
-//		
-//		int myClubCount = cService.getMyClubCount(userNo);
-//		PageInfo myClubPageInfo = new PageInfo(1, 3, myClubCount, 3);
-//		
-//		myClubList = cService.getMyClubList(myClubPageInfo, userNo);
+		List<ClubBoard> myClubList = null;
+		
+		int myClubCount = cService.getMyClubCount(userNo);
+		PageInfo myClubPageInfo = new PageInfo(1, 3, myClubCount, 3);
+		
+		myClubList = cService.getMyClubList(myClubPageInfo, userNo);
 		
 		// 개설 신청한 클럽
-//		List<ClubBoard> myAplctClubList = null;
-//		
-//		int myAplctClubCount = pService.getMyAplctClubCount(userNo);
-//		PageInfo myAplctClubpageInfo = new PageInfo(1, 5, myAplctClubCount, 5);
-//		
-//		myAplctClubList = pService.getMyAplctClubList(myAplctClubpageInfo, userNo);
+		List<ClubBoard> myAplctClubList = null;
+		
+		int myAplctClubCount = pService.getMyAplctClubCount(userNo);
+		PageInfo myAplctClubpageInfo = new PageInfo(1, 5, myAplctClubCount, 5);
+		
+		myAplctClubList = pService.getMyAplctClubList(myAplctClubpageInfo, userNo);
 		
 		model.addObject("myFundList", myFundList);
 		model.addObject("myFundPageInfo", myFundPageInfo);
 		model.addObject("myAplctFundList", myAplctFundList);
 		model.addObject("pageInfo", pageInfo);
-//		model.addObject("myClubList", myClubList);
-//		model.addObject("myClubPageInfo", myClubPageInfo);
-//		model.addObject("myAplctClubList", myAplctClubList);
-//		model.addObject("myAplctClubpageInfo", myAplctClubpageInfo);
+		model.addObject("myClubList", myClubList);
+		model.addObject("myClubPageInfo", myClubPageInfo);
+		model.addObject("myAplctClubList", myAplctClubList);
+		model.addObject("myAplctClubpageInfo", myAplctClubpageInfo);
+		model.addObject("myReviewList", myReviewList);
 		model.addObject("member", member);
 		model.setViewName("member/mypage/mypage");
 		

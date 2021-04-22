@@ -51,17 +51,17 @@ public class AdminPageController {
 		bfList = fService.getFundList(fundPageInfo, fStatus);
 		
 		// 북클럽
-//		List<ClubBoard> bcList = null;
-//		int cBoardCount = cService.getAdminClubCount(cStatus);
-//		PageInfo clubPageInfo = new PageInfo(1, 10, cBoardCount, 10);
-//		bcList = cService.getAdminClubList(clubPageInfo, cStatus);
+		List<ClubBoard> bcList = null;
+		int cBoardCount = cService.getAdminClubCount(cStatus);
+		PageInfo clubPageInfo = new PageInfo(1, 10, cBoardCount, 10);
+		bcList = cService.getAdminClubList(clubPageInfo, cStatus);
 				
 		model.addObject("list", list);
 		model.addObject("bfList", bfList);
-//		model.addObject("bcList", bcList);
+		model.addObject("bcList", bcList);
 		model.addObject("pageInfo", pageInfo);
 		model.addObject("fundPageInfo", fundPageInfo);
-//		model.addObject("clubPageInfo", clubPageInfo);
+		model.addObject("clubPageInfo", clubPageInfo);
 		model.setViewName("member/admin/admin_page");
 		
 		return model;
@@ -74,19 +74,19 @@ public class AdminPageController {
 			@RequestParam(value = "bcStatus", required = false) String cStatus
 			) {
 		
-//		if(cStatus.equals("ALL")) {
-//			cStatus = null;
-//		}
-//		
-//		List<ClubBoard> cList = null;
-//		int cBoardCount = cService.getAdminClubCount(cStatus);
-//		PageInfo clubPageInfo = new PageInfo(1, 10, cBoardCount, 10);
-//		cList = cService.getAdminClubList(clubPageInfo, cStatus);
+		if(cStatus.equals("ALL")) {
+			cStatus = null;
+		}
+		
+		List<ClubBoard> cList = null;
+		int cBoardCount = cService.getAdminClubCount(cStatus);
+		PageInfo clubPageInfo = new PageInfo(1, 10, cBoardCount, 10);
+		cList = cService.getAdminClubList(clubPageInfo, cStatus);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-//		result.put("bcList", cList);
-//		result.put("clubPageInfo", clubPageInfo);
+		result.put("bcList", cList);
+		result.put("clubPageInfo", clubPageInfo);
 		
 		return result;
 	}

@@ -72,13 +72,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            // $('.starRev span').click(function(){
-            // $(this).parent().children('span').removeClass('on');
-            // $(this).addClass('on').prevAll('span').addClass('on');
-            // return false;
-            // });
-        </script>
 
         <!-- 캘린더 -->
         <script type="text/javascript">
@@ -97,14 +90,11 @@
                 //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
                 //getMonth()는 현재 달을 받아 오므로 다음달을 출력하려면 +1을 해줘야함
                  today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-                 buildCalendar();//달력 cell 만들어 출력
+                 buildCalendar();
             }
-            function buildCalendar(){//현재 달 달력 만들기
+            function buildCalendar(){
                 var doMonth = new Date(today.getFullYear(),today.getMonth(),1);
-                //이번 달의 첫째 날,
-                //new를 쓰는 이유 : new를 쓰면 이번달의 로컬 월을 정확하게 받아온다.     
-                //new를 쓰지 않았을때 이번달을 받아오려면 +1을 해줘야한다. 
-                //왜냐면 getMonth()는 0~11을 반환하기 때문
+                //이번 달의 첫째 날, new를 쓰면 이번달의 로컬 월을 정확하게 받아오기에 getMonth()+1을 안해줘도 된다. 
                 var lastDate = new Date(today.getFullYear(),today.getMonth()+1,0);
                 //이번 달의 마지막 날
                 //new를 써주면 정확한 월을 가져옴, getMonth()+1을 해주면 다음달로 넘어가는데
@@ -138,30 +128,93 @@
                  }
                 /*달력 출력*/
                  for (i=1; i<=lastDate.getDate(); i++) { 
-                 //1일부터 마지막 일까지 돌림
-                      cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
-                      cell.innerHTML = i + "<div class='calendar_img'><img class=calendar_image src=" + "></div>";//셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
+                	
+                	 var myMonth = (today.getMonth() + 1);
+                	 var myDay = i;
+                	 
+                	 if((myMonth + "").length < 2){
+                		 myMonth = "0" + myMonth;
+                	 }
+                	 if((i + "").length < 2){
+                	 	myDay = "0" + i;
+                	 }
+                	 
+                	 var myDate = today.getFullYear() +""+ myMonth +""+ myDay ;
+                     cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
+                     
+                     // 리뷰 불러와서 값 세팅하기
+                	 var arr = new Array("${myReviewList}".listSize);
+                	
+                	var j = 0;
+                	
+                	<c:forEach var="board" items="${myReviewList}">
+               		<fmt:formatDate var="brCreateDate" value="${board.brCreateDate}" pattern="yyyy-MM-dd"/>
+	                	/* 리뷰 등록 날짜 구하기 */
+		               	var createDate = "${brCreateDate}";
+		               	var dateSplit = createDate.split("-");
+		               	var crYear = dateSplit[0];
+		               	var crMonth = dateSplit[1];
+		               	var crDay = dateSplit[2];
+						
+		               	createDate = crYear +""+ crMonth +""+ crDay;
+	                		arr[j] = { brNo : ${board.brNo}, isbn : '${board.brIsbn}', cr : createDate};
+	                		
+	                		j = j+1;
+                	</c:forEach>
+                	
+                	// 구한 리뷰 날짜로 새 배열 만들기
+                	var newArr = arr.filter(function(item){    
+                		  return item.cr === myDate;
+                		});  
+                	var createDate = "10"; 
+                	
+                	// 새 배열 빈 값 체크
+                	if(newArr.length != 0) {
+                		createDate = newArr[0].cr; 
+                		var brNo = newArr[0].brNo; 
+                		var isbn = newArr[0].isbn; 
+                	}
+                	
+                	// 새로 만든 배열 값으로 캘린더 출력하기
+                     if (parseInt(createDate) == parseInt(myDate)){
+                     	cell.innerHTML = i 
+                     	+ "<div class='calendar_img' id='calendar_img_" + brNo + "'></div>"
+                     	+ '<input type="hidden" id="review-bookisbn_' + brNo + '" value="' + isbn + '">';
+                	 } else {
+                		cell.innerHTML = i + "<div class='calendar_img'/>";
+                	 }                 
                       cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
-                  if (cnt % 7 == 1) {/*일요일 계산*/
-                      //1주일이 7일 이므로 일요일 구하기
-                      //월화수목금토일을 7로 나눴을때 나머지가 1이면 cnt가 1번째에 위치함을 의미한다
-                    cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img'><img class=calendar_image onclick='bookreview();' src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU></div>"
-                    //1번째의 cell에만 색칠
+                     
+                  /*일요일 계산*/
+                  if (cnt % 7 == 1) {
+                	 if (parseInt(createDate) == parseInt(myDate)){
+                    	cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
+                    	+ '<input type="hidden" id="review-bookisbn_${board.brNo}" value="${board.brIsbn}">';
+                  	 } else {
+                  		cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img'/>";
+                  	 }
                 }    
-                  if (cnt%7 == 0){/* 1주일이 7일 이므로 토요일 구하기*/
-                      //월화수목금토일을 7로 나눴을때 나머지가 0이면 cnt가 7번째에 위치함을 의미한다
-                      cell.innerHTML = "<font color=skyblue>" + i + "<img class=calendar_image src=" + ">"
-                      //7번째의 cell에만 색칠
+                      
+                      
+                  /* 토요일 구하기*/
+                  if (cnt%7 == 0){
+                	  if (parseInt(createDate) == parseInt(myDate)){
+                      cell.innerHTML = "<font color=skyblue>" + i + "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
+                      + '<input type="hidden" id="review-bookisbn_${board.brNo}" value="${board.brIsbn}">';
+                    	 } else {
+                      cell.innerHTML = "<font color=skyblue>" + i + "<div class='calendar_img'/>";
+                    	 }
                        row = calendar.insertRow();
-                       //토요일 다음에 올 셀을 추가
                   }
-                  /*오늘의 날짜에 노란색 칠하기*/
+                  
+                  /* 오늘 날짜 */
                   if (today.getFullYear() == date.getFullYear()
                      && today.getMonth() == date.getMonth()
                      && i == date.getDate()) {
-                      //달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
-                    cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로 
+                    cell.bgColor = "#FAF58C";
                    }
+                	 
+                     
                  }
             }
         </script>
@@ -200,7 +253,6 @@
                 <div class="join_club">
                     <div class="content">
                         <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
-                        <!-- 
                         <c:if test="${myClubList == null}">
 									참여중인 클럽이 없습니다.
 						</c:if>
@@ -212,7 +264,6 @@
                            		</div>
 							</c:forEach>
 						</c:if>
-						 -->
                         <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
                     </div>
                     <div class="pageBar">
@@ -237,7 +288,6 @@
                                 <th class="th">Title</th>
                                 <th class="th">Status</th>
                             </tr>
-                            <!-- 
                             <c:if test="${myAplctClubList == null}">
 								<tr>
 									<td colspan="6">
@@ -254,7 +304,6 @@
 									</tr>
 								</c:forEach>
 							</c:if>
-							 -->
                         </table>
                     </div>
                     <div class="pageBar">
@@ -353,6 +402,25 @@
     </section>
     
     <script type="text/javascript">
+    $(document).ready(function () {
+		 //나중에 RestTemplate으로 바꾸기
+		 	<c:forEach var="board" items="${myReviewList}">
+		 	 var isbn = $('#review-bookisbn_${board.brNo}').val();
+		 	 
+            $.ajax({
+                method: "GET",
+                url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+                data: { query: isbn },
+                headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+            })
+                .done(function (msg) {
+                    console.log(msg.documents[0].title);
+                    console.log(msg.documents[0].thumbnail);
+                    $("#calendar_img_${board.brNo}").append("<img class='calendar_image' src='" + msg.documents[0].thumbnail + "'/>");
+                });
+            </c:forEach> 
+
+    });
             	function profile() {
             		location.href = "${path}/member/mypage/profile";
 				}
