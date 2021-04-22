@@ -51,6 +51,13 @@
 		FROM PROPOSE
 		WHERE PROPOSE_STATUS = 'Y'
 	</select>
+	
+	<!-- 비밀번호 비교 -->
+	<select id="comparePwd" parameterType="map" resultMap="proposeResultMap">
+		SELECT PROPOSE_NO, PROPOSE_PWD
+		FROM PROPOSE
+		WHERE PROPOSE_PWD=#{proposePwd} AND PROPOSE_NO=#{proposeNo}
+	</select>
 
 	<!-- 제안하기 게시판 추가 -->
 	<insert id="insertPropose" parameterType="map" useGeneratedKeys="true" keyProperty="proposeNo" keyColumn="PROPOSE_NO">

@@ -26,4 +26,6 @@ public interface ProposeDao {
 	int selectMyAplcClubCount(int userNo);
 
 	Propose selectPropose(int proposeNo);
+
+//	Propose comparePwd(int proposeNo, int proposePwd);
 }

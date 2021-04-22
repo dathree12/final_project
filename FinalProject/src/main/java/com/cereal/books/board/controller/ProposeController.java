@@ -5,11 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ProposeService;
@@ -46,10 +44,11 @@ public class ProposeController {
 
 	// 리스트 불러오기
 	// @ResponseBody
-	@RequestMapping(value = "/bcBoardList", method = RequestMethod.GET)
+	@RequestMapping(value = "/bcBoardList", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView list(ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {
+			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit
+			) {
 
 		List<Propose> proposeList = null;
 
@@ -58,15 +57,15 @@ public class ProposeController {
 		PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
 
 		proposeList = service.getProposeList(pageInfo);
-
+		
 		model.addObject("proposeList", proposeList);
 		model.addObject("pageInfo", pageInfo);
 		model.addObject("boardCount", boardCount);
 		model.setViewName("board/bc_board/bcBoardList");
 
-		System.out.println(proposeList);
-		System.out.println(pageInfo);
-		System.out.println(boardCount);
+//		System.out.println(proposeList);
+//		System.out.println(pageInfo);
+//		System.out.println(boardCount);
 
 		return model;
 	}
@@ -100,16 +99,22 @@ public class ProposeController {
 
 		return model;
 	}
-
+	
 	@RequestMapping("/bcBoardList")
 	public String boardList() {
 
 		return "board/bc_board/bcBoardList";
 	}
 
-	@RequestMapping(value = "/secret")
-	public String secret() {
+	@RequestMapping(value = "/secret", method = {RequestMethod.POST})
+	public String secret(
+			@RequestParam("proposePwd") int proposePwd,
+			@RequestParam("proposeNo") int proposeNo
+			) {
 
+		System.out.println(proposePwd + "==============");
+		System.out.println(proposeNo + "==============");
+		
 		return "board/bc_board/secret";
 	}
 

@@ -80,21 +80,26 @@
 	                <c:forEach var="proposeList" items="${ proposeList }">
 		                <tbody style="border-bottom: 1px solid rgb(241, 241, 241); border-top: 1px solid rgb(241, 241, 241);">
 		                    <tr>
-		                        <td style="width: 70px"><c:out value="${ proposeList.proposeNo }"></c:out></td>
+		                        <td style="width: 70px"><c:out value="${ proposeList.proposeNo }"/></td>
 	                    	    <security:authentication property="principal" var="user"/> 
 	                        	<c:set var="writer" value="${ proposeList.userName }"/>
 	                        	<!-- 로그인 유저가 작성자이거나 관리자면, originTitle 아니면 비밀글 표시 -->
                         		<c:choose>
                         			<c:when test="${ not((user.name eq writer) or (user.name eq '관리자')) }">
+                        			<form name="frmData" id="frmData" method="post">
        			                        <td style="width: 700px;" onclick="insertPopup();"><img alt="" src="${ path }/images/iconfinder_lock_close.png">&nbsp;&nbsp;&nbsp;<span style="cursor: pointer;">비밀글</span></td>
+       			                        <input id="proposePwd" name="proposePwd" type="hidden" value="${ proposeList.proposePwd }"></a></td>
+       			                        <input id="proposeNo" name="proposeNo" type="hidden" value="${ proposeList.proposeNo }"></a></td>
+       			                        <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
+                        			</form>
                         			</c:when>
                         			<c:when test="${ (user.name eq writer) or (user.name eq '관리자') }">
-				                        <td style="width: 700px; cursor: pointer;"><a href="${path}/board/bc_board/bcBoardRead?proposeNo=${proposeList.proposeNo}"><c:out value="${ proposeList.proposeTitle }"/></a></td>
+				                        <td style="width: 700px; cursor: pointer;"><a href="${path}/board/bc_board/bcBoardRead?proposeNo=${ proposeList.proposeNo }"><c:out value="${ proposeList.proposeTitle }"/>
                         			</c:when>
                         		</c:choose>
-		                        <td style="width: 90px"><c:out value="${ proposeList.userName }"></c:out></td>
-		                        <td style="width: 150px"><c:out value="${ proposeList.proposeRegDate }"></c:out></td>
-		                        <td style="width: 90px"><c:out value="${ proposeList.proposeViewCount }"></c:out></td>
+		                        <td style="width: 90px"><c:out value="${ proposeList.userName }"/></td>
+		                        <td style="width: 150px"><c:out value="${ proposeList.proposeRegDate }"/></td>
+		                        <td style="width: 90px"><c:out value="${ proposeList.proposeViewCount }"/></td>
 		                    </tr>
 		                </tbody>
 	                </c:forEach>
@@ -116,22 +121,36 @@
 				</c:forEach>            
 	            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.nextPage}">&gt;</a> &nbsp; &nbsp;
 	            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.maxPage}">&gt;&gt;</a>
-	            <!-- 여기에 입력값있음 -->
+	            <!-- 여기에 입력값있음 	-->
 	        </div>
 	    </div>	
     </section>
 	<script type="text/javascript">
+
 		function insertPopup() {
-		    window.name = "bcBoardList";
-		    var _width = '464px';
-		    var _height = '280px';
-		
-		    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-		    var _left = Math.ceil(( window.screen.width - _width )/2);
-		    var _top = Math.ceil(( window.screen.height - _height )/2); 
-		
-		    // (open할 window, "자식창 이름", "OPTION"), 부모창 : 자식창을 띄워준다.
-		    var childWin = window.open('secret', 'secret', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top + ", resizable = no, scrollbars = no, status = no");
+			
+		    var csrfToken = $("meta[name='csrf-token']").attr('content');
+		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+		    $(document).ajaxSend(function (e, xhr, options) {
+		        xhr.setRequestHeader(csrfHeader, csrfToken);
+		    });
+		    
+            const url = "${path}/board/bc_board/secret";
+            const title = "secret-form";
+            const status = "left=500px, top=100px, width=500px, height=300px";
+
+            var frmData = $('#frmData');
+            var proposeNo = $('#proposeNo').val();
+            // window.open
+            open("secret?proposeNo="proposeNo, title, status);
+
+            frmData.target = title; // form 전송하는 윈도우를 설정
+            frmData.action = url;// idCheck.jsp라는 새창에서 처리하므로 url지정
+            frmData.method = "POST";
+            // form 전송하기
+            frmData.submit();
+            
+            // window.open("about:blank").close();
 		}
      </script>    
 

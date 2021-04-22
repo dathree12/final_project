@@ -29,7 +29,7 @@
 			<p style="margin: auo; text-align: center;">해당 게시물의 비밀번호를 입력해주세요<br> 상세페이지로 이동합니다</p>
 		</div>
 		<hr style="width: 80%; border: 1px dashed lightgray;">
-		<form name="frm" action="${ path }/board/bc_board/bcBoardList" method="get" id="post_form">
+		<form name="pass" action="${ path }/board/bc_board/secret" method="get" id="pass">
 			<div style="margin: auto; text-align: center; margin-top: 30px; line-height: 1px;"><label style="width: 83px; vertical-align: middle; font-size: 20px; font-weight: 900;">비밀번호
 			<!-- 비밀번호 -->
 			<input id="proposePwd" name="proposePwd" type="password" style="height: 30px; margin-left: 30px; border: 1px solid #d4d6d6;"></label></div>
@@ -37,26 +37,5 @@
 			<div style="text-align: center;"><input name="pass" type="submit" style="border: 1px solid #e1660b; background-color: #e27819; width: 280px; height: 40px; color: #fff; font-size: 14px; font-weight: 900; margin: auto; margin-left: 10px;" value="확 인"></div>
         </form>
     </div>
-    <script>
-    /*
-    	$(function() {
-    		$.ajax({
-                type: "get",
-                url: "${ path }/board/bc_board/bcBoardList",
-                dataType: "json",
-                data: {
-                    pass: proposePwd
-                },
-                success: function(data) {
-                    console.log(data);
-                },
-                error : function(e) {
-                	console.log(e);
-                }
-            })
-    	});
-    */
-    
-    </script>
 </body>
 </html>

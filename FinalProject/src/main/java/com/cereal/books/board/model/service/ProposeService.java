@@ -14,10 +14,12 @@ public interface ProposeService {
 
 	// 마이페이지
 	int getMyAplctClubCount(int userNo);
-	
+
 	List<Propose> getProposeList(PageInfo pageInfo);
 
 	List<ClubBoard> getMyAplctClubList(PageInfo myAplctClubpageInfo, int userNo);
 
 	Propose findProposeByNo(int proposeNo);
+
+//	Propose comparePwd(int proposeNo, int proposePwd);
 }

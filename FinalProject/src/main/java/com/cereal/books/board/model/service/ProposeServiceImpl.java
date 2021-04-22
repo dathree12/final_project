@@ -69,4 +69,9 @@ public class ProposeServiceImpl implements ProposeService {
 	public Propose findProposeByNo(int proposeNo) {
 		return dao.selectPropose(proposeNo);
 	}
+
+//	@Override
+//	public Propose comparePwd(int proposeNo, int proposePwd) {
+//		return dao.comparePwd(proposeNo, proposePwd);
+//	}
 }
