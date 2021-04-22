@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cereal.books.board.model.service.ExpService;
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.Exp;
+import com.cereal.books.board.model.vo.Propose;
+import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 

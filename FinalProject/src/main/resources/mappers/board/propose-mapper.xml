@@ -81,9 +81,15 @@
 		WHERE USER_NO = #{userNo}
   		ORDER BY PROPOSE_NO DESC
   	</select>
+  	
   	<select id="selectMyAplcClubCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
 		FROM PROPOSE
 		WHERE USER_NO = #{userNo}
+	</select>
+	
+  	<select id="selectPropose" parameterType="map" resultMap="proposeResultMap">
+		<include refid="proposeListSql"></include>
+		AND P.PROPOSE_NO=#{proposeNo}
 	</select>
 </mapper>

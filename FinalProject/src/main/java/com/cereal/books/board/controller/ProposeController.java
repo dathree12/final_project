@@ -26,22 +26,22 @@ public class ProposeController {
 	@Autowired
 	ProposeService service;
 
-	@RequestMapping("/bcBoardList")
-	public String boardList() {
-
-		return "board/bc_board/bcBoardList";
-	}
-
-	@RequestMapping(value = "/secret")
-	public String secret() {
-
-		return "board/bc_board/secret";
-	}
-
-	@RequestMapping(value = "/bcBoardRead")
-	public String read() {
-
-		return "board/bc_board/bcBoardRead";
+	// 북 제안서 상세페이지
+	@RequestMapping(value = "/bcBoardRead", method = RequestMethod.GET)
+	public ModelAndView detail(ModelAndView model, 
+			@RequestParam("proposeNo") int proposeNo
+			) {
+		
+		Propose propose = null;
+		
+		propose = service.findProposeByNo(proposeNo);
+		
+		System.out.println("propose : " + propose);
+		
+		model.addObject("propose", propose);
+		model.setViewName("board/bc_board/bcBoardRead");
+		
+		return model;
 	}
 
 	// 리스트 불러오기
@@ -81,7 +81,9 @@ public class ProposeController {
 			int result = 0;
 
 			result = service.saveBoard(propose);
-
+			
+			System.out.println(propose.getProposeContent());
+			
 			if (result > 0) {
 				model.addObject("msg", "게시글 등록 성공");
 				model.addObject("location", "/board/bc_board/bcBoardMain");
@@ -99,4 +101,21 @@ public class ProposeController {
 		return model;
 	}
 
+	@RequestMapping("/bcBoardList")
+	public String boardList() {
+
+		return "board/bc_board/bcBoardList";
+	}
+
+	@RequestMapping(value = "/secret")
+	public String secret() {
+
+		return "board/bc_board/secret";
+	}
+
+	@RequestMapping(value = "/bcBoardRead")
+	public String read() {
+
+		return "board/bc_board/bcBoardRead";
+	}
 }
