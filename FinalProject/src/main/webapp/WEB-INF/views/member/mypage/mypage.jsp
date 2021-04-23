@@ -43,19 +43,16 @@
                 </div>
                 <c:if test="${myScrapList != null}">
                 <div class="small_pageBar" id="pageBar">
-                    <!-- 이전 페이지로 -->
-	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.prvePage}&sListLimit=${myScrapPageInfo.listLimit}'">&lt;</button>
-	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-	                            <c:forEach begin="${myScrapPageInfo.startPage}" end="${myScrapPageInfo.endPage}" step="1" varStatus="status">
-									<c:if test="${status.current == myScrapPageInfo.currentPage}">
-										<button type="button" disabled><c:out value="${status.current}"/></button>
-					   				</c:if>
-									<c:if test="${status.current != myScrapPageInfo.currentPage}">
-										<button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${status.current}&sListLimit=${myScrapPageInfo.listLimit}'"><c:out value="${status.current}"/></button>
-					   				</c:if>
-								</c:forEach>
-	                            <!-- 다음 페이지로 -->
-	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.nextPage}&sListLimit=${myScrapPageInfo.listLimit}'">&gt;</button>
+                    <button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.prvePage}&sListLimit=${myScrapPageInfo.listLimit}'">&lt;</button>
+                    <c:forEach begin="${myScrapPageInfo.startPage}" end="${myScrapPageInfo.endPage}" step="1" varStatus="status">
+						<c:if test="${status.current == myScrapPageInfo.currentPage}">
+							<button type="button" disabled><c:out value="${status.current}"/></button>
+				   		</c:if>
+						<c:if test="${status.current != myScrapPageInfo.currentPage}">
+							<button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${status.current}&sListLimit=${myScrapPageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+				   		</c:if>
+					</c:forEach>
+                    <button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.nextPage}&sListLimit=${myScrapPageInfo.listLimit}'">&gt;</button>
                 </div>
                 </c:if>
             </div>
@@ -63,20 +60,14 @@
 
         <!-- 캘린더 -->
         <script type="text/javascript">
-            var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
+            var today = new Date();
             var date = new Date();//today의 Date를 세어주는 역할
             function prevCalendar() {//이전 달
-            // 이전 달을 today에 값을 저장하고 달력에 today를 넣어줌
-            //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
-            //getMonth()는 현재 달을 받아 오므로 이전달을 출력하려면 -1을 해줘야함
              today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
              buildCalendar(); //달력 cell 만들어 출력 
             }
      
             function nextCalendar() {//다음 달
-                // 다음 달을 today에 값을 저장하고 달력에 today 넣어줌
-                //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
-                //getMonth()는 현재 달을 받아 오므로 다음달을 출력하려면 +1을 해줘야함
                  today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
                  buildCalendar();
             }
@@ -85,15 +76,10 @@
                 //이번 달의 첫째 날, new를 쓰면 이번달의 로컬 월을 정확하게 받아오기에 getMonth()+1을 안해줘도 된다. 
                 var lastDate = new Date(today.getFullYear(),today.getMonth()+1,0);
                 //이번 달의 마지막 날
-                //new를 써주면 정확한 월을 가져옴, getMonth()+1을 해주면 다음달로 넘어가는데
-                //day를 1부터 시작하는게 아니라 0부터 시작하기 때문에 
-                //대로 된 다음달 시작일(1일)은 못가져오고 1 전인 0, 즉 전달 마지막일 을 가져오게 된다
                 var tbCalendar = document.getElementById("calendar");
                 //날짜를 찍을 테이블 변수 만듬, 일 까지 다 찍힘
                 var tbCalendarYM = document.getElementById("tbCalendarYM");
                 //테이블에 정확한 날짜 찍는 변수
-                //innerHTML : js 언어를 HTML의 권장 표준 언어로 바꾼다
-                //new를 찍지 않아서 month는 +1을 더해줘야 한다. 
                  tbCalendarYM.innerHTML = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월"; 
      
                  /*while은 이번달이 끝나면 다음달로 넘겨주는 역할*/
@@ -106,7 +92,7 @@
                  }
                  var row = null;
                  row = tbCalendar.insertRow();
-                 //테이블에 새로운 열 삽입//즉, 초기화
+                 // 테이블 초기화
                  var cnt = 0;// count, 셀의 갯수를 세어주는 역할
                 // 1일이 시작되는 칸을 맞추어 줌
                  for (i=0; i<doMonth.getDay(); i++) {
@@ -165,8 +151,7 @@
                 	
                 	// 새로 만든 배열 값으로 캘린더 출력하기
                      if (parseInt(createDate) == parseInt(myDate)){
-                     	cell.innerHTML = i 
-                     	+ "<div class='calendar_img' id='calendar_img_" + brNo + "'></div>"
+                     	cell.innerHTML = "<div class='calendar_img' id='calendar_img_" + brNo + "'></div>"
                      	+ '<input type="hidden" id="review-bookisbn_' + brNo + '" value="' + isbn + '">';
                 	 } else {
                 		cell.innerHTML = i + "<div class='calendar_img'/>";
@@ -176,7 +161,7 @@
                   /*일요일 계산*/
                   if (cnt % 7 == 1) {
                 	 if (parseInt(createDate) == parseInt(myDate)){
-                    	cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
+                    	cell.innerHTML = "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
                     	+ '<input type="hidden" id="review-bookisbn_${board.brNo}" value="${board.brIsbn}">';
                   	 } else {
                   		cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img'/>";
@@ -187,7 +172,7 @@
                   /* 토요일 구하기*/
                   if (cnt%7 == 0){
                 	  if (parseInt(createDate) == parseInt(myDate)){
-                      cell.innerHTML = "<font color=skyblue>" + i + "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
+                      cell.innerHTML = "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
                       + '<input type="hidden" id="review-bookisbn_${board.brNo}" value="${board.brIsbn}">';
                     	 } else {
                       cell.innerHTML = "<font color=skyblue>" + i + "<div class='calendar_img'/>";
@@ -212,10 +197,10 @@
             <div class="calendar">
                 <table id="calendar">
                     <tr style="height: 5%;"><!-- label은 마우스로 클릭을 편하게 해줌 -->
-                        <th><label onclick="prevCalendar()">&lt;</label></td>
+                        <th><label id="preCal" onclick="prevCalendar()">&lt;</label></td>
                         <th id="tbCalendarYM" colspan="5">
                         yyyy년 m월</th>
-                        <th><label onclick="nextCalendar()">&gt;</label></th>
+                        <th><label id="nextCal" onclick="nextCalendar()">&gt;</label></th>
                     </tr>
                     <tr style="height: 5%;">
                         <th>SUN</th>
@@ -450,8 +435,26 @@
                     $("#scrap-booktitle_${scrapList.scrapNo}").append(msg.documents[0].title);
                 });
             </c:forEach> 
-
+            
     });
+    
+            $("#nextCal, #preCal").on('click', function (){
+            	<c:forEach var="board" items="${myReviewList}">
+   		 	 var isbn = $('#review-bookisbn_${board.brNo}').val();
+   		 	 
+               $.ajax({
+                   method: "GET",
+                   url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+                   data: { query: isbn },
+                   headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+               })
+                   .done(function (msg) {
+                       console.log(msg.documents[0].title);
+                       console.log(msg.documents[0].thumbnail);
+                       $("#calendar_img_${board.brNo}").append("<img class='calendar_image' src='" + msg.documents[0].thumbnail + "'/>");
+                   });
+               </c:forEach>
+            });
             	function profile() {
             		location.href = "${path}/member/mypage/profile";
 				}

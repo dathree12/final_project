@@ -57,7 +57,7 @@
                         </table>
                     </div>
                     <div class="pageBar">
-                        <div id="pageBarAndBtn">
+                        <div id="pageBarAndBtn" class="cPageBar">
                             <!-- 이전 페이지로 -->
 	                            <button type="button" onclick="location.href='${path}/member/admin/admin_page?cPage=${clubPageInfo.prvePage}&cListLimit=${clubPageInfo.listLimit}'">&lt;</button>
 	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
@@ -124,7 +124,7 @@
 		                        <button type="button" id="fpbtn"value="P">수락</button>
 		                        <button type="button" id="fdbtn"value="D">거절</button>
 	                        </div>
-	                        <div id="pageBarAndBtn">
+	                        <div id="pageBarAndBtn" class="fPageBar">
 	                            <!-- 이전 페이지로 -->
 	                            <button type="button" onclick="location.href='${path}/member/admin/admin_page?fPage=${fundPageInfo.prvePage}&fListLimit=${fundPageInfo.listLimit}'">&lt;</button>
 	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
@@ -229,6 +229,7 @@ $(function() {
 		var bcStatus = $(this).val();
 		var clist = {};
 		$("#clubTbody").empty();
+		$(".cPageBar").empty();
 	  
 	  	$.ajax({
 			type: "get",
@@ -239,9 +240,10 @@ $(function() {
 			},
 			success: function(result) {
 				clist = result.bcList;
-				
+				var pageInfo = result.pageInfo;
 				var tc = new Array();
 				var html = '';
+				var cHtml = '';
 				
 				$.each(clist, function( index, value ) {
 					tc.push({no : value.bcNo ,title : value.bcOriginTitle, status : value.bcStatus}); 
@@ -254,10 +256,22 @@ $(function() {
 				html += '<td>'+tc[key].status+'</td>';
 				html += '</tr>';
 				}
-							
+						
+				cHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?cPage=' + pageInfo.prvePage + '&cListLimit=' + pageInfo.listLimit + '\'">&lt;</button>'
+				for (var p = pageInfo.startPage; p <= pageInfo.endPage; p++) {
+					if (p == pageInfo.current) {
+						cHtml += '<button type="button" disabled>'+ p + '</button>'
+					} else {
+						cHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?cPage=' + p + '&cListLimit=' + pageInfo.listLimit + '\'">' + p + '</button>'
+					}
+				}
+				cHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?cPage=' + pageInfo.nextPage + '&cListLimit=' + pageInfo.listLimit + '\'">&gt;</button>';
+				
 				$("#clubTbody").empty();
 				$("#clubTbody").append(html);
 				
+				$(".cPageBar").empty();
+				$(".cPageBar").append(cHtml);
 			},
 			error: function(e) {
 				console.log(e);
@@ -269,7 +283,8 @@ $(function() {
 		var bfStatus = $(this).val();
 		var flist = {};
 		$("#fundTbody").empty();
-	  
+		$(".fPageBar").empty();
+		
 	  	$.ajax({
 			type: "get",
 			url: "${path}/member/admin/funding",
@@ -280,9 +295,10 @@ $(function() {
 			},
 			success: function(result) {
 				flist = result.flist;
-				
+				var pageInfo = result.pageInfo;
 				var tc = new Array();
 				var html = '';
+				var fHtml = '';
 				
 				$.each(flist, function( index, value ) {
 					tc.push({no : value.bfNo ,title : value.bfTitle, status : value.bfStatus}); 
@@ -296,9 +312,22 @@ $(function() {
 				html += '<td>'+tc[key].status+'</td>';
 				html += '</tr>';
 				}
-							
+				
+				fHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?fPage=' + pageInfo.prvePage + '&fListLimit=' + pageInfo.listLimit + '\'">&lt;</button>'
+				for (var p = pageInfo.startPage; p <= pageInfo.endPage; p++) {
+					if (p == pageInfo.current) {
+						fHtml += '<button type="button" disabled>'+ p + '</button>'
+					} else {
+						fHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?fPage=' + p + '&fListLimit=' + pageInfo.listLimit + '\'">' + p + '</button>'
+					}
+				}
+				fHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?fPage=' + pageInfo.nextPage + '&fListLimit=' + pageInfo.listLimit + '\'">&gt;</button>';
+					
 				$("#fundTbody").empty();
 				$("#fundTbody").append(html);
+				
+				$(".fPageBar").empty();
+				$(".fPageBar").append(fHtml);
 				
 			},
 			error: function(e) {
@@ -347,6 +376,7 @@ $(function() {
 		var mlist = {};
 		
 		$("#dynamicTbody").empty();
+		$(".mPageBar").empty();
 	  
 	  	$.ajax({
 			type: "get",
@@ -358,8 +388,10 @@ $(function() {
 			},
 			success: function(result) {
 				mlist = result.list;
+				var pageInfo = result.pageInfo;
 				var tc = new Array();
 				var html = '';
+				var mHtml = '';
 				$.each(mlist, function( index, value ) {
 					tc.push({id : value.userId ,name : value.name, nname : value.userNname, status : value.status}); 
                  });
@@ -374,8 +406,21 @@ $(function() {
 				html += '</tr>';
 				}
                 
+				mHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?uPage=' + pageInfo.prvePage + '&uListLimit=' + pageInfo.listLimit + '\'">&lt;</button>'
+				for (var p = pageInfo.startPage; p <= pageInfo.endPage; p++) {
+					if (p == pageInfo.current) {
+						mHtml += '<button type="button" disabled>'+ p + '</button>'
+					} else {
+						mHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?uPage=' + p + '&uListLimit=' + pageInfo.listLimit + '\'">' + p + '</button>'
+					}
+				}
+				mHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?uPage=' + pageInfo.nextPage + '&uListLimit=' + pageInfo.listLimit + '\'">&gt;</button>';
+                
 				$("#dynamicTbody").empty();
 				$("#dynamicTbody").append(html);
+				
+				$(".mPageBar").empty();
+				$(".mPageBar").append(mHtml);
 				
 				
 			},
