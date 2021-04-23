@@ -22,11 +22,11 @@
     <section class="propose-list-section-1th">
         <div class="product-menupackage">
             <div class="title" style="text-align: center;">
-                <h2 style="padding-left: 80px; padding-top: 10px"><span style="margin-right: 50px;">북 클럽</span></h2>
-                <security:authorize access="hasRole('ADMIN, USER')">
-                <div class="btn-block-right">
-        			<a href="${ path }/board/bc_board/bcBoardWrite">글쓰기</a>
-	   		    </div>
+                <h2 style="padding-left: 80px; padding-top: 10px"><span>북 클럽</span></h2>
+                <security:authorize access="hasAnyRole('ADMIN', 'USER')">
+	                <div class="btn-block-right">
+	        			<a href="${ path }/board/bc_board/bcBoardWrite">글쓰기</a>
+		   		    </div>
         		</security:authorize>
             </div>
             <div style="text-align: center;">
@@ -59,7 +59,7 @@
                 </h4>
             </div>
 		</security:authorize>
-		<security:authorize access="hasRole('USER, ADMIN')">
+		<security:authorize access="hasAnyRole('ADMIN', 'USER')">
         <!-- total, list board -->
         <article class="propose-list-section-3th">
             <div class="total_count">
@@ -152,22 +152,4 @@
 	        </div>
 	    </div>	
     </section>
-<<<<<<< HEAD
-	<script type="text/javascript">
-		function insertPopup() {
-		    window.name = "bcBoardList";
-		    var _width = '464px';
-		    var _height = '280px';
-		
-		    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-		    var _left = Math.ceil(( window.screen.width - _width )/2);
-		    var _top = Math.ceil(( window.screen.height - _height )/2); 
-		
-		    // (open할 window, "자식창 이름", "OPTION"), 부모창 : 자식창을 띄워준다.
-		    var childWin = window.open('secret', 'secret', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top + ", resizable = no, scrollbars = no, status = no");
-		}
-     </script>    
-
-=======
->>>>>>> 822f764c997d035f47ab998550c34b4a102bf551
 <%@ include file="../../common/footer.jsp" %>
