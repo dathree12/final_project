@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
+import com.cereal.books.board.model.vo.Cart;
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.board.model.vo.Payment;
 
@@ -73,6 +74,13 @@ public interface FundDao {
 	// 메인페이지 북펀딩, 북클럽 주문조회
 	List<Payment> getbforderList();
 	List<Payment> getbcorderList();
+	
+	// 상세페이지에서 장바구니 클릭하면 장바구니 테이블에 저장
+//	int bfcartSave(Cart cart);
+
+	// 메인페이지 북펀딩, 북클럽 장바구니
+	List<Cart> getbfcartList();
+	List<Cart> getbccartList();
 
 
 }

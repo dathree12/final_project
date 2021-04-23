@@ -104,6 +104,18 @@
 		<result property="payTitle" column="BF_TITLE"/>
 		<result property="payTitle" column="BC_ORIGIN_TITLE"/>
 	</resultMap>
+	
+	<resultMap type="Cart" id="cartResultMap">
+		<id property="cartNo" column="CART_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="cartTitle" column="CART_TITLE"/>
+		<result property="cartAmount" column="CART_AMOUNT"/>
+		<result property="cartPrice" column="CART_PRICE"/>
+		<result property="cartStatus" column="CART_STATUS"/>
+		<result property="cartItem" column="CART_ITEM"/>
+		<result property="bcNo" column="BC_NO"/>
+		<result property="bfNo" column="BF_NO"/>
+	</resultMap>
 
 	<!-- list에서 사용 : list불러오고 전체 보드 수 구해서 페이징처리까지 -->
 	<select id="selectBoardList" parameterType="map" resultMap="fundResultMap">
@@ -414,6 +426,55 @@
         WHERE P.PAY_ITEM = 'C'
 		ORDER BY P.PAY_ENROLL_DATE DESC
 	</select>	
+	
+	<!-- 상세페이지에서 장바구니 클릭하면 장바구니 테이블에 저장 -->
+<!-- 	<insert id="bfcartSave" parameterType="map"
+		 useGeneratedKeys="true" keyProperty="cartNo" keyColumn="CART_NO">
+  		INSERT INTO CART
+  		VALUES(
+  			SEQ_CART_NO.NEXTVAL,		 
+		 	#{userNo},
+		 	#{cartTitle},
+		 	1,
+		 	#{cartPrice},
+		 	DEFAULT,
+		 	'F',
+		 	NULL,
+		 	#{bfNo}
+		)
+	</insert> -->	
+	
+	<!-- 메인페이지 북펀딩, 북클럽 장바구니 -->
+	<select id="getbfcartList" parameterType="map" resultMap="cartResultMap">
+		SELECT CART_NO,
+			   USER_NO,
+			   CART_TITLE,
+			   CART_AMOUNT,
+			   CART_PRICE,
+			   CART_STATUS,
+			   CART_ITEM,
+			   BC_NO,
+			   BF_NO
+		FROM CART
+        WHERE CART_ITEM = 'F'
+		ORDER BY CART_NO DESC
+	</select>
+	<select id="getbccartList" parameterType="map" resultMap="cartResultMap">
+		SELECT CART_NO,
+			   USER_NO,
+			   CART_TITLE,
+			   CART_AMOUNT,
+			   CART_PRICE,
+			   CART_STATUS,
+			   CART_ITEM,
+			   BC_NO,
+			   BF_NO
+		FROM CART
+        WHERE CART_ITEM = 'C'
+		ORDER BY CART_NO DESC
+	</select>
+	
+	
 </mapper>
 
 
