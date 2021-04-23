@@ -165,9 +165,9 @@
                 <div id="me_genre_div">
                 	<c:forEach var="board" items="${gBest}">
                 	<div class="genre" >
-	 					 <a href="" >			
-	 					<a  href="#" id="gBestImage_${board.brNo}" ></a>
+	 					<a  href="${path}/board/br_board/brReviewDetail?brNo=${board.brNo}" id="gBestImage_${board.brNo}" ></a>
 	 					<p id="review-gbestisbn_${board.brNo}" style="display:none"><c:out value="${board.brIsbn}"/></p>
+	 					 <a href="${path}/board/br_board/brReviewDetail?brNo=${board.brNo}" >			
 	 					<div class="genre_title"><span >${board.brTitle}</span></div>
 	 					<div class="genre_content"><span>${board.brContent}</span></div>
 	 					</a>
@@ -256,17 +256,17 @@
      						$.each(data, function(key, obj){ 
 									if (key == 0) {
 	 									str += ' <div class="genre" >';
-	 									str += ' <a href="" >';				
-	 									str += '<a  href="#" id="gBestImage0_${obj.brNo}" ></a>';
+	 									str += '<a  href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" id="gBestImage0_${obj.brNo}" ></a>';
 	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
+	 									str += ' <a href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" >';				
 	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
 	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
 	 									str += '</a></div>';
 									}else if(key == 1){
 										str += ' <div class="genre" >';
-	 									str += ' <a href="" >';				
-	 									str += '<a  href="#" id="gBestImage1_${obj.brNo}" ></a>';
+	 									str += '<a  href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" id="gBestImage1_${obj.brNo}" ></a>';
 	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
+	 									str += ' <a href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" >';				
 	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
 	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
 	 									str += '</a></div>';
@@ -275,18 +275,18 @@
 									}else if(key == 2){
 							
 										str += ' <div class="genre" >';
-	 									str += ' <a href="" >';				
-	 									str += '<a  href="#" id="gBestImage2_${obj.brNo}" ></a>';
+	 									str += '<a  href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" id="gBestImage2_${obj.brNo}" ></a>';
 	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
+	 									str += ' <a href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" >';				
 	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
 	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
 	 									str += '</a></div>';
 									
 									}else if(key == 3){
 										str += ' <div class="genre" >';
-	 									str += ' <a href="" >';				
-	 									str += '<a  href="#" id="gBestImage3_${obj.brNo}" ></a>';
+	 									str += '<a href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" id="gBestImage3_${obj.brNo}" ></a>';
 	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
+	 									str += ' <a href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" >';				
 	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
 	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
 	 									str += '</a></div>';

@@ -9,6 +9,8 @@ import com.cereal.books.member.model.vo.Member;
 
 public interface MainBoardService {
 
+	int getBoardSearchCount(String search);
+	
 	int getBoardCount();
 
 	List<ReviewBoard> getBoardList(PageInfo pageInfo);
@@ -24,6 +26,7 @@ public interface MainBoardService {
 	List<ReviewBoard> getBoardGList(PageInfo pageInfoGr);
 
 	List<BookSearch> getBoardSearch(PageInfo pageInfo, String search);
+
 
 	
 
