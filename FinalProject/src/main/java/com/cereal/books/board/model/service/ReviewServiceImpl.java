@@ -120,15 +120,11 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int getScrapStatus(String bsIsbn, int userNo) {
-		int result = 0;
+	public List<BookScrap> getScrapStatus(String bsIsbn, int userNo) {
+		List<BookScrap> result = null;
 		result = reviewDao.getScrapStatus(bsIsbn, userNo);
-		if(result == 0) {
-			return 0;
-		}
-		else {
-			return 1;
-		}
+
+			return result;
 	}
 
 	@Override

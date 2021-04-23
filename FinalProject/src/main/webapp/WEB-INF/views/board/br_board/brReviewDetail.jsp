@@ -61,7 +61,6 @@
 					<p id="reviewbookisbn" style="display: none">${board.brIsbn}</p>
 				</div>
 				<hr>
-				
 				<div class="review-book-bookscrap">
 				<form id="scrapForm" name="scrapForm" method="post"
 						class="scrap_form">
@@ -280,7 +279,7 @@
 		    });
 		    var userNo = document.getElementById("loginNo").innerHTML;
 		    console.log(userNo);
-		    var bsIsbn = document.getElementById("reviewbookisbn").innerHTML;
+		    var bsIsbn = document.getElementById("reviewbookisbn").value;
 		    console.log(bsIsbn);
 			$.ajax({
 				url:	"scrapGet",
@@ -288,7 +287,7 @@
 				data:	{'userNo' : userNo,
 						 'bsIsbn' : bsIsbn},
 				success: function(data) {
-						if(data != 0){
+						if(data != null){
 			            $("#scrapOn").show();
 			            $("#scrapOff").hide();
 						}
