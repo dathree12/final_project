@@ -6,7 +6,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cereal.books.board.model.dao.ReviewDao;
 import com.cereal.books.board.model.vo.BookScrap;
@@ -58,20 +57,22 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int saveScrapStatus(BookScrap bookscrap) {
 		int result = 0;
-		System.out.println("스크랩 돌아간다.");
-		if(bookscrap.getScrapNo() != 0) {
-			result = reviewDao.updateBookScrap(bookscrap);
-		} else {
-			result = reviewDao.insertBookScrap(bookscrap);
-		}
+//		System.out.println("스크랩 돌아간다.");
+//		if(bookscrap.getScrapNo() != 0) {
+//			result = reviewDao.updateBookScrap(bookscrap);
+//		} else {
+//			result = reviewDao.insertBookScrap(bookscrap);
+//		}
 		return result;
 	}
-
+	
+	@Transactional
 	@Override
 	public List<Comment> listComment(int brNo) {
 		return reviewDao.listComment(brNo);
 	}
-
+	
+	@Transactional
 	@Override
 	public int saveComment(Comment comment) {
 		int result = 0;
@@ -118,5 +119,17 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.getSearchList_Content(rowBounds, searchword);
 	}
 
+	@Override
+	public List<BookScrap> getScrapStatus(String bsIsbn, int userNo) {
+		List<BookScrap> result = null;
+		result = reviewDao.getScrapStatus(bsIsbn, userNo);
 
+			return result;
+	}
+
+	@Override
+	public int increaseViewcnt(int brNo) {
+		return reviewDao.increateViewcnt(brNo);
+	}
+	
 }

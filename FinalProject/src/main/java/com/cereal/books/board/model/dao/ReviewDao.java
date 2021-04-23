@@ -40,5 +40,13 @@ public interface ReviewDao {
 
 		List<ReviewBoard> getSearchList_Title(RowBounds rowBounds, String br_searchword);
 
-		List<ReviewBoard> getSearchList_Content(RowBounds rowBounds, String br_searchword); 
+		List<ReviewBoard> getSearchList_Content(RowBounds rowBounds, String br_searchword);
+
+		List<BookScrap> getScrapStatus(String bsIsbn, int userNo);
+
+		void updateViewCount(int brViewCount);
+
+		int increateViewcnt(int brNo); 
+		
+		
 }
