@@ -18,9 +18,56 @@
     <section id="main_container">
     	
         <div id="high_div">
-
+		
             <div id="inner_img_div">
+            <c:if test="${bflist != null}">
+        		<c:forEach var="bfboard" items="${bflist}">
+		            <div class="bf_div">
+			            <div class="bf_img">
+			            	<img alt="" src="${ path }/upload/bf_board/${ bfboard.bfReImgName }" id="bf_image">
+			            </div>
+			            <div class="bf_info">
+				            <div class="bf_title">
+				               <h3>${bfboard.bfTitle }</h3>
+				            </div>
+				            <div class="bf_date">
+				               <c:if test="${bfboard.bfRemainDate >= 0}">
+                        		<h4 id="_deadline"><span><c:out value="${bfboard.bfRemainDate}"/> </span> 일 남음</h4>
+                        	</c:if>
+                        	<c:if test="${bfboard.bfRemainDate < 0}">
+                        		<h4 id="_deadline"><span><c:out value="${-bfboard.bfRemainDate}"/> </span> 일 지남</h4>
+                        	</c:if>
+				            </div>
+				            <div class="bf_text">
+			               	 <p> ${bfboard.bfContent } </p>
+			            	</div>
+			            </div>
+		            </div>
+
+			        <div class="box">
+                 		<div><span class="bf_th">현재 도달 금액 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />원</span> </div>
+                 		<div><span class="bf_th">목표 달성 금액 </span><span class="bf_td"><c:out value="${bfboard.bfTargetPrice}" />원</span> </div>
+                 		<div><span class="bf_th">달성률 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />%</span> </div>
+			        </div>
+			            <br>
+						<br>
+			        
+			        <div class="bf_bt">
+			        	<button class="bf_btn"  type="button" onclick="location.href=('${path}/board/bf_board/bf_viewDetail?bfNo=${bfboard.bfNo}')">신청하러 가기</button>
+			        </div>
+		      	</c:forEach>								
+        	</c:if>  
+        	
+        	<br>
+        	<div class="pageBar">
+                
+                <span class="pagespan" id="prev">&lt;&lt;</span>&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+                <span class="pagespan" id="next">&gt;&gt;</span>
             </div>
+        	    
+            </div>
+            <br>
+            <br>
             <security:authorize access="isAnonymous()">
             <div id="inner_reco_div">
                 <span id="inner_reco_div_span">추천 도서</span>
