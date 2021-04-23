@@ -14,11 +14,6 @@ public class BookScrap {
 	
 	private String content;
 	
-	private String boardType;
-	
-	private int boardNo;
-	
-	private Date boardDate;
-	 
+	private int bsIsbn;
 	
 }

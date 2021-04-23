@@ -99,6 +99,9 @@ form {
   background-color: #898c91;
 }
 
+#sorting_newest:hover {
+	background-color: #898c91;
+}
 .brboard-mid-container {
   font-size: 9px;
   display: flex;
@@ -118,7 +121,7 @@ form {
   width: 25%;
 }
 .brboard-reviewbox:hover {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 #thumbnailpic {
