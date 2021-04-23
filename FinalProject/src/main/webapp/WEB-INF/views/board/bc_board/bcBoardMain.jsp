@@ -23,6 +23,10 @@
         .d_none {
             display: none;
         }
+        
+        .owl-stage-outer, .owl-stage {
+        	max-height: 580px;
+        }
     </style>
 </head>
 <%@ include file="../../common/header.jsp" %>
@@ -31,15 +35,18 @@
             <div class="cp_board_contents">
                 <div class="product-menupackage">
                     <div class="title" style="text-align: center;">
-                        <h2 style="margin-left: 100px;"><span>북 클럽</span></h2>
-                        <div class="btn-block-right">
-				             <a href="${ path }/board/bc_board/bcAdminWrite">글쓰기</a>
-				        </div>
+                        <h2 style="margin-left: 100px;"><span style="margin-right: 50px;">북 클럽</span></h2>
+                        <!-- 관리자만 글쓰기 가능하게 -->
+                        <security:authorize access="hasRole('ADMIN')">
+	                        <div class="btn-block-right">
+					             <a href="${ path }/board/bc_board/bcAdminWrite">글쓰기</a>
+					        </div>
+				        </security:authorize>
                     </div>
                     <ul class="menuCategory" style="display: block;">
                         <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardMain" style="text-decoration: none; color: black;" onclick="addFunc();">전체 클럽</a></li>
                         <li class="headcategory"><a style="cursor: pointer; text-decoration: none; color: black;" onclick="removeFunc();">모집 중인 클럽</a></li>
-                        <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardList" style="text-decoration: none; color: black;">클럽 제안하기</a></li>
+      	                <li class="headcategory"><a onclick="userCheck();" href="${ path }/board/bc_board/bcBoardList" style="text-decoration: none; color: black;">클럽 제안하기</a></li>
                     </ul>
                 </div>
                 <!-- noneRemainList -->
@@ -98,7 +105,8 @@
                     <div class="normalpackage">
                         <div class="normalmenu">
                             <div class="function">
-                                <p class="prdCount">총 클럽 게시물 : <strong><c:out value="${ clubBoard.bcViewCount }"/></strong>개</p>
+                            	<!-- 카운트 어떻게 처리하지 -->
+                                <p class="prdCount">총 클럽 게시물 : <strong><c:out value="${ boardCount }"/></strong>개</p>
                                 <h2 style="margin-right: 40px;"><span id="recruiting_club" style="">모집 중인 클럽</span></h2>
                                 <div></div>
                             </div>

@@ -21,11 +21,13 @@ public interface ProposeDao {
 	List<Propose> selectProposeList(RowBounds rowBounds);
 
 	// 마이페이지
-	List<ClubBoard> myAplctClubList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
+	List<Propose> myAplctClubList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
 
 	int selectMyAplcClubCount(int userNo);
 
 	Propose selectPropose(int proposeNo);
 
 	Propose comparePwd(@Param("proposeNo")int proposeNo, @Param("proposePwd")int proposePwd);
+
+	int deleteBoard(int proposeNo);
 }
