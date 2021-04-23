@@ -32,8 +32,15 @@ public class AdminPageController {
 	private ClubService cService;
 	
 	// 관리자 페이지 불러오기
-	@RequestMapping("/member/admin/admin_page")
-	public ModelAndView mypage(ModelAndView model) {
+	@RequestMapping(value="/member/admin/admin_page", method = {RequestMethod.GET})
+	public ModelAndView mypage(ModelAndView model,
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value = "cListLimit", required = false, defaultValue = "10") int cListLimit,
+			@RequestParam(value = "fPage", required = false, defaultValue = "1") int fPage,
+			@RequestParam(value = "fListLimit", required = false, defaultValue = "10") int fListLimit,
+			@RequestParam(value = "uPage", required = false, defaultValue = "1") int uPage,
+			@RequestParam(value = "uListLimit", required = false, defaultValue = "10") int uListLimit
+			) {
 		String status = null;
 		String fStatus = null;
 		String cStatus = null;
@@ -41,19 +48,19 @@ public class AdminPageController {
 		// 회원관련
 		List<Member> list = null;
 		int boardCount = mService.getMemberCount(status);
-		PageInfo pageInfo = new PageInfo(1, 10, boardCount, 10);
+		PageInfo pageInfo = new PageInfo(uPage, 10, boardCount, uListLimit);
 		list = mService.getMemberList(pageInfo, status);
 		
 		// 북펀딩
 		List<FundBoard> bfList = null;
 		int fBoardCount = fService.getFundCount(fStatus);
-		PageInfo fundPageInfo = new PageInfo(1, 10, fBoardCount, 10);
+		PageInfo fundPageInfo = new PageInfo(fPage, 10, fBoardCount, fListLimit);
 		bfList = fService.getFundList(fundPageInfo, fStatus);
 		
 		// 북클럽
 		List<ClubBoard> bcList = null;
 		int cBoardCount = cService.getAdminClubCount(cStatus);
-		PageInfo clubPageInfo = new PageInfo(1, 10, cBoardCount, 10);
+		PageInfo clubPageInfo = new PageInfo(cPage, 10, cBoardCount, cListLimit);
 		bcList = cService.getAdminClubList(clubPageInfo, cStatus);
 				
 		model.addObject("list", list);
@@ -137,6 +144,8 @@ public class AdminPageController {
 	@ResponseBody
 	public Map<String, Object> list(
 			@RequestParam(value = "mStatus", required = false, defaultValue = "ALL") String status
+//			@RequestParam(value = "uPage", required = false, defaultValue = "1") int uPage,
+//			@RequestParam(value = "uListLimit", required = false, defaultValue = "10") int uListLimit
 			) {
 		
 		if(status.equals("ALL")) {
@@ -151,7 +160,7 @@ public class AdminPageController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		result.put("list", list);
-		result.put("pageInfo", pageInfo);
+//		result.put("pageInfo", pageInfo);
 		
 		return result;
 	}

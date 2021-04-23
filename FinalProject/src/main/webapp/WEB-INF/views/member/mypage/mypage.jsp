@@ -25,51 +25,39 @@
             <div class="scrap">
                 <div>
                     <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
-                    <div class="book_info" id="book1">
-                        <a href="#" name="thumbnailbox"><img class="scrap_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-                        <p>책이름</p>
-                        <div class="starRev">
-                            <span class="starR on">1</span>
-                            <span class="starR on">2</span>
-                            <span class="starR">3</span>
-                            <span class="starR">4</span>
-                            <span class="starR">5</span>
-                        </div>
-                    </div>
-                    <div class="book_info" id="book1">
-                        <a href="#" name="thumbnailbox"><img class="scrap_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-                        <p>책이름</p>
-                        <div class="starRev">
-                            <span class="starR on">1</span>
-                            <span class="starR on">2</span>
-                            <span class="starR">3</span>
-                            <span class="starR">4</span>
-                            <span class="starR">5</span>
-                        </div>
-                    </div>
-                    <div class="book_info" id="book1">
-                        <a href="#" name="thumbnailbox"><img class="scrap_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD-A5U34i3_y1GNyv8o_I9piMiSFg52KPQzw&usqp=CAU"></a>
-                        <p>책이름</p>
-                        <div class="starRev">
-                            <span class="starR on">★</span>
-                            <span class="starR on">★</span>
-                            <span class="starR">★</span>
-                            <span class="starR">★</span>
-                            <span class="starR">★</span>
-                        </div>
-                    </div>
+                    <c:if test="${myScrapList == null}">
+						<div class="book_info" id="book1">
+							<p>스크랩 목록이 없습니다.</p>
+                    	</div>
+					</c:if>
+					<c:if test="${myScrapList != null}">
+						<c:forEach var="scrapList" items="${myScrapList}">
+							<div class="book_info" id="book1">
+                          		<a href="${path}/board/br_board/brReviewDetail?scrapList=${scrapList.scrapNo}" name="thumbnailbox" id="scrapthumbnail_${scrapList.scrapNo}"></a>
+                          		<p id="scrap-booktitle_${scrapList.scrapNo}"></p>
+                          		<p id="scrap-bookisbn_${scrapList.scrapNo}" style="display:none"><c:out value="${scrapList.bsIsbn}"/></p>
+                    		</div>
+						</c:forEach>
+					</c:if>
                     <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
                 </div>
+                <c:if test="${myScrapList != null}">
                 <div class="small_pageBar" id="pageBar">
                     <!-- 이전 페이지로 -->
-                    <button>&lt;</button>
-                    <!--  10개 페이지 목록(비트윈으로 조회) -->
-                    <button disabled>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <!-- 다음 페이지로 -->
-                    <button >&gt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.prvePage}&sListLimit=${myScrapPageInfo.listLimit}'">&lt;</button>
+	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
+	                            <c:forEach begin="${myScrapPageInfo.startPage}" end="${myScrapPageInfo.endPage}" step="1" varStatus="status">
+									<c:if test="${status.current == myScrapPageInfo.currentPage}">
+										<button type="button" disabled><c:out value="${status.current}"/></button>
+					   				</c:if>
+									<c:if test="${status.current != myScrapPageInfo.currentPage}">
+										<button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${status.current}&sListLimit=${myScrapPageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+					   				</c:if>
+								</c:forEach>
+	                            <!-- 다음 페이지로 -->
+	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.nextPage}&sListLimit=${myScrapPageInfo.listLimit}'">&gt;</button>
                 </div>
+                </c:if>
             </div>
         </div>
 
@@ -259,25 +247,32 @@
 						<c:if test="${myClubList != null}">
 							<c:forEach var="clublist" items="${myClubList}">
 								<div class="book_info" id="book1">
-								<a href="#" name="thumbnailbox"><img class="club_image" onclick="bookclub();" value="${clublist.bcNo}" src="${path}/upload/bf_board/${clublist.bcModifyImage}"></a>
+								<a href="#" name="thumbnailbox"><img onclick="location.href='${path}/board/bc_board/bcBoardDetail?bcNo=${clublist.bcNo}'" class="club_image" value="${clublist.bcNo}" src="${path}/upload/bf_board/${clublist.bcModifyImage}"></a>
                            		<p>${clublist.bcOriginTitle}</p>
                            		</div>
 							</c:forEach>
 						</c:if>
                         <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
                     </div>
+                    <c:if test="${myClubList != null}">
                     <div class="pageBar">
                         <div class="small_pageBar" id="pageBar">
                             <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?cPage=${myClubPageInfo.prvePage}&cListLimit=${myClubPageInfo.listLimit}'">&lt;</button>
+	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
+	                            <c:forEach begin="${myClubPageInfo.startPage}" end="${myClubPageInfo.endPage}" step="1" varStatus="status">
+									<c:if test="${status.current == myClubPageInfo.currentPage}">
+										<button type="button" disabled><c:out value="${status.current}"/></button>
+					   				</c:if>
+									<c:if test="${status.current != myClubPageInfo.currentPage}">
+										<button type="button" onclick="location.href='${path}/member/mypage/mypage?cPage=${status.current}&cListLimit=${myClubPageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+					   				</c:if>
+								</c:forEach>
+	                            <!-- 다음 페이지로 -->
+	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?cPage=${myFundPageInfo.nextPage}&cListLimit=${myClubPageInfo.listLimit}'">&gt;</button>
                         </div>
                     </div>
+                    </c:if>
                 </div>
                 <div class="my_list">
                     <div class="content">
@@ -299,25 +294,32 @@
 								<c:forEach var="aplctBC" items="${myAplctClubList}">
 									<tr>
 										<td><c:out value="${aplctBC.proposeNo}"/></td>
-										<td><a href="#"><c:out value="${aplctBC.proposeTitle}"/></a></td>
+										<td><a href="${path}/board/bc_board//bcBoardRead?proposeNo=${aplctBC.proposeNo}"><c:out value="${aplctBC.proposeTitle}"/></a></td>
 										<td><c:out value="${aplctBC.proposeStatus}"/></td>
 									</tr>
 								</c:forEach>
 							</c:if>
                         </table>
                     </div>
+                    <c:if test="${myAplctClubList != null}">
                     <div class="pageBar">
                         <div id="pageBar">
                             <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?cAplctPage=${myAplctClubpageInfo.prvePage}&cAplctListLimit=${myAplctClubpageInfo.listLimit}'">&lt;</button>
+	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
+	                            <c:forEach begin="${myAplctClubpageInfo.startPage}" end="${myAplctClubpageInfo.endPage}" step="1" varStatus="status">
+									<c:if test="${status.current == myAplctClubpageInfo.currentPage}">
+										<button type="button" disabled><c:out value="${status.current}"/></button>
+					   				</c:if>
+									<c:if test="${status.current != myAplctClubpageInfo.currentPage}">
+										<button type="button" onclick="location.href='${path}/member/mypage/mypage?cAplctPage=${status.current}&cAplctListLimit=${myAplctClubpageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+					   				</c:if>
+								</c:forEach>
+	                            <!-- 다음 페이지로 -->
+	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?cAplctPage=${myAplctClubpageInfo.nextPage}&cAplctListLimit=${myAplctClubpageInfo.listLimit}'">&gt;</button>
                         </div>
                     </div>
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -335,25 +337,32 @@
 								</c:if>
 								<c:if test="${myFundList != null}">
 									<c:forEach var="fundlist" items="${myFundList}">
-										<a href="#" name="thumbnailbox"><img class="image" onclick="bookfunding();" value="${fundlist.bfNo}" src="${path}/upload/bf_board/${fundlist.bfReImgName}"></a>
+										<a href="#" name="thumbnailbox"><img onclick="location.href='${path}/board/bf_board/bf_viewDetail?bfNo=${fundlist.bfNo}'" class="image" value="${fundlist.bfNo}" src="${path}/upload/bf_board/${fundlist.bfReImgName}"></a>
 	                            		<p>${fundlist.bfTitle}</p>
 									</c:forEach>
 								</c:if>
 	                        </div>
 	                        <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
 	                    </div>
+	                    <c:if test="${myFundList != null}">
 	                    <div class="pageBar">
 	                        <div class="small_pageBar" id="pageBar">
 	                            <!-- 이전 페이지로 -->
-	                            <button>&lt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?fPage=${myFundPageInfo.prvePage}&fListLimit=${myFundPageInfo.listLimit}'">&lt;</button>
 	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-	                            <button disabled>1</button>
-	                            <button>2</button>
-	                            <button>3</button>
+	                            <c:forEach begin="${myFundPageInfo.startPage}" end="${myFundPageInfo.endPage}" step="1" varStatus="status">
+									<c:if test="${status.current == myFundPageInfo.currentPage}">
+										<button type="button" disabled><c:out value="${status.current}"/></button>
+					   				</c:if>
+									<c:if test="${status.current != myFundPageInfo.currentPage}">
+										<button type="button" onclick="location.href='${path}/member/mypage/mypage?fPage=${status.current}&fListLimit=${myFundPageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+					   				</c:if>
+								</c:forEach>
 	                            <!-- 다음 페이지로 -->
-	                            <button >&gt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?fPage=${myFundPageInfo.nextPage}&fListLimit=${myFundPageInfo.listLimit}'">&gt;</button>
 	                        </div>
 	                    </div>
+	                    </c:if>
 	                </div>
 	                <div class="my_list">
 	                    <div class="content">
@@ -364,8 +373,6 @@
 	                                <th class="th">Title</th>
 	                                <th class="th">Status</th>
 	                            </tr>
-	                            <tbody>
-	                            </tbody>
 	                            <c:if test="${myAplctFundList == null}">
 									<tr>
 										<td colspan="6">
@@ -384,18 +391,25 @@
 								</c:if>
 	                        </table>
 	                    </div>
+	                    <c:if test="${myAplctFundList != null}">
 	                    <div class="pageBar">
 	                        <div id="pageBar">
 	                            <!-- 이전 페이지로 -->
-	                            <button>&lt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?fAplctPage=${pageInfo.prvePage}&fAplctListLimit=${pageInfo.listLimit}'">&lt;</button>
 	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-	                            <button disabled>1</button>
-	                            <button>2</button>
-	                            <button>3</button>
+	                            <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+									<c:if test="${status.current == pageInfo.currentPage}">
+										<button type="button" disabled><c:out value="${status.current}"/></button>
+					   				</c:if>
+									<c:if test="${status.current != pageInfo.currentPage}">
+										<button type="button" onclick="location.href='${path}/member/mypage/mypage?fAplctPage=${status.current}&fAplctListLimit=${pageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+					   				</c:if>
+								</c:forEach>
 	                            <!-- 다음 페이지로 -->
-	                            <button >&gt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/mypage/mypage?fAplctPage=${pageInfo.nextPage}&fAplctListLimit=${pageInfo.listLimit}'">&gt;</button>
 	                        </div>
 	                    </div>
+	                    </c:if>
 	                </div>
             </div>
         </div>
@@ -419,8 +433,9 @@
                     $("#calendar_img_${board.brNo}").append("<img class='calendar_image' src='" + msg.documents[0].thumbnail + "'/>");
                 });
             </c:forEach> 
-            <c:forEach var="board" items="${myScrapList}">
-		 	 var isbn = document.getElementById("scrap-bookisbn_${board.scrapNo}").innerText
+            
+            <c:forEach var="scrapList" items="${myScrapList}">
+		 	 var isbn = document.getElementById("scrap-bookisbn_${scrapList.scrapNo}").innerText
 		 	 
             $.ajax({
                 method: "GET",
@@ -431,8 +446,8 @@
                 .done(function (msg) {
                     console.log(msg.documents[0].title);
                     console.log(msg.documents[0].thumbnail);
-                    $("#reviewthumbnail_${board.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
-                    $("#review-booktitle_${board.brNo}").append(msg.documents[0].title)
+                    $("#scrapthumbnail_${scrapList.scrapNo}").append("<img class='scrap_image' src='" + msg.documents[0].thumbnail + "'/>");
+                    $("#scrap-booktitle_${scrapList.scrapNo}").append(msg.documents[0].title);
                 });
             </c:forEach> 
 
@@ -441,10 +456,7 @@
             		location.href = "${path}/member/mypage/profile";
 				}
             	function bookclub() {
-            		location.href = "${path}/bcBoardDetail";
-				}
-            	function bookfunding() {
-            		location.href = "${path}/board/bf_board/bf_boardList";
+            		location.href = "${path}/member/mypage/profile";
 				}
             	function bookreview() {
             		location.href = "${path}/brReviewDetail";

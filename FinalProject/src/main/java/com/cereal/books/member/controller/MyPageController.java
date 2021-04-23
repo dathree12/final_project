@@ -25,6 +25,7 @@ import com.cereal.books.board.model.service.ReviewService;
 import com.cereal.books.board.model.vo.BookScrap;
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.FundBoard;
+import com.cereal.books.board.model.vo.Propose;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
 import com.cereal.books.member.model.service.MemberService;
@@ -47,23 +48,34 @@ public class MyPageController {
 	@Autowired
 	private ReviewService rService;
 	
-	@RequestMapping(value = "member/mypage/mypage", method= {RequestMethod.GET})
-	public ModelAndView bookFunding(ModelAndView model, @AuthenticationPrincipal Member member) {
+	@RequestMapping("member/mypage/mypage")
+	public ModelAndView bookFunding(ModelAndView model, 
+			@RequestParam(value = "sPage", required = false, defaultValue = "1") int sPage,
+			@RequestParam(value = "sListLimit", required = false, defaultValue = "3") int sListLimit,
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value = "cListLimit", required = false, defaultValue = "3") int cListLimit,
+			@RequestParam(value = "fPage", required = false, defaultValue = "1") int fPage,
+			@RequestParam(value = "fListLimit", required = false, defaultValue = "3") int fListLimit,
+			@RequestParam(value = "cAplctPage", required = false, defaultValue = "1") int cAplctPage,
+			@RequestParam(value = "cAplctListLimit", required = false, defaultValue = "5") int cAplctListLimit,
+			@RequestParam(value = "fAplctPage", required = false, defaultValue = "1") int fAplctPage,
+			@RequestParam(value = "fAplctListLimit", required = false, defaultValue = "5") int fAplctListLimit,
+			@AuthenticationPrincipal Member member) {
 		int userNo = member.getUserNo();
 		
 		// 스크랩
-//		List<BookScrap> myScrapList = null;
-//		
-//		int myScrapCount = fService.getMyFundCount(userNo);
-//		PageInfo myScrapPageInfo = new PageInfo(1, 3, myScrapCount, 3);
+		List<BookScrap> myScrapList = null;
 		
-//		myScrapList = fService.getMyFundList(myScrapPageInfo, userNo);
+		int myScrapCount = rService.getMyScrapCount(userNo);
+		PageInfo myScrapPageInfo = new PageInfo(sPage, 3, myScrapCount, sListLimit);
+		
+		myScrapList = rService.getMyScrapList(myScrapPageInfo, userNo);
+		
+		System.out.println("myScrapPageInfo : " + myScrapPageInfo);
+		System.out.println("myScrapCount : " + myScrapCount);
 		
 		// 내가 쓴 북리뷰
 		List<ReviewBoard> myReviewList = null;
-		
-//		int myReviewCount = fService.getMyFundCount(userNo);
-//		PageInfo myReviewPageInfo = new PageInfo(1, 3, myReviewCount, 3);
 		
 		myReviewList = rService.getMyReviewList(userNo);
 		
@@ -73,7 +85,7 @@ public class MyPageController {
 		List<FundBoard> myFundList = null;
 		
 		int myFundCount = fService.getMyFundCount(userNo);
-		PageInfo myFundPageInfo = new PageInfo(1, 3, myFundCount, 3);
+		PageInfo myFundPageInfo = new PageInfo(fPage, 3, myFundCount, fListLimit);
 		
 		myFundList = fService.getMyFundList(myFundPageInfo, userNo);
 		
@@ -81,7 +93,7 @@ public class MyPageController {
 		List<FundBoard> myAplctFundList = null;
 		
 		int myAplctFundCount = fService.getMyAplctFundCount(userNo);
-		PageInfo pageInfo = new PageInfo(1, 5, myAplctFundCount, 5);
+		PageInfo pageInfo = new PageInfo(fAplctPage, 5, myAplctFundCount, fAplctListLimit);
 		
 		myAplctFundList = fService.getMyAplctFundList(pageInfo, userNo);
 		
@@ -89,20 +101,23 @@ public class MyPageController {
 		List<ClubBoard> myClubList = null;
 		
 		int myClubCount = cService.getMyClubCount(userNo);
-		PageInfo myClubPageInfo = new PageInfo(1, 3, myClubCount, 3);
+		PageInfo myClubPageInfo = new PageInfo(cPage, 3, myClubCount, cListLimit);
 		
 		myClubList = cService.getMyClubList(myClubPageInfo, userNo);
 		
 		// 개설 신청한 클럽
-		List<ClubBoard> myAplctClubList = null;
+		List<Propose> myAplctClubList = null;
 		
 		int myAplctClubCount = pService.getMyAplctClubCount(userNo);
-		PageInfo myAplctClubpageInfo = new PageInfo(1, 5, myAplctClubCount, 5);
+		PageInfo myAplctClubpageInfo = new PageInfo(cAplctPage, 5, myAplctClubCount, cAplctListLimit);
 		
 		myAplctClubList = pService.getMyAplctClubList(myAplctClubpageInfo, userNo);
 		
-//		model.addObject("myScrapList", myScrapList);
-//		model.addObject("myScrapPageInfo", myScrapPageInfo);
+		System.out.println("myAplctClubList : " + myAplctClubList);
+		System.out.println("myAplctClubCount : " + myAplctClubCount);
+		
+		model.addObject("myScrapList", myScrapList);
+		model.addObject("myScrapPageInfo", myScrapPageInfo);
 		model.addObject("myFundList", myFundList);
 		model.addObject("myFundPageInfo", myFundPageInfo);
 		model.addObject("myAplctFundList", myAplctFundList);
