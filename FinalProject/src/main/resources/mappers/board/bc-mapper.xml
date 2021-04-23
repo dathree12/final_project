@@ -132,7 +132,7 @@
    </resultMap>
 
    <!-- 북 클럽 상세페이지 조회 / 북 클럽 게시판 번호로 조회 -->
-   <select id="selectClubDetail" parameterType="_int" resultMap="clubDetailResultMap">
+   <select id="selectClubDetail" parameterType="map" resultMap="clubDetailResultMap">
       SELECT
       B.BC_NO,
       M.USER_NO,
@@ -148,16 +148,20 @@
       B.BC_CONTENT,
       B.BC_MODIFY_IMAGE,
       B.BC_STATUS,
-      B.BC_AGREEMENT,
-      E.EXP_NO AS E_EXP_NO,
-      E.EXP_TITLE AS E_EXP_TITLE,
-      E.USER_NAME AS E_USER_NAME,
-      E.EXP_ORIGIN_IMAGE AS E_EXP_ORIGIN_IMAGE,
-	  E.EXP_MODIFY_IMAGE AS E_EXP_MODIFY_IMAGE,
-      E.EXP_REG_DATE AS E_EXP_REG_DATE,
-      E.EXP_VIEWCOUNT AS E_EXP_VIEWCOUNT,
-      E.EXP_CONTENT AS E_EXP_CONTENT,
-      E.BC_NO AS E_BC_NO
+      B.BC_AGREEMENT
+      <choose>
+      	<when test="expNo != null">
+	      ,E.EXP_NO AS E_EXP_NO,
+	      E.EXP_TITLE AS E_EXP_TITLE,
+	      E.USER_NAME AS E_USER_NAME,
+	      E.EXP_ORIGIN_IMAGE AS E_EXP_ORIGIN_IMAGE,
+		  E.EXP_MODIFY_IMAGE AS E_EXP_MODIFY_IMAGE,
+	      E.EXP_REG_DATE AS E_EXP_REG_DATE,
+	      E.EXP_VIEWCOUNT AS E_EXP_VIEWCOUNT,
+	      E.EXP_CONTENT AS E_EXP_CONTENT,
+	      E.BC_NO AS E_BC_NO
+      	</when>
+      </choose>
       FROM BOOK_CLUB_BOARD B
       JOIN MEMBER M ON (B.USER_NO= M.USER_NO)
       JOIN EXP E ON (E.USER_NO = B.USER_NO)
@@ -257,7 +261,7 @@
    <update id="saveRemainDate" parameterType="ClubBoard">
       UPDATE BOOK_CLUB_BOARD
       SET
-      BC_REMAIN_DATE = TRUNC(BC_START_DATE - SYSDATE)
+      BC_REMAIN_DATE = TRUNC(BC_DL_DATE - SYSDATE)
    </update>
 
    <!-- 클럽 시작일정과 현재 날짜가 동일해지거나 음수가 되면 진행중(모집 마감) -> index(Q) -->
@@ -281,7 +285,7 @@
 		FROM BOOK_CLUB_BOARD
 		<if test="status != null">
 	  		WHERE 
-	  			BC_STATUS =#{status}
+  			BC_STATUS =#{status}
 		</if>
 	</select>
 	

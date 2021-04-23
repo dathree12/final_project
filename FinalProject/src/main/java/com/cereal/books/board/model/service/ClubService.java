@@ -16,22 +16,20 @@ public interface ClubService {
 
 	int noneRemainDate();
 
-	List<ClubBoard> getBoardList(PageInfo pageInfo);
-
-	List<ClubBoard> getDlBoardList();
-
-	ClubBoard findClubByNo(int bcNo, PageInfo pageInfo);
-
 	int selectExpCount(int bcNo);
-
-	// 관리자 페이지
-	List<ClubBoard> getAdminClubList(PageInfo pageInfo, String status);
-
+	
 	int getAdminClubCount(String status);
-
 	// 마이페이지
 	int getMyClubCount(int userNo);
 
+	List<ClubBoard> getBoardList(PageInfo pageInfo);
+	
+	List<ClubBoard> getDlBoardList();
+	// 관리자 페이지
+	List<ClubBoard> getAdminClubList(PageInfo pageInfo, String status);
+
 	List<ClubBoard> getMyClubList(PageInfo myClubPageInfo, int userNo);
+
+	ClubBoard findClubByNo(int bcNo, PageInfo pageInfo);
 
 }

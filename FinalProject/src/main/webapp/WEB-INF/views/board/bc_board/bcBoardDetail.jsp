@@ -38,7 +38,7 @@
                         <h1 id="_deadline"><span>마감되었습니다</span></h1>
                     </c:if>
                     <c:if test="${ clubBoard.bcRemainDate < 0 }">
-                        <h1 id="_deadline"><span><c:out value="${ -clubBoard.bcRemainDate }"/></span>일 남음</h1>
+                        <h1 id="_deadline"><span><c:out value="${ clubBoard.bcRemainDate }"/></span>일 남음</h1>
                     </c:if>
                         <h2 id="bcOriginTitle" name="bcOriginTitle" style="margin-top: 10px;"><c:out value="${ clubBoard.bcOriginTitle }"/></h2>
                     </div>

@@ -28,4 +28,6 @@ public interface ProposeDao {
 	Propose selectPropose(int proposeNo);
 
 	Propose comparePwd(@Param("proposeNo")int proposeNo, @Param("proposePwd")int proposePwd);
+
+	int deleteBoard(int proposeNo);
 }

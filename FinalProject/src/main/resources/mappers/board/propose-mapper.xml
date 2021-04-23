@@ -82,6 +82,14 @@
 		)
 	</insert>
 	
+	<!-- 제안하기 게시판 삭제(상태 변화) -->
+	<update id="deleteBoard" parameterType="_int">
+		UPDATE PROPOSE
+		SET
+		PROPOSE_STATUS='N'
+		WHERE PROPOSE_NO=#{proposeNo}
+	</update>
+	
 	<!-- 마이페이지 -->
 	<!-- 내가 제안한 클럽 조회 -->
 	<select id="myAplctClubList" parameterType="map" resultMap="proposeResultMap">

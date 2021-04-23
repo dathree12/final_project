@@ -24,4 +24,6 @@ public interface ProposeService {
 	Propose findProposeByNo(int proposeNo);
 
 	Propose comparePwd(@Param("proposeNo")int proposeNo, @Param("proposePwd")int proposePwd);
+
+	int deleteBoard(int proposeNo);
 }
