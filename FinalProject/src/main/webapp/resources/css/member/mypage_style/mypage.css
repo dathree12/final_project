@@ -95,6 +95,7 @@
 }
 .calendar_image {
   width: 100%;
+  border: 1px solid darkgray;
 }
 
 /* 북클럽 */

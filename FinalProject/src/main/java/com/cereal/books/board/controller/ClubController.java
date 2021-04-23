@@ -44,7 +44,6 @@ public class ClubController {
 	@Autowired
 	private ClubService service;
 
-	@ResponseBody
 	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
 	public ModelAndView detail(ModelAndView model, 
 			@RequestParam("bcNo") int bcNo,
@@ -301,21 +300,6 @@ public class ClubController {
 		return "board/bc_board/bcExpWrite";
 	}
 	
-//	// 해당 게시판 번호를 타고 들어가서 결제창까지 가야할듯? POST방식 써야하나 GET으로 테스트해볼까
-//	// 결제할 상품정보를 가져와야하니까, 상품정보를 갖고있는 번호의 게시판 정보 가져오면 될 듯
-//	@RequestMapping(value = "/bcBoardPayment", method = RequestMethod.GET)
-//	public ModelAndView payment(ModelAndView model, @RequestParam("bcNo") int bcNo) {
-//		
-//		ClubBoard clubBoard = null;
-//		
-//		clubBoard = service.findClubByNo(bcNo);
-//		
-//		model.addObject("clubBoard", clubBoard);
-//		model.setViewName("/board/bc_board/bcBoardPayment");
-//		
-//		return model;
-//	}
-
 }
 
 

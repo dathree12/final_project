@@ -48,7 +48,7 @@
 									<c:forEach var="bookclub" items="${bcList}">
 										<tr>
 											<td><c:out value="${bookclub.bcNo}"/></td>
-											<td><a href="${path}/board/bf_board/bf_adminCheck?bfNo=${bookfunding.bfNo}"><c:out value="${bookclub.bcOriginTitle}"/></a></td>
+											<td><a href="${path}/board/bc_board/bcBoardDetail?bcNo=${bookclub.bcNo}"><c:out value="${bookclub.bcOriginTitle}"/></a></td>
 											<td><c:out value="${bookclub.bcStatus}"/></td>
 										</tr>
 									</c:forEach>
@@ -59,13 +59,18 @@
                     <div class="pageBar">
                         <div id="pageBarAndBtn">
                             <!-- 이전 페이지로 -->
-                            <button>&lt;</button>
-                            <!--  10개 페이지 목록(비트윈으로 조회) -->
-                            <button disabled>1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <!-- 다음 페이지로 -->
-                            <button >&gt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/admin/admin_page?cPage=${clubPageInfo.prvePage}&cListLimit=${clubPageInfo.listLimit}'">&lt;</button>
+	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
+	                            <c:forEach begin="${clubPageInfo.startPage}" end="${clubPageInfo.endPage}" step="1" varStatus="status">
+									<c:if test="${status.current == clubPageInfo.currentPage}">
+										<button type="button" disabled><c:out value="${status.current}"/></button>
+					   				</c:if>
+									<c:if test="${status.current != clubPageInfo.currentPage}">
+										<button type="button" onclick="location.href='${path}/member/admin/admin_page?cPage=${status.current}&cListLimit=${clubPageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+					   				</c:if>
+								</c:forEach>
+	                            <!-- 다음 페이지로 -->
+	                            <button type="button" onclick="location.href='${path}/member/admin/admin_page?cPage=${clubPageInfo.nextPage}&cListLimit=${clubPageInfo.listLimit}'">&gt;</button>
                         </div>
                     </div>
                 </div>
@@ -77,8 +82,7 @@
             <p class="title" id="bookfunding">북펀딩</p>
             <div class="funding">
                 <div class="list">
-	                <form action="${path}/member/admin/bookfunding" method="post">
-	                	<security:authentication property="principal" var="user"/>
+	                <form action="${path}/member/admin/bookfunding" method="get">
 	                    <div class="content">
 	                        <select class="usertype" name="bfStatus">
 	                            <option id="bfStatus" value="ALL">전체펀딩목록</option>
@@ -122,18 +126,18 @@
 	                        </div>
 	                        <div id="pageBarAndBtn">
 	                            <!-- 이전 페이지로 -->
-	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${fundPageInfo.prvePage}&listLimit=${fundPageInfo.listLimit}'">&lt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/admin/admin_page?fPage=${fundPageInfo.prvePage}&fListLimit=${fundPageInfo.listLimit}'">&lt;</button>
 	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
 	                            <c:forEach begin="${fundPageInfo.startPage}" end="${fundPageInfo.endPage}" step="1" varStatus="status">
 									<c:if test="${status.current == fundPageInfo.currentPage}">
-										<button disabled><c:out value="${status.current}"/></button>
+										<button type="button" disabled><c:out value="${status.current}"/></button>
 					   				</c:if>
 									<c:if test="${status.current != fundPageInfo.currentPage}">
-										<button onclick="location.href='${path}/member/admin/admin_page?page=${status.current}&listLimit=${fundPageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+										<button type="button" onclick="location.href='${path}/member/admin/admin_page?fPage=${status.current}&fListLimit=${fundPageInfo.listLimit}'"><c:out value="${status.current}"/></button>
 					   				</c:if>
 								</c:forEach>
 	                            <!-- 다음 페이지로 -->
-	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${fundPageInfo.nextPage}&listLimit=${fundPageInfo.listLimit}'">&gt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/admin/admin_page?fPage=${fundPageInfo.nextPage}&fListLimit=${fundPageInfo.listLimit}'">&gt;</button>
 	                        </div>
 	                    </div>
                     </form>
@@ -146,8 +150,7 @@
 	            <p class="title" id="user">회원관리</p>
 	            <div class="user_list">
 	                <div class="list">
-	                <form action="${path}/member/admin" method="post">
-	                	<security:authentication property="principal" var="user"/>
+	                <form action="${path}/member/admin" method="get">
 	                    <div class="content">
 	                        <select class="usertype" name="mStatus">
 	                            <option id="mStatus" value="ALL">전체회원</option>
@@ -191,20 +194,20 @@
 		                        <button type="button" id="mbtn"value="N">정지</button>
 		                        <button type="button" id="membtn"value="Y">복구</button>
 	                        </div>
-	                        <div id="pageBarAndBtn">
+	                        <div id="pageBarAndBtn" class="mPageBar">
 	                            <!-- 이전 페이지로 -->
-	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${pageInfo.prvePage}&listLimit=${pageInfo.listLimit}'">&lt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/admin/admin_page?uPage=${pageInfo.prvePage}&uListLimit=${pageInfo.listLimit}'">&lt;</button>
 	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
 	                            <c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
 									<c:if test="${status.current == pageInfo.currentPage}">
-										<button disabled><c:out value="${status.current}"/></button>
+										<button type="button" disabled><c:out value="${status.current}"/></button>
 					   				</c:if>
 									<c:if test="${status.current != pageInfo.currentPage}">
-										<button onclick="location.href='${path}/member/admin/admin_page?page=${status.current}&listLimit=${pageInfo.listLimit}'"><c:out value="${status.current}"/></button>
+										<button type="button" onclick="location.href='${path}/member/admin/admin_page?uPage=${status.current}&uListLimit=${pageInfo.listLimit}'"><c:out value="${status.current}"/></button>
 					   				</c:if>
 								</c:forEach>
 	                            <!-- 다음 페이지로 -->
-	                            <button onclick="location.href='${path}/member/admin/admin_page?page=${pageInfo.nextPage}&listLimit=${pageInfo.listLimit}'">&gt;</button>
+	                            <button type="button" onclick="location.href='${path}/member/admin/admin_page?uPage=${pageInfo.nextPage}&uListLimit=${pageInfo.listLimit}'">&gt;</button>
 	                        </div>
 	                    </div>
 	                </form>
@@ -342,6 +345,7 @@ $(function() {
 	$("select[name=mStatus]").change(function(){
 		var mStatus = $(this).val();
 		var mlist = {};
+		
 		$("#dynamicTbody").empty();
 	  
 	  	$.ajax({
@@ -354,10 +358,8 @@ $(function() {
 			},
 			success: function(result) {
 				mlist = result.list;
-				
 				var tc = new Array();
 				var html = '';
-				
 				$.each(mlist, function( index, value ) {
 					tc.push({id : value.userId ,name : value.name, nname : value.userNname, status : value.status}); 
                  });
@@ -371,9 +373,10 @@ $(function() {
 				html += '<td>'+tc[key].status+'</td>';
 				html += '</tr>';
 				}
-							
+                
 				$("#dynamicTbody").empty();
 				$("#dynamicTbody").append(html);
+				
 				
 			},
 			error: function(e) {

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cereal.books.board.model.dao.QADao">
+	<sql id="qaListSql">
+		SELECT 
+		Q.QA_NO, 
+		M.USER_NO, 
+		Q.QA_WRITER,
+		Q.QA_ITEM,
+		Q.QA_TITLE, 
+		Q.QA_CONTENT, 
+		Q.QA_VIEWCOUNT, 
+		Q.QA_ENROLL_DATE,
+		Q.QA_MODIFY_DATE,
+		Q.QA_STATUS
+		FROM QA_BOARD Q
+		JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)
+		WHERE QA_STATUS = 'Y'
+	</sql>
+	
+	<resultMap type="QA" id="qaResultMap">
+		<id property="qaNo" column="QA_NO" />
+		<result property="userNo" column="USER_NO"/>
+		<result property="qaWriter" column="QA_WRITER"/>
+		<result property="qaItem" column="QA_ITEM"/>
+		<result property="qaContent" column="QA_CONTENT" />
+		<result property="qaViewCount" column="QA_VIEWCOUNT" />
+		<result property="qaEnrollDate" column="QA_ENROLL_DATE" />
+		<result property="qaModifyDate" column="QA_MODIFY_DATE" />
+		<result property="qaStatus" column="QA_STATUS" />
+	</resultMap>
+
+	<select id="selectQAList" parameterType="map" resultMap="qaResultMap">
+		<include refid="qaListSql"></include>
+		ORDER BY Q.QA_NO DESC
+	</select>
+	
+	<select id="qaCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM QA_BOARD
+		WHERE QA_STATUS = 'Y'
+	</select>
+	
+	
+	
+</mapper>

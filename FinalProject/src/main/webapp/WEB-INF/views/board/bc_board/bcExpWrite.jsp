@@ -36,17 +36,11 @@
 		                    <input type="text" name="userNo" value="${ user.userNo }" readonly>
 		                    <input type="text" name="userId" value="${ user.userId }" readonly>
                        </div>
-						<p class="thumbnail">
-							<a href="#"> 
-							<!-- 구매한 상품 이미지 -->
-								<img src="${ path }/upload/bc_board/${ clubBoard.bcModifyImage }">
-							</a>
-						</p>
 						<div class="information">
 							<h3>
 								<a href id="aPrdNameLink">
-									<!-- bcTitle 들어와야함 -->
-									<span id="sPrdName">${ hashMap.bcOriginTitle }</span>
+									<!-- bcTitle 들어와야함 결제관련 마무리 후 진행 -->
+									<span id="sPrdName"></span>
 								</a>
 							</h3>
 							<!-- 도저히 안되면 생략 
