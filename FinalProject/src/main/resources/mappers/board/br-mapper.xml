@@ -100,10 +100,16 @@
  		)
 	</insert>
 	
-	<!-- ist불러오고 전체 보드 수 구해서 페이징처리까지 -->
+	<!-- list불러오고 전체 보드 수 구해서 페이징처리까지 -->
 	<select id="selectBoardList" parameterType="map" resultMap="brResultMap">
 		<include refid="brListSql"></include>
 		ORDER BY BR.BR_NO DESC
+	</select>
+	
+	<!-- 추천순으로 북리뷰 메인 정렬하기 페이징 처리까지 -->
+	<select id="selectBoardSortingList" parameterType="map" resultMap="brResultMap">
+		<include refid="brListSql"></include>
+		ORDER BY BR.BR_LIKE DESC
 	</select>
 	
 	<select id="selectCount" parameterType="map" resultType="_int">
@@ -167,7 +173,14 @@
 		WHERE CB.BR_NO = #{brNo} AND CB.COM_STATUS='Y'
 	</select>
 	
-	<insert id="insertBookScrap" parameterType="map"
+	<!-- 스크랩 정보 불러오기 -->
+	<select id="scrapCheck" resultType="map" resultMap="bookScrapResultMap">
+		SELECT *
+		FROM BOOK_SCRAP
+		WHERE USER_NO = #{userNo} AND BS_ISBN = #{bsIsbn}
+	</select>
+	<!-- 스크랩 하기 -->
+	<insert id="insertScrap" parameterType="map"
 		useGeneratedKeys="true" keyProperty="scrapNo" keyColumn="SCRAP_NO">
   		
 	  	INSERT INTO BOOK_SCRAP
@@ -175,9 +188,14 @@
 				SEQ_BR_NO.NEXTVAL,
 				#{userNo},
 				#{bsIsbn},
-				#{status)
+				DEFAULT
  		)
 	</insert>
+	<!-- 스크랩 지우기 -->
+	<delete id="deleteScrap" parameterType="map">
+		DELETE FROM BOOK_SCRAP
+			WHERE USER_NO = #{userNo} AND BS_ISBN = #{bsIsbn}
+	</delete>
 	
 	<!-- 검색을 통한 리스트 조회, 페이징 처리o -->
 	<select id="getBoardCount_Id" parameterType="map" resultType="_int">
@@ -213,18 +231,6 @@
 		<include refid="brListSql"></include>
 		AND BR.BR_CONTENT LIKE '%'||#{br_searchword}||'%'
 		ORDER BY BR.BR_CONTENT DESC
-	</select>
-	
-	<select id="getScrapStatus" parameterType="map"
-						resultMap="bookScrapResultMap">
-		SELECT BS.SCRAP_NO,
-			   BS.USER_NO,
-			   BS.BS_ISBN,
-			   BS.SCRAP_STATUS
-		FROM BOOK_SCRAP BS
-		WHERE BS.SCRAP_STATUS='Y'
-			AND BS.USER_NO = #{userNo}
-			AND	BS.BS_ISBN = #{bsIsbn}   
 	</select>
 	
 	<!-- 조회수 증가(반복조회 방지) -->

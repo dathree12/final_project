@@ -1,6 +1,7 @@
 package com.cereal.books.board.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,16 +121,32 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<BookScrap> getScrapStatus(String bsIsbn, int userNo) {
-		List<BookScrap> result = null;
-		result = reviewDao.getScrapStatus(bsIsbn, userNo);
-
-			return result;
+	public int increaseViewcnt(int brNo) {
+		return reviewDao.increateViewcnt(brNo);
 	}
 
 	@Override
-	public int increaseViewcnt(int brNo) {
-		return reviewDao.increateViewcnt(brNo);
+	public Map<String, Object> scrapCheck(Map<String, Object> commandMap) {
+		
+		return reviewDao.scrapCheck(commandMap);
+	}
+
+	@Override
+	public Map<String, Object> insertScrap(Map<String, Object> commandMap) {
+		return reviewDao.insertScrap(commandMap);
+	}
+
+	@Override
+	public Map<String, Object> deleteScrap(Map<String, Object> commandMap) {
+		return reviewDao.deleteScrap(commandMap);
+	}
+
+	@Override
+	public List<ReviewBoard> getBoardSortingList(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());		
+		
+		return reviewDao.selectBoardSortingList(rowBounds);
 	}
 	
 }
