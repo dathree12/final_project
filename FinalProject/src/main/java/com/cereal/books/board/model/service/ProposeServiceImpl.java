@@ -2,6 +2,7 @@ package com.cereal.books.board.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,5 +69,10 @@ public class ProposeServiceImpl implements ProposeService {
 	@Override
 	public Propose findProposeByNo(int proposeNo) {
 		return dao.selectPropose(proposeNo);
+	}
+
+	@Override
+	public Propose comparePwd(@Param("proposeNo")int proposeNo, @Param("proposePwd")int proposePwd) {
+		return dao.comparePwd(proposeNo, proposePwd);
 	}
 }

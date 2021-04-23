@@ -12,6 +12,7 @@
     <title>제안하기 게시판 리스트</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardList.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+   	<script type="text/javascript" src="${ path }/js/club/bcBoardList.js"></script>    
     <style type="text/css">
        	/* button */
 		.btn-block-right { margin-top: 20px; background-color: #747474; border: 1px solid #4f4f4f; border-width: 0px; float: right; padding: 3px; /*display: inline-block;*/ width: 60px; text-align: center; margin-right: 3px; }
@@ -80,21 +81,26 @@
 	                <c:forEach var="proposeList" items="${ proposeList }">
 		                <tbody style="border-bottom: 1px solid rgb(241, 241, 241); border-top: 1px solid rgb(241, 241, 241);">
 		                    <tr>
-		                        <td style="width: 70px"><c:out value="${ proposeList.proposeNo }"></c:out></td>
+		                        <td style="width: 70px"><c:out value="${ proposeList.proposeNo }"/></td>
 	                    	    <security:authentication property="principal" var="user"/> 
 	                        	<c:set var="writer" value="${ proposeList.userName }"/>
 	                        	<!-- 로그인 유저가 작성자이거나 관리자면, originTitle 아니면 비밀글 표시 -->
                         		<c:choose>
                         			<c:when test="${ not((user.name eq writer) or (user.name eq '관리자')) }">
-       			                        <td style="width: 700px;" onclick="insertPopup();"><img alt="" src="${ path }/images/iconfinder_lock_close.png">&nbsp;&nbsp;&nbsp;<span style="cursor: pointer;">비밀글</span></td>
+                        			<form name="frmData" id="frmData">
+       			                        <td style="width: 700px;" onclick="insertPopup();"><img src="${ path }/images/iconfinder_lock_close.png"/>&nbsp;&nbsp;&nbsp;<span style="cursor: pointer;">비밀글</span></td>
+       			                        <input id="proposePwd" name="proposePwd" type="hidden" value="${ proposeList.proposePwd }"></a></td>
+       			                        <input id="proposeNo" name="proposeNo" type="hidden" value="${ proposeList.proposeNo }"></a></td>
+       			                        <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
+                        			</form>
                         			</c:when>
                         			<c:when test="${ (user.name eq writer) or (user.name eq '관리자') }">
-				                        <td style="width: 700px; cursor: pointer;"><a href="${path}/board/bc_board/bcBoardRead?proposeNo=${proposeList.proposeNo}"><c:out value="${ proposeList.proposeTitle }"/></a></td>
+				                        <td style="width: 700px; cursor: pointer;"><a href="${path}/board/bc_board/bcBoardRead?proposeNo=${ proposeList.proposeNo }"/><c:out value="${ proposeList.proposeTitle }"/>
                         			</c:when>
                         		</c:choose>
-		                        <td style="width: 90px"><c:out value="${ proposeList.userName }"></c:out></td>
-		                        <td style="width: 150px"><c:out value="${ proposeList.proposeRegDate }"></c:out></td>
-		                        <td style="width: 90px"><c:out value="${ proposeList.proposeViewCount }"></c:out></td>
+		                        <td style="width: 90px"><c:out value="${ proposeList.userName }"/></td>
+		                        <td style="width: 150px"><c:out value="${ proposeList.proposeRegDate }"/></td>
+		                        <td style="width: 90px"><c:out value="${ proposeList.proposeViewCount }"/></td>
 		                    </tr>
 		                </tbody>
 	                </c:forEach>
@@ -116,23 +122,8 @@
 				</c:forEach>            
 	            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.nextPage}">&gt;</a> &nbsp; &nbsp;
 	            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.maxPage}">&gt;&gt;</a>
-	            <!-- 여기에 입력값있음 -->
+	            <!-- 여기에 입력값있음 	-->
 	        </div>
 	    </div>	
     </section>
-	<script type="text/javascript">
-		function insertPopup() {
-		    window.name = "bcBoardList";
-		    var _width = '464px';
-		    var _height = '280px';
-		
-		    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-		    var _left = Math.ceil(( window.screen.width - _width )/2);
-		    var _top = Math.ceil(( window.screen.height - _height )/2); 
-		
-		    // (open할 window, "자식창 이름", "OPTION"), 부모창 : 자식창을 띄워준다.
-		    var childWin = window.open('secret', 'secret', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top + ", resizable = no, scrollbars = no, status = no");
-		}
-     </script>    
-
 <%@ include file="../../common/footer.jsp" %>
