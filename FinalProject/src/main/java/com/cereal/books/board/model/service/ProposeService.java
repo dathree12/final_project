@@ -19,7 +19,7 @@ public interface ProposeService {
 	
 	List<Propose> getProposeList(PageInfo pageInfo);
 
-	List<ClubBoard> getMyAplctClubList(PageInfo myAplctClubpageInfo, int userNo);
+	List<Propose> getMyAplctClubList(PageInfo myAplctClubpageInfo, int userNo);
 
 	Propose findProposeByNo(int proposeNo);
 
