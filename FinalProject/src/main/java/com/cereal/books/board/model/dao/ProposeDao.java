@@ -27,5 +27,5 @@ public interface ProposeDao {
 
 	Propose selectPropose(int proposeNo);
 
-//	Propose comparePwd(int proposeNo, int proposePwd);
+	Propose comparePwd(@Param("proposeNo")int proposeNo, @Param("proposePwd")int proposePwd);
 }

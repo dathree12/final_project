@@ -86,15 +86,15 @@
 	                        	<!-- 로그인 유저가 작성자이거나 관리자면, originTitle 아니면 비밀글 표시 -->
                         		<c:choose>
                         			<c:when test="${ not((user.name eq writer) or (user.name eq '관리자')) }">
-                        			<form name="frmData" id="frmData" method="post">
-       			                        <td style="width: 700px;" onclick="insertPopup();"><img alt="" src="${ path }/images/iconfinder_lock_close.png">&nbsp;&nbsp;&nbsp;<span style="cursor: pointer;">비밀글</span></td>
+                        			<form name="frmData" id="frmData">
+       			                        <td style="width: 700px;" onclick="insertPopup();"><img src="${ path }/images/iconfinder_lock_close.png"/>&nbsp;&nbsp;&nbsp;<span style="cursor: pointer;">비밀글</span></td>
        			                        <input id="proposePwd" name="proposePwd" type="hidden" value="${ proposeList.proposePwd }"></a></td>
        			                        <input id="proposeNo" name="proposeNo" type="hidden" value="${ proposeList.proposeNo }"></a></td>
        			                        <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
                         			</form>
                         			</c:when>
                         			<c:when test="${ (user.name eq writer) or (user.name eq '관리자') }">
-				                        <td style="width: 700px; cursor: pointer;"><a href="${path}/board/bc_board/bcBoardRead?proposeNo=${ proposeList.proposeNo }"><c:out value="${ proposeList.proposeTitle }"/>
+				                        <td style="width: 700px; cursor: pointer;"><a href="${path}/board/bc_board/bcBoardRead?proposeNo=${ proposeList.proposeNo }"/><c:out value="${ proposeList.proposeTitle }"/>
                         			</c:when>
                         		</c:choose>
 		                        <td style="width: 90px"><c:out value="${ proposeList.userName }"/></td>
@@ -128,21 +128,13 @@
 	<script type="text/javascript">
 
 		function insertPopup() {
-			
-		    var csrfToken = $("meta[name='csrf-token']").attr('content');
-		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
-		    $(document).ajaxSend(function (e, xhr, options) {
-		        xhr.setRequestHeader(csrfHeader, csrfToken);
-		    });
 		    
             const url = "${path}/board/bc_board/secret";
             const title = "secret-form";
             const status = "left=500px, top=100px, width=500px, height=300px";
 
-            var frmData = $('#frmData');
-            var proposeNo = $('#proposeNo').val();
             // window.open
-            open("secret?proposeNo="proposeNo, title, status);
+            open("", title, status);
 
             frmData.target = title; // form 전송하는 윈도우를 설정
             frmData.action = url;// idCheck.jsp라는 새창에서 처리하므로 url지정

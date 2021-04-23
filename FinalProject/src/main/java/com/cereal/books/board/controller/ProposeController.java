@@ -106,16 +106,24 @@ public class ProposeController {
 		return "board/bc_board/bcBoardList";
 	}
 
-	@RequestMapping(value = "/secret", method = {RequestMethod.POST})
-	public String secret(
+	@RequestMapping(value = "/secret", method = RequestMethod.POST)
+	public ModelAndView secret(
+			ModelAndView model,
+			Propose propose,
 			@RequestParam("proposePwd") int proposePwd,
 			@RequestParam("proposeNo") int proposeNo
 			) {
 
-		System.out.println(proposePwd + "==============");
-		System.out.println(proposeNo + "==============");
+		System.out.println(proposePwd);
+		System.out.println(proposeNo);
+		propose = service.comparePwd(proposeNo, proposePwd);
 		
-		return "board/bc_board/secret";
+		System.out.println(propose);
+		
+		model.addObject("propose", propose);
+		model.setViewName("board/bc_board/secret");
+		
+		return model;
 	}
 
 	@RequestMapping(value = "/bcBoardRead")
