@@ -419,6 +419,22 @@
                     $("#calendar_img_${board.brNo}").append("<img class='calendar_image' src='" + msg.documents[0].thumbnail + "'/>");
                 });
             </c:forEach> 
+            <c:forEach var="board" items="${myScrapList}">
+		 	 var isbn = document.getElementById("scrap-bookisbn_${board.scrapNo}").innerText
+		 	 
+            $.ajax({
+                method: "GET",
+                url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+                data: { query: isbn },
+                headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
+            })
+                .done(function (msg) {
+                    console.log(msg.documents[0].title);
+                    console.log(msg.documents[0].thumbnail);
+                    $("#reviewthumbnail_${board.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+                    $("#review-booktitle_${board.brNo}").append(msg.documents[0].title)
+                });
+            </c:forEach> 
 
     });
             	function profile() {

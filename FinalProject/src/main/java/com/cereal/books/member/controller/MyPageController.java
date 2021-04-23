@@ -22,6 +22,7 @@ import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.service.FundService;
 import com.cereal.books.board.model.service.ProposeService;
 import com.cereal.books.board.model.service.ReviewService;
+import com.cereal.books.board.model.vo.BookScrap;
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.board.model.vo.ReviewBoard;
@@ -50,6 +51,14 @@ public class MyPageController {
 	public ModelAndView bookFunding(ModelAndView model, @AuthenticationPrincipal Member member) {
 		int userNo = member.getUserNo();
 		
+		// 스크랩
+//		List<BookScrap> myScrapList = null;
+//		
+//		int myScrapCount = fService.getMyFundCount(userNo);
+//		PageInfo myScrapPageInfo = new PageInfo(1, 3, myScrapCount, 3);
+		
+//		myScrapList = fService.getMyFundList(myScrapPageInfo, userNo);
+		
 		// 내가 쓴 북리뷰
 		List<ReviewBoard> myReviewList = null;
 		
@@ -59,8 +68,6 @@ public class MyPageController {
 		myReviewList = rService.getMyReviewList(userNo);
 		
 		System.out.println(myReviewList);
-		
-		// 좋아요 목록
 		
 		// 참여중인 펀드
 		List<FundBoard> myFundList = null;
@@ -94,6 +101,8 @@ public class MyPageController {
 		
 		myAplctClubList = pService.getMyAplctClubList(myAplctClubpageInfo, userNo);
 		
+//		model.addObject("myScrapList", myScrapList);
+//		model.addObject("myScrapPageInfo", myScrapPageInfo);
 		model.addObject("myFundList", myFundList);
 		model.addObject("myFundPageInfo", myFundPageInfo);
 		model.addObject("myAplctFundList", myAplctFundList);
