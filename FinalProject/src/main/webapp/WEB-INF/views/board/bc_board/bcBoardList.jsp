@@ -12,6 +12,7 @@
     <title>제안하기 게시판 리스트</title>
     <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardList.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+   	<script type="text/javascript" src="${ path }/js/club/bcBoardList.js"></script>    
     <style type="text/css">
        	/* button */
 		.btn-block-right { margin-top: 20px; background-color: #747474; border: 1px solid #4f4f4f; border-width: 0px; float: right; padding: 3px; /*display: inline-block;*/ width: 60px; text-align: center; margin-right: 3px; }
@@ -125,25 +126,4 @@
 	        </div>
 	    </div>	
     </section>
-	<script type="text/javascript">
-
-		function insertPopup() {
-		    
-            const url = "${path}/board/bc_board/secret";
-            const title = "secret-form";
-            const status = "left=500px, top=100px, width=500px, height=300px";
-
-            // window.open
-            open("", title, status);
-
-            frmData.target = title; // form 전송하는 윈도우를 설정
-            frmData.action = url;// idCheck.jsp라는 새창에서 처리하므로 url지정
-            frmData.method = "POST";
-            // form 전송하기
-            frmData.submit();
-            
-            // window.open("about:blank").close();
-		}
-     </script>    
-
 <%@ include file="../../common/footer.jsp" %>

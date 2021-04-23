@@ -13,6 +13,7 @@
     <meta content="${ _csrf.token }" name="csrf-token"/>
     <meta content="${ _csrf.headerName }" name="csrf-headerName">
     <script src="${ path }/js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="${ path }/js/club/secret.js"></script>
     <title>Document</title>
     <style>
         .secret-form {
@@ -37,38 +38,6 @@
 				<input style="visibility: hidden;" id="parentPwd" name="parentPwd" value="${ propose.proposePwd }" type="password"/>
 				<input style="visibility: hidden;" id="proposeNo" name="proposeNo" value="${ propose.proposeNo }" type="text"/>
 			<div onclick="passButton();" style="text-align: center; width: 280px; height: 40px; border: 1px solid black; margin: auto; padding: 0; border: 1px solid #e1660b; background-color: #e27819; color: #fff; font-size: 14px; font-weight: 900; cursor: pointer; line-height: 40px;">확 인</div>
-					<script type="text/javascript">
-						
-						function passButton() {
-							var childPwd = document.querySelector('#childPwd').value;
-							var parentPwd = document.querySelector('#parentPwd').value;
-							var proposeNo = document.querySelector('#proposeNo').value;
-							
-							if (childPwd != null && childPwd != "" && childPwd.trim() != "") {
-								if (childPwd == parentPwd) {
-									alert("비밀번호가 일치합니다");
-									window.opener.location.href="bcBoardRead?proposeNo=" + proposeNo + "";
-									self.close();
-								} else {
-									var a = document.getElementById('childPwd');
-									alert("다시 입력해주세요");
-									a.value = null;
-									a.focus();
-								}
-							} else {
-								// 비밀번호 null
-								alert("비밀번호를 입력해주세요")
-							} 
-						}
-						
-					</script>
-			<script type="text/javascript">
-				//var proposePwd = document.querySelector('#proposePwd').value; // childPwd 
-				//alert(proposePwd);
-				var parentPwd = document.querySelector('#parentPwd').value;
-				var childPwd = document.querySelector('#childPwd').value;
-				
-			</script>
         </form>
     </div>
 </body>

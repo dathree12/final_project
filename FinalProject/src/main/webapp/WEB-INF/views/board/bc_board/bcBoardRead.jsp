@@ -34,7 +34,7 @@
                         <div class="write"><c:out value="${ propose.userName }"/></div>
                     </div>
                 </div>
-                <div class="board_txt_area">
+                <div class="board_txt_area" style="padding: 10px">
                 	<c:out value="${ propose.proposeContent }" escapeXml="false"/>
                 </div>
                 <div class="comment_section">
@@ -61,14 +61,20 @@
                     <div class="list_button_wrap">
                         <div class="none"></div>
                         <div class="write_button">
-                            <a href="#" style="color: #fff;">목록</a>
+                            <a href="${ path }/board/bc_board/bcBoardList" style="color: #fff;">목록</a>
                         </div>
                     </div>
                     <div class="bottom_list_wrap">
                         <ul>
+					        <input id="proposeNo" name="proposeNo" style="visibility: hidden;" type="text" value="${ propose.proposeNo }">
+					        <!-- 고민중 -->
+                            <script type="text/javascript">
+								var no = $('#proposeNo').val();
+								
+							</script>
                             <li class="next">
                                 <span><a><i class="fas fa-chevron-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;다음글</a></span>
-                                <span><a href="#" id="next_title">비밀글 테스트</a></span>
+                                <span><a href="${ path }/board/bc_board/bcBoardRead?proposeNo=" + proposeNo + ""; id="next_title">비밀글 테스트</a></span>
                             </li>
                         </ul>
                     </div>
@@ -77,5 +83,4 @@
         </article>
     </section>
     <script src="${ path }/js/club/bcBoardRead.js"></script>
-
 <%@ include file="../../common/footer.jsp" %>
