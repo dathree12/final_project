@@ -60,7 +60,7 @@
                         <a href="#">마이쇼핑</a>
                     </li>
                     <li>
-                        <a href="#">주문조회</a>
+                        <a href="${path}/board/bf_board/bf_orderList">주문조회</a>
                     </li>
                     <li>
                         <a href="#">장바구니</a>

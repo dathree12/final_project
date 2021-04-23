@@ -28,10 +28,10 @@
 <section class="brboard-body">    
     <section class = "brboard-top">
         <div class = "brboard-top-title">
-            <a style="color:#353535" href="#">북리뷰 게시판</a>
+            <a style="color:#353535" href="${path}/board/br_board/brBoardMain">북리뷰 게시판</a>
         </div>
         <div class = "brboard-top-menu">
-            <li><a href="#">전체</a></li>
+            <li><a href="${path}/board/br_board/brBoardMain">전체</a></li>
             <li><a href="#">소설</a></li>
             <li><a href="#">어린이/청소년</a></li>
             <li><a href="#">경제/경영</a></li>
@@ -55,10 +55,10 @@
                     <option value="br_search_content">내용</option>
                 </select>
                 <div class="brboard-mid-searchbar_item inputbox">
-                    <input type="search" class="br-search-inputbox" placeholder="검색어를 입력해주세요" name="br_searchword"/>
+                    <input class="br-search-inputbox" placeholder="검색어를 입력해주세요" name="br_searchword"/>
                 </div>
                 <div class = "brboard-mid-searchbar_item searchbutton">
-                    <a class="searchbutton">검색</a>
+                    <input type="submit" class="searchbutton" style="border:none" value="검색">
                 </div>
                 <div class = "brboard-mid-searchbar_item sorting">
                     <a onclick="location.href='#'" id="sorting_newest">최신순</a>
@@ -67,6 +67,7 @@
                 
             </form>    
         </div>
+        </section>
         <section class="brboard-mid-container">
         	<c:if test="${list != null }">
         		<c:forEach var="board" items="${list}">

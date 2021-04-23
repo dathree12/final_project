@@ -23,7 +23,7 @@
 				<a href="${path}/board/br_board/brReviewDetail?brNo=${board.boardNo}">
 		            <span>${board.title }</span>
 		            <br>
-		            <p>${board.content }</p>
+		            <p class="searchP">${board.content }</p>
 		            <h6><fmt:formatDate pattern="yy년 MM월 dd일" value="${board.boardDate }"/> </h6>
 	            </a>
             </c:when>
@@ -31,7 +31,7 @@
 				<a href="${path}/board/br_board/brReviewDetail?brNo=${board.boardNo}">
 		            <span>${board.title }</span>
 		            <br>
-		            <p>${board.content }</p>
+		            <p class="searchP">${board.content }</p>
 		            <h6><fmt:formatDate pattern="yy년 MM월 dd일" value="${board.boardDate }"/> </h6>
 	            </a>
 			</c:when>
@@ -39,7 +39,7 @@
 				<a href="${path}/board/br_board/brReviewDetail?brNo=${board.boardNo}">
 		            <span>${board.title }</span>
 		            <br>
-		            <p>${board.content }</p>
+		            <p class="searchP">${board.content }</p>
 		            <h6><fmt:formatDate pattern="yy년 MM월 dd일" value="${board.boardDate }"/> </h6>
 	            </a>
 			</c:when>
@@ -47,7 +47,7 @@
 				<a href="${path}/board/br_board/brReviewDetail?brNo=${board.boardNo}">
 		            <span>${board.title }</span>
 		            <br>
-		            <p>${board.content }</p>
+		            <p class="searchP">${board.content }</p>
 		            <h6><fmt:formatDate pattern="yy년 MM월 dd일" value="${board.boardDate }"/> </h6>
 	            </a>
 			</c:when>
@@ -55,7 +55,7 @@
 				<a href="${path}/board/br_board/brReviewDetail?brNo=${board.boardNo}">
 		            <span>${board.title }</span>
 		            <br>
-		            <p>${board.content }</p>
+		            <p class="searchP">${board.content }</p>
 		            <h6><fmt:formatDate pattern="yy년 MM월 dd일" value="${board.boardDate }"/> </h6>
 	            </a>
 			</c:when>
@@ -63,7 +63,7 @@
 				<a href="${path}/board/br_board/brReviewDetail?brNo=${board.boardNo}">
 		            <span>${board.title }</span>
 		            <br>
-		            <p>${board.content }</p>
+		            <p class="searchP">${board.content }</p>
 		            <h6><fmt:formatDate pattern="yy년 MM월 dd일" value="${board.boardDate }"/> </h6>
 	            </a>
 			</c:when>
@@ -71,7 +71,7 @@
 				<a href="">
 		            <span>${board.title }</span>
 		            <br>
-		            <p>${board.content }</p>
+		            <p class="searchP">${board.content }</p>
 		            <h6><fmt:formatDate pattern="yy년 MM월 dd일" value="${board.boardDate }"/> </h6>
 	            </a>
 			</c:when>
@@ -79,7 +79,7 @@
 				<a href="">
 		            <span>${board.title }</span>
 		            <br>
-		            <p>${board.content }</p>
+		            <p class="searchP">${board.content }</p>
 		            <h6><fmt:formatDate pattern="yy년 MM월 dd일" value="${board.boardDate }"/> </h6>
 	            </a>
 			</c:otherwise>
@@ -87,12 +87,20 @@
             </div>
       </c:forEach>
             <div class="pageBar">
-                <a href="#" class="first">«</a>
-                <a href="#" class="prev">‹</a>
-                <a href="#" class="p_number"><span>1</span></a>
-                <a href="#" class="next">›</a>
-                <a href="#" class="last">»</a>
+                <a href="${path}/board/main_board/boardSearch?page=1&nav_keyword=${search}" class="first">&lt;&lt;</a>&nbsp &nbsp
+                <a href="${path}/board/main_board/boardSearch?page=${pageInfo.prvePage}&nav_keyword=${search}" class="prev">&lt;</a>&nbsp &nbsp
+                	<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
+				<c:if test="${status.current == pageInfo.currentPage}">
+					<a disabled><u><b><b><c:out value="${status.current}"/></b></b></u></a> &nbsp &nbsp
+   				</c:if>
+				<c:if test="${status.current != pageInfo.currentPage}">
+					<a href="${path}/board/main_board/boardSearch?page=${status.current}&nav_keyword=${search}"><c:out value="${status.current}"/></a>
+					&nbsp &nbsp
+   				</c:if>
+			</c:forEach>  
+                <a href="${path}/board/main_board/boardSearch?page=${pageInfo.nextPage}&nav_keyword=${search}" class="next">&gt;</a> &nbsp &nbsp
+                <a href="${path}/board/main_board/boardSearch?page=${pageInfo.maxPage}&nav_keyword=${search}" class="last">&gt;&gt;</a>
             </div>
     </div>
 </section>  
-<%@ include file="../../common/footer.jsp" %>  
+<%@ include file="../../common/footer.jsp" %>

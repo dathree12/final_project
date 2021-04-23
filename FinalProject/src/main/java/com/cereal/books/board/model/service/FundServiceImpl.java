@@ -203,6 +203,16 @@ public class FundServiceImpl implements FundService {
 		return fundDao.plusReachPrice(fundboard);
 	}
 
+	// 메인페이지 북펀딩, 북클럽 주문조회
+	@Override
+	public List<Payment> getbforderList() {
+		return fundDao.getbforderList();
+	}
+	@Override
+	public List<Payment> getbcorderList() {
+		return fundDao.getbcorderList();
+	}
+
 
 
 	

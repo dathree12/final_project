@@ -34,6 +34,9 @@ public interface ReviewService {
 	List<ReviewBoard> getSearchList_Title(PageInfo pageInfo, String searchword);
 
 	List<ReviewBoard> getSearchList_Content(PageInfo pageInfo, String searchword);
-	
 
+	List<BookScrap> getScrapStatus(String bsIsbn, int userNo);
+
+	int increaseViewcnt(int brNo);
+	
 }
