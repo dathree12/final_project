@@ -32,5 +32,5 @@ public interface MainBoardDao {
 	List<BookSearch> selectBoardSearchList(RowBounds rowBounds, @Param("search")String search);
 
 
-	
+
 }

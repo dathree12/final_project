@@ -567,6 +567,25 @@ public class FundController {
 		return model;
 	}
 	
+	// 메인페이지 북펀딩, 북클럽 주문조회
+	@RequestMapping(value = "bf_orderList", method = {RequestMethod.GET})
+	public ModelAndView orderList(Payment payment, ModelAndView model) {
+		
+		
+		List<Payment> list1 = null;
+		List<Payment> list2 = null;
+		
+		list1 = service.getbforderList();
+		list2 = service.getbcorderList();
+		
+		model.addObject("list1", list1);
+		model.addObject("list2", list2);
+		model.setViewName("board/bf_board/bf_orderList");
+		
+		return model;
+		
+	}
+	
 
 	
 }

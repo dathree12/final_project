@@ -141,7 +141,7 @@ public class MainBoardServiceImpl implements MainBoardService {
 		List<BookSearch> searchList = new ArrayList<>();
 		
 		searchList = mainBoardDao.selectBoardSearchList(rowBounds,search);
-		
+
 		return searchList;
 	}
 

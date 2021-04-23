@@ -16,7 +16,7 @@ public interface ProposeService {
 
 	// 마이페이지
 	int getMyAplctClubCount(int userNo);
-
+	
 	List<Propose> getProposeList(PageInfo pageInfo);
 
 	List<ClubBoard> getMyAplctClubList(PageInfo myAplctClubpageInfo, int userNo);
@@ -24,4 +24,6 @@ public interface ProposeService {
 	Propose findProposeByNo(int proposeNo);
 
 	Propose comparePwd(@Param("proposeNo")int proposeNo, @Param("proposePwd")int proposePwd);
+
+	int deleteBoard(int proposeNo);
 }

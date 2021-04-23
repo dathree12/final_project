@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ReviewService;
+import com.cereal.books.board.model.vo.BookScrap;
 import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
@@ -258,8 +259,8 @@ public class ReviewController {
 	//스크랩 정보 가져오기
 	@ResponseBody
 	@RequestMapping(value = "/scrapGet", method = {RequestMethod.GET})
-	public int brBookScrap(@RequestParam("bsIsbn") String bsIsbn, @RequestParam("userNo") int userNo) {
-		int result = 0;
+	public List<BookScrap> brBookScrap(@RequestParam("bsIsbn") String bsIsbn, @RequestParam("userNo") int userNo) {
+		List<BookScrap> result = null;
 		System.out.println(bsIsbn);
 		result = service.getScrapStatus(bsIsbn, userNo);
 		return result;

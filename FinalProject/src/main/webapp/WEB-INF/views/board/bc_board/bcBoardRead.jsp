@@ -68,13 +68,26 @@
                         <ul>
 					        <input id="proposeNo" name="proposeNo" style="visibility: hidden;" type="text" value="${ propose.proposeNo }">
 					        <!-- 고민중 -->
-                            <script type="text/javascript">
-								var no = $('#proposeNo').val();
-								
-							</script>
                             <li class="next">
                                 <span><a><i class="fas fa-chevron-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;다음글</a></span>
-                                <span><a href="${ path }/board/bc_board/bcBoardRead?proposeNo=" + proposeNo + ""; id="next_title">비밀글 테스트</a></span>
+                                <span><a id="next_title" onclick="nextBoard();">비밀글</a></span>
+                                <!--  
+                                	<script type="text/javascript" src="${ path }/js/club/bcBoardRead.js"></script>
+                                -->
+                                <script type="text/javascript">
+	                            	 // 다음글
+	                                function nextBoard() {
+	                                	var proposeNo = document.querySelector('#proposeNo').value;
+	                                	var nextNo = 1;
+	                                	
+	                                	if ((proposeNo * nextNo + 1) == 1) {
+	                                		alert('다음 글이 없습니다.');
+	                                	} else {
+	                                		location.href="bcBoardRead?proposeNo=" + (proposeNo * nextNo + 1) + "";
+	                                	}
+	                                }
+                             	</script>
+                                
                             </li>
                         </ul>
                     </div>

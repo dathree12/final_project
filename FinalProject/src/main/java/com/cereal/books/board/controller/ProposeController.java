@@ -43,7 +43,6 @@ public class ProposeController {
 	}
 
 	// 리스트 불러오기
-	// @ResponseBody
 	@RequestMapping(value = "/bcBoardList", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView list(ModelAndView model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -67,6 +66,26 @@ public class ProposeController {
 //		System.out.println(pageInfo);
 //		System.out.println(boardCount);
 
+		return model;
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(ModelAndView model,
+			@RequestParam("proposeNo") int proposeNo
+			) {
+		
+		int result = service.deleteBoard(proposeNo);
+		
+		if (result > 0) {
+			model.addObject("msg", "정상적으로 삭제되었습니다.");
+			model.addObject("location", "/board/bc_board/bcBoardList");
+		} else {
+			model.addObject("msg", "실패하였습니다.");
+			model.addObject("location", "/board/bc_board/bcBoardList");
+		}
+		
+		model.setViewName("common/msg");
+		
 		return model;
 	}
 

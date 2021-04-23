@@ -1,15 +1,17 @@
 package com.cereal.books.board.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
-// 클래스명을 ;;
-public class QnA {
+public class QA {
 	
 	private int qaNo;
 	
 	private int userNo;
 	
 	private String qaWriter;
+	
+	private String qaItem;
 	
 	private String qaTitle;
 	
@@ -22,12 +24,4 @@ public class QnA {
 	private Date qaModifyDate;
 	
 	private String qaStatus;
-	
-	private String qaItem; // C, F, R
-	
-	private int bcNo;
-	
-	private int brNo;
-	
-	private int bFNo;
 }

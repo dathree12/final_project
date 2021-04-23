@@ -42,7 +42,7 @@ public interface ReviewDao {
 
 		List<ReviewBoard> getSearchList_Content(RowBounds rowBounds, String br_searchword);
 
-		int getScrapStatus(String bsIsbn, int userNo);
+		List<BookScrap> getScrapStatus(String bsIsbn, int userNo);
 
 		void updateViewCount(int brViewCount);
 

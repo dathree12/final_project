@@ -54,6 +54,19 @@
 			   BF_ADMIN_COMMENT
 		FROM BOOK_FUNDING_BOARD
 	</sql>
+		
+	<sql id="payListSql">
+		SELECT PAY_NO,
+			   USER_NO,
+			   PAY_ENROLL_DATE,
+			   PAY_PROGRESS,
+			   PAY_PRICE,
+			   PAY_STATUS,
+			   PAY_ITEM,
+			   BC_NO,
+			   BF_NO
+		FROM PAYMENT
+	</sql>
 	
  	<resultMap type="FundBoard" id="fundResultMap">
 		<id property="bfNo" column="BF_NO"/>
@@ -88,6 +101,8 @@
 		<result property="payItem" column="PAY_ITEM"/>
 		<result property="bcNo" column="BC_NO"/>
 		<result property="bfNo" column="BF_NO"/>
+		<result property="payTitle" column="BF_TITLE"/>
+		<result property="payTitle" column="BC_ORIGIN_TITLE"/>
 	</resultMap>
 
 	<!-- list에서 사용 : list불러오고 전체 보드 수 구해서 페이징처리까지 -->
@@ -366,7 +381,39 @@
 			BF_NO = #{bfNo}
 	</update>
 	
-	
+	<!-- 메인페이지 북펀딩, 북클럽 주문조회 -->
+	<select id="getbforderList" parameterType="map" resultMap="paymentResultMap">
+		SELECT P.PAY_NO,
+			   P.USER_NO,
+			   P.PAY_ENROLL_DATE,
+			   P.PAY_PROGRESS,
+			   P.PAY_PRICE,
+			   P.PAY_STATUS,
+			   P.PAY_ITEM,
+			   P.BC_NO,
+			   P.BF_NO,
+			   B.BF_TITLE
+		FROM PAYMENT P
+        JOIN BOOK_FUNDING_BOARD B ON(B.BF_NO = P.BF_NO)
+        WHERE P.PAY_ITEM = 'F'
+		ORDER BY P.PAY_ENROLL_DATE DESC
+	</select>
+	<select id="getbcorderList" parameterType="map" resultMap="paymentResultMap">
+		SELECT P.PAY_NO,
+			   P.USER_NO,
+			   P.PAY_ENROLL_DATE,
+			   P.PAY_PROGRESS,
+			   P.PAY_PRICE,
+			   P.PAY_STATUS,
+			   P.PAY_ITEM,
+			   P.BC_NO,
+			   P.BF_NO,
+			   C.BC_ORIGIN_TITLE
+		FROM PAYMENT P
+        JOIN BOOK_CLUB_BOARD C ON(C.BC_NO = P.BC_NO)
+        WHERE P.PAY_ITEM = 'C'
+		ORDER BY P.PAY_ENROLL_DATE DESC
+	</select>	
 </mapper>
 
 

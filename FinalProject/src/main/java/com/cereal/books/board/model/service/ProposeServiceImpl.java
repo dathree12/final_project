@@ -23,32 +23,31 @@ public class ProposeServiceImpl implements ProposeService {
 	public int getProposeCount() {
 		return dao.proposeCount();
 	}
-	
+
 	@Override
 	public List<Propose> getProposeList(PageInfo pageInfo) {
 		/*
-		 * RowBounds (import org.apache.ibatis.session.RowBounds;)
-		 *  1) offset : 데이터를 가져오는 시작점에서 얼마나 떨어진 데이터값인지 의미
-		 *  2) limit : 몇 개의 값을 가져올지를 의미한다.
+		 * RowBounds (import org.apache.ibatis.session.RowBounds;) 1) offset : 데이터를 가져오는
+		 * 시작점에서 얼마나 떨어진 데이터값인지 의미 2) limit : 몇 개의 값을 가져올지를 의미한다.
 		 */
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-		
+
 		return dao.selectProposeList(rowBounds);
 	}
 
 	@Transactional
 	@Override
 	public int saveBoard(Propose propose) {
-		
+
 		int result = 0;
-		
+
 		if (propose.getProposeNo() != 0) {
 			// 업데이트 구문 작성
 		} else {
 			result = dao.insertPropose(propose);
 		}
-		
+
 		return result;
 	}
 
@@ -57,7 +56,7 @@ public class ProposeServiceImpl implements ProposeService {
 	public List<ClubBoard> getMyAplctClubList(PageInfo myAplctClubpageInfo, int userNo) {
 		int offset = (myAplctClubpageInfo.getCurrentPage() - 1) * myAplctClubpageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, myAplctClubpageInfo.getListLimit());
-		
+
 		return dao.myAplctClubList(rowBounds, userNo);
 	}
 
@@ -72,7 +71,12 @@ public class ProposeServiceImpl implements ProposeService {
 	}
 
 	@Override
-	public Propose comparePwd(@Param("proposeNo")int proposeNo, @Param("proposePwd")int proposePwd) {
+	public Propose comparePwd(@Param("proposeNo") int proposeNo, @Param("proposePwd") int proposePwd) {
 		return dao.comparePwd(proposeNo, proposePwd);
+	}
+
+	@Override
+	public int deleteBoard(int proposeNo) {
+		return dao.deleteBoard(proposeNo);
 	}
 }

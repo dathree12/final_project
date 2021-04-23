@@ -38,7 +38,7 @@
                         <h1 id="_deadline"><span>마감되었습니다</span></h1>
                     </c:if>
                     <c:if test="${ clubBoard.bcRemainDate < 0 }">
-                        <h1 id="_deadline"><span><c:out value="${ -clubBoard.bcRemainDate }"/></span>일 남음</h1>
+                        <h1 id="_deadline"><span><c:out value="${ clubBoard.bcRemainDate }"/></span>일 남음</h1>
                     </c:if>
                         <h2 id="bcOriginTitle" name="bcOriginTitle" style="margin-top: 10px;"><c:out value="${ clubBoard.bcOriginTitle }"/></h2>
                     </div>
@@ -286,12 +286,12 @@
                 <table class="qna_table" style="border: 1px solid #f1f1f1;">
                     <thead>
                         <tr style="height: 41px; background-color: rgb(251, 250, 250);">
-                            <th scope="col" style="width: 70px;">번호</th>
+                            <th scope="col" style="width: 70px; text-align: center;">번호</th>
                             <!-- <th scope="col">카데고리</th> -->
-                            <th scope="col" style="width: 844px;">제목</th>
-                            <th scope="col" style="width: 130px;">작성자</th>
-                            <th scope="col" style="width: 100px;">작성일</th>
-                            <th scope="col" style="width: 55px;">조회</th>
+                            <th scope="col" style="width: 844px; text-align: center;">제목</th>
+                            <th scope="col" style="width: 130px; text-align: center;">작성자</th>
+                            <th scope="col" style="width: 100px; text-align: center;">작성일</th>
+                            <th scope="col" style="width: 55px; text-align: center;">조회</th>
                         </tr>
                     </thead>
                     <tbody>

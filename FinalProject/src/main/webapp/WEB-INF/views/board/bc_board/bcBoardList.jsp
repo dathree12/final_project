@@ -23,15 +23,18 @@
         <div class="product-menupackage">
             <div class="title" style="text-align: center;">
                 <h2 style="padding-left: 80px; padding-top: 10px"><span>북 클럽</span></h2>
-                <div class="btn-block-right">
-        			<a href="${ path }/board/bc_board/bcBoardWrite">글쓰기</a>
-	   		    </div>
+                <security:authorize access="hasAnyRole('ADMIN', 'USER')">
+	                <div class="btn-block-right">
+	        			<a href="${ path }/board/bc_board/bcBoardWrite">글쓰기</a>
+		   		    </div>
+        		</security:authorize>
             </div>
             <div style="text-align: center;">
 	            <ul class="menuCategory" style="display: block; margin-top: 10px; margin-right: 20px">
 	                <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardMain" style="text-decoration: none; color: black;" onclick="addFunc();">전체 클럽</a></li>
 	                <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardMain" style="text-decoration: none; color: black;" onclick="removeFunc();">모집 중인 클럽</a></li>
-	                <li class="headcategory"><a href="${ path }/board/bc_board/bcBoardList" style="text-decoration: none; color: black;">클럽 제안하기</a></li>
+                	<li class="headcategory"><a href="${ path }/board/bc_board/bcBoardList" style="text-decoration: none; color: black;">클럽 제안하기</a></li>
+	                
 	            </ul>
             </div>
         </div>
@@ -49,6 +52,14 @@
             </div>
         </article>
 
+		<security:authorize access="isAnonymous()">
+            <div style="text-align: center; margin-top: 50px">
+                <h4>
+                	로그인 후 이용해주세요
+                </h4>
+            </div>
+		</security:authorize>
+		<security:authorize access="hasAnyRole('ADMIN', 'USER')">
         <!-- total, list board -->
         <article class="propose-list-section-3th">
             <div class="total_count">
@@ -101,12 +112,27 @@
 		                        <td style="width: 90px"><c:out value="${ proposeList.userName }"/></td>
 		                        <td style="width: 150px"><c:out value="${ proposeList.proposeRegDate }"/></td>
 		                        <td style="width: 90px"><c:out value="${ proposeList.proposeViewCount }"/></td>
+		                        <security:authorize access="hasRole('ADMIN')">
+		                        	<td style="width: 50px; border: none"><input style="background-color: #747474; border: 1px solid #4f4f4f; width: 100%; height: 100%; border-radius: 0px; color: white;" onclick="removeList();" id="removeList" name="removeList" type="button" value="삭제"></td>
+		                        </security:authorize>
+		                        <script type="text/javascript">
+									function removeList() {
+										var removeList = confirm('정말 삭제하시겠습니까?');
+										var proposeNo = ${ proposeList.proposeNo };
+										if(removeList == true) {
+											location.replace('${path}/board/bc_board/delete?proposeNo=' + proposeNo + "");
+										} else {
+											alert('취소되었습니다.');
+										}
+									}
+								</script>
 		                    </tr>
 		                </tbody>
 	                </c:forEach>
                 </c:if>
             </table>
         </article>
+        </security:authorize>
 		<div class="bcboard_mid_bottom" style="/*border: 1px solid black;*/ text-align: center;">
 	      	<div class="bcboard_mid_pageCount">
 	            <a href="${path}/board/bc_board/bcBoardMain?page=1">&lt;&lt;</a> &nbsp; &nbsp;

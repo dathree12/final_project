@@ -6,3 +6,4 @@ $(document).ready(function() {
     });
     $('.comment_body').keyup();
 })
+

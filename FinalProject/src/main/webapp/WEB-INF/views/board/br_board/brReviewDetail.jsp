@@ -61,16 +61,18 @@
 					<p id="reviewbookisbn" style="display: none">${board.brIsbn}</p>
 				</div>
 				<hr>
-				
-				<div class="review-book-bookscrap">
-				<form id="scrapForm" name="scrapForm" method="post"
-						class="scrap_form">
-					<a class="scrap-button" id="scrapOff"><img
-						src="${ path }/images/scrap_0.png" class="scrapicon">스크랩하기</a> 
-					<a class="scrap-button" id="scrapOn"><img
-						src="${ path }/images/scrap_1.png" class="scrapicon">스크랩취소</a>
-				</form>
-				</div>
+				<security:authorize access="hasRole('USER')">
+                <div class="review-book-bookscrap">
+                <form id="scrapForm" name="scrapForm" method="post"
+                        class="scrap_form">
+                    <a class="scrap-button" id="scrapOff"><img
+                        src="${ path }/images/scrap_0.png" class="scrapicon">스크랩하기</a> 
+                    <a class="scrap-button" id="scrapOn"><img
+                        src="${ path }/images/scrap_1.png" class="scrapicon">스크랩취소</a>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                </form>
+                </div>
+                </security:authorize>
 				<div class="brboard-review-book">
 					<div class="review-book-cover">
 						<a href="#" name="thumbnailbox" id="thumbnailbox"></a>
@@ -280,7 +282,7 @@
 		    });
 		    var userNo = document.getElementById("loginNo").innerHTML;
 		    console.log(userNo);
-		    var bsIsbn = document.getElementById("reviewbookisbn").innerHTML;
+		    var bsIsbn = document.getElementById("reviewbookisbn").value;
 		    console.log(bsIsbn);
 			$.ajax({
 				url:	"scrapGet",
@@ -288,7 +290,7 @@
 				data:	{'userNo' : userNo,
 						 'bsIsbn' : bsIsbn},
 				success: function(data) {
-						if(data != 0){
+						if(data != null){
 			            $("#scrapOn").show();
 			            $("#scrapOff").hide();
 						}

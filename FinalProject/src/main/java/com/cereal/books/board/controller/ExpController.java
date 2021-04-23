@@ -41,15 +41,11 @@ public class ExpController {
 			@RequestParam("upfile") MultipartFile upfile
 			) throws Exception {
 		
-//		model.addObject("bcOriginTitle", bcOriginTitle);
-//		model.setViewName("board/bc_board/bcExpWrite");
-		
 		if (user.getName().equals(clubBoard.getUserId())) {
 			clubBoard.setUserId(user.getName());
 
 			int result = 0;
 
-			
 			String renameFileName = saveFile(upfile, request);
 			
 			if(renameFileName != null) {
