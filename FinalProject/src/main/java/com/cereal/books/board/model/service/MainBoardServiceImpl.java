@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.cereal.books.board.model.dao.MainBoardDao;
+import com.cereal.books.board.model.vo.BookSearch;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
 import com.cereal.books.member.model.vo.Member;
@@ -122,6 +123,19 @@ public class MainBoardServiceImpl implements MainBoardService {
 		gList = mainBoardDao.selectBoardGList(rowBounds);
 		
 		return gList;
+	}
+
+
+
+	@Override
+	public List<BookSearch> getBoardSearch(PageInfo pageInfo, String search) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit(); 
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		List<BookSearch> searchList = new ArrayList<>();
+		
+		searchList = mainBoardDao.selectBoardSearchList(rowBounds,search);
+	
+		return searchList;
 	}
 
 

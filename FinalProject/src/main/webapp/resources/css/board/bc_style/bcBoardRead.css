@@ -1,1 +1,43 @@
-@charset "UTF-8";
+:root {
+    /* size */
+--title-size: 18px;
+--sub-size: 15px;
+--category-size: 14px;
+/* <a>, btn font size */
+--small-size: 11px;
+
+/* color */
+    --title-color: #555555;
+    --pagebarborder-color: #e7e7e7;
+}
+
+* { box-sizing: border-box; }
+body { font-family: 'Source Sans Pro'; /*border: 1px solid black;*/ }
+a { text-decoration: none; color: black; font-size: var(--small-size); font-weight: normal; }
+form { display: block; margin-top: 0em; height: 100%; }
+textarea { font-family: inherit; line-height: inherit; margin: 30px 10px; width: 98%; resize: none; overflow-y: hidden; padding: 1.1em; padding-bottom: 0.2em; line-height: 1.6; height: 100%; max-height: 100%;}
+.custom-textarea { border: 1px solid rgba(1, 1, 1, 0.15); }
+
+.propose-read-section-1th {
+    width: 1260px;
+    margin: 0 auto;
+}
+.propose-write-section-1th { max-width: 1250px; padding-left: 130px; margin: 90px auto 80px; }
+.board_summary { position: relative; /*border: 1px solid black;*/ border-bottom: 0; margin: 5px 0 0 0; max-width: 100%; padding-left: 0; padding-right: 0; }
+.board_summary .avatar { padding-right: 16px; vertical-align: top; }
+.board_summary .left { display: table; padding: 8px 0 20px; /*border: 1px solid black;*/ display: flex; }
+.avatar-image { border-radius: 50%; width: 40px; height: 40px; }
+.write { position: relative; display: block; font-size: 14px; line-height: 2.4; }
+
+.view_title { margin: 0; height: 30px; }
+.comment-block { width: 100%; margin: 0; position: relative; }
+.btn-group-wrap { height: 30px; padding: 0; /*border: 1px solid black;*/ float: left; border-bottom: 1px solid rgba(1, 1, 1, 0.15); width: 100%; }
+.write_button { padding: 6.5px 12px; text-align: center; width: 50px; background-color: #747474; border: 1px solid #4f4f4f; border-color: #4f4f4f; color: #ffffff; font-size: var(--small-size); bottom: 15px; margin: 10px;}
+.write_button_wrap { display: flex; justify-content: space-between; }
+.comment_textarea { margin-top: 80px; height: 100%; }
+/* border-bottom: 1px solid rgba(1, 1, 1, 0.15); */
+
+ul { padding: 0; }
+.bottom_list_wrap li { display: flex; margin: 0; overflow: hidden; padding: 0 20px; border-top: 1px solid #e7e7e7; border-bottom: 1px solid #e7e7e7; line-height: 140%; list-style: none; }
+.bottom_list_wrap a { float: left; padding: 10px; width: 100%; color: #353535; text-decoration: none; }
+.bottom_list_wrap #next_title { width: 100%; text-align: left; /*border: 1px solid black;*/ }

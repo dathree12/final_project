@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
@@ -25,7 +26,13 @@
     <div class="fd_viewdetail_body">
         <section>
             <!-- content top -->
+            <form id="bfpayment" action="${ path }/board/bf_board/bf_payment" method="get">
             <article class="detailArea">
+            
+            	<%-- <input type="hidden" name="userNo" value="${ user.userNo }" size="50px" readonly>
+                <input type="hidden" name="userId" value="${ user.userId }" size="50px" readonly> --%>
+                <input type="hidden" name="bfNo" value="${ board.bfNo }" size="50px" readonly>
+                
                 <div class="sub_detailArea">
                     <div class="fd_viewdetail_thumbnail">
                         <div class="_d_name">
@@ -60,13 +67,25 @@
                                         <td><c:out value="${board.bfEndDate}"/></td>
                                     </tr>
                                     <tr>
+                                        <th>현재 도달 금액</th>
+                                        <td><fmt:formatNumber value="${board.bfReachPrice}"/>원</td>
+                                    </tr>                                    
+                                    <tr>
                                         <th>목표 달성 금액</th>
-                                        <td><fmt:formatNumber value="${board.bfReachPrice}" />원</td>
+                                        <td><fmt:formatNumber value="${board.bfTargetPrice}" />원</td>
                                     </tr>
                                     <tr>
-                                        <th>배송비</th>
-                                        <td>3,000원</td>
-                                    </tr>
+                                        <th>달성률</th>
+                                        <td><fmt:formatNumber value="${board.bfAttainRate}" />%</td>
+                                    </tr>  
+                                    <tr>
+                                        <th>구입인원수</th>
+                                        <td><c:out value="${board.bfBuycount}" />명</td>
+                                    </tr> 
+                                    <tr>
+                                        <th>책 가격</th>
+                                        <td><b><fmt:formatNumber value="${board.bfPrice}" />원</b></td>
+                                    </tr>                                                                      
                                 </table>
                             </ul>
                             <hr>
@@ -81,21 +100,19 @@
                                     </select> -->
                                 </tr>
                             </table>
-                            <br>
-                            <br>
                             <div class="ec-base-button">
                                 <div class="_d_btn_1th">
                                 	<c:if test="${board.bfRemainDate >= 0}">
-                                		<input type="submit" value="바로구매하기">
+                                		<input type="submit" value="펀딩하기">
                                 	</c:if>
                                 	<c:if test="${board.bfRemainDate < 0}">
-                                		<input type="text" value="종료되었습니다.">
+                                		<input type="text" value="펀딩이 종료되었습니다.">
                                 	</c:if>
                                 </div>
                                 <div class="_d_btn_2th">
                                 	<c:if test="${board.bfRemainDate >= 0}">
-                                    	<input type="submit" value="장바구니" id="_btn_cart">
-                                    	<input type="submit" value="관심상품" id="_btn_likely">
+                                    	<input type="submit" value="장바구니" id="_btn_cart" disabled="disabled">
+                                    	<input type="submit" value="관심상품" id="_btn_likely" disabled="disabled">
                                     </c:if>
                                 </div>
                             </div>
@@ -103,14 +120,15 @@
                     </div>
                 </div>
             </article>
+            </form>
     
             <!-- contents middle -->
-            <article id="prdDetail" class="ec-base-tab">
-                <ul class="d_menu">
+             <article id="prdDetail" class="ec-base-tab">
+                <!-- <ul class="d_menu">
                     <li class="selected" style="border: 1px solid #999; z-index: 1; border-bottom: 0;"><a name="tag1" href="#tag1" style="color: #000;">상세정보</a></li>
                     <li style="border-left: 0;"><a href="#tag2">참여 후기</a></li>
                     <li><a href="#tag2">Q&A</a></li>
-                </ul>
+                </ul> -->
                 <div class="cont">
                     
                     <c:out value="${board.bfContent}" escapeXml="false"/>
@@ -118,7 +136,7 @@
                 </div>
             </article>
     
-            <!-- contents bottom -->
+           <%--  <!-- contents bottom -->
             <article id="prdReview" class="ec-base-tab">
                 <ul class="d_menu">
                     <li><a href="#tag1">상세정보</a></li>
@@ -286,8 +304,8 @@
                     <a href="#" class="p_number">1</a>
                     <a href="#" class="next">›</a>
                     <a href="#" class="last">»</a>
-                </div>
-            </article>
+                </div> 
+            </article> --%>
         </section>
     </div>
     

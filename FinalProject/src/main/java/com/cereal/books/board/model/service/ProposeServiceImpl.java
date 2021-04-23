@@ -64,4 +64,9 @@ public class ProposeServiceImpl implements ProposeService {
 	public int getMyAplctClubCount(int userNo) {
 		return dao.selectMyAplcClubCount(userNo);
 	}
+
+	@Override
+	public Propose findProposeByNo(int proposeNo) {
+		return dao.selectPropose(proposeNo);
+	}
 }

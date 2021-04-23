@@ -3,6 +3,7 @@ package com.cereal.books.board.model.service;
 import java.util.List;
 
 import com.cereal.books.board.model.vo.FundBoard;
+import com.cereal.books.board.model.vo.Payment;
 import com.cereal.books.common.util.PageInfo;
 
 public interface FundService {
@@ -55,6 +56,11 @@ public interface FundService {
 	
 	// 펀딩 프로젝트 관리자 상세조회 페이지 코멘트 입력, 승인&거절 보내기
 	int updateAdminCheck(FundBoard fundboard);
+	
+	// 결제성공 시 결제정보 저장하기
+	int insertPayment(Payment payment);
+	// payment에서 결제 성공 후 결제내역 db에 저장하고 fundboard에 구입내역 추가
+	int plusReachPrice(FundBoard fundboard);
 
 
 
