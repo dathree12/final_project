@@ -19,9 +19,24 @@ public interface ReviewService {
 
 	int saveScrapStatus(BookScrap bookscrap);
 
-	int insertComment(Comment comment);
-
 	List<Comment> listComment(int brNo);
-	
 
+	int saveComment(Comment comment);
+
+	int getBoardCount_Id(String searchword);
+
+	int getBoardCount_Title(String searchword);
+
+	int getBoardCount_Content(String searchword);
+
+	List<ReviewBoard> getSearchList_Id(PageInfo pageInfo, String searchword);
+
+	List<ReviewBoard> getSearchList_Title(PageInfo pageInfo, String searchword);
+
+	List<ReviewBoard> getSearchList_Content(PageInfo pageInfo, String searchword);
+
+	List<BookScrap> getScrapStatus(String bsIsbn, int userNo);
+
+	int increaseViewcnt(int brNo);
+	
 }

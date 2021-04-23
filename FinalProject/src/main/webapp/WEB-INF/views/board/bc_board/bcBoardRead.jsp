@@ -5,17 +5,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
+<%@ include file="../../common/header.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="${ path }/css/board/bc_board/bcBoardRead.css" type="text/css">
+    <link rel="stylesheet" href="${ path }/css/board/bc_style/bcBoardRead.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="js/jquery-3.5.1.js"></script>
     <script 
     src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"
@@ -33,11 +31,11 @@
                         <img alt="프로필 이미지" src="https://cdn.imweb.me/thumbnail/20161214/5850d6a2c09a8.jpg" class="avatar-image">
                     </div>
                     <div class="author">
-                        <div class="write"><c:out value="${ list.userName }"></c:out></div>
+                        <div class="write"><c:out value="${ propose.userName }"/></div>
                     </div>
                 </div>
-                <div class="board_txt_area">
-                	<c:out value="${ list.proposeContent }"></c:out>
+                <div class="board_txt_area" style="padding: 10px">
+                	<c:out value="${ propose.proposeContent }" escapeXml="false"/>
                 </div>
                 <div class="comment_section">
                     <div class="comment-block">
@@ -48,7 +46,7 @@
                     </div>
                 </div>
                 <div class="comment_textarea">
-                    <form action="" method="" class="comment_form">
+                    <form action="${ path }/board/bc_board/bcBoardRead?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form">
                         <div class="custom-textarea">
                             <textarea class="comment_body" style="border: 0px; outline: none;" name="comment_body" id="comment_body" rows="1" placeholder="댓글을 남겨주세요"></textarea>
                             <div class="write_button_wrap">
@@ -58,18 +56,25 @@
                                 </div>
                             </div>
                          </div>
+                         <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
                     </form>
                     <div class="list_button_wrap">
                         <div class="none"></div>
                         <div class="write_button">
-                            <a href="#" style="color: #fff;">목록</a>
+                            <a href="${ path }/board/bc_board/bcBoardList" style="color: #fff;">목록</a>
                         </div>
                     </div>
                     <div class="bottom_list_wrap">
                         <ul>
+					        <input id="proposeNo" name="proposeNo" style="visibility: hidden;" type="text" value="${ propose.proposeNo }">
+					        <!-- 고민중 -->
+                            <script type="text/javascript">
+								var no = $('#proposeNo').val();
+								
+							</script>
                             <li class="next">
                                 <span><a><i class="fas fa-chevron-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;다음글</a></span>
-                                <span><a href="#" id="next_title">비밀글 테스트</a></span>
+                                <span><a href="${ path }/board/bc_board/bcBoardRead?proposeNo=" + proposeNo + ""; id="next_title">비밀글 테스트</a></span>
                             </li>
                         </ul>
                     </div>
@@ -78,5 +83,4 @@
         </article>
     </section>
     <script src="${ path }/js/club/bcBoardRead.js"></script>
-
 <%@ include file="../../common/footer.jsp" %>

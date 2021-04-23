@@ -51,6 +51,18 @@
 		FROM PROPOSE
 		WHERE PROPOSE_STATUS = 'Y'
 	</select>
+	
+	<!-- 비밀번호 비교 -->
+	<select id="comparePwd" parameterType="_int" resultMap="proposeResultMap">
+		SELECT 
+		P.PROPOSE_NO, 
+		M.USER_NO, 
+		M.USER_NAME, 
+		P.PROPOSE_PWD 
+		FROM PROPOSE P
+		JOIN MEMBER M ON(P.USER_NO = M.USER_NO)
+		WHERE P.PROPOSE_NO=#{proposeNo} AND P.PROPOSE_PWD=#{proposePwd}
+	</select>
 
 	<!-- 제안하기 게시판 추가 -->
 	<insert id="insertPropose" parameterType="map" useGeneratedKeys="true" keyProperty="proposeNo" keyColumn="PROPOSE_NO">
@@ -81,9 +93,15 @@
 		WHERE USER_NO = #{userNo}
   		ORDER BY PROPOSE_NO DESC
   	</select>
+  	
   	<select id="selectMyAplcClubCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
 		FROM PROPOSE
 		WHERE USER_NO = #{userNo}
+	</select>
+	
+  	<select id="selectPropose" parameterType="map" resultMap="proposeResultMap">
+		<include refid="proposeListSql"></include>
+		AND P.PROPOSE_NO=#{proposeNo}
 	</select>
 </mapper>

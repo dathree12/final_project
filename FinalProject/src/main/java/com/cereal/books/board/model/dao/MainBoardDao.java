@@ -6,12 +6,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
+import com.cereal.books.board.model.vo.BookSearch;
 import com.cereal.books.board.model.vo.ReviewBoard;
 
 @Mapper
 public interface MainBoardDao {
 
 	int selectCount();
+	int selectSearchCount(@Param("search")String search);
 
 	List<ReviewBoard> selectBoardList(RowBounds rowBounds);
 
@@ -26,5 +28,9 @@ public interface MainBoardDao {
 	List<ReviewBoard> selectBoardGenreList(RowBounds rowBounds, @Param("brBookType") String brBookType);
 
 	List<ReviewBoard> selectBoardGList(RowBounds rowBounds);
-	
+
+	List<BookSearch> selectBoardSearchList(RowBounds rowBounds, @Param("search")String search);
+
+
+
 }

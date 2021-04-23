@@ -74,22 +74,6 @@ public class ClubServiceImpl implements ClubService {
 		return clubDao.selectDlClubList();
 	}
 
-	@Transactional
-	@Override
-	public int saveExpList(Exp exp) {
-		
-		int result = 0;
-		
-		if(exp.getExpNo() != 0) {
-//			result = clubDao.updateClub(clubBoard);
-			System.out.println("updateClub");
-		} else {
-			result = clubDao.insertExp(exp);
-		}
-
-		return result;
-	}
-
 	@Override
 	public ClubBoard findClubByNo(int bcNo, PageInfo pageInfo) {
 		/*

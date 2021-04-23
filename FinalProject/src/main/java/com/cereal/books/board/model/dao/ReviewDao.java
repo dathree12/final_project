@@ -26,7 +26,27 @@ public interface ReviewDao {
 		
 		int insertBookScrap(BookScrap bookscrap);
 		
-		int insertComment(Comment comment);
-
 		List<Comment> listComment(int brNo);
+
+		int saveComment(Comment comment);
+
+		int getBoardCount_Id(String br_searchword);
+
+		int getBoardCount_Title(String br_searchword);
+
+		int getBoardCount_Content(String br_searchword);
+
+		List<ReviewBoard> getSearchList_Id(RowBounds rowBounds, String br_searchword);
+
+		List<ReviewBoard> getSearchList_Title(RowBounds rowBounds, String br_searchword);
+
+		List<ReviewBoard> getSearchList_Content(RowBounds rowBounds, String br_searchword);
+
+		List<BookScrap> getScrapStatus(String bsIsbn, int userNo);
+
+		void updateViewCount(int brViewCount);
+
+		int increateViewcnt(int brNo); 
+		
+		
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cereal.books.board.model.dao.FundDao;
 import com.cereal.books.board.model.vo.FundBoard;
+import com.cereal.books.board.model.vo.Payment;
 import com.cereal.books.common.util.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -187,6 +188,19 @@ public class FundServiceImpl implements FundService {
 	public int updateAdminCheck(FundBoard fundboard) {
 		
 		return fundDao.updateAdminCheck(fundboard);
+	}
+
+	// 결제성공 시 결제정보 저장하기
+	@Override
+	public int insertPayment(Payment payment) {
+		
+		return fundDao.insertPayment(payment);
+	}
+	// payment에서 결제 성공 후 결제내역 db에 저장하고 fundboard에 구입내역 추가
+	@Override
+	public int plusReachPrice(FundBoard fundboard) {
+		
+		return fundDao.plusReachPrice(fundboard);
 	}
 
 

@@ -104,6 +104,8 @@
       <id property="expNo" column="EXP_NO" />
       <result property="userNo" column="USER_NO" />
       <result property="userName" column="USER_NAME" />
+      <result property="expOriginImage" column="EXP_ORIGIN_IMAGE" />
+      <result property="expModifyImage" column="EXP_MODIFY_IMAGE" />
       <result property="expTitle" column="EXP_TITLE" />
       <result property="expViewCount" column="EXP_VIEWCOUNT" />
       <result property="expContent" column="EXP_CONTENT" />
@@ -150,9 +152,12 @@
       E.EXP_NO AS E_EXP_NO,
       E.EXP_TITLE AS E_EXP_TITLE,
       E.USER_NAME AS E_USER_NAME,
+      E.EXP_ORIGIN_IMAGE AS E_EXP_ORIGIN_IMAGE,
+	  E.EXP_MODIFY_IMAGE AS E_EXP_MODIFY_IMAGE,
       E.EXP_REG_DATE AS E_EXP_REG_DATE,
       E.EXP_VIEWCOUNT AS E_EXP_VIEWCOUNT,
-      E.EXP_CONTENT AS E_EXP_CONTENT
+      E.EXP_CONTENT AS E_EXP_CONTENT,
+      E.BC_NO AS E_BC_NO
       FROM BOOK_CLUB_BOARD B
       JOIN MEMBER M ON (B.USER_NO= M.USER_NO)
       JOIN EXP E ON (E.USER_NO = B.USER_NO)
@@ -185,8 +190,7 @@
 
    <!-- 모집 진행중인 게시판 총 개수 -->
    <select id="selectCount" parameterType="map" resultType="_int">
-      SELECT
-      COUNT(*)
+      SELECT COUNT(*)
       FROM BOOK_CLUB_BOARD
       WHERE BC_STATUS = 'P'
    </select>
@@ -203,8 +207,7 @@
       #{bcOriginTitle},
       #{bcSubTitle},
       #{bcPrice},
-      TO_DATE(#{bcRegDate},
-      'yy-mm-dd'),
+      TO_DATE(#{bcRegDate}, 'yy-mm-dd'),
       #{bcDetailDate},
       TO_DATE(#{bcStartDate}, 'yy-mm-dd'),
       TO_DATE(#{bcDeadLineDate}, 'yy-mm-dd'),
@@ -228,6 +231,8 @@
       SEQ_EXP_NO.NEXTVAL,
       #{userNo},
       #{userName},
+      #{expOriginImage},
+      #{expModifyImage},
       #{expTitle},
       DEFAULT,
       #{expContent},

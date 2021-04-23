@@ -5,7 +5,7 @@
 <mapper namespace="com.cereal.books.board.model.dao.ReviewDao">
 	<sql id="brListSql">
 		SELECT BR.BR_NO,
-		       M.USER_NO,
+		       BR.USER_NO,
 		       M.USER_NNAME,
 		       BR.BR_ISBN,
 		       BR.BR_PRESENT_PIC,
@@ -114,7 +114,7 @@
 	
 	<select id="selectBoardDetail" parameterType="_int" resultMap="brDetailResultMap">
 		SELECT BR.BR_NO,
-		       M.USER_NO,
+		       BR.USER_NO,
 		       M.USER_NNAME,
 		       BR.BR_ISBN,
 		       BR.BR_PRESENT_PIC,
@@ -136,15 +136,14 @@
 	</select>
 	
 	<!-- 댓글 집어넣기 -->
-	<insert id="insertComment" parameterType="map"
+	<insert id="saveComment" parameterType="map"
 		useGeneratedKeys="true" keyProperty="comNo" keyColumn="COM_NO">
   		
 	  	INSERT INTO COMMENT_BOARD
 	  		VALUES(
 	  			SEQ_BR_NO.NEXTVAL,
-	  			#{userNname},
+	  			#{comWriter},
 	  			#{comContent},
-	  			DEFAULT,
 	  			DEFAULT,
 	  			DEFAULT,
 	  			'Y',
@@ -179,4 +178,61 @@
 				#{status)
  		)
 	</insert>
+	
+	<!-- 검색을 통한 리스트 조회, 페이징 처리o -->
+	<select id="getBoardCount_Id" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_REVIEW_BOARD BR
+		JOIN MEMBER M ON(BR.USER_NO = M.USER_NO)
+		WHERE BR.BR_STATUS='Y'
+		AND M.USER_NNAME LIKE '%'||#{br_searchword}||'%'
+	</select>
+	<select id="getBoardCount_Title" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_REVIEW_BOARD BR
+		WHERE BR.BR_STATUS='Y'
+		AND BR.BR_TITLE LIKE '%'||#{br_searchword}||'%'
+	</select>
+	<select id="getBoardCount_Content" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_REVIEW_BOARD BR
+		WHERE BR.BR_STATUS='Y'
+		AND BR.BR_CONTENT LIKE '%'||#{br_searchword}||'%'
+	</select>
+	<select id="getSearchList_Id" parameterType="map" resultMap="brResultMap">
+		<include refid="brListSql"></include>
+		AND M.USER_NNAME LIKE '%'||#{br_searchword}||'%'
+		ORDER BY M.USER_NNAME DESC
+	</select>
+		<select id="getSearchList_Title" parameterType="map" resultMap="brResultMap">
+		<include refid="brListSql"></include>
+		AND BR.BR_TITLE LIKE '%'||#{br_searchword}||'%'
+		ORDER BY BR.BR_TITLE DESC
+	</select>
+	<select id="getSearchList_Content" parameterType="map" resultMap="brResultMap">
+		<include refid="brListSql"></include>
+		AND BR.BR_CONTENT LIKE '%'||#{br_searchword}||'%'
+		ORDER BY BR.BR_CONTENT DESC
+	</select>
+	
+	<select id="getScrapStatus" parameterType="map"
+						resultMap="bookScrapResultMap">
+		SELECT BS.SCRAP_NO,
+			   BS.USER_NO,
+			   BS.BS_ISBN,
+			   BS.SCRAP_STATUS
+		FROM BOOK_SCRAP BS
+		WHERE BS.SCRAP_STATUS='Y'
+			AND BS.USER_NO = #{userNo}
+			AND	BS.BS_ISBN = #{bsIsbn}   
+	</select>
+	
+	<!-- 조회수 증가(반복조회 방지) -->
+	<update id="increateViewcnt" parameterType="ReviewBoard">
+		UPDATE BOOK_REVIEW_BOARD
+		SET 
+			BR_VIEWCOUNT = (BR_VIEWCOUNT + 1)
+		WHERE 
+			BR_NO = #{brNo}
+	</update>
 </mapper>

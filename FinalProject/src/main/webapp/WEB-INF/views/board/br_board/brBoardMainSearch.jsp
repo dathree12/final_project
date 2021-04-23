@@ -31,15 +31,13 @@
             <a style="color:#353535" href="${path}/board/br_board/brBoardMain">북리뷰 게시판</a>
         </div>
         <div class = "brboard-top-menu">
-          <form action="${path}/board/br_board/brBoardType" >
-	            <li><a href="${path}/board/br_board/brBoardMain" style="font-weight:bold">전체</a></li>
-	            <li><a href="#">소설</a></li>
-	            <li><a href="#">어린이/청소년</a></li>
-	            <li><a href="#">경제/경영</a></li>
-	            <li><a href="#">인문/사회/역사</a></li>
-	            <li><a href="#">종교/역학</a></li>
-	            <li><a href="#">자기개발</a></li>
-            </form>
+            <li><a href="${path}/board/br_board/brBoardMain">전체</a></li>
+            <li><a href="#">소설</a></li>
+            <li><a href="#">어린이/청소년</a></li>
+            <li><a href="#">경제/경영</a></li>
+            <li><a href="#">인문/사회/역사</a></li>
+            <li><a href="#">종교/역학</a></li>
+            <li><a href="#">자기개발</a></li>
         </div>
         <security:authorize access="hasRole('USER')">
 				<div class="brboard-top-button">
@@ -63,7 +61,7 @@
                     <input type="submit" class="searchbutton" style="border:none" value="검색">
                 </div>
                 <div class = "brboard-mid-searchbar_item sorting">
-                    <a onclick="location.href='${path}/board/br_board/brBoardMain'" id="sorting_newest">최신순</a>
+                    <a onclick="location.href='#'" id="sorting_newest">최신순</a>
                     <a onclick="location.href='#'" id="sorting_best">추천순</a>
                 </div>
                 

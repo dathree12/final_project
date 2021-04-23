@@ -29,10 +29,10 @@
     	<section class="brboard-write">    
 	        <section class = "brboard-top">
 	            <div class = "brboard-top-title">
-	                <a href="#">북리뷰 게시판</a>
+	                <a href="${path}/board/br_board/brBoardMain">북리뷰 게시판</a>
 	            </div>
 	            <div class = "brboard-top-menu">
-	                <li><a href="#">전체</a></li>
+	                <li><a href="${path}/board/br_board/brBoardMain">전체</a></li>
 	                <li><a href="#">소설</a></li>
 	                <li><a href="#">어린이/청소년</a></li>
 	                <li><a href="#">경제/경영</a></li>
@@ -40,9 +40,11 @@
 	                <li><a href="#">종교/역학</a></li>
 	                <li><a href="#">자기개발</a></li>
 	            </div>
-	            <div class = "brboard-top-button">
-	                <a href="${path}/board/br_board/brBoardWrite" class="write-button">글쓰기</a>
-	            </div>
+	            <security:authorize access="hasRole('USER')">
+					<div class="brboard-top-button">
+						<a href="${path}/board/br_board/brBoardWrite" class="write-button">글쓰기</a>
+					</div>
+				</security:authorize>
 	            <hr id="line">
 	        </section>
 	        <section class ="brboard-write-body">
