@@ -8,24 +8,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.ReviewService;
-import com.cereal.books.board.model.vo.BookScrap;
 import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
@@ -74,7 +72,7 @@ public class ReviewController {
 		System.out.println(model);
 		return model;
 	}
-
+	
 	@RequestMapping(value="/brBoardWrite", method = {RequestMethod.GET})
 	public void brBoardWriteView() {
 		
@@ -188,23 +186,83 @@ public class ReviewController {
 		}
 
 	//책 상세보기
+	@ResponseBody
 	@RequestMapping(value="/brReviewDetail", method = {RequestMethod.GET})
-	public ModelAndView brReviewDetail(@RequestParam("brNo") int brNo, ModelAndView model) {
+	public ModelAndView brReviewDetail(@RequestParam("brNo") int brNo, ModelAndView model, HttpServletRequest request, HttpServletResponse response) {
 		ReviewBoard reviewboard = service.findBoardByNo(brNo);
 		
-		model.addObject("board", reviewboard);
-		model.setViewName("board/br_board/brReviewDetail");
-		
-		return model;
+		// 조회수 증가, 쿠키를 이용한 중복 조회수 증가방지
+				Cookie[] cookies = request.getCookies();
+				// 비교하기 위해 새로운 쿠키생성
+				Cookie viewCookie = null;
+				
+				// 쿠키가 있을 경우 
+		        if (cookies != null && cookies.length > 0) {
+		            for (int i = 0; i < cookies.length; i++) {
+		            	
+		                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
+		                if (cookies[i].getName().equals("cookie"+brNo)) { 
+		                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+		                    
+		                    viewCookie = cookies[i];
+		                }
+		            }
+		        }
+		        
+		        if (reviewboard != null) {
+		            System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
+		            
+		            model.addObject("board", reviewboard);
+		 
+		            // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+		            if (viewCookie == null) {    
+		                System.out.println("cookie 없음");
+		                
+		                // 쿠키 생성(이름, 값)
+		                Cookie newCookie = new Cookie("cookie"+brNo, "|" + brNo + "|");
+		                                
+		                // 쿠키 추가
+		                response.addCookie(newCookie);
+		 
+		                // 쿠키를 추가 시키고 조회수 증가시킴
+		                int result = service.increaseViewcnt(brNo);
+		                
+		                if(result>0) {
+		                    System.out.println("조회수 증가");
+		                }else {
+		                    System.out.println("조회수 증가 에러");
+		                }
+		            }
+		            // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+		            else {
+		                System.out.println("cookie 있음");
+		                
+		                // 쿠키 값 받아옴.
+		                String value = viewCookie.getValue();
+		                
+		                System.out.println("cookie 값 : " + value);
+		        
+		            }
+		 
+		            model.setViewName("board/br_board/brReviewDetail");
+		            return model;
+		        } 
+		        else {
+		            // 에러 페이지 설정
+		        	model.setViewName("/");
+		            return model;
+		        }
 		
 	}
 	
+	//스크랩 정보 가져오기
 	@ResponseBody
-	@RequestMapping(value = "/brBookScrap", method= {RequestMethod.POST})
-	public void brBookScrap(@RequestParam("userId") String userId, @RequestParam("bsIsbn") String bsIsbn, @RequestParam("scrap") String scrap,
-			@RequestParam("scrapNo") String scrapNo, BookScrap bookscrap) {
+	@RequestMapping(value = "/scrapGet", method = {RequestMethod.GET})
+	public int brBookScrap(@RequestParam("bsIsbn") String bsIsbn, @RequestParam("userNo") int userNo) {
 		int result = 0;
-		result = service.saveScrapStatus(bookscrap);
+		System.out.println(bsIsbn);
+		result = service.getScrapStatus(bsIsbn, userNo);
+		return result;
 	}
 	
 	
@@ -235,7 +293,7 @@ public class ReviewController {
 	//코멘트 불러오기
 	@RequestMapping(value="/commentList", method = {RequestMethod.GET})
 	@ResponseBody
-	public List<Comment> getCommentList(@RequestParam int brNo, ModelAndView model) throws Exception {
+	public List<Comment> getCommentList(@RequestParam int brNo) throws Exception {
 		List<Comment> list = null;
 		list = service.listComment(brNo);
 		System.out.println(list);
