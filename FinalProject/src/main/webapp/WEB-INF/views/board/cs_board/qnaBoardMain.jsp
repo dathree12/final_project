@@ -24,7 +24,7 @@
             <div class="title" style="text-align: center;">
                 <h2 style="padding-left: 80px; padding-top: 10px"><span>Q&A</span></h2>
                 <div class="btn-block-right">
-        			<a href="${ path }/board/bc_board/bcBoardWrite">글쓰기</a>
+        			<a href="${ path }/board/cs_board/qnaBoardWrite">글쓰기</a>
 	   		    </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
         <!-- total, list board -->
         <article class="propose-list-section-3th">
             <div class="total_count">
-                <h3>total&nbsp;&nbsp;<span>${ boardCount }</span></h3>
+                <h3>total&nbsp;&nbsp;<span>${ count }</span></h3>
             </div>
             <table >
                 <!-- <caption>제안하기 목록</caption> -->
@@ -65,8 +65,9 @@
                     <th style="width: 150px;">작성일</th>
                     <th style="width: 90px">조회수</th>
                 </thead>
+                <!--  
                 <security:authentication property="principal" var="user"/> 
-                <c:if test="${ proposeList == null }">
+                <c:if test="${ list == null }">
 	                <tbody style="border-bottom: 1px solid rgb(241, 241, 241); border-top: 1px solid rgb(241, 241, 241);">
 	                    <tr>
 	                        <td colspan="5">비어있는 게시판입니다.</td>
@@ -77,44 +78,22 @@
 	                    </tr>
 	                </tbody>
                 </c:if>
-                <c:if test="${ proposeList != null }">
-	                <c:forEach var="proposeList" items="${ proposeList }">
+                -->
+                <c:if test="${ list != null }">
+	                <c:forEach var="list" items="${ list }">
 		                <tbody style="border-bottom: 1px solid rgb(241, 241, 241); border-top: 1px solid rgb(241, 241, 241);">
 		                    <tr>
-		                        <td style="width: 70px"><c:out value="${ proposeList.proposeNo }"/></td>
-	                    	    <security:authentication property="principal" var="user"/> 
-	                        	<c:set var="writer" value="${ proposeList.userName }"/>
-	                        	<!-- 로그인 유저가 작성자이거나 관리자면, originTitle 아니면 비밀글 표시 -->
-                        		<c:choose>
-                        			<c:when test="${ not((user.name eq writer) or (user.name eq '관리자')) }">
-                        			<form name="frmData" id="frmData">
-       			                        <td style="width: 700px;" onclick="insertPopup();"><img src="${ path }/images/iconfinder_lock_close.png"/>&nbsp;&nbsp;&nbsp;<span style="cursor: pointer;">비밀글</span></td>
-       			                        <input id="proposePwd" name="proposePwd" type="hidden" value="${ proposeList.proposePwd }"></a></td>
-       			                        <input id="proposeNo" name="proposeNo" type="hidden" value="${ proposeList.proposeNo }"></a></td>
+		                        <td style="width: 70px"><c:out value="${ list.qaNo }"/></td>
+       			                        <input id="qaWriter" name="qaWriter" type="hidden" value="${ list.qaWriter }"></a></td>
+       			                        <input id="qaNo" name="qaNo" type="hidden" value="${ list.qaNo }"></a></td>
        			                        <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
-                        			</form>
-                        			</c:when>
-                        			<c:when test="${ (user.name eq writer) or (user.name eq '관리자') }">
-				                        <td style="width: 700px; cursor: pointer;"><a href="${path}/board/bc_board/bcBoardRead?proposeNo=${ proposeList.proposeNo }"/><c:out value="${ proposeList.proposeTitle }"/>
-                        			</c:when>
-                        		</c:choose>
-		                        <td style="width: 90px"><c:out value="${ proposeList.userName }"/></td>
-		                        <td style="width: 150px"><c:out value="${ proposeList.proposeRegDate }"/></td>
-		                        <td style="width: 90px"><c:out value="${ proposeList.proposeViewCount }"/></td>
+		                        <td style="width: 700px; cursor: pointer;"><a href="${path}/board/cs_board/qnaDetail?qaNo=${ list.qaNo }"><c:out value="${ list.qaTitle }"/></a></td>
+		                        <td style="width: 90px"><c:out value="${ list.qaWriter }"/></td>
+		                        <td style="width: 150px"><c:out value="${ list.qaEnrollDate }"/></td>
+		                        <td style="width: 90px"><c:out value="${ list.qaViewCount }"/></td>
 		                        <security:authorize access="hasRole('ADMIN')">
 		                        	<td style="width: 50px; border: none"><input style="background-color: #747474; border: 1px solid #4f4f4f; width: 100%; height: 100%; border-radius: 0px; color: white;" onclick="removeList();" id="removeList" name="removeList" type="button" value="삭제"></td>
 		                        </security:authorize>
-		                        <script type="text/javascript">
-									function removeList() {
-										var removeList = confirm('정말 삭제하시겠습니까?');
-										var proposeNo = ${ proposeList.proposeNo };
-										if(removeList == true) {
-											location.replace('${path}/board/bc_board/delete?proposeNo=' + proposeNo + "");
-										} else {
-											alert('취소되었습니다.');
-										}
-									}
-								</script>
 		                    </tr>
 		                </tbody>
 	                </c:forEach>

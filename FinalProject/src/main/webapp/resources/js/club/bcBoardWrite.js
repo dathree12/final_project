@@ -8,3 +8,8 @@ CKEDITOR.replace( "proposeContent", {//해당 이름으로 된 textarea에 에�
 CKEDITOR.editorConfig = function( config ) { 
 	config.filebrowserUploadUrl = '/board/bc_board/imageUpload';
 };
+
+// 앵커태그 눌렀을때 폼 전송
+function submitButton() {
+	document.post_form.submit();
+}

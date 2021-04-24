@@ -27,18 +27,16 @@
             <div class="write-header">
                 <div class="board-name">북 클럽 제안서 작성</div>
                 <div class="write-btn">
-	                	<input type="submit">
 	                    <a href="${ path }/board/bc_board/bcBoardList">취소</a>
-	                    <a href="#">작성</a>
-	                </form>
+	                    <a onclick="submitButton();" style="cursor: pointer;">작성</a>
                 </div>
+                <script type="text/javascript" src="${ path }/js/club/bcBoardWrite.js"></script>
             </div>
         </article>
     </section>
     <section class="propose-write-section-2th">
         <article class="propose-write-article-2th" style="min-height: 600px;">
-            <form action="${ path }/board/bc_board/bcBoardWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
-            	<input type="submit">
+            <form action="${ path }/board/bc_board/bcBoardWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" name="post_form" enctype="multipart/form-data">
                 <div class="board_summary">
                     <div class="left">
                         <div class="avatar">
