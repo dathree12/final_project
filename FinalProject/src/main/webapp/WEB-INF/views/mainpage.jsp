@@ -53,9 +53,17 @@
 				        </div>
 				            <br>
 							<br>
-				        <div class="bf_bt">
-				        	<button class="bf_btn"  type="button" onclick="location.href=('${path}/board/bf_board/bf_viewDetail?bfNo=${bfboard.bfNo}')">신청하러 가기</button>
-				        </div>
+							
+						<security:authorize access="isAnonymous()">
+					        <div class="bf_bt">
+					        	<button class="bf_btn"  type="button" id="bf_button">신청하러 가기</button>
+					        </div>
+					    </security:authorize>
+						<security:authorize access="hasRole('USER')">
+					        <div class="bf_bt">
+					        	<button class="bf_btn"  type="button" onclick="location.href=('${path}/board/bf_board/bf_viewDetail?bfNo=${bfboard.bfNo}')">신청하러 가기</button>
+					        </div>
+					    </security:authorize>
 				     </div>
 
 				    
@@ -451,7 +459,15 @@
 	    			 		
     			 	}							
     		});
+    		 $('#bf_button').on('click',() => {
+ 						
+    			 alert('로그인 해주세요.')
+    			 
+    			 location.href='${path}/member/login';
+    			 
+ 			});
     		 
+    	
     		 
 		});	
      
