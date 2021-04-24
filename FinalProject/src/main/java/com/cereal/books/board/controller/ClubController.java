@@ -145,8 +145,6 @@ public class ClubController {
 		model.addObject("boardCount", boardCount);
 		model.setViewName("board/bc_board/bcBoardMain");
 
-		System.out.println(list);
-
 		return model;
 	}
 

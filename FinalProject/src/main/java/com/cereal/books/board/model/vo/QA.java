@@ -1,8 +1,14 @@
 package com.cereal.books.board.model.vo;
 
 import java.sql.Date;
-import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class QA {
 	
 	private int qaNo;
@@ -24,4 +30,5 @@ public class QA {
 	private Date qaModifyDate;
 	
 	private String qaStatus;
+
 }

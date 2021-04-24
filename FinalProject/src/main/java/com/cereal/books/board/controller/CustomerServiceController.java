@@ -3,6 +3,7 @@ package com.cereal.books.board.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,71 +13,113 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cereal.books.board.model.service.QAService;
 import com.cereal.books.board.model.vo.QA;
 import com.cereal.books.common.util.PageInfo;
+import com.cereal.books.member.model.vo.Member;
 
 @Controller
 @RequestMapping("board/cs_board")
 public class CustomerServiceController {
-	
+
 	@Autowired
 	QAService service;
-	
-	@RequestMapping(value="/notiBoardMain")
+
+	@RequestMapping(value = "/notiBoardMain")
 	public String notiBoardMain() {
-		
+
 		return "board/cs_board/notiBoardMain";
 	}
 
-	@RequestMapping(value="/notiBoardWrite")
+	@RequestMapping(value = "/notiBoardWrite")
 	public String notiBoardWrite() {
-		
+
 		return "board/cs_board/notiBoardWrite";
 	}
-	
-	@RequestMapping(value="/notiDetail")
+
+	@RequestMapping(value = "/notiDetail")
 	public String notiDetail() {
-		
+
 		return "board/cs_board/notiDetail";
 	}
-	
+
 	// Q&A
-	@RequestMapping(value="/qnaBoardMain")
-	public String qnaBoardMain() {
-		
-		return "board/cs_board/qnaBoardMain";
-	}
-	
+
 	@RequestMapping(value = "/qnaBoardMain", method = RequestMethod.GET)
-	public ModelAndView qnaMain(ModelAndView model,
+	public ModelAndView qnaMain(ModelAndView model, 
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit
-			) {
-		
+			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {
+
 		List<QA> list = null;
 		PageInfo pageInfo = null;
 		int count = 0;
-				
+
 		count = service.qaCount();
 		pageInfo = new PageInfo(page, 5, count, listLimit);
 		list = service.findQAByNo(pageInfo);
-		
-		System.out.println(list);
+
 		System.out.println(count);
-		
+		System.out.println(list);
+
+		model.addObject("count", count);
 		model.addObject("list", list);
 		model.addObject("pageInfo", pageInfo);
-		
+
+		model.setViewName("board/cs_board/qnaBoardMain");
+
 		return model;
 	}
 
-	@RequestMapping(value="/qnaBoardWrite")
-	public String qnaBoardWrite() {
-		
-		return "board/cs_board/qnaBoardWrite";
+
+	@RequestMapping(value = "/qnaBoardWrite", method = {RequestMethod.POST})
+	public ModelAndView write(ModelAndView model,
+			@AuthenticationPrincipal Member member,
+			QA qa
+			) {
+
+		if (member.getUserNo() == qa.getUserNo()) {
+			qa.setQaWriter(member.getUsername());
+
+			int result = 0;
+
+			result = service.saveBoard(qa);
+			
+			System.out.println(result);
+
+			if (result > 0) {
+				model.addObject("msg", "게시글 등록 성공");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			} else {
+				model.addObject("msg", "게시글 등록 실패");
+				model.addObject("location", "/board/bc_board/bcBoardMain");
+			}
+		} 
+	else {
+			model.addObject("msg", "잘못된 접근입니다.");
+			model.addObject("location", "/board/bc_board/bcBoardMain");
+		}
+
+		model.setViewName("common/msg");
+
+		return model;
 	}
 	
-	@RequestMapping(value="/qnaDetail")
-	public String qnaDetail() {
-		
-		return "board/cs_board/qnaDetail";
+	@RequestMapping(value = "/qnaBoardWrite")
+	public String qnaWriter() {
+
+		return "board/cs_board/qnaBoardWrite";
+	}
+
+	@RequestMapping(value = "/qnaDetail", method = RequestMethod.GET)
+	public ModelAndView detail(ModelAndView model, @RequestParam(value = "qaNo") int qaNo
+			) {
+
+		QA qa = null;
+
+		qa = service.findQADetail(qaNo);
+
+		System.out.println(qa);
+
+		model.addObject("qa", qa);
+		model.setViewName("board/cs_board/qnaDetail");
+
+		return model;
 	}
 }

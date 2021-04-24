@@ -10,8 +10,11 @@ import com.cereal.books.board.model.vo.QA;
 @Mapper
 public interface QADao {
 
-	List<QA> selectQAList(RowBounds rowBounds);
-
 	int qaCount();
 
+	int insertQA(QA qa);
+	
+	List<QA> selectQAList(RowBounds rowBounds);
+	
+	QA selectQADetail(int qaNo);
 }
