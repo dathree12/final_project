@@ -22,9 +22,150 @@
     crossorigin="anonymous"
     ></script>
     
+    <style type="text/css">
+            * {
+            -webkit-font-smoothing: antialiased;
+            box-sizing: border-box
+        }
+        div {
+            display: block;
+        }
+        .-board-free-view {
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .-board-free-view h3 {
+            font-size: 20px;
+            line-height: 2em;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        ._info {
+            /* border: 1px solid black; */
+            display: flex;
+            justify-content: space-between;
+        }
+        .etcArea {
+            margin-right: 20px;
+        }
+
+        ._info {
+            margin-left: 20px;
+        }
+
+        .etcArea li {
+            float: left;
+            list-style: none;
+        }
+
+        .-board-free-view ._detail {
+            line-height: 2em;
+            padding: 20px 20px 50px;
+        }
+        .-board-free-view ._detail ._detail_box {
+            margin: 10px 0 0;
+        }
+        
+        li { cursor: pointer; }
+        
+        .bottom_list_wrap li {
+        	display: flex;
+        	margin: 0;
+        	overflow: hidden;
+        	border-top: 1px solid #e7e7e7;
+        	border-bottom: 1px solid #e7e7e7;
+        	line-height: 140%;
+        	list-style: none;
+        }
+        .bottom_list_wrap #next_title {
+        	width: 100%;
+        	text-align: left;
+        }
+        .bottom_list_wrap a {
+        	float: left;
+        	padding: 10px;
+        	color: #353535;
+        	text-decoration: none;
+        }
+        
+        a {
+        	font-size: 10px;
+        	font-weight: normal;
+        }
+    </style>
 </head>
 <body>
 <%@ include file="../../common/header.jsp" %>
+<div class="wrap" style="width: 1280px; margin: auto;">
+    <form action="" id="BoardDelForm" method="" enctype="multipart/form-data">
+        <!-- input type:hidden 으로 정보 가져오기 -->
+        <div class="xans-element- xans-board xans-board-read-4 xans-board-read xans-board-4">
+            <div class="-board-free-view">
+                <!-- item으로 북 클럽, 펀딩, 리뷰 간편하게 select box로 만들기 또는 부트스트랩으로 간단하게 구현 -->
+                <h3>${ qa.qaItem } 문의</h3>
+                <div class="_info">
+                    <p><strong>작성자&nbsp;&nbsp;</strong><span style="font-size: 14px;">${ qa.qaWriter }</span></p>
+                    <ul class="etcArea">
+                        <li>
+                            <strong>작성일</strong>
+                            <span class="txtNum">${ qa.qaEnrollDate }</span>
+                        </li>
+                        <li>
+                            <span style="padding: 0 7px; font-size: 11px; line-height: 1.8em; color: #999;">|</span>
+                            <strong>조회수</strong>
+                            <span class="txtNum">${ qa.qaViewCount }</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="_detail">
+                    <div class="_detail_box">
+                        내용이 들어갑니다
+                    </div>
+                </div>
+            </div>
+            <div class="comment_section">
+                <div class="comment-block">
+                    <div class="btn-group-wrap" style="margin-top: 10px;">
+                        <i class="far fa-heart"></i>
+                        <span class="view_like_count">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="comment_textarea">
+                <form action="${ path }/board/bc_board/bcBoardRead?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form">
+                    <div class="custom-textarea">
+                        <textarea class="comment_body" style="border: 0px; outline: none;" name="comment_body" id="comment_body" rows="1" placeholder="댓글을 남겨주세요"></textarea>
+                        <div class="write_button_wrap">
+                            <div class="none"></div>
+                            <div class="write_button">
+                                <a href="#" style="color: #fff;">작성</a>
+                            </div>
+                        </div>
+                    </div>
+                <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
+                </form>
+                <div class="list_button_wrap">
+                    <div class="none"></div>
+                    <div class="write_button">
+                        <a href="${ path }/board/bc_board/bcBoardList" style="color: #fff;">목록</a>
+                    </div>
+                </div>
+                <div class="bottom_list_wrap">
+                    <ul style="padding: 0;">
+                        <input id="qaNo" name="qaNo" style="visibility: hidden;" type="text" value="${ list.qaNo }">
+                        <!-- 고민중 -->
+                        <li class="next" style="margin: 0;">
+                            <span><a><i class="fas fa-chevron-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;다음글</a></span>
+                            <span><a id="next_title" onclick="nextBoard();">비밀글</a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--  
 	<div class="wrap">
         <section class="brboard-body">    
             <section class = "brboard-top">
@@ -105,7 +246,6 @@
                     <table>
                         <thead style="border-top: 2px solid rgb(241, 241, 241);">
                             <th>번호</th>
-                            <!-- <th style="display: none;">카테고리</th> -->
                             <th>제목</th>
                             <th>작성자</th>
                             <th id="blind">작성일</th>
@@ -170,7 +310,6 @@
                             <a href="#">6</a>
                             <a href="#">&raquo;</a>
                         </div>
-                <!--http://ecudemo121656.cafe24.com/ 참고하기-->
                     </section>
                 </article>
             </section>
@@ -204,4 +343,5 @@
         $('.comment_body').keyup();
     })
 </script>
+-->
 <%@ include file="../../common/footer.jsp" %>

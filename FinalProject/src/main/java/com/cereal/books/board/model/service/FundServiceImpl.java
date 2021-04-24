@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cereal.books.board.model.dao.FundDao;
+import com.cereal.books.board.model.vo.Cart;
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.board.model.vo.Payment;
 import com.cereal.books.common.util.PageInfo;
@@ -213,7 +214,21 @@ public class FundServiceImpl implements FundService {
 		return fundDao.getbcorderList();
 	}
 
-
+	// 상세페이지에서 장바구니 클릭하면 장바구니 테이블에 저장
+//	@Override
+//	public int bfcartSave(Cart cart) {
+//		return fundDao.bfcartSave(cart);
+//	}
+	
+	// 메인페이지 북펀딩, 북클럽 장바구니
+	@Override
+	public List<Cart> getbfcartList() {
+		return fundDao.getbfcartList();
+	}
+	@Override
+	public List<Cart> getbccartList() {
+		return fundDao.getbccartList();
+	}
 
 	
 

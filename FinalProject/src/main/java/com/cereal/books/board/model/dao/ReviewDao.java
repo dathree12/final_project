@@ -3,6 +3,7 @@ package com.cereal.books.board.model.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.cereal.books.board.model.vo.BookScrap;
@@ -48,5 +49,12 @@ public interface ReviewDao {
 
 		int increateViewcnt(int brNo); 
 		
+		// 마이페이지 북리뷰 조회
+		List<ReviewBoard> myReviewList(int userNo);
+		
+		// 마이페이지 스크랩 조회
+		List<BookScrap> myScrapList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
+
+		int myScrapCount(int userNo);
 		
 }

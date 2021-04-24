@@ -109,10 +109,17 @@
                                 		<input type="text" value="펀딩이 종료되었습니다.">
                                 	</c:if>
                                 </div>
+                                
                                 <div class="_d_btn_2th">
                                 	<c:if test="${board.bfRemainDate >= 0}">
-                                    	<input type="submit" value="장바구니" id="_btn_cart" disabled="disabled">
-                                    	<input type="submit" value="관심상품" id="_btn_likely" disabled="disabled">
+                                		<%-- <form id="bfcartSave" action="${ path }/board/bf_board/bf_cartSave" method="post"></form> 
+                                			<input type="hidden" name="bfNo" value="${ board.bfNo }">
+                                			<input type="hidden" name="userNo" value="${ user.userNo }">
+                                			<input type="hidden" name="bfPrice" value="${ board.bfPrice }">
+                                			<input type="hidden" name="bfTitle" value="${ board.bfTitle }"> --%>
+                                			
+	                                    	<input type="submit" value="장바구니" id="_btn_cart" disabled="disabled">
+	                                    	<input type="submit" value="관심상품" id="_btn_likely" disabled="disabled">
                                     </c:if>
                                 </div>
                             </div>
@@ -135,8 +142,10 @@
                         
                 </div>
             </article>
-    
-           <%--  <!-- contents bottom -->
+    		
+    		<br><br><br><br><br>
+    		
+            <!-- contents bottom -->
             <article id="prdReview" class="ec-base-tab">
                 <ul class="d_menu">
                     <li><a href="#tag1">상세정보</a></li>
@@ -305,7 +314,7 @@
                     <a href="#" class="next">›</a>
                     <a href="#" class="last">»</a>
                 </div> 
-            </article> --%>
+            </article>
         </section>
     </div>
     

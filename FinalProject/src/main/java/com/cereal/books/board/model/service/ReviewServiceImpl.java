@@ -132,4 +132,25 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.increateViewcnt(brNo);
 	}
 	
+	// 마이페이지 리뷰 조회
+	@Override
+	public List<ReviewBoard> getMyReviewList(int userNo) {
+		return reviewDao.myReviewList(userNo);
+	}
+	
+	// 마이페이지 스크랩 조회
+	@Override
+	public List<BookScrap> getMyScrapList(PageInfo pageInfo,int userNo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());	
+		
+		return reviewDao.myScrapList(rowBounds, userNo);
+	}
+
+	@Override
+	public int getMyScrapCount(int userNo) {
+		
+		return reviewDao.myScrapCount(userNo);
+	}
+	
 }

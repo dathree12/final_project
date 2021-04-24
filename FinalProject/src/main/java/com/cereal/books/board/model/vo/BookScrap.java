@@ -10,10 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookScrap {
-	private String title;
-	
-	private String content;
-	
-	private int bsIsbn;
-	
+    private int scrapNo;
+
+    private int userNo;
+
+    private String bsIsbn;
+
+    private String scrapStatus;
 }

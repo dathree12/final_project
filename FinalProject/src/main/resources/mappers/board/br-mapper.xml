@@ -235,4 +235,27 @@
 		WHERE 
 			BR_NO = #{brNo}
 	</update>
+	
+		<!-- 마이페이지 리뷰 조회 -->
+	<select id="myReviewList" parameterType="map" resultMap="brResultMap">
+		SELECT
+		    BR_NO,
+		    BR_ISBN,
+		    BR_CREATE_DATE
+		FROM BOOK_REVIEW_BOARD
+		WHERE USER_NO = #{userNo}
+	</select>
+	<!-- 마이페이지 스크랩 조회 -->
+	<select id="myScrapList" parameterType="map" resultMap="bookScrapResultMap">
+		SELECT SCRAP_NO,
+			   USER_NO,
+			   BS_ISBN
+		FROM BOOK_SCRAP
+		WHERE USER_NO = #{userNo}
+	</select>
+	<select id="myScrapCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOOK_SCRAP
+		WHERE USER_NO = #{userNo}
+	</select>
 </mapper>

@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.FundService;
+import com.cereal.books.board.model.vo.Cart;
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.board.model.vo.Payment;
 import com.cereal.books.common.util.PageInfo;
@@ -586,8 +587,52 @@ public class FundController {
 		
 	}
 	
-
+	// 상세페이지에서 장바구니 누르면 Cart 테이블에 저장하는 메소드
+//	@RequestMapping(value = "bf_cartSave",  method = {RequestMethod.POST})
+//	public ModelAndView bfcartSave(
+//			Cart cart, ModelAndView model, @RequestParam("bfNo") int bfNo, @RequestParam("userNo") int userNo, 
+//			@RequestParam("bfPrice") int bfPrice, @RequestParam("bfTitle") String bfTitle ) {
+//
+//		int result = 0;
+//		
+//		System.out.println(bfNo + " " + userNo + " " + bfPrice + " " + bfTitle);
+//		
+//		cart.setUserNo(userNo);
+//		cart.setCartTitle(bfTitle);
+//		cart.setCartPrice(bfPrice);
+//		cart.setBfNo(bfNo);
+//		
+//		result = service.bfcartSave(cart);
+//        
+//		if(result > 0) {
+//			model.addObject("msg", "장바구니에 담겼습니다.");
+//			model.addObject("location", "/board/bf_board/bf_viewDetail");
+//		} else {
+//			model.addObject("msg", "장바구니 저장에 실패하였습니다.");
+//			model.addObject("location", "/board/bf_board/bf_viewDetail");
+//		}
+//		
+//		return model;	
+//	}
 	
+	// 메인페이지 북펀딩, 북클럽 장바구니
+	@RequestMapping(value = "bf_cartList", method = {RequestMethod.GET})
+	public ModelAndView cartList(Cart cart, ModelAndView model) {
+		
+		
+		List<Cart> list1 = null;
+		List<Cart> list2 = null;
+		
+		list1 = service.getbfcartList();
+		list2 = service.getbccartList();
+		
+		model.addObject("list1", list1);
+		model.addObject("list2", list2);
+		model.setViewName("board/bf_board/bf_cartList");
+		
+		return model;
+		
+	}
 }
 
 
