@@ -29,7 +29,7 @@
 	    </div>
 	    <br><br>
 	    <div class="fd_pay_btn">
-	        <a href="#">주문목록</a>
+	        <a href="${path}/board/bf_board/bf_orderList">주문목록</a>
 	        <a href="${path}/">메인페이지</a>
 	    </div>
     </div>	
