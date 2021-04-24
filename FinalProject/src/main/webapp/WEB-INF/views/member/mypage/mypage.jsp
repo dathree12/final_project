@@ -24,12 +24,10 @@
             <p class="scrap_title"><B>Scrap</B></p>
             <div class="scrap">
                 <div class="scrap_info">
-                    <c:if test="${myScrapList == null}">
-						<div class="book_info" id="book1">
+                    <c:if test="${empty myScrapList}">
 							<p>스크랩 목록이 없습니다.</p>
-                    	</div>
 					</c:if>
-					<c:if test="${myScrapList != null}">
+					<c:if test="${!empty myScrapList}">
                     	<a><img onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.prvePage}&sListLimit=${myScrapPageInfo.listLimit}'" class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
 							<c:forEach var="scrapList" items="${myScrapList}">
 								<div class="book_info" id="book1" class="scrap_info">
@@ -40,7 +38,7 @@
                     	<a><img onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.nextPage}&sListLimit=${myScrapPageInfo.listLimit}'" class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
 					</c:if>
                 </div>
-                <c:if test="${myScrapList != null}">
+                <c:if test="${!empty myScrapList}">
                 <div class="small_pageBar" id="pageBar">
                     <button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.prvePage}&sListLimit=${myScrapPageInfo.listLimit}'">&lt;</button>
                     <c:forEach begin="${myScrapPageInfo.startPage}" end="${myScrapPageInfo.endPage}" step="1" varStatus="status">
@@ -224,12 +222,10 @@
             <div class="club">
                 <div class="join_club">
                     <div class="content">
-                        <c:if test="${myClubList == null}">
-							<div class="book_info" id="book1">
+                        <c:if test="${empty myClubList}">
 								참여중인 클럽이 없습니다.
-                          	</div>
 						</c:if>
-						<c:if test="${myClubList != null}">
+						<c:if test="${!empty myClubList}">
                         <a><img onclick="location.href='${path}/member/mypage/mypage?cPage=${myClubPageInfo.prvePage}&cListLimit=${myClubPageInfo.listLimit}'" class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
 							<c:forEach var="clublist" items="${myClubList}">
 								<div class="book_info" id="book1">
@@ -240,7 +236,7 @@
                         <a><img onclick="location.href='${path}/member/mypage/mypage?cPage=${myFundPageInfo.nextPage}&cListLimit=${myClubPageInfo.listLimit}'" class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
 						</c:if>
                     </div>
-                    <c:if test="${myClubList != null}">
+                    <c:if test="${!empty myClubList}">
                     <div class="pageBar">
                         <div class="small_pageBar" id="pageBar">
                             <!-- 이전 페이지로 -->
@@ -269,14 +265,14 @@
                                 <th class="th">Title</th>
                                 <th class="th">Status</th>
                             </tr>
-                            <c:if test="${myAplctClubList == null}">
+                            <c:if test="${empty myAplctClubList}">
 								<tr>
 									<td colspan="6">
 										제안 된 클럽 내역이 없습니다.
 									</td>
 								</tr>	
 							</c:if>
-							<c:if test="${myAplctClubList != null}">
+							<c:if test="${!empty myAplctClubList}">
 								<c:forEach var="aplctBC" items="${myAplctClubList}">
 									<tr>
 										<td><c:out value="${aplctBC.proposeNo}"/></td>
@@ -292,7 +288,7 @@
 							</c:if>
                         </table>
                     </div>
-                    <c:if test="${myAplctClubList != null}">
+                    <c:if test="${!empty myAplctClubList}">
                     <div class="pageBar">
                         <div id="pageBar">
                             <!-- 이전 페이지로 -->
@@ -321,12 +317,10 @@
             <div class="funding">
 	                <div class="join_club">
 	                    <div class="content">
-	                            <c:if test="${myFundList == null}">
-	                        		<div class="book_info" id="book1">
+	                            <c:if test="${empty myFundList}">
 										참여한 펀딩이 없습니다.
-	                        		</div>
 								</c:if>
-								<c:if test="${myFundList != null}">
+								<c:if test="${!empty myFundList}">
 	                        		<a><img onclick="location.href='${path}/member/mypage/mypage?fPage=${myFundPageInfo.prvePage}&fListLimit=${myFundPageInfo.listLimit}'" class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
 										<c:forEach var="fundlist" items="${myFundList}">
 		                        			<div class="book_info" id="book1">
@@ -337,7 +331,7 @@
 	                        		<a><img onclick="location.href='${path}/member/mypage/mypage?fPage=${status.current}&fListLimit=${myFundPageInfo.listLimit}'" class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
 								</c:if>
 	                    </div>
-	                    <c:if test="${myFundList != null}">
+	                    <c:if test="${!empty myFundList}">
 	                    <div class="pageBar">
 	                        <div class="small_pageBar" id="pageBar">
 	                            <!-- 이전 페이지로 -->
@@ -366,14 +360,14 @@
 	                                <th class="th">Title</th>
 	                                <th class="th">Status</th>
 	                            </tr>
-	                            <c:if test="${myAplctFundList == null}">
+	                            <c:if test="${empty myAplctFundListl}">
 									<tr>
 										<td colspan="6">
 											조회된 펀딩 내역이 없습니다.
 										</td>
 									</tr>	
 								</c:if>
-								<c:if test="${myAplctFundList != null}">
+								<c:if test="${!empty myAplctFundList}">
 									<c:forEach var="aplctBF" items="${myAplctFundList}">
 										<tr>
 											<td><c:out value="${aplctBF.bfNo}"/></td>
@@ -391,7 +385,7 @@
 								</c:if>
 	                        </table>
 	                    </div>
-	                    <c:if test="${myAplctFundList != null}">
+	                    <c:if test="${!empty myAplctFundList}">
 	                    <div class="pageBar">
 	                        <div id="pageBar">
 	                            <!-- 이전 페이지로 -->
