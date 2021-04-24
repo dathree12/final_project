@@ -55,4 +55,8 @@ public interface ReviewService {
 	List<BookScrap> getMyScrapList(PageInfo pageInfo, int userNo);
 
 	int getMyScrapCount(int userNo);
+
+	int saveRecommend(int brNo);
+
+	ReviewBoard findBoard(int brNo);
 }

@@ -251,6 +251,14 @@
 			BR_NO = #{brNo}
 	</update>
 	
+	<!-- 좋아요 증가 -->
+	<update id="increaseReco" parameterType="ReviewBoard">
+		UPDATE BOOK_REVIEW_BOARD
+		SET 
+			BR_LIKE = (BR_LIKE + 1)
+		WHERE 
+			BR_NO = #{brNo}
+	</update>
 		<!-- 마이페이지 리뷰 조회 -->
 	<select id="myReviewList" parameterType="map" resultMap="brResultMap">
 		SELECT

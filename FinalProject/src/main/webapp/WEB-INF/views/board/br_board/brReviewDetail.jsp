@@ -56,7 +56,7 @@
 					<p id="reviewheader-bookclass">${board.brBookType}</p>
 					<p id="reviewheader-reviewtitle">${board.brTitle}</p>
 					<p id="reviewheader-reviewwriter">${board.userNname}</p>
-					<p id="reviewheader-reviewdate">${board.brModifyDate}</p>
+					<p id="reviewheader-reviewdate"><fmt:formatDate var="dateTempt" value="${board.brModifyDate}" pattern="yyyy-MM-dd HH:mm"/><c:out value="${dateTempt}" /></p>
 					<p style="display: none">${board.brViewCount}</p>
 				</div>
 				<hr>
@@ -102,13 +102,10 @@
 					<c:out value="${board.brContent}" escapeXml="false" />
 				</div>
 				<div class="brboard-review-contentlower">
-					<span id="review-recommend-btn"> <a href="#"
-						class="recommend-button"><img src="${ path }/images/heart.png"
-							class="recoicon" id="recommend-icon1"></a> <a href="#"
-						class="recommend-button"><img
-							src="${ path }/images/redheart.png" class="recoicon"
-							id="recommend-icon2"></a> <span id="review-recommend-btn">추천
-							${board.brLike}</span>
+					<span id="review-recommend-btn"> 
+						<a onclick="reco();" class="recommend-button"><img src="${ path }/images/heart.png"
+							class="recoicon" id="recommend-icon1"></a> 
+						<span id="review-recommend-btn2"></span>
 					</span>
 					
 					<span id="review-edit-btn">
@@ -206,6 +203,47 @@
 			}
 			
 		});
+		function reco(){
+			var csrfToken = $("meta[name='csrf-token']").attr('content');
+		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+		    $(document).ajaxSend(function (e, xhr, options) {
+		        xhr.setRequestHeader(csrfHeader, csrfToken);
+		    });
+		var brNo = document.getElementById("reviewheader-brNo").innerHTML;
+			$.ajax({
+				url:	"reco",
+				type:	"POST",
+				dataType: "json",
+				data:	{'brNo' : brNo},
+				error: function() {
+					alert("좋아요 실패")
+				},
+				success: function() {
+					alert("좋아요 성공")
+					$("#recommend-icon1").attr("src","${ path }/images/redheart.png");
+					recCount();
+		}
+			})
+		}
+		
+		function recCount() {
+			var csrfToken = $("meta[name='csrf-token']").attr('content');
+		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+		    $(document).ajaxSend(function (e, xhr, options) {
+		        xhr.setRequestHeader(csrfHeader, csrfToken);
+		    });
+			var brNo = document.getElementById("reviewheader-brNo").innerHTML;
+			$.ajax({
+				url: "RecCount",
+                type: "POST",
+                data: {
+                    'brNo': brNo
+                },
+                success: function (count) {
+                	$("#review-recommend-btn2").html("좋아요 "+count.reco);
+                },
+			})
+		};
 		
 		function saveComment() {
 			var csrfToken = $("meta[name='csrf-token']").attr('content');
@@ -281,7 +319,7 @@
 	}
 		});
 	</script>
-<script>
+	<script>
 	    $(document).ready(function() {
 	        $('.comment_body').on('keyup', function(e) {
 	            $(this).css('height', 'auto');
@@ -290,6 +328,12 @@
 	        $('.comment_body').keyup();
 	    })
 	</script>
-	
+	<script>
+	$(document).ready(function() {
+			
+		recCount();
+
+	});
+	</script>
 
 <%@ include file="../../common/footer.jsp"%>

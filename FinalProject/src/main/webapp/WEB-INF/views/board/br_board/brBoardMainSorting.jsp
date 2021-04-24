@@ -79,7 +79,14 @@
 		                </div>    
 		                <div class="review-description">
 		                    <div class="book-description">
-		                        <p id="review-title"><a href="#"><c:out value="${board.brTitle}" /></a></p>
+		                        <c:choose>
+								        <c:when test="${fn:length(board.brTitle) gt 15}">
+								        <p id="review-title"><a href="#"><c:out value="${fn:substring(board.brTitle, 0, 14)}"/>
+								        </c:when>
+								        <c:otherwise>
+								        <p id="review-title"><a href="#"><c:out value="${board.brTitle}" /></a></p>
+								        </c:otherwise>
+								</c:choose>
 		                        <p id="review-bookisbn_${board.brNo}" style="display:none"><c:out value="${board.brIsbn}"/></p>
 		                        <p id="review-booktitle_${board.brNo}"></p>
 		                        <p id="review-writer"><c:out value="${board.userNname}" /></p>
