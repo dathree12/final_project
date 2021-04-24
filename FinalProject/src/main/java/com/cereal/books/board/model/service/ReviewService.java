@@ -45,5 +45,7 @@ public interface ReviewService {
 	Map<String, Object> deleteScrap(Map<String, Object> commandMap);
 
 	List<ReviewBoard> getBoardSortingList(PageInfo pageInfo);
+
+	int deleteBookreview(int brNo);
 	
 }

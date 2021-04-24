@@ -99,7 +99,7 @@ public class ReviewController {
 			model.addObject("location", "/board/br_board/brBoardMain");
 		} else {
 			model.addObject("msg", "게시글 등록을 실패하였습니다.");
-			model.addObject("location", "/board/list");
+			model.addObject("location", "/board/br_board/brBoardMain");
 		}			
 		
 	
@@ -108,7 +108,26 @@ public class ReviewController {
 	return model;
 	}
 	
-
+	@ResponseBody
+	@RequestMapping(value="/brBoardDelete")
+	public ModelAndView brDelete(@RequestParam("brNo") int brNo, ModelAndView model) {
+		int result = 0;
+		result = service.deleteBookreview(brNo);
+		System.out.println("삭제 컨트롤러 돌아간다. result : "+ result);
+		if(result > 0) {
+			model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
+			model.addObject("location", "/board/br_board/brBoardMain");
+		} else {
+			model.addObject("msg", "게시글 삭제를 실패하였습니다.");
+			model.addObject("location", "/board/br_board/brBoardMain");
+		}	
+		model.setViewName("common/msg");
+		
+		return model;
+		
+	}
+	
+	
 	@RequestMapping(value = "/imageUpload", method = { RequestMethod.POST })
 	public void brWrite(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
@@ -194,14 +213,30 @@ public class ReviewController {
 	@ResponseBody
 	@RequestMapping(value="/brReviewDetail", method = {RequestMethod.GET})
 	public ModelAndView brReviewDetail(@RequestParam("brNo") int brNo,
-					ModelAndView model, HttpServletRequest request, HttpServletResponse response,
-					@AuthenticationPrincipal Member member) {
+					ModelAndView model, HttpServletRequest request, HttpServletResponse response) {
 		ReviewBoard reviewboard = service.findBoardByNo(brNo);
-		int userNo = member.getUserNo();
-		String bsIsbn = reviewboard.getBrIsbn();
 		
-		Map<String,Object> idxMap = new HashMap<>();
-		// 조회수 증가, 쿠키를 이용한 중복 조회수 증가방지
+		
+			//책타입 바꾸기
+			if(reviewboard.getBrBookType().equals("b1")) {
+				reviewboard.setBrBookType("소설");
+			} 
+			if(reviewboard.getBrBookType().equals("b2")) {
+				reviewboard.setBrBookType("어린이/청소년");
+			}
+			if(reviewboard.getBrBookType().equals("b3")) {
+				reviewboard.setBrBookType("경제/경영");
+			}
+			if(reviewboard.getBrBookType().equals("b4")) {
+				reviewboard.setBrBookType("인문/사회/역사");
+			}
+			if(reviewboard.getBrBookType().equals("b5")) {
+				reviewboard.setBrBookType("종교/역학");
+			}
+			if(reviewboard.getBrBookType().equals("b6")) {
+				reviewboard.setBrBookType("자기개발");
+			}
+				// 조회수 증가, 쿠키를 이용한 중복 조회수 증가방지
 				Cookie[] cookies = request.getCookies();
 				// 비교하기 위해 새로운 쿠키생성
 				Cookie viewCookie = null;
@@ -223,19 +258,6 @@ public class ReviewController {
 		            System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
 		            
 		            model.addObject("board", reviewboard);
-		            
-		            idxMap.put("userNo", userNo);
-		            idxMap.put("bsIsbn", bsIsbn);
-		            Map<String,Object> likecheckMap = service.scrapCheck(idxMap);
-		            //like 테이블 에서 사용자가 해당 게시글에 대해서 좋아요를 눌렀는지 확인
-		            if(likecheckMap == null) {
-				    //사용자가 좋아요를 한번도 누른적이 없으면 
-				    //스크랩테이블에 데이터가 없으므로 null반환
-		                model.addObject("likecheck",0);
-		            }
-		            else {
-		                model.addObject("likecheck",likecheckMap.get("likecheck"));
-		            }
 		 
 		            // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
 		            if (viewCookie == null) {    

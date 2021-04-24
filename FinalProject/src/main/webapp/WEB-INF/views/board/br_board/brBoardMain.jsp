@@ -64,7 +64,7 @@
                 </div>
                 <div class = "brboard-mid-searchbar_item sorting">
                     <a onclick="location.href='${path}/board/br_board/brBoardMain'" id="sorting_newest">최신순</a>
-                    <a onclick="location.href='#'" id="sorting_best">추천순</a>
+                    <a onclick="location.href='${path}/board/br_board/brBoardMainSorting'" id="sorting_best">추천순</a>
                 </div>
                 
             </form>    

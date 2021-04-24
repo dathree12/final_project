@@ -148,5 +148,11 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return reviewDao.selectBoardSortingList(rowBounds);
 	}
+
+	@Override
+	public int deleteBookreview(int brNo) {
+		
+		return reviewDao.deleteBookreview(brNo);
+	}
 	
 }

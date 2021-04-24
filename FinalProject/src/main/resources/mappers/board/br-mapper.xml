@@ -40,7 +40,7 @@
 		<result property="status" column="BR_STATUS"/>
 		<result property="brRating" column="BR_RATING"/>
 	</resultMap>
-	
+
  	<!-- 글상세보기 resultmap(댓글포함) -->
  	<resultMap type="ReviewBoard" id="brDetailResultMap"> <!-- type vo자바클래스 변수 이름,, resultMap 쓰는 이유는 컬럼과 vo이름이 다를때 -->
 		<id property="brNo" column="BR_NO"/>
@@ -78,7 +78,8 @@
 		<result property="bsIsbn" column="BS_ISBN"/> <!-- 주의!! bs임 br아님 -->
 		<result property="scrapStatus" column="SCRAP_STATUS"/>
 	</resultMap>
-
+	
+	<!-- 글쓰기 -->
 	<insert id="insertReviewBoard" parameterType="map"
 		useGeneratedKeys="true" keyProperty="brNo" keyColumn="BR_NO">
   		
@@ -117,7 +118,15 @@
 		FROM BOOK_REVIEW_BOARD BR
 		WHERE BR.BR_STATUS='Y'
 	</select>
+		
+	<!-- 글삭제  -->
+	<update id="deleteBookreview" parameterType="_int">
+		UPDATE BOOK_REVIEW_BOARD BR
+			SET BR.BR_STATUS = 'N'
+			WHERE BR_NO = #{brNo}
+	</update>
 	
+	<!-- 글상세보기 -->
 	<select id="selectBoardDetail" parameterType="_int" resultMap="brDetailResultMap">
 		SELECT BR.BR_NO,
 		       BR.USER_NO,

@@ -58,8 +58,6 @@
 					<p id="reviewheader-reviewwriter">${board.userNname}</p>
 					<p id="reviewheader-reviewdate">${board.brModifyDate}</p>
 					<p style="display: none">${board.brViewCount}</p>
-					<p id="reviewbookisbn" style="display: none">${board.brIsbn}</p>
-					<p  id="LoginNo" style="display: none">${user.userNo}</p>
 				</div>
 				<hr>
 				<security:authorize access="hasRole('USER')">
@@ -111,11 +109,13 @@
 							src="${ path }/images/redheart.png" class="recoicon"
 							id="recommend-icon2"></a> <span id="review-recommend-btn">추천
 							${board.brLike}</span>
-					</span> 
-					<span id="review-edit-btn"> 
-						<a href="#" id="edit-button">수정</a>
-						<a href="#" id="delete-button">삭제</a>
 					</span>
+					
+					<span id="review-edit-btn">
+						<a href="${path}/board/br_board/brBoardWrite" id="edit-button">수정</a>
+						<a href="${path}/board/br_board/brBoardDelete?brNo=${board.brNo}" id="delete-button">삭제</a>
+					</span>
+					</form>
 				</div>
 				<hr>
 				<div class="container">
@@ -290,5 +290,6 @@
 	        $('.comment_body').keyup();
 	    })
 	</script>
+	
 
 <%@ include file="../../common/footer.jsp"%>

@@ -53,7 +53,9 @@ public interface ReviewDao {
 
 		Map<String, Object> deleteScrap(Map<String, Object> commandMap);
 
-		List<ReviewBoard> selectBoardSortingList(RowBounds rowBounds); 
+		List<ReviewBoard> selectBoardSortingList(RowBounds rowBounds);
+
+		int deleteBookreview(int brNo); 
 		
 		
 }
