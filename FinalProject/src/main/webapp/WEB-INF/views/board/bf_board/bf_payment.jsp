@@ -161,7 +161,7 @@
 				return false;
 			} else {
 				//가맹점 식별코드
-	    		IMP.init('imp48029222');
+	    		IMP.init('imp63746660');
 	    		IMP.request_pay({
 	    		    pg : 'kakao',
 	    		    pay_method : 'card',

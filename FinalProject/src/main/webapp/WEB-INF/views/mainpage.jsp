@@ -16,11 +16,143 @@
 </head>
 
     <section id="main_container">
+    
     	
         <div id="high_div">
-
+		
             <div id="inner_img_div">
+            <c:if test="${bflist != null}">
+        		<c:forEach var="bfboard" items="${bflist}" varStatus="index">
+	        		<div id="bfindex${index.count}">
+			            <div class="bf_div">
+				            <div class="bf_img">
+				            	<img alt="" src="${ path }/upload/bf_board/${ bfboard.bfReImgName }" id="bf_image">
+				            </div>
+				            <div class="bf_info">
+					            <div class="bf_title">
+					               <h3>${bfboard.bfTitle }</h3>
+					            </div>
+					            <div class="bf_date">
+					               <c:if test="${bfboard.bfRemainDate >= 0}">
+	                        		<h4 id="_deadline"><span><c:out value="${bfboard.bfRemainDate}"/> </span> 일 남음</h4>
+	                        	</c:if>
+	                        	<c:if test="${bfboard.bfRemainDate < 0}">
+	                        		<h4 id="_deadline"><span><c:out value="${-bfboard.bfRemainDate}"/> </span> 일 지남</h4>
+	                        	</c:if>
+					            </div>
+					            <div class="bf_text">
+				               	 <p> ${bfboard.bfContent } </p>
+				            	</div>
+				            </div>
+			            </div>
+					
+				        <div class="box">
+	                 		<div><span class="bf_th">현재 도달 금액 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />원</span> </div>
+	                 		<div><span class="bf_th">목표 달성 금액 </span><span class="bf_td"><c:out value="${bfboard.bfTargetPrice}" />원</span> </div>
+	                 		<div><span class="bf_th">달성률 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />%</span> </div>
+				        </div>
+				            <br>
+							<br>
+							
+						<security:authorize access="isAnonymous()">
+					        <div class="bf_bt">
+					        	<button class="bf_btn"  type="button" id="bf_button">신청하러 가기</button>
+					        </div>
+					    </security:authorize>
+						<security:authorize access="hasRole('USER')">
+					        <div class="bf_bt">
+					        	<button class="bf_btn"  type="button" onclick="location.href=('${path}/board/bf_board/bf_viewDetail?bfNo=${bfboard.bfNo}')">신청하러 가기</button>
+					        </div>
+					    </security:authorize>
+				     </div>
+
+				    
+<%--         			<c:if test="${index.count == 2}"> --%>
+<!-- 	        		<div id="bfindex2" style="display: none;"> -->
+<!-- 			            <div class="bf_div"> -->
+<!-- 				            <div class="bf_img"> -->
+<%-- 				            	<img alt="" src="${ path }/upload/bf_board/${ bfboard.bfReImgName }" id="bf_image"> --%>
+<!-- 				            </div> -->
+<!-- 				            <div class="bf_info"> -->
+<!-- 					            <div class="bf_title"> -->
+<%-- 					               <h3>${bfboard.bfTitle }</h3> --%>
+<!-- 					            </div> -->
+<!-- 					            <div class="bf_date"> -->
+<%-- 					               <c:if test="${bfboard.bfRemainDate >= 0}"> --%>
+<%-- 	                        		<h4 id="_deadline"><span><c:out value="${bfboard.bfRemainDate}"/> </span> 일 남음</h4> --%>
+<%-- 	                        	</c:if> --%>
+<%-- 	                        	<c:if test="${bfboard.bfRemainDate < 0}"> --%>
+<%-- 	                        		<h4 id="_deadline"><span><c:out value="${-bfboard.bfRemainDate}"/> </span> 일 지남</h4> --%>
+<%-- 	                        	</c:if> --%>
+<!-- 					            </div> -->
+<!-- 					            <div class="bf_text"> -->
+<%-- 				               	 <p> ${bfboard.bfContent } </p> --%>
+<!-- 				            	</div> -->
+<!-- 				            </div> -->
+<!-- 			            </div> -->
+					
+<!-- 				        <div class="box"> -->
+<%-- 	                 		<div><span class="bf_th">현재 도달 금액 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />원</span> </div> --%>
+<%-- 	                 		<div><span class="bf_th">목표 달성 금액 </span><span class="bf_td"><c:out value="${bfboard.bfTargetPrice}" />원</span> </div> --%>
+<%-- 	                 		<div><span class="bf_th">달성률 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />%</span> </div> --%>
+<!-- 				        </div> -->
+<!-- 				            <br> -->
+<!-- 							<br> -->
+<!-- 				        <div class="bf_bt"> -->
+<%-- 				        	<button class="bf_btn"  type="button" onclick="location.href=('${path}/board/bf_board/bf_viewDetail?bfNo=${bfboard.bfNo}')">신청하러 가기</button> --%>
+<!-- 				        </div> -->
+<!-- 				     </div> -->
+<%-- 				    </c:if>   --%>
+<%--         			<c:if test="${index.count == 3}"> --%>
+<!-- 	        		<div id="bfindex3" style="display: none;"> -->
+<!-- 			            <div class="bf_div"> -->
+<!-- 				            <div class="bf_img"> -->
+<%-- 				            	<img alt="" src="${ path }/upload/bf_board/${ bfboard.bfReImgName }" id="bf_image"> --%>
+<!-- 				            </div> -->
+<!-- 				            <div class="bf_info"> -->
+<!-- 					            <div class="bf_title"> -->
+<%-- 					               <h3>${bfboard.bfTitle }</h3> --%>
+<!-- 					            </div> -->
+<!-- 					            <div class="bf_date"> -->
+<%-- 					               <c:if test="${bfboard.bfRemainDate >= 0}"> --%>
+<%-- 	                        		<h4 id="_deadline"><span><c:out value="${bfboard.bfRemainDate}"/> </span> 일 남음</h4> --%>
+<%-- 	                        	</c:if> --%>
+<%-- 	                        	<c:if test="${bfboard.bfRemainDate < 0}"> --%>
+<%-- 	                        		<h4 id="_deadline"><span><c:out value="${-bfboard.bfRemainDate}"/> </span> 일 지남</h4> --%>
+<%-- 	                        	</c:if> --%>
+<!-- 					            </div> -->
+<!-- 					            <div class="bf_text"> -->
+<%-- 				               	 <p> ${bfboard.bfContent } </p> --%>
+<!-- 				            	</div> -->
+<!-- 				            </div> -->
+<!-- 			            </div> -->
+					
+<!-- 				        <div class="box"> -->
+<%-- 	                 		<div><span class="bf_th">현재 도달 금액 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />원</span> </div> --%>
+<%-- 	                 		<div><span class="bf_th">목표 달성 금액 </span><span class="bf_td"><c:out value="${bfboard.bfTargetPrice}" />원</span> </div> --%>
+<%-- 	                 		<div><span class="bf_th">달성률 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />%</span> </div> --%>
+<!-- 				        </div> -->
+<!-- 				            <br> -->
+<!-- 							<br> -->
+<!-- 				        <div class="bf_bt"> -->
+<%-- 				        	<button class="bf_btn"  type="button" onclick="location.href=('${path}/board/bf_board/bf_viewDetail?bfNo=${bfboard.bfNo}')">신청하러 가기</button> --%>
+<!-- 				        </div> -->
+<!-- 				     </div> -->
+<%-- 				    </c:if>   --%>
+	        		
+		      	</c:forEach>								
+        	</c:if>  
+        	
+        	<br>
+        	<div class="pageBar">
+                
+                <span class="pagespan" id="prev">&lt;&lt;</span>&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+                <span class="pagespan" id="next">&gt;&gt;</span>
             </div>
+        	    
+            </div>
+            <br>
+            <br>
             <security:authorize access="isAnonymous()">
             <div id="inner_reco_div">
                 <span id="inner_reco_div_span">추천 도서</span>
@@ -188,6 +320,10 @@
 
 	<script>
 	 $(document).ready(function () {
+		 $('#bfindex2').css('display','none');
+		 $('#bfindex3').css('display','none');
+		 
+		 
 		 	<c:forEach var="board" items="${list}">
 		 	 var isbn = document.getElementById("review-bookisbn_${board.brIsbn}").innerText
 		 	 
@@ -254,44 +390,14 @@
      					success: function(data) {
      						var str = '';
      						$.each(data, function(key, obj){ 
-									if (key == 0) {
-	 									str += ' <div class="genre" >';
-	 									str += '<a  href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" id="gBestImage0_${obj.brNo}" ></a>';
-	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
-	 									str += ' <a href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" >';				
-	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
-	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
-	 									str += '</a></div>';
-									}else if(key == 1){
-										str += ' <div class="genre" >';
-	 									str += '<a  href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" id="gBestImage1_${obj.brNo}" ></a>';
-	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
-	 									str += ' <a href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" >';				
-	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
-	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
-	 									str += '</a></div>';
-	 						
-	 								
-									}else if(key == 2){
-							
-										str += ' <div class="genre" >';
-	 									str += '<a  href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" id="gBestImage2_${obj.brNo}" ></a>';
-	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
-	 									str += ' <a href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" >';				
-	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
-	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
-	 									str += '</a></div>';
 									
-									}else if(key == 3){
-										str += ' <div class="genre" >';
-	 									str += '<a href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" id="gBestImage3_${obj.brNo}" ></a>';
+	 									str += ' <div class="genre" >';
+	 									str += '<a  href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" id="gBestImage'+ key +'_${obj.brNo}" ></a>';
 	 									str += '<p id="review-gbestisbn_${obj.brNo}" style="display:none">'+ obj.brIsbn+ '</p>';
 	 									str += ' <a href="${path}/board/br_board/brReviewDetail?brNo='+obj.brNo+'" >';				
 	 									str += '<div class="genre_title"><span >'+ obj.brTitle +'</span></div>';
 	 									str += '<div class="genre_content"><span>'+obj.brContent+'</span></div>';
 	 									str += '</a></div>';
-	 							
-									}
      						});
      						
      						$("#me_genre_div").html(str);
@@ -300,7 +406,6 @@
      						$.each(data, function(key, obj){ 
       					  
      							 let isbn = obj.brIsbn;
-     							if (key == 0) {	
 								  $.ajax({
 					                 method: "GET",
 					                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
@@ -308,46 +413,10 @@
 					                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
 					             })
 					                 .done(function (msg) {
-					                     $("#gBestImage0_${obj.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
+					                     $("#gBestImage"+key+"_${obj.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
 					               
 					            });
-     						
-     							}else if (key == 1){
-     								  $.ajax({
-     					                 method: "GET",
-     					                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
-     					                 data: { query: isbn },
-     					                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
-     					             })
-     					                 .done(function (msg) {
-     					                     $("#gBestImage1_${obj.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
-     					               
-     					            });
-     							
-     							}else if (key == 2){
-     								  $.ajax({
-     					                 method: "GET",
-     					                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
-     					                 data: { query: isbn },
-     					                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
-     					             })
-     					                 .done(function (msg) {
-     					                     $("#gBestImage2_${obj.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
-     					               
-     					            });
-     							
-     							}else if (key == 3){
-     								  $.ajax({
-     					                 method: "GET",
-     					                 url: "https://dapi.kakao.com/v3/search/book?target=isbn",
-     					                 data: { query: isbn },
-     					                 headers: { Authorization: "KakaoAK 954b12f5b02d89c0024a777f0dab5148" },
-     					             })
-     					                 .done(function (msg) {
-     					                     $("#gBestImage3_${obj.brNo}").append("<img src='" + msg.documents[0].thumbnail + "'/>");
-     					               
-     					            });
-     							}
+     				
      						});
      						
 
@@ -358,7 +427,48 @@
      				});	
      			
      	 	});	
- 
+             
+             
+             
+             // 북클럽/북펀딩 보여주기.
+             $('#prev').on('click',() => {
+            	 if($('#bfindex3').css('display') != 'none'){	 		
+    				 $('#bfindex2').css('display','');
+    				 $('#bfindex1').css('display','none');
+    				 $('#bfindex3').css('display','none');
+    	
+    			 }else if($('#bfindex2').css('display') != 'none'){
+    			 		
+    			 	 $('#bfindex1').css('display','');
+       				 $('#bfindex2').css('display','none');
+       				 $('#bfindex3').css('display','none');
+    			 		
+    			 	}							
+    		
+    		});
+    		 $('#next').on('click',() => {
+    			 	if($('#bfindex1').css('display') != 'none'){	 		
+	    				 $('#bfindex2').css('display','');
+	    				 $('#bfindex1').css('display','none');
+    	
+    			 	}else if($('#bfindex2').css('display') != 'none'){
+    			 		
+	    			 	 $('#bfindex3').css('display','');
+	       				 $('#bfindex1').css('display','none');
+	       				 $('#bfindex2').css('display','none');
+	    			 		
+    			 	}							
+    		});
+    		 $('#bf_button').on('click',() => {
+ 						
+    			 alert('로그인 해주세요.')
+    			 
+    			 location.href='${path}/member/login';
+    			 
+ 			});
+    		 
+    	
+    		 
 		});	
      
 	</script>
