@@ -97,7 +97,6 @@
 <body>
 <%@ include file="../../common/header.jsp" %>
 <div class="wrap" style="width: 1280px; margin: auto;">
-    <form action="" id="BoardDelForm" method="" enctype="multipart/form-data">
         <!-- input type:hidden 으로 정보 가져오기 -->
         <div class="xans-element- xans-board xans-board-read-4 xans-board-read xans-board-4">
             <div class="-board-free-view">
@@ -132,7 +131,7 @@
                 </div>
             </div>
             <div class="comment_textarea">
-                <form action="${ path }/board/bc_board/bcBoardRead?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form">
+                <form action="${ path }/board/cs_board/qnaDetail?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form">
                     <div class="custom-textarea">
                         <textarea class="comment_body" style="border: 0px; outline: none;" name="comment_body" id="comment_body" rows="1" placeholder="댓글을 남겨주세요"></textarea>
                         <div class="write_button_wrap">
@@ -147,12 +146,12 @@
                 <div class="list_button_wrap">
                     <div class="none"></div>
                     <div class="write_button">
-                        <a href="${ path }/board/bc_board/bcBoardList" style="color: #fff;">목록</a>
+                        <a onclick="history.back();"  style="color: #fff;">목록</a>
                     </div>
                 </div>
                 <div class="bottom_list_wrap">
                     <ul style="padding: 0;">
-                        <input id="qaNo" name="qaNo" style="visibility: hidden;" type="text" value="${ list.qaNo }">
+                        <input id="qaNo" name="qaNo" style="visibility: hidden;" type="text" value="${ qa.qaNo }">
                         <!-- 고민중 -->
                         <li class="next" style="margin: 0;">
                             <span><a><i class="fas fa-chevron-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;다음글</a></span>
@@ -162,7 +161,6 @@
                 </div>
             </div>
         </div>
-    </form>
 </div>
 
 <!--  

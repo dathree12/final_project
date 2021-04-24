@@ -92,7 +92,19 @@
 		                        <td style="width: 150px"><c:out value="${ list.qaEnrollDate }"/></td>
 		                        <td style="width: 90px"><c:out value="${ list.qaViewCount }"/></td>
 		                        <security:authorize access="hasRole('ADMIN')">
-		                        	<td style="width: 50px; border: none"><input style="background-color: #747474; border: 1px solid #4f4f4f; width: 100%; height: 100%; border-radius: 0px; color: white;" onclick="removeList();" id="removeList" name="removeList" type="button" value="삭제"></td>
+		                        	<td style="width: 50px; border: none"><input style="cursor: pointer; background-color: #747474; border: 1px solid #4f4f4f; width: 100%; height: 100%; border-radius: 0px; color: white;" onclick="removeList();" id="removeList" name="removeList" type="button" value="삭제"></td>
+  			                        <script type="text/javascript">
+										function removeList() {
+											var removeList = confirm('정말 삭제하시겠습니까?');
+											var qaNo = ${ list.qaNo };
+											
+											if(removeList == true) {
+												location.replace('${path}/board/cs_board/delete?qaNo=' + qaNo + "");
+											} else {
+												alert('취소되었습니다.');
+											}
+										}
+									</script>
 		                        </security:authorize>
 		                    </tr>
 		                </tbody>

@@ -34,11 +34,11 @@
                 <!-- info : title -->
                 <div class="infoArea__box">
                     <div class="infoArea">
-                    <c:if test="${ clubBoard.bcRemainDate >= 0 }">
+                    <c:if test="${ clubBoard.bcRemainDate < 0 }">
                         <h1 id="_deadline"><span>마감되었습니다</span></h1>
                     </c:if>
-                    <c:if test="${ clubBoard.bcRemainDate < 0 }">
-                        <h1 id="_deadline"><span><c:out value="${ clubBoard.bcRemainDate }"/></span>일 남음</h1>
+                    <c:if test="${ clubBoard.bcRemainDate >= 0 }">
+                        <h1 id="_deadline"><span><span style="font-size: 15px; font-weight: bold;">신청마감</span> <c:out value="${ clubBoard.bcRemainDate }"/></span>일 남음</h1>
                     </c:if>
                         <h2 id="bcOriginTitle" name="bcOriginTitle" style="margin-top: 10px;"><c:out value="${ clubBoard.bcOriginTitle }"/></h2>
                     </div>
@@ -61,7 +61,7 @@
                                         <span class="option_require">*</span>
                                     </div>
                                     <div class="form-select-wrap">
-                                        <a href="javascript:;" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                                        <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
                                             style="display: block; font-size: 14px; padding: 8px 24px 8px 12px; border: 1px solid #ddd; border-color: #212121; transition: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; line-height: 1.42857143;">
                                             선택 (필수)
                                         </a>
@@ -102,13 +102,17 @@
                         <hr>
                         <!-- info : button -->
                         <div class="ec-base-button">
-                            <div class="_d_btn_1th"> 
-                                <input type="submit" value="바로구매하기" onclick="goPayment();">
-                            </div>
-                            <div class="_d_btn_2th">
-                                <input type="submit" value="장바구니" id="_btn_cart">
-                                <input type="submit" value="관심상품" id="_btn_likely">
-                            </div>
+	                        <form action="${ path }/board/bc_board/bcBoardPayment" method="get" name="frm" onclick="goPayment();">
+	                            <div class="_d_btn_1th"> 
+	                            	<!-- bcNo 넘겨주기 -->
+	                                <input type="hidden" name="bcNo" id="bcNo" value="${ clubBoard.bcNo }">
+	                                <input type="button" value="바로구매하기">
+	                            </div>
+	                            <div class="_d_btn_2th">
+	                                <input type="submit" value="장바구니" id="_btn_cart">
+	                                <input type="submit" value="관심상품" id="_btn_likely">
+	                            </div>
+	                        </form>
                         </div>
                     </div>
                 </div>
@@ -329,35 +333,4 @@
         </article>
     </section>
     <script src="${ path }/js/club/bcBoardDetail.js"></script>
-    <!--  
-    <script>
-    ??multipart에러가 여기서 발생하는거였네
- 		// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
-    	$(document).ready(function() {
-    	    var csrfToken = $("meta[name='csrf-token']").attr('content');
-    	    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
-    	    $(document).ajaxSend(function (e, xhr, options) {
-    	        xhr.setRequestHeader(csrfHeader, csrfToken);
-    	    });
-    	    
-       		// var thumbnail_img = $('#thumbnail_img');
-       		var bcOriginTitle = $('#bcOriginTitle').text(); // html() 은 자식 태그까지 태그값까지 가져오는 것, text() 문자열 읽어오기, val()은 value 속성 값
-       		var bcPrice = $('#bcPrice').text();
-       		
-       		$.ajax({
-       			type: "POST",
-   				url: "bcExpWrite", // 보내고 싶은 서버의 url...
-       		    data : {
-       		    	bcOriginTitle
-       		    },
-   				success: function(data, status, xhr) {
-   					console.log(data);
-   				},
-   				error: function(xhr, status, data) {
-   					console.log(e);
-   				}
-       		})
-    	});
-    </script>
-    -->
 <%@ include file="../../common/footer.jsp" %>
