@@ -51,7 +51,7 @@
 		<security:access-denied-handler error-page="/accessError"/>
 	
 		<security:form-login
-			login-page="/member/login"
+			login-page="/login"
 			username-parameter="userId"
 			password-parameter="userPwd"
 		    authentication-success-handler-ref="customLoginSuccess"
@@ -63,6 +63,12 @@
 			logout-success-url="/"
 		
 		/>
+		
+		<security:remember-me key="bookKey" token-validity-seconds="604800"/>
+		
+			<security:session-management invalid-session-url="/">
+				<security:concurrency-control max-sessions="1" expired-url="/member/login"/>
+			</security:session-management>
 		
 		</security:http>
 		

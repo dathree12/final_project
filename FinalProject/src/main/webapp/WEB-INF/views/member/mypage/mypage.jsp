@@ -23,25 +23,22 @@
             <!-- 스크랩 -->
             <p class="scrap_title"><B>Scrap</B></p>
             <div class="scrap">
-                <div>
-                    <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
-                    <c:if test="${myScrapList == null}">
-						<div class="book_info" id="book1">
+                <div class="scrap_info">
+                    <c:if test="${empty myScrapList}">
 							<p>스크랩 목록이 없습니다.</p>
-                    	</div>
 					</c:if>
-					<c:if test="${myScrapList != null}">
-						<c:forEach var="scrapList" items="${myScrapList}">
-							<div class="book_info" id="book1">
-                          		<a href="${path}/board/br_board/brReviewDetail?scrapList=${scrapList.scrapNo}" name="thumbnailbox" id="scrapthumbnail_${scrapList.scrapNo}"></a>
-                          		<p id="scrap-booktitle_${scrapList.scrapNo}"></p>
-                          		<p id="scrap-bookisbn_${scrapList.scrapNo}" style="display:none"><c:out value="${scrapList.bsIsbn}"/></p>
-                    		</div>
-						</c:forEach>
+					<c:if test="${!empty myScrapList}">
+                    	<a><img onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.prvePage}&sListLimit=${myScrapPageInfo.listLimit}'" class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
+							<c:forEach var="scrapList" items="${myScrapList}">
+								<div class="book_info" id="book1" class="scrap_info">
+	                          		<a href="${path}/board/br_board/brReviewDetail?scrapList=${scrapList.scrapNo}" name="thumbnailbox" id="scrapthumbnail_${scrapList.scrapNo}"></a>
+	                          		<p id="scrap-bookisbn_${scrapList.scrapNo}" style="display:none"><c:out value="${scrapList.bsIsbn}"/></p>
+	                    		</div>
+							</c:forEach>
+                    	<a><img onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.nextPage}&sListLimit=${myScrapPageInfo.listLimit}'" class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
 					</c:if>
-                    <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
                 </div>
-                <c:if test="${myScrapList != null}">
+                <c:if test="${!empty myScrapList}">
                 <div class="small_pageBar" id="pageBar">
                     <button type="button" onclick="location.href='${path}/member/mypage/mypage?sPage=${myScrapPageInfo.prvePage}&sListLimit=${myScrapPageInfo.listLimit}'">&lt;</button>
                     <c:forEach begin="${myScrapPageInfo.startPage}" end="${myScrapPageInfo.endPage}" step="1" varStatus="status">
@@ -116,6 +113,7 @@
                 	var myDate = today.getFullYear() +""+ myMonth +""+ myDay ;
                     cell = row.insertCell();
                      
+                    if("${myReviewList}" != "[]") {
                     // 리뷰 불러와서 값 세팅하기
                 	var arr = new Array("${myReviewList}".listSize);
                 	
@@ -149,7 +147,7 @@
                 		var brNo = newArr[0].brNo; 
                 		var isbn = newArr[0].isbn; 
                 	}
-                	
+                 }
                 	// 새로 만든 배열 값으로 캘린더 출력하기
                     if (parseInt(createDate) == parseInt(myDate)){
                      	cell.innerHTML = i + "<div class='calendar_img' id='calendar_img_" + brNo + "'></div>"
@@ -162,8 +160,8 @@
 					/*일요일 계산*/
                     if (cnt % 7 == 1) {
 	                	if (parseInt(createDate) == parseInt(myDate)){
-	                    	cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
-	                    	+ '<input type="hidden" id="review-bookisbn_${board.brNo}" value="${board.brIsbn}">';
+	                    	cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img' id='calendar_img_" + brNo + "'></div>"
+	                     	+ '<input type="hidden" id="review-bookisbn_' + brNo + '" value="' + isbn + '">';
 	                  	} else {
 	                  		cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img'/>";
 	                  	}
@@ -173,8 +171,8 @@
                   	/* 토요일 구하기*/
                  	if (cnt%7 == 0){
                 		if (parseInt(createDate) == parseInt(myDate)){
-                      		cell.innerHTML = "<font color=skyblue>" + i + "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
-                      		+ '<input type="hidden" id="review-bookisbn_${board.brNo}" value="${board.brIsbn}">';
+                      		cell.innerHTML = "<font color=skyblue>" + i + "<div class='calendar_img' id='calendar_img_" + brNo + "'></div>"
+                         	+ '<input type="hidden" id="review-bookisbn_' + brNo + '" value="' + isbn + '">';
                     	} else {
                       		cell.innerHTML = "<font color=skyblue>" + i + "<div class='calendar_img'/>";
                     	}
@@ -224,21 +222,21 @@
             <div class="club">
                 <div class="join_club">
                     <div class="content">
-                        <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
-                        <c:if test="${myClubList == null}">
-							참여중인 클럽이 없습니다.
+                        <c:if test="${empty myClubList}">
+								참여중인 클럽이 없습니다.
 						</c:if>
-						<c:if test="${myClubList != null}">
+						<c:if test="${!empty myClubList}">
+                        <a><img onclick="location.href='${path}/member/mypage/mypage?cPage=${myClubPageInfo.prvePage}&cListLimit=${myClubPageInfo.listLimit}'" class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
 							<c:forEach var="clublist" items="${myClubList}">
 								<div class="book_info" id="book1">
 								<a href="#" name="thumbnailbox"><img onclick="location.href='${path}/board/bc_board/bcBoardDetail?bcNo=${clublist.bcNo}'" class="club_image" value="${clublist.bcNo}" src="${path}/upload/bf_board/${clublist.bcModifyImage}"></a>
                            		<p>${clublist.bcOriginTitle}</p>
                            		</div>
 							</c:forEach>
+                        <a><img onclick="location.href='${path}/member/mypage/mypage?cPage=${myFundPageInfo.nextPage}&cListLimit=${myClubPageInfo.listLimit}'" class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
 						</c:if>
-                        <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
                     </div>
-                    <c:if test="${myClubList != null}">
+                    <c:if test="${!empty myClubList}">
                     <div class="pageBar">
                         <div class="small_pageBar" id="pageBar">
                             <!-- 이전 페이지로 -->
@@ -267,14 +265,14 @@
                                 <th class="th">Title</th>
                                 <th class="th">Status</th>
                             </tr>
-                            <c:if test="${myAplctClubList == null}">
+                            <c:if test="${empty myAplctClubList}">
 								<tr>
 									<td colspan="6">
 										제안 된 클럽 내역이 없습니다.
 									</td>
 								</tr>	
 							</c:if>
-							<c:if test="${myAplctClubList != null}">
+							<c:if test="${!empty myAplctClubList}">
 								<c:forEach var="aplctBC" items="${myAplctClubList}">
 									<tr>
 										<td><c:out value="${aplctBC.proposeNo}"/></td>
@@ -290,7 +288,7 @@
 							</c:if>
                         </table>
                     </div>
-                    <c:if test="${myAplctClubList != null}">
+                    <c:if test="${!empty myAplctClubList}">
                     <div class="pageBar">
                         <div id="pageBar">
                             <!-- 이전 페이지로 -->
@@ -319,21 +317,21 @@
             <div class="funding">
 	                <div class="join_club">
 	                    <div class="content">
-	                        <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
-	                        <div class="book_info" id="book1">
-	                            <c:if test="${myFundList == null}">
-									참여한 펀딩이 없습니다.
+	                            <c:if test="${empty myFundList}">
+										참여한 펀딩이 없습니다.
 								</c:if>
-								<c:if test="${myFundList != null}">
-									<c:forEach var="fundlist" items="${myFundList}">
-										<a href="#" name="thumbnailbox"><img onclick="location.href='${path}/board/bf_board/bf_viewDetail?bfNo=${fundlist.bfNo}'" class="image" value="${fundlist.bfNo}" src="${path}/upload/bf_board/${fundlist.bfReImgName}"></a>
-	                            		<p>${fundlist.bfTitle}</p>
-									</c:forEach>
+								<c:if test="${!empty myFundList}">
+	                        		<a><img onclick="location.href='${path}/member/mypage/mypage?fPage=${myFundPageInfo.prvePage}&fListLimit=${myFundPageInfo.listLimit}'" class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
+										<c:forEach var="fundlist" items="${myFundList}">
+		                        			<div class="book_info" id="book1">
+												<a href="#" name="thumbnailbox"><img onclick="location.href='${path}/board/bf_board/bf_viewDetail?bfNo=${fundlist.bfNo}'" class="image" value="${fundlist.bfNo}" src="${path}/upload/bf_board/${fundlist.bfReImgName}"></a>
+		                            			<p>${fundlist.bfTitle}</p>
+		                        			</div>
+										</c:forEach>
+	                        		<a><img onclick="location.href='${path}/member/mypage/mypage?fPage=${status.current}&fListLimit=${myFundPageInfo.listLimit}'" class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
 								</c:if>
-	                        </div>
-	                        <a><img class="btn_img" src="${path}/images/right.png" style="margin-left: 5%;"></a>
 	                    </div>
-	                    <c:if test="${myFundList != null}">
+	                    <c:if test="${!empty myFundList}">
 	                    <div class="pageBar">
 	                        <div class="small_pageBar" id="pageBar">
 	                            <!-- 이전 페이지로 -->
@@ -362,14 +360,14 @@
 	                                <th class="th">Title</th>
 	                                <th class="th">Status</th>
 	                            </tr>
-	                            <c:if test="${myAplctFundList == null}">
+	                            <c:if test="${empty myAplctFundListl}">
 									<tr>
 										<td colspan="6">
 											조회된 펀딩 내역이 없습니다.
 										</td>
 									</tr>	
 								</c:if>
-								<c:if test="${myAplctFundList != null}">
+								<c:if test="${!empty myAplctFundList}">
 									<c:forEach var="aplctBF" items="${myAplctFundList}">
 										<tr>
 											<td><c:out value="${aplctBF.bfNo}"/></td>
@@ -387,7 +385,7 @@
 								</c:if>
 	                        </table>
 	                    </div>
-	                    <c:if test="${myAplctFundList != null}">
+	                    <c:if test="${!empty myAplctFundList}">
 	                    <div class="pageBar">
 	                        <div id="pageBar">
 	                            <!-- 이전 페이지로 -->
@@ -413,7 +411,7 @@
     
     <script type="text/javascript">
     $(document).ready(function () {
-		 //나중에 RestTemplate으로 바꾸기
+    	
 		 	<c:forEach var="board" items="${myReviewList}">
 		 	 var isbn = $('#review-bookisbn_${board.brNo}').val();
 		 	 
@@ -426,10 +424,11 @@
                 .done(function (msg) {
                     console.log(msg.documents[0].title);
                     console.log(msg.documents[0].thumbnail);
-                    $("#calendar_img_${board.brNo}").append("<img class='calendar_image' src='" + msg.documents[0].thumbnail + "'/>");
+                    $("#calendar_img_${board.brNo}").append("<a><img onclick=\"location.href='${path}/board/br_board/brReviewDetail?brNo=${board.brNo}'\" class='calendar_image' src='" + msg.documents[0].thumbnail + "'/></a>");
                 });
             </c:forEach> 
             
+            // 스크랩
             <c:forEach var="scrapList" items="${myScrapList}">
 		 	 var isbn = document.getElementById("scrap-bookisbn_${scrapList.scrapNo}").innerText
 		 	 
@@ -462,14 +461,11 @@
                    .done(function (msg) {
                        console.log(msg.documents[0].title);
                        console.log(msg.documents[0].thumbnail);
-                       $("#calendar_img_${board.brNo}").append("<img class='calendar_image' src='" + msg.documents[0].thumbnail + "'/>");
+                       $("#calendar_img_${board.brNo}").append("<a><img onclick=\"location.href='${path}/board/br_board/brReviewDetail?brNo=${board.brNo}'\" class='calendar_image' src='" + msg.documents[0].thumbnail + "'/></a>");
                    });
                </c:forEach>
             });
             	function profile() {
-            		location.href = "${path}/member/mypage/profile";
-				}
-            	function bookclub() {
             		location.href = "${path}/member/mypage/profile";
 				}
             	function bookreview() {

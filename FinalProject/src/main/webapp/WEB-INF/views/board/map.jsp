@@ -8,7 +8,7 @@
 <%@ include file="../../views/common/header.jsp" %>
 <link rel="stylesheet" href="${path}/css/board/map_style.css">
     <section class="map">
-        <h3 style="text-align: center; margin: 50px;">책지도</h3>
+        <h3 style="text-align: center; margin: 50px;">우리동네서점</h3>
 
         <hr>
 

@@ -171,7 +171,6 @@
        		    var phone3 = $("#phone3").val();
        		    
        			$("#userPhone").val(phone1 + '-' +  phone2 + '-' + phone3);
-         
        	  	});
        		/*핸드폰 유효성*/
     		 $("#phone2").blur((e) => {
@@ -209,11 +208,7 @@
     		function updatePwd(){
  			//1 비밀번호 변경창을 열고
  			//2. 비밀번호수정하기
- 			
- 			const url="${path}/member/newPwd";
- 			const st="left=500px,top=200px,width=300px,height=210px";
- 			
- 			open(url, "_blank", st);
+ 			location.href = "${path}/member/newPwd";
  			}
 	</script>
 <%@ include file="../../../views/common/footer.jsp" %>

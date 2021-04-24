@@ -37,14 +37,14 @@
                                 <th class="th">Status</th>
                             </tr>
                             <tbody id="clubTbody">
-								<c:if test="${bcList == null}">
+								<c:if test="${empty bcList}">
 									<tr>
 										<td colspan="3">
 											조회된 클럽이 없습니다.
 										</td>
 									</tr>	
 								</c:if>
-								<c:if test="${bcList != null}">
+								<c:if test="${!empty bcList}">
 									<c:forEach var="bookclub" items="${bcList}">
 										<tr>
 											<td><c:out value="${bookclub.bcNo}"/></td>
@@ -105,14 +105,14 @@
 	                                <th class="th">Status</th>
 	                            </tr>
 	                            <tbody id="fundTbody">
-									<c:if test="${bfList == null}">
+									<c:if test="${empty bfList}">
 										<tr>
 											<td colspan="6">
 												조회된 펀딩이 없습니다.
 											</td>
 										</tr>	
 									</c:if>
-									<c:if test="${bfList != null}">
+									<c:if test="${!empty bfList}">
 										<c:forEach var="bookfunding" items="${bfList}">
 											<tr>
 												<td><input name="upfst" type="checkbox" value="${bookfunding.bfNo}"></td>
@@ -180,14 +180,14 @@
 		                                <th class="th">Status</th>
 		                            </tr>
 						            <tbody id="dynamicTbody">
-										<c:if test="${list == null}">
+										<c:if test="${empty list}">
 										<tr>
 											<td colspan="6">
 												조회된 회원이 없습니다.
 											</td>
 										</tr>	
 									</c:if>
-									<c:if test="${list != null}">
+									<c:if test="${!empty list}">
 										<c:forEach var="member" items="${list}">
 											<tr>
 												<td><input name="upmst" type="checkbox" value="${member.userId}"></td>

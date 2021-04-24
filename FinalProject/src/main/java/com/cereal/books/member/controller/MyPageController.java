@@ -70,9 +70,6 @@ public class MyPageController {
 		
 		myScrapList = rService.getMyScrapList(myScrapPageInfo, userNo);
 		
-		System.out.println("myScrapPageInfo : " + myScrapPageInfo);
-		System.out.println("myScrapCount : " + myScrapCount);
-		
 		// 내가 쓴 북리뷰
 		List<ReviewBoard> myReviewList = null;
 		
@@ -203,8 +200,10 @@ public class MyPageController {
 		
 			if(result > 0) {
 				model.addObject("msg", "정상적으로 변경되었습니다.");
+				model.addObject("location", "/member/mypage/profile");
 			} else {
 				model.addObject("msg", "변경 실패하였습니다.");
+				model.addObject("location", "/member/newPwd");
 			}
 			
 			model.setViewName("common/msg");

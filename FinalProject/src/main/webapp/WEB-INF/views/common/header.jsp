@@ -57,9 +57,6 @@
 	 					</form>	
 					</security:authorize>
                     <li>
-                        <a href="#">마이쇼핑</a>
-                    </li>
-                    <li>
                         <a href="${path}/board/bf_board/bf_orderList">주문조회</a>
                     </li>
                     <li>
