@@ -10,7 +10,7 @@
     width: 1000px;
     margin: auto;
     display: block;
-    padding-bottom: 900px;
+    padding-bottom: 940px;
     }
 .title { margin-top: 50px;}
 .info{ float: left; width: 500px;}
@@ -45,7 +45,7 @@
 
 /* 스크랩 */
 .scrap_title {
-    margin-top: 95px;
+    margin-top: 140px;
 }
 .scrap {
     width: 450px;
@@ -70,7 +70,7 @@
 .boolcalendar > p {margin-left: 45px;}
 .calendar {
     width: 450px;
-    height: 580px;
+    height: 625px;
     border: darkgrey solid 1px;
     border-radius: 5px;
     float: right;
@@ -92,6 +92,7 @@
 }
 .calendar_img {
     width: 100%;
+    height: 40px;
 }
 .calendar_image {
   width: 100%;
@@ -216,7 +217,7 @@ div#pageBar button {
     .small_pageBar { display: none;}
     .boolcalendar { width: 100%;}
     .boolcalendar > p { margin-left: 0px;}
-    .calendar { width: 100%; height: 700px;}
+    .calendar { width: 100%; height: 950px;}
     .calendar { float: none;}
     .bookclub{ width: 100%;}
     .club { width: 100%; height: 580px;}

@@ -1,6 +1,7 @@
 package com.cereal.books.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -43,11 +44,19 @@ public interface ReviewDao {
 
 		List<ReviewBoard> getSearchList_Content(RowBounds rowBounds, String br_searchword);
 
-		List<BookScrap> getScrapStatus(String bsIsbn, int userNo);
-
 		void updateViewCount(int brViewCount);
 
-		int increateViewcnt(int brNo); 
+		int increateViewcnt(int brNo);
+
+		Map<String, Object> scrapCheck(Map<String, Object> commandMap);
+
+		Map<String, Object> insertScrap(Map<String, Object> commandMap);
+
+		Map<String, Object> deleteScrap(Map<String, Object> commandMap);
+
+		List<ReviewBoard> selectBoardSortingList(RowBounds rowBounds);
+
+		int deleteBookreview(int brNo); 
 		
 		// 마이페이지 북리뷰 조회
 		List<ReviewBoard> myReviewList(int userNo);
