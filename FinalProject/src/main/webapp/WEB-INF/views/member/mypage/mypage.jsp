@@ -115,6 +115,7 @@
                 	var myDate = today.getFullYear() +""+ myMonth +""+ myDay ;
                     cell = row.insertCell();
                      
+                    if("${myReviewList}" != "[]") {
                     // 리뷰 불러와서 값 세팅하기
                 	var arr = new Array("${myReviewList}".listSize);
                 	
@@ -148,7 +149,7 @@
                 		var brNo = newArr[0].brNo; 
                 		var isbn = newArr[0].isbn; 
                 	}
-                	
+                 }
                 	// 새로 만든 배열 값으로 캘린더 출력하기
                     if (parseInt(createDate) == parseInt(myDate)){
                      	cell.innerHTML = i + "<div class='calendar_img' id='calendar_img_" + brNo + "'></div>"
@@ -471,9 +472,6 @@
                </c:forEach>
             });
             	function profile() {
-            		location.href = "${path}/member/mypage/profile";
-				}
-            	function bookclub() {
             		location.href = "${path}/member/mypage/profile";
 				}
             	function bookreview() {

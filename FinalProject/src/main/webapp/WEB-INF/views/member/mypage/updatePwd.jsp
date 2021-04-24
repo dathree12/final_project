@@ -4,23 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>    
-<c:set var="path" value="${ pageContext.request.contextPath }"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-    body{
-        background: lightgray;
-    }
-</style>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<c:set var="path" value="${ pageContext.request.contextPath }"/>    
+<%@ include file="../../../views/common/header.jsp" %>
 <link rel="stylesheet" href="${path}/css/member/mypage_style/profile.css">
-<script src="${path}/js/jquery-3.5.1.js"></script>
-</head>
-<body>
+    <section class="profile_wrap">
 	<div id="updatePassword-container">
+	<h3 style="text-align: center; margin: 50px;">비밀번호 변경</h3>
 		<form target="_self" id="updatePwd" action="${path}/member/updatePwd" name="update" method="post">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<br>    
@@ -39,9 +29,10 @@
 	        <br>
 			<input type="submit" id="update" value="변경">
 			&nbsp;
-			<input type="button" value="닫기" onclick="self.close();">
+			<input type="button" value="취소" onclick="location.href='${path}/member/mypage/profile'">
 		</form>
 	</div>
+    </section>
 <script>
 $(function() {
 		 
@@ -68,11 +59,8 @@ $(function() {
 		  
 		$("#update").click(function() {
             $(location).attr('href',"${path}/member/updatePwd");
-            
-            self.close();
         });
 		
 	});
 </script>
-</body>
-</html>
+<%@ include file="../../../views/common/footer.jsp" %>
