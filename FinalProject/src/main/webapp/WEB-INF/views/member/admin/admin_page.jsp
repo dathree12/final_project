@@ -19,7 +19,7 @@
 
         <!-- 북클럽 -->
         <div class="bookclub">
-            <p class="title" id="bookclub">북클럽</p>
+            <p class="title" id="bookclub"><B>Clubs</B></p>
             <div class="club">
                 <div class="list">
                     <div class="content">
@@ -49,7 +49,13 @@
 										<tr>
 											<td><c:out value="${bookclub.bcNo}"/></td>
 											<td><a href="${path}/board/bc_board/bcBoardDetail?bcNo=${bookclub.bcNo}"><c:out value="${bookclub.bcOriginTitle}"/></a></td>
-											<td><c:out value="${bookclub.bcStatus}"/></td>
+											<td>
+												<c:choose>
+													<c:when test="${bookclub.bcStatus eq 'P'}">운영중</c:when>
+													<c:when test="${bookclub.bcStatus eq 'Q'}">마감</c:when>
+													<c:otherwise>삭제</c:otherwise>
+												</c:choose>
+											</td>
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -57,7 +63,7 @@
                         </table>
                     </div>
                     <div class="pageBar">
-                        <div id="pageBarAndBtn">
+                        <div id="pageBarAndBtn" class="cPageBar">
                             <!-- 이전 페이지로 -->
 	                            <button type="button" onclick="location.href='${path}/member/admin/admin_page?cPage=${clubPageInfo.prvePage}&cListLimit=${clubPageInfo.listLimit}'">&lt;</button>
 	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
@@ -79,7 +85,7 @@
 
         <!-- 북펀딩 -->
 		<div class="bookfunding">
-            <p class="title" id="bookfunding">북펀딩</p>
+            <p class="title" id="bookfunding"><B>Funding</B></p>
             <div class="funding">
                 <div class="list">
 	                <form action="${path}/member/admin/bookfunding" method="get">
@@ -112,7 +118,14 @@
 												<td><input name="upfst" type="checkbox" value="${bookfunding.bfNo}"></td>
 												<td><c:out value="${bookfunding.bfNo}"/></td>
 												<td><a href="${path}/board/bf_board/bf_adminCheck?bfNo=${bookfunding.bfNo}"><c:out value="${bookfunding.bfTitle}"/></a></td>
-												<td><c:out value="${bookfunding.bfStatus}"/></td>
+												<td>
+													<c:choose>
+														<c:when test="${bookfunding.bfStatus eq 'N'}">검토중</c:when>
+														<c:when test="${bookfunding.bfStatus eq 'P'}">모집중</c:when>
+														<c:when test="${bookclub.bcStatus eq 'D'}">거절</c:when>
+														<c:otherwise>마감</c:otherwise>
+													</c:choose>
+												</td>
 											</tr>
 										</c:forEach>
 									</c:if>
@@ -124,7 +137,7 @@
 		                        <button type="button" id="fpbtn"value="P">수락</button>
 		                        <button type="button" id="fdbtn"value="D">거절</button>
 	                        </div>
-	                        <div id="pageBarAndBtn">
+	                        <div id="pageBarAndBtn" class="fPageBar">
 	                            <!-- 이전 페이지로 -->
 	                            <button type="button" onclick="location.href='${path}/member/admin/admin_page?fPage=${fundPageInfo.prvePage}&fListLimit=${fundPageInfo.listLimit}'">&lt;</button>
 	                            <!--  10개 페이지 목록(비트윈으로 조회) -->
@@ -147,7 +160,7 @@
 
 	        <!-- 회원관리 -->
 		<div class="user">
-	            <p class="title" id="user">회원관리</p>
+	            <p class="title" id="user"><B>UserList</B></p>
 	            <div class="user_list">
 	                <div class="list">
 	                <form action="${path}/member/admin" method="get">
@@ -181,7 +194,12 @@
 												<td><c:out value="${member.userId}"/></td>
 												<td><c:out value="${member.name}"/></td>
 												<td><c:out value="${member.userNname}"/></td>
-												<td><c:out value="${member.status}"/></td>
+												<td>
+													<c:choose>
+														<c:when test="${member.status eq 'Y'}">활동중</c:when>
+														<c:otherwise>정지</c:otherwise>
+													</c:choose>
+												</td>
 											</tr>
 										</c:forEach>
 									</c:if>
@@ -229,6 +247,7 @@ $(function() {
 		var bcStatus = $(this).val();
 		var clist = {};
 		$("#clubTbody").empty();
+		$(".cPageBar").empty();
 	  
 	  	$.ajax({
 			type: "get",
@@ -239,25 +258,44 @@ $(function() {
 			},
 			success: function(result) {
 				clist = result.bcList;
-				
+				var pageInfo = result.pageInfo;
 				var tc = new Array();
 				var html = '';
+				var cHtml = '';
+				var status = '';
 				
 				$.each(clist, function( index, value ) {
 					tc.push({no : value.bcNo ,title : value.bcOriginTitle, status : value.bcStatus}); 
                  });
 				
 				for(key in tc){
-				html += '<tr>';
-				html += '<td>'+tc[key].no+'</td>';
-				html += '<td><a href="${path}/board/bf_board/bf_adminCheck?bfNo='+tc[key].no+'">'+tc[key].title+'</a></td>';
-				html += '<td>'+tc[key].status+'</td>';
-				html += '</tr>';
+					switch(tc[key].status) { 
+						case 'P': status = '운영중'; break; 
+						case 'Q': status = '마감'; break; 
+						default: status = '삭제';
+					}
+					html += '<tr>';
+					html += '<td>'+tc[key].no+'</td>';
+					html += '<td><a href="${path}/board/bf_board/bf_adminCheck?bfNo='+tc[key].no+'">'+tc[key].title+'</a></td>';
+					html += '<td>' + status +'</td>';
+					html += '</tr>';
 				}
-							
+						
+				cHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?cPage=' + pageInfo.prvePage + '&cListLimit=' + pageInfo.listLimit + '\'">&lt;</button>'
+				for (var p = pageInfo.startPage; p <= pageInfo.endPage; p++) {
+					if (p == pageInfo.current) {
+						cHtml += '<button type="button" disabled>'+ p + '</button>'
+					} else {
+						cHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?cPage=' + p + '&cListLimit=' + pageInfo.listLimit + '\'">' + p + '</button>'
+					}
+				}
+				cHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?cPage=' + pageInfo.nextPage + '&cListLimit=' + pageInfo.listLimit + '\'">&gt;</button>';
+				
 				$("#clubTbody").empty();
 				$("#clubTbody").append(html);
 				
+				$(".cPageBar").empty();
+				$(".cPageBar").append(cHtml);
 			},
 			error: function(e) {
 				console.log(e);
@@ -269,7 +307,8 @@ $(function() {
 		var bfStatus = $(this).val();
 		var flist = {};
 		$("#fundTbody").empty();
-	  
+		$(".fPageBar").empty();
+		
 	  	$.ajax({
 			type: "get",
 			url: "${path}/member/admin/funding",
@@ -280,25 +319,46 @@ $(function() {
 			},
 			success: function(result) {
 				flist = result.flist;
-				
+				var pageInfo = result.pageInfo;
 				var tc = new Array();
 				var html = '';
+				var fHtml = '';
+				var status = '';
 				
 				$.each(flist, function( index, value ) {
 					tc.push({no : value.bfNo ,title : value.bfTitle, status : value.bfStatus}); 
                  });
 				
 				for(key in tc){
-				html += '<tr>';
-				html += '<td><input name="upfst" id="fcb" type="checkbox" value="'+tc[key].no+'"></td>';
-				html += '<td>'+tc[key].no+'</td>';
-				html += '<td><a href="${path}/board/bf_board/bf_adminCheck?bfNo='+tc[key].no+'">'+tc[key].title+'</a></td>';
-				html += '<td>'+tc[key].status+'</td>';
-				html += '</tr>';
+					switch(tc[key].status) { 
+						case 'N': status = '검토중'; break; 
+						case 'P': status = '모집중'; break; 
+						case 'D': status = '거절'; break; 
+						default: status = '마감';
+					}
+					html += '<tr>';
+					html += '<td><input name="upfst" id="fcb" type="checkbox" value="'+tc[key].no+'"></td>';
+					html += '<td>'+tc[key].no+'</td>';
+					html += '<td><a href="${path}/board/bf_board/bf_adminCheck?bfNo='+tc[key].no+'">'+tc[key].title+'</a></td>';
+					html += '<td>'+status+'</td>';
+					html += '</tr>';
 				}
-							
+				
+				fHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?fPage=' + pageInfo.prvePage + '&fListLimit=' + pageInfo.listLimit + '\'">&lt;</button>'
+				for (var p = pageInfo.startPage; p <= pageInfo.endPage; p++) {
+					if (p == pageInfo.current) {
+						fHtml += '<button type="button" disabled>'+ p + '</button>'
+					} else {
+						fHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?fPage=' + p + '&fListLimit=' + pageInfo.listLimit + '\'">' + p + '</button>'
+					}
+				}
+				fHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?fPage=' + pageInfo.nextPage + '&fListLimit=' + pageInfo.listLimit + '\'">&gt;</button>';
+					
 				$("#fundTbody").empty();
 				$("#fundTbody").append(html);
+				
+				$(".fPageBar").empty();
+				$(".fPageBar").append(fHtml);
 				
 			},
 			error: function(e) {
@@ -347,6 +407,7 @@ $(function() {
 		var mlist = {};
 		
 		$("#dynamicTbody").empty();
+		$(".mPageBar").empty();
 	  
 	  	$.ajax({
 			type: "get",
@@ -358,24 +419,44 @@ $(function() {
 			},
 			success: function(result) {
 				mlist = result.list;
+				var pageInfo = result.pageInfo;
 				var tc = new Array();
 				var html = '';
+				var mHtml = '';
+				var status = '';
 				$.each(mlist, function( index, value ) {
 					tc.push({id : value.userId ,name : value.name, nname : value.userNname, status : value.status}); 
                  });
 				
 				for(key in tc){
+					switch(tc[key].status) { 
+						case 'Y': status = '활동중'; break;
+						default: status = '정지';
+					}
 				html += '<tr>';
 				html += '<td><input name="upmst" id="mcb" type="checkbox" value="'+tc[key].id+'"></td>';
 				html += '<td>'+tc[key].id+'</td>';
 				html += '<td>'+tc[key].name+'</td>';
 				html += '<td>'+tc[key].nname+'</td>';
-				html += '<td>'+tc[key].status+'</td>';
+				html += '<td>'+status+'</td>';
 				html += '</tr>';
 				}
                 
+				mHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?uPage=' + pageInfo.prvePage + '&uListLimit=' + pageInfo.listLimit + '\'">&lt;</button>'
+				for (var p = pageInfo.startPage; p <= pageInfo.endPage; p++) {
+					if (p == pageInfo.current) {
+						mHtml += '<button type="button" disabled>'+ p + '</button>'
+					} else {
+						mHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?uPage=' + p + '&uListLimit=' + pageInfo.listLimit + '\'">' + p + '</button>'
+					}
+				}
+				mHtml += '<button type="button" onclick="location.href=\'${path}/member/admin/admin_page?uPage=' + pageInfo.nextPage + '&uListLimit=' + pageInfo.listLimit + '\'">&gt;</button>';
+                
 				$("#dynamicTbody").empty();
 				$("#dynamicTbody").append(html);
+				
+				$(".mPageBar").empty();
+				$(".mPageBar").append(mHtml);
 				
 				
 			},

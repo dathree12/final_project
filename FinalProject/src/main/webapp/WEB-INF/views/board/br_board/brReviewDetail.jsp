@@ -58,17 +58,21 @@
 					<p id="reviewheader-reviewwriter">${board.userNname}</p>
 					<p id="reviewheader-reviewdate">${board.brModifyDate}</p>
 					<p style="display: none">${board.brViewCount}</p>
-					<p id="reviewbookisbn" style="display: none">${board.brIsbn}</p>
 				</div>
 				<hr>
 				<security:authorize access="hasRole('USER')">
                 <div class="review-book-bookscrap">
-                <form id="scrapForm" name="scrapForm" method="post"
-                        class="scrap_form">
-                    <a class="scrap-button" id="scrapOff"><img
-                        src="${ path }/images/scrap_0.png" class="scrapicon">스크랩하기</a> 
-                    <a class="scrap-button" id="scrapOn"><img
-                        src="${ path }/images/scrap_1.png" class="scrapicon">스크랩취소</a>
+                <form id="scrapForm" name="scrapForm" method="post" class="scrap_form">
+                        <c:choose>
+						    <c:when test="${scrapcheck eq '0' or empty scrapcheck}"> <!-- likecheck가0이면 빈별-->
+						        <img src="${ path }/images/scrap_0.png" 
+						             id="btn_scrap" style="cursor:pointer; width: 20px;">
+						    </c:when>
+						    <c:otherwise> <!-- likecheck가1이면 노란별-->
+						        <img src="${ path }/images/scrap_1.png" 
+						              id="btn_scrap" style="cursor:pointer; width: 20px;">
+						    </c:otherwise>
+						</c:choose>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 </form>
                 </div>
@@ -105,11 +109,13 @@
 							src="${ path }/images/redheart.png" class="recoicon"
 							id="recommend-icon2"></a> <span id="review-recommend-btn">추천
 							${board.brLike}</span>
-					</span> 
-					<span id="review-edit-btn"> 
-						<a href="#" id="edit-button">수정</a>
-						<a href="#" id="delete-button">삭제</a>
 					</span>
+					
+					<span id="review-edit-btn">
+						<a href="${path}/board/br_board/brBoardWrite" id="edit-button">수정</a>
+						<a href="${path}/board/br_board/brBoardDelete?brNo=${board.brNo}" id="delete-button">삭제</a>
+					</span>
+					</form>
 				</div>
 				<hr>
 				<div class="container">
@@ -172,17 +178,6 @@
 // 게시글 번호 저장
 		$(document).ready(function() {
 			commentList();			
-			/*img1을 클릭했을 때 img2를 보여줌*/
-		    $("#scrapOn").click(function(){
-		        $("#scrapOn").hide();
-		        $("#scrapOff").show();
-		    });
-		    /*img2를 클릭했을 때 img1을 보여줌*/
-		    $("#scrapOff").click(function(){
-		        $("#scrapOn").show();
-		        $("#scrapOff").hide();
-		    });
-
 			// 댓글 목록 보기
 			function commentList() {
 				var brNo = document.getElementById("reviewheader-brNo").innerHTML;
@@ -248,58 +243,41 @@
 		}; 
 </script>
 <script>
-	    $(document).ready(function(){
-	            
-	            /*추천 버튼 눌렀을때*/
-	            /*웹페이지 열었을 때*/
-	            $("#recommend-icon1").show();
-	            $("#recommend-icon2").hide();
-	            /*img1을 클릭했을 때 img2를 보여줌*/
-	            $("#recommend-icon1").click(function(){
-	                $("#recommend-icon1").hide();
-	                $("#recommend-icon2").show();
-	            });
-	            /*img2를 클릭했을 때 img1을 보여줌*/
-	            $("#recommend-icon2").click(function(){
-	                $("#recommend-icon1").show();
-	                $("#recommend-icon2").hide();
-	            });
-	            
-	            
-	        });
-	</script>
-	<script>
-	/*	1. 화면 불러올때 로그인 정보 불러와서 스크랩 status 확인
-		2. status 'Y'이면 scrapOn 'N'이면 scrapOff	
-		3. 스크랩 버튼 눌러서 DB저장하기 */
+
 		$(document).ready(function() {
-			scrapGet();
-		function scrapGet() {
+		var btn_scrap = document.getElementById("btn_scrap");
+			btn_scrap.onclick = function(){ scrap(); }
+		function scrap() {
 			var csrfToken = $("meta[name='csrf-token']").attr('content');
 		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
 		    $(document).ajaxSend(function (e, xhr, options) {
 		        xhr.setRequestHeader(csrfHeader, csrfToken);
 		    });
-		    var userNo = document.getElementById("loginNo").innerHTML;
-		    console.log(userNo);
-		    var bsIsbn = document.getElementById("reviewbookisbn").value;
-		    console.log(bsIsbn);
+		    var userNo = $('#loginNo').html();
+		    var bsIsbn = document.getElementById("reviewbookisbn").innerHTML;
 			$.ajax({
 				url:	"scrapGet",
-				type:	"get",
+				type:	"POST",
+				dataType: "json",
 				data:	{'userNo' : userNo,
 						 'bsIsbn' : bsIsbn},
+				error: function() {
+					alert("스크랩 error")
+				},
 				success: function(data) {
-						if(data != null){
-			            $("#scrapOn").show();
-			            $("#scrapOff").hide();
-						}
-						else {
-							$("#scrapOff").show();
-				            $("#scrapOn").hide();
-						}
-				}
-				});
+	                if(data.resultCode == -1){
+	                    alert("스크랩 실패하였습니다.","error","확인",function(){});
+	                }
+	                else{
+	                    if(data.likecheck == 1){
+	                        $("#btn_scrap").attr("src","${ path }/images/scrap_1.png");
+	                    }
+	                    else if (data.likecheck == 0){
+	                        $("#btn_scrap").attr("src","${ path }/images/scrap_0.png");
+	                    }
+	                }
+	            }
+	        });
 	}
 		});
 	</script>
@@ -312,5 +290,6 @@
 	        $('.comment_body').keyup();
 	    })
 	</script>
+	
 
 <%@ include file="../../common/footer.jsp"%>

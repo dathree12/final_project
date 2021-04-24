@@ -78,7 +78,9 @@ public class AdminPageController {
 	@RequestMapping("/member/admin/club")
 	@ResponseBody
 	public Map<String, Object> clublist(
-			@RequestParam(value = "bcStatus", required = false) String cStatus
+			@RequestParam(value = "bcStatus", required = false) String cStatus,
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value = "cListLimit", required = false, defaultValue = "10") int cListLimit
 			) {
 		
 		if(cStatus.equals("ALL")) {
@@ -87,13 +89,13 @@ public class AdminPageController {
 		
 		List<ClubBoard> cList = null;
 		int cBoardCount = cService.getAdminClubCount(cStatus);
-		PageInfo clubPageInfo = new PageInfo(1, 10, cBoardCount, 10);
-		cList = cService.getAdminClubList(clubPageInfo, cStatus);
+		PageInfo pageInfo = new PageInfo(cPage, 10, cBoardCount, cListLimit);
+		cList = cService.getAdminClubList(pageInfo, cStatus);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		result.put("bcList", cList);
-		result.put("clubPageInfo", clubPageInfo);
+		result.put("pageInfo", pageInfo);
 		
 		return result;
 	}
@@ -101,7 +103,9 @@ public class AdminPageController {
 	@RequestMapping("/member/admin/funding")
 	@ResponseBody
 	public Map<String, Object> fundlist(
-			@RequestParam(value = "bfStatus", required = false) String bfStatus
+			@RequestParam(value = "bfStatus", required = false) String bfStatus,
+			@RequestParam(value = "fPage", required = false, defaultValue = "1") int fPage,
+			@RequestParam(value = "fListLimit", required = false, defaultValue = "10") int fListLimit
 			) {
 		
 		if(bfStatus.equals("ALL")) {
@@ -110,13 +114,13 @@ public class AdminPageController {
 		
 		List<FundBoard> flist = null;
 		int fBoardCount = fService.getFundCount(bfStatus);
-		PageInfo fundPageInfo = new PageInfo(1, 10, fBoardCount, 10);
-		flist = fService.getFundList(fundPageInfo, bfStatus);
+		PageInfo pageInfo = new PageInfo(fPage, 10, fBoardCount, fListLimit);
+		flist = fService.getFundList(pageInfo, bfStatus);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		result.put("flist", flist);
-		result.put("fundPageInfo", fundPageInfo);
+		result.put("pageInfo", pageInfo);
 		
 		return result;
 	}
@@ -143,9 +147,9 @@ public class AdminPageController {
 	@RequestMapping("/member/admin")
 	@ResponseBody
 	public Map<String, Object> list(
-			@RequestParam(value = "mStatus", required = false, defaultValue = "ALL") String status
-//			@RequestParam(value = "uPage", required = false, defaultValue = "1") int uPage,
-//			@RequestParam(value = "uListLimit", required = false, defaultValue = "10") int uListLimit
+			@RequestParam(value = "mStatus", required = false, defaultValue = "ALL") String status,
+			@RequestParam(value = "uPage", required = false, defaultValue = "1") int uPage,
+			@RequestParam(value = "uListLimit", required = false, defaultValue = "10") int uListLimit
 			) {
 		
 		if(status.equals("ALL")) {
@@ -154,13 +158,13 @@ public class AdminPageController {
 		
 		List<Member> list = null;
 		int boardCount = mService.getMemberCount(status);
-		PageInfo pageInfo = new PageInfo(1, 10, boardCount, 10);
+		PageInfo pageInfo = new PageInfo(uPage, 10, boardCount, uListLimit);
 		list = mService.getMemberList(pageInfo, status);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		result.put("list", list);
-//		result.put("pageInfo", pageInfo);
+		result.put("pageInfo", pageInfo);
 		
 		return result;
 	}
