@@ -22,7 +22,10 @@
     ></script>
     <script src="${path}/js/jquery-3.5.1.js"></script>
     <script src="${path}/ckeditor/ckeditor.js"></script>
-
+    <!-- bar-rating -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+	<script src="${path}/css/fontawesome-stars.css"></script>
+	<script src="${path}/js/jquery.barrating.min.js"></script>
 </head>
 <%@ include file="../../common/header.jsp" %>
 	 <div class="wrap">
@@ -78,8 +81,17 @@
 							  <div id="selectedBook" name="brBookTitle">책을 선택해주세요</div>
 							  <input type="text" id="brIsbn" name="brIsbn"  style="display:none">
 							  <input id="selectedBookThumb" name="brPresentPic" style="display:none">
-							  <P>평점:나중에구현</P>
 	                    </div>
+	                    <div id="brboard-write-bookrate">
+	                    	<span>평점</span>
+		                    	<select id="example">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+						</div>
 	                </div>
 	                <textarea name="brContent" id="brContent"></textarea>
 	                <script>
@@ -99,7 +111,15 @@
         </form>
     </div>    
     </div>
-  
-
-
+    <script>
+	    $(function() {
+	       $('#example').barrating({
+	         theme: 'fontawesome-stars'
+	        	 , onSelect: function(value, text, event){
+	        			// 별점 클릭 후 처리는 여기서 코드
+	        			// 선택한 별점 값을 value로 받음
+	        		}
+	       });
+	    });
+ 	</script>
 <%@ include file="../../common/footer.jsp" %>

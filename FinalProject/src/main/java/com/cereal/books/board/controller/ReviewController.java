@@ -6,13 +6,16 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +31,7 @@ import com.cereal.books.board.model.vo.BookScrap;
 import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
+import com.cereal.books.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -95,7 +99,7 @@ public class ReviewController {
 			model.addObject("location", "/board/br_board/brBoardMain");
 		} else {
 			model.addObject("msg", "게시글 등록을 실패하였습니다.");
-			model.addObject("location", "/board/list");
+			model.addObject("location", "/board/br_board/brBoardMain");
 		}			
 		
 	
@@ -104,7 +108,26 @@ public class ReviewController {
 	return model;
 	}
 	
-
+	@ResponseBody
+	@RequestMapping(value="/brBoardDelete")
+	public ModelAndView brDelete(@RequestParam("brNo") int brNo, ModelAndView model) {
+		int result = 0;
+		result = service.deleteBookreview(brNo);
+		System.out.println("삭제 컨트롤러 돌아간다. result : "+ result);
+		if(result > 0) {
+			model.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
+			model.addObject("location", "/board/br_board/brBoardMain");
+		} else {
+			model.addObject("msg", "게시글 삭제를 실패하였습니다.");
+			model.addObject("location", "/board/br_board/brBoardMain");
+		}	
+		model.setViewName("common/msg");
+		
+		return model;
+		
+	}
+	
+	
 	@RequestMapping(value = "/imageUpload", method = { RequestMethod.POST })
 	public void brWrite(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
 			throws Exception {
@@ -189,10 +212,31 @@ public class ReviewController {
 	//책 상세보기
 	@ResponseBody
 	@RequestMapping(value="/brReviewDetail", method = {RequestMethod.GET})
-	public ModelAndView brReviewDetail(@RequestParam("brNo") int brNo, ModelAndView model, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView brReviewDetail(@RequestParam("brNo") int brNo,
+					ModelAndView model, HttpServletRequest request, HttpServletResponse response) {
 		ReviewBoard reviewboard = service.findBoardByNo(brNo);
 		
-		// 조회수 증가, 쿠키를 이용한 중복 조회수 증가방지
+		
+			//책타입 바꾸기
+			if(reviewboard.getBrBookType().equals("b1")) {
+				reviewboard.setBrBookType("소설");
+			} 
+			if(reviewboard.getBrBookType().equals("b2")) {
+				reviewboard.setBrBookType("어린이/청소년");
+			}
+			if(reviewboard.getBrBookType().equals("b3")) {
+				reviewboard.setBrBookType("경제/경영");
+			}
+			if(reviewboard.getBrBookType().equals("b4")) {
+				reviewboard.setBrBookType("인문/사회/역사");
+			}
+			if(reviewboard.getBrBookType().equals("b5")) {
+				reviewboard.setBrBookType("종교/역학");
+			}
+			if(reviewboard.getBrBookType().equals("b6")) {
+				reviewboard.setBrBookType("자기개발");
+			}
+				// 조회수 증가, 쿠키를 이용한 중복 조회수 증가방지
 				Cookie[] cookies = request.getCookies();
 				// 비교하기 위해 새로운 쿠키생성
 				Cookie viewCookie = null;
@@ -258,13 +302,37 @@ public class ReviewController {
 	
 	//스크랩 정보 가져오기
 	@ResponseBody
-	@RequestMapping(value = "/scrapGet", method = {RequestMethod.GET})
-	public List<BookScrap> brBookScrap(@RequestParam("bsIsbn") String bsIsbn, @RequestParam("userNo") int userNo) {
-		List<BookScrap> result = null;
-		System.out.println(bsIsbn);
-		result = service.getScrapStatus(bsIsbn, userNo);
-		return result;
-	}
+	@RequestMapping(value = "/scrapGet", method = {RequestMethod.POST})
+	public Map<String,Object> clickScrap(@RequestParam Map<String,Object> commandMap){
+        int resultCode = 1;
+        int likecheck = 1;
+        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> resultMap = new HashMap<>();
+        try {
+        	//스크랩 확인
+            map = service.scrapCheck(commandMap);
+            if(map == null) {
+                //처음 좋아요 누른것 likecheck=1, 좋아요 빨간색이 되야됨
+                service.insertScrap(commandMap); //좋아요 테이블 인서트
+                resultCode = 1;
+            }
+            else {
+                //슼크랩 취소한거 likecheck=0, 빈하트 되야됨
+                likecheck = 0;
+                commandMap.put("likecheck", likecheck);
+                service.deleteScrap(commandMap);
+                resultCode = 0;
+            }
+            resultMap.put("likecheck", likecheck);
+        } catch (Exception e) {
+            resultCode = -1;
+        }
+        
+        resultMap.put("resultCode", resultCode);
+        //resultCode가 1이면 빨간하트 0이면 빈하트
+        return resultMap;
+    }
+
 	
 	
 	//코멘트 DB저장하기
@@ -340,5 +408,47 @@ public class ReviewController {
 			
 			return model;
 		}
+		
+		
+		//추천순으로 정렬 및 페이징
+		@RequestMapping(value="/brBoardMainSorting", method = {RequestMethod.GET})
+		public ModelAndView mainViewSorting(
+				ModelAndView model,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+				@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
+			
+			List<ReviewBoard> list = null;
+			
+			int boardCount = service.getBoardCount();
+			PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			
+			System.out.println(boardCount);
+			
+			// remainDate 업데이트 하는 과정
+			
+			list = service.getBoardSortingList(pageInfo);
+			
+			
+//			for (ReviewBoard reviewBoard : list) {
+//				
+//				reviewBoard.setBrIsbn(null);
+//			}
+			
+			
+			
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("board/br_board/brBoardMain");
+			
+			System.out.println(list);
+			System.out.println(model);
+			return model;
+		}
+		
+		
+		
+		
+		
+		
 	
 }

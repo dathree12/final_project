@@ -1,6 +1,7 @@
 package com.cereal.books.board.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cereal.books.board.model.vo.BookScrap;
 import com.cereal.books.board.model.vo.Comment;
@@ -35,9 +36,17 @@ public interface ReviewService {
 
 	List<ReviewBoard> getSearchList_Content(PageInfo pageInfo, String searchword);
 
-	List<BookScrap> getScrapStatus(String bsIsbn, int userNo);
-
 	int increaseViewcnt(int brNo);
+
+	Map<String, Object> scrapCheck(Map<String, Object> commandMap);
+
+	Map<String, Object> insertScrap(Map<String, Object> commandMap);
+
+	Map<String, Object> deleteScrap(Map<String, Object> commandMap);
+
+	List<ReviewBoard> getBoardSortingList(PageInfo pageInfo);
+
+	int deleteBookreview(int brNo);
 	
 	// 마이페이지 북리뷰 조회
 	List<ReviewBoard> getMyReviewList(int userNo);
