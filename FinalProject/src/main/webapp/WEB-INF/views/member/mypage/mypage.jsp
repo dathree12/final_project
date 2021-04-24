@@ -14,14 +14,14 @@
 
         <div class="info">
             <!-- 회원정보 -->
-            <p class="title">profile</p>
+            <p class="title"><B>Profile</B></p>
             <div class="profile">
                 <p style="padding-left: 10px;"><span>${member.name}</span>님 환영합니다.</p>
                 <button class="info_btn" onclick="profile();">회원정보수정</button>
             </div>
             
             <!-- 스크랩 -->
-            <p class="scrap_title">scrap</p>
+            <p class="scrap_title"><B>Scrap</B></p>
             <div class="scrap">
                 <div>
                     <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
@@ -97,27 +97,27 @@
                 // 1일이 시작되는 칸을 맞추어 줌
                  for (i=0; i<doMonth.getDay(); i++) {
                  /*이번달의 day만큼 돌림*/
-                      cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
-                      cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
+                      cell = row.insertCell();//열 추가
+                      cnt = cnt + 1;
                  }
                 /*달력 출력*/
                  for (i=1; i<=lastDate.getDate(); i++) { 
                 	
-                	 var myMonth = (today.getMonth() + 1);
-                	 var myDay = i;
+                	var myMonth = (today.getMonth() + 1);
+                	var myDay = i;
                 	 
-                	 if((myMonth + "").length < 2){
-                		 myMonth = "0" + myMonth;
-                	 }
-                	 if((i + "").length < 2){
-                	 	myDay = "0" + i;
-                	 }
+                	if((myMonth + "").length < 2){
+                		myMonth = "0" + myMonth;
+                	}
+                	if((i + "").length < 2){
+                		myDay = "0" + i;
+                	}
                 	 
-                	 var myDate = today.getFullYear() +""+ myMonth +""+ myDay ;
-                     cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
+                	var myDate = today.getFullYear() +""+ myMonth +""+ myDay ;
+                    cell = row.insertCell();
                      
-                     // 리뷰 불러와서 값 세팅하기
-                	 var arr = new Array("${myReviewList}".listSize);
+                    // 리뷰 불러와서 값 세팅하기
+                	var arr = new Array("${myReviewList}".listSize);
                 	
                 	var j = 0;
                 	
@@ -131,15 +131,16 @@
 		               	var crDay = dateSplit[2];
 						
 		               	createDate = crYear +""+ crMonth +""+ crDay;
-	                		arr[j] = { brNo : ${board.brNo}, isbn : '${board.brIsbn}', cr : createDate};
+	                	arr[j] = { brNo : ${board.brNo}, isbn : '${board.brIsbn}', cr : createDate};
 	                		
-	                		j = j+1;
+	                	j = j+1;
                 	</c:forEach>
                 	
                 	// 구한 리뷰 날짜로 새 배열 만들기
                 	var newArr = arr.filter(function(item){    
                 		  return item.cr === myDate;
                 		});  
+                	
                 	var createDate = "10"; 
                 	
                 	// 새 배열 빈 값 체크
@@ -150,50 +151,48 @@
                 	}
                 	
                 	// 새로 만든 배열 값으로 캘린더 출력하기
-                     if (parseInt(createDate) == parseInt(myDate)){
-                     	cell.innerHTML = "<div class='calendar_img' id='calendar_img_" + brNo + "'></div>"
+                    if (parseInt(createDate) == parseInt(myDate)){
+                     	cell.innerHTML = i + "<div class='calendar_img' id='calendar_img_" + brNo + "'></div>"
                      	+ '<input type="hidden" id="review-bookisbn_' + brNo + '" value="' + isbn + '">';
-                	 } else {
+                	} else {
                 		cell.innerHTML = i + "<div class='calendar_img'/>";
-                	 }                 
-                      cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
+                	}                 
+                    cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
                      
-                  /*일요일 계산*/
-                  if (cnt % 7 == 1) {
-                	 if (parseInt(createDate) == parseInt(myDate)){
-                    	cell.innerHTML = "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
-                    	+ '<input type="hidden" id="review-bookisbn_${board.brNo}" value="${board.brIsbn}">';
-                  	 } else {
-                  		cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img'/>";
-                  	 }
-                }    
+					/*일요일 계산*/
+                    if (cnt % 7 == 1) {
+	                	if (parseInt(createDate) == parseInt(myDate)){
+	                    	cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
+	                    	+ '<input type="hidden" id="review-bookisbn_${board.brNo}" value="${board.brIsbn}">';
+	                  	} else {
+	                  		cell.innerHTML = "<font color=#F79DC2>" + i + "<div class='calendar_img'/>";
+	                  	}
+               		}    
                       
                       
-                  /* 토요일 구하기*/
-                  if (cnt%7 == 0){
-                	  if (parseInt(createDate) == parseInt(myDate)){
-                      cell.innerHTML = "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
-                      + '<input type="hidden" id="review-bookisbn_${board.brNo}" value="${board.brIsbn}">';
-                    	 } else {
-                      cell.innerHTML = "<font color=skyblue>" + i + "<div class='calendar_img'/>";
-                    	 }
-                       row = calendar.insertRow();
-                  }
+                  	/* 토요일 구하기*/
+                 	if (cnt%7 == 0){
+                		if (parseInt(createDate) == parseInt(myDate)){
+                      		cell.innerHTML = "<font color=skyblue>" + i + "<div class='calendar_img' id='calendar_img_${board.brNo}'></div>"
+                      		+ '<input type="hidden" id="review-bookisbn_${board.brNo}" value="${board.brIsbn}">';
+                    	} else {
+                      		cell.innerHTML = "<font color=skyblue>" + i + "<div class='calendar_img'/>";
+                    	}
+                       		row = calendar.insertRow();
+                  	}
                   
-                  /* 오늘 날짜 */
-                  if (today.getFullYear() == date.getFullYear()
-                     && today.getMonth() == date.getMonth()
-                     && i == date.getDate()) {
-                    cell.bgColor = "#FAF58C";
-                   }
-                	 
-                     
-                 }
+                  	/* 오늘 날짜 */
+                  	if (today.getFullYear() == date.getFullYear()
+                    	&& today.getMonth() == date.getMonth()
+                    	&& i == date.getDate()) {
+                    	cell.bgColor = "#FAF58C";
+                   	}
+				}
             }
         </script>
 
         <div class="boolcalendar">
-            <p class="title">calendar</p>
+            <p class="title"><B>Calendar</B></p>
             <div class="calendar">
                 <table id="calendar">
                     <tr style="height: 5%;"><!-- label은 마우스로 클릭을 편하게 해줌 -->
@@ -221,13 +220,13 @@
 
         <!-- 북클럽 -->
         <div class="bookclub">
-            <p class="title">북클럽</p>
+            <p class="title"><B>Clubs</B></p>
             <div class="club">
                 <div class="join_club">
                     <div class="content">
                         <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
                         <c:if test="${myClubList == null}">
-									참여중인 클럽이 없습니다.
+							참여중인 클럽이 없습니다.
 						</c:if>
 						<c:if test="${myClubList != null}">
 							<c:forEach var="clublist" items="${myClubList}">
@@ -280,7 +279,12 @@
 									<tr>
 										<td><c:out value="${aplctBC.proposeNo}"/></td>
 										<td><a href="${path}/board/bc_board//bcBoardRead?proposeNo=${aplctBC.proposeNo}"><c:out value="${aplctBC.proposeTitle}"/></a></td>
-										<td><c:out value="${aplctBC.proposeStatus}"/></td>
+										<td>
+											<c:choose>
+												<c:when test="${aplctBC.proposeStatus eq 'N'}">미승인</c:when>
+												<c:otherwise>승인</c:otherwise>
+											</c:choose>
+										</td>
 									</tr>
 								</c:forEach>
 							</c:if>
@@ -311,14 +315,14 @@
 
         <!-- 북펀딩 -->
         <div class="bookfunding">
-            <p class="title">북펀딩</p>
+            <p class="title"><B>Funding</B></p>
             <div class="funding">
 	                <div class="join_club">
 	                    <div class="content">
 	                        <a><img class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
 	                        <div class="book_info" id="book1">
 	                            <c:if test="${myFundList == null}">
-											참여한 펀딩이 없습니다.
+									참여한 펀딩이 없습니다.
 								</c:if>
 								<c:if test="${myFundList != null}">
 									<c:forEach var="fundlist" items="${myFundList}">
@@ -370,7 +374,14 @@
 										<tr>
 											<td><c:out value="${aplctBF.bfNo}"/></td>
 											<td><a href="${path}/board/bf_board/bf_userCheck?bfNo=${aplctBF.bfNo}"><c:out value="${aplctBF.bfTitle}"/></a></td>
-											<td><c:out value="${aplctBF.bfStatus}"/></td>
+											<td>
+												<c:choose>
+													<c:when test="${aplctBF.bfStatus eq 'N'}">검토중</c:when>
+													<c:when test="${aplctBF.bfStatus eq 'P'}">모집중</c:when>
+													<c:when test="${aplctBF.bfStatus eq 'D'}">거절</c:when>
+													<c:otherwise>마감</c:otherwise>
+												</c:choose>
+											</td>
 										</tr>
 									</c:forEach>
 								</c:if>

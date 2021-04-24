@@ -35,7 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-//@SessionAttributes("loginMember")
 public class MyPageController {
 	@Autowired
 	private MemberService service;
@@ -49,7 +48,7 @@ public class MyPageController {
 	private ReviewService rService;
 	
 	@RequestMapping("member/mypage/mypage")
-	public ModelAndView bookFunding(ModelAndView model, 
+	public ModelAndView mypage(ModelAndView model, 
 			@RequestParam(value = "sPage", required = false, defaultValue = "1") int sPage,
 			@RequestParam(value = "sListLimit", required = false, defaultValue = "3") int sListLimit,
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
