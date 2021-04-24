@@ -48,7 +48,7 @@ public class MainController {
 		int userNo = 0;
 		PageInfo pageInfo = new PageInfo(1, 1, boardCount, 3);
 		PageInfo pageInfoGr = new PageInfo(1, 1, boardCount, 4);
-		PageInfo bfpageInfo = new PageInfo(1, 1, 3, 1);
+		PageInfo bfpageInfo = new PageInfo(1, 1, 3, 3);
 		Date time = new Date();
 		SimpleDateFormat format = new SimpleDateFormat ("MM");
 		Calendar cal = Calendar.getInstance();
