@@ -3,7 +3,6 @@ package com.cereal.books.board.model.service;
 import java.util.List;
 
 import com.cereal.books.board.model.vo.ClubBoard;
-import com.cereal.books.board.model.vo.Exp;
 import com.cereal.books.common.util.PageInfo;
 
 public interface ClubService {
@@ -30,6 +29,6 @@ public interface ClubService {
 
 	List<ClubBoard> getMyClubList(PageInfo myClubPageInfo, int userNo);
 
-	ClubBoard findClubByNo(int bcNo, PageInfo pageInfo);
+	ClubBoard findClubByNo(int bcNo);
 
 }

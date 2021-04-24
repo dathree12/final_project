@@ -52,17 +52,11 @@ public class ClubController {
 			) {
 		
 		ClubBoard clubBoard = null;
-		PageInfo pageInfo = null;
 		
-		int count = service.selectExpCount(bcNo);
-		pageInfo = new PageInfo(page, 5, count, listLimit);
-		clubBoard = service.findClubByNo(bcNo, pageInfo);
+		clubBoard = service.findClubByNo(bcNo);
 		
 		System.out.println("clubBoard : " + clubBoard);
-		System.out.println("pageInfo : " + pageInfo);
-		System.out.println("count : " + count);
 		
-		model.addObject("pageInfo", pageInfo);
 		model.addObject("clubBoard", clubBoard);
 		model.setViewName("board/bc_board/bcBoardDetail");
 		
