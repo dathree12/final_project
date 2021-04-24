@@ -63,7 +63,7 @@
                         <a href="${path}/board/bf_board/bf_orderList">주문조회</a>
                     </li>
                     <li>
-                        <a href="#">장바구니</a>
+                        <a href="${path}/board/bf_board/bf_cartList">장바구니</a>
                     </li>
                 </ul>
                 <div class="topArea">

@@ -53,7 +53,7 @@ public class ProposeServiceImpl implements ProposeService {
 
 	// 마이페이지 (제안 리스트)
 	@Override
-	public List<ClubBoard> getMyAplctClubList(PageInfo myAplctClubpageInfo, int userNo) {
+	public List<Propose> getMyAplctClubList(PageInfo myAplctClubpageInfo, int userNo) {
 		int offset = (myAplctClubpageInfo.getCurrentPage() - 1) * myAplctClubpageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, myAplctClubpageInfo.getListLimit());
 

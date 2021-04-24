@@ -39,4 +39,11 @@ public interface ReviewService {
 
 	int increaseViewcnt(int brNo);
 	
+	// 마이페이지 북리뷰 조회
+	List<ReviewBoard> getMyReviewList(int userNo);
+	
+	// 마이페이지 스크랩 조회
+	List<BookScrap> getMyScrapList(PageInfo pageInfo, int userNo);
+
+	int getMyScrapCount(int userNo);
 }
