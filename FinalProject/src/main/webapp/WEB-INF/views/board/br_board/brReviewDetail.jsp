@@ -91,7 +91,7 @@
 							<p id="book-description-bookwriter"></p>
 							<p id="book-description-bookpublisher"></p>
 							<p id="book-description-bookpublish"></p>
-							<p id="book-description-bookstarrate">${board.brRating}</p>
+							<!--  <p id="book-description-bookstarrate">${board.brRating}</p> -->
 							<p id="book-description-bookcontents"></p>
 							<!--    <p id="book-description-bookreviewcount"></p>-->
 						</div>
@@ -174,7 +174,10 @@
 
 // 게시글 번호 저장
 		$(document).ready(function() {
-			commentList();			
+			commentList();	
+			recCount();
+			
+		});
 			// 댓글 목록 보기
 			function commentList() {
 				var brNo = document.getElementById("reviewheader-brNo").innerHTML;
@@ -202,7 +205,7 @@
 					});
 			}
 			
-		});
+
 		function reco(){
 			var csrfToken = $("meta[name='csrf-token']").attr('content');
 		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
@@ -271,54 +274,52 @@
 							 'comContent': comContent},
 					success: function(data) {
 						alert("댓글 등록 성공");
-						commentList();
-					},
+								commentList();
+											},
 					error: function(data) {
 						alert("댓글 등록 실패")
 					}
 				});
 			}
+			
+			var btn_scrap = document.getElementById("btn_scrap");
+			btn_scrap.onclick = function(){ scrap(); }
+			
+			function scrap() {
+				var csrfToken = $("meta[name='csrf-token']").attr('content');
+			    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+			    $(document).ajaxSend(function (e, xhr, options) {
+			        xhr.setRequestHeader(csrfHeader, csrfToken);
+			    });
+			    var userNo = $('#loginNo').html();
+			    var bsIsbn = document.getElementById("reviewbookisbn").innerHTML;
+				$.ajax({
+					url:	"scrapGet",
+					type:	"POST",
+					dataType: "json",
+					data:	{'userNo' : userNo,
+							 'bsIsbn' : bsIsbn},
+					error: function() {
+						alert("스크랩 error")
+					},
+					success: function(data) {
+		                if(data.resultCode == -1){
+		                    alert("스크랩 실패하였습니다.","error","확인",function(){});
+		                }
+		                else{
+		                    if(data.likecheck == 1){
+		                        $("#btn_scrap").attr("src","${ path }/images/scrap_1.png");
+		                    }
+		                    else if (data.likecheck == 0){
+		                        $("#btn_scrap").attr("src","${ path }/images/scrap_0.png");
+		                    }
+		                }
+		            }
+		        });
+		}
 		}; 
 </script>
-<script>
 
-		$(document).ready(function() {
-		var btn_scrap = document.getElementById("btn_scrap");
-			btn_scrap.onclick = function(){ scrap(); }
-		function scrap() {
-			var csrfToken = $("meta[name='csrf-token']").attr('content');
-		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
-		    $(document).ajaxSend(function (e, xhr, options) {
-		        xhr.setRequestHeader(csrfHeader, csrfToken);
-		    });
-		    var userNo = $('#loginNo').html();
-		    var bsIsbn = document.getElementById("reviewbookisbn").innerHTML;
-			$.ajax({
-				url:	"scrapGet",
-				type:	"POST",
-				dataType: "json",
-				data:	{'userNo' : userNo,
-						 'bsIsbn' : bsIsbn},
-				error: function() {
-					alert("스크랩 error")
-				},
-				success: function(data) {
-	                if(data.resultCode == -1){
-	                    alert("스크랩 실패하였습니다.","error","확인",function(){});
-	                }
-	                else{
-	                    if(data.likecheck == 1){
-	                        $("#btn_scrap").attr("src","${ path }/images/scrap_1.png");
-	                    }
-	                    else if (data.likecheck == 0){
-	                        $("#btn_scrap").attr("src","${ path }/images/scrap_0.png");
-	                    }
-	                }
-	            }
-	        });
-	}
-		});
-	</script>
 	<script>
 	    $(document).ready(function() {
 	        $('.comment_body').on('keyup', function(e) {
@@ -327,13 +328,6 @@
 	        });
 	        $('.comment_body').keyup();
 	    })
-	</script>
-	<script>
-	$(document).ready(function() {
-			
-		recCount();
-
-	});
 	</script>
 
 <%@ include file="../../common/footer.jsp"%>
