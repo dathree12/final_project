@@ -38,6 +38,20 @@
 		<result property="proposeContent" column="PROPOSE_CONTENT" />
 		<result property="proposeStatus" column="PROPOSE_STATUS" />
 	</resultMap>
+	
+	<!-- 댓글 resultmap -->
+	<resultMap type="Comment" id="boardCommentResultMap">
+		<id property="comNo" column="COM_NO" />
+		<result property="comWriter" column="COM_WRITER" />
+		<result property="comContent" column="COM_CONTENT" />
+		<result property="comCreateDate" column="COM_CREATE_DATE" />
+		<result property="comEditDate" column="COM_EDIT_DATE" />
+		<result property="comStatus" column="COM_STATUS" />
+		<result property="qaNo" column="QA_NO" />
+		<result property="bcNo" column="BC_NO" />
+		<result property="brNo" column="BR_NO" />
+		<result property="bfNo" column="BF_NO" />
+	</resultMap>
 
 	<!-- 제안하기 리스트 -->
 	<select id="selectProposeList" parameterType="map" resultMap="proposeResultMap">
@@ -111,5 +125,36 @@
   	<select id="selectPropose" parameterType="map" resultMap="proposeResultMap">
 		<include refid="proposeListSql"></include>
 		AND P.PROPOSE_NO=#{proposeNo}
+	</select>
+	
+		<!-- 댓글 집어넣기 -->
+	<insert id="saveComment" parameterType="map"
+		useGeneratedKeys="true" keyProperty="comNo" keyColumn="COM_NO">
+		INSERT INTO COMMENT_BOARD
+		VALUES(
+		SEQ_COM_NO.NEXTVAL,
+		#{comWriter},
+		#{comContent},
+		DEFAULT,
+		DEFAULT,
+		'Y',
+		DEFAULT,
+		#{proposeNo},
+		DEFAULT,
+		DEFAULT
+		)
+	</insert>
+
+	<!-- 댓글 불러오기 -->
+	<select id="listComment" parameterType="_int"
+		resultMap="boardCommentResultMap">
+		SELECT CB.COM_NO,
+		CB.COM_WRITER,
+		CB.COM_CONTENT,
+		CB.COM_CREATE_DATE,
+		CB.COM_STATUS,
+		CB.QA_NO
+		FROM COMMENT_BOARD CB
+		WHERE CB.QA_NO = #{proposeNo} AND CB.COM_STATUS='Y'
 	</select>
 </mapper>

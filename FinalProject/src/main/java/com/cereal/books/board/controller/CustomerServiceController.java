@@ -45,8 +45,7 @@ public class CustomerServiceController {
 	// Q&A
 
 	@RequestMapping(value = "/qnaBoardMain", method = RequestMethod.GET)
-	public ModelAndView qnaMain(ModelAndView model, 
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+	public ModelAndView qnaMain(ModelAndView model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "listLimit", required = false, defaultValue = "10") int listLimit) {
 
 		List<QA> list = null;
@@ -68,14 +67,12 @@ public class CustomerServiceController {
 
 		return model;
 	}
-	
+
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(ModelAndView model,
-			@RequestParam("qaNo") int qaNo
-			) {
-		
+	public ModelAndView delete(ModelAndView model, @RequestParam("qaNo") int qaNo) {
+
 		int result = service.deleteBoard(qaNo);
-		
+
 		if (result > 0) {
 			model.addObject("msg", "정상적으로 삭제되었습니다.");
 			model.addObject("location", "/board/cs_board/qnaBoardMain");
@@ -83,15 +80,14 @@ public class CustomerServiceController {
 			model.addObject("msg", "실패하였습니다.");
 			model.addObject("location", "/board/cs_board/qnaBoardMain");
 		}
-		
+
 		model.setViewName("common/msg");
-		
+
 		return model;
 	}
 
 	@RequestMapping(value = "/qnaBoardWrite", method = { RequestMethod.POST })
-	public ModelAndView write(ModelAndView model, QA qa,
-			@AuthenticationPrincipal Member member) {
+	public ModelAndView write(ModelAndView model, QA qa, @AuthenticationPrincipal Member member) {
 
 		if (member.getUserNo() == qa.getUserNo()) {
 			qa.setQaWriter(member.getUsername());
@@ -139,21 +135,21 @@ public class CustomerServiceController {
 
 		return model;
 	}
-	
-	//코멘트 DB저장하기
-	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST})
-	@ResponseBody
-    public int saveComment(@RequestParam("qaNo") int brNo, @RequestParam("comWriter")String comWriter, 
-    		@RequestParam("comContent")String comContent, Comment comment, ModelAndView model) throws Exception{
 
-        int result = 0;
-        
-        System.out.println(comment);
-		
-    	result = service.saveComment(comment);
-    	
-    	System.out.println(result);
-    	
+	// 코멘트 DB저장하기
+	@RequestMapping(value = "/saveComment", method = { RequestMethod.POST })
+	@ResponseBody
+	public int saveComment(@RequestParam("qaNo") int qaNo, @RequestParam("comWriter") String comWriter, @RequestParam("comContent") String comContent,
+			Comment comment, ModelAndView model) throws Exception {
+
+		int result = 0;
+
+		System.out.println(comment);
+
+		result = service.saveComment(comment);
+
+		System.out.println(result);
+
 //    	if(result > 0) {
 //			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
 //			model.addObject("location", "/board/cs_board/qnaBoardMain");
@@ -163,12 +159,12 @@ public class CustomerServiceController {
 //		}			
 //    	
 //    	model.setViewName("common/msg");
-        
-        return result;
-    }
-	
-	//코멘트 불러오기
-	@RequestMapping(value="/commentList", method = {RequestMethod.GET})
+
+		return result;
+	}
+
+	// 코멘트 불러오기
+	@RequestMapping(value = "/commentList", method = { RequestMethod.GET })
 	@ResponseBody
 	public List<Comment> getCommentList(@RequestParam int qaNo) throws Exception {
 		List<Comment> list = null;

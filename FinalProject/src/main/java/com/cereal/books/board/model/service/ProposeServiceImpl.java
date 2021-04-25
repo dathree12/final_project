@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cereal.books.board.model.dao.ProposeDao;
 import com.cereal.books.board.model.vo.ClubBoard;
+import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.Propose;
 import com.cereal.books.common.util.PageInfo;
 
@@ -78,5 +79,19 @@ public class ProposeServiceImpl implements ProposeService {
 	@Override
 	public int deleteBoard(int proposeNo) {
 		return dao.deleteBoard(proposeNo);
+	}
+
+	@Transactional
+	@Override
+	public int saveComment(Comment comment) {
+		int result = 0;
+		result = dao.saveComment(comment);
+		return result;
+	}
+
+	@Transactional
+	@Override
+	public List<Comment> listComment(int proposeNo) {
+		return dao.listComment(proposeNo);
 	}
 }

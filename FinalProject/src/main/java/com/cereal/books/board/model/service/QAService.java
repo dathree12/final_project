@@ -20,6 +20,6 @@ public interface QAService {
 
 	List<QA> findQAByNo(PageInfo pageInfo);
 
-	List<Comment> listComment(int qaNo);	
+	List<Comment> listComment(int qaNo);
 
 }

@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-
+<%@ include file="../../common/header.jsp" %>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -86,7 +86,6 @@
 </head>
 </style>
 <body>
-<%@ include file="../../common/header.jsp" %>
 <security:authentication property="principal" var="user" />
 <div class="wrap" style="width: 1280px; margin: auto;">
         <!-- input type:hidden 으로 정보 가져오기 -->
@@ -160,7 +159,6 @@
 <script>
 // 댓글 목록 보기
 function commentList() {
-	var qaNo = document.getElementById("reviewheader-qaNo").innerHTML;
 	$.ajax({
 		url:	"commentList",
 		type:	"get",
