@@ -76,7 +76,7 @@
 	            </a>
 			</c:when>
 			<c:otherwise><h5>게시물 > 북펀딩</h5>  
-				<a href="">
+				<a href="${path}/board/bf_board/bf_viewDetail?bfNo=${board.boardNo}">
 		            <span>${board.title }</span>
 		            <br>
 		            <p class="searchP">${board.content }</p>

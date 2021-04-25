@@ -189,7 +189,7 @@
   		
 	  	INSERT INTO COMMENT_BOARD
 	  		VALUES(
-	  			SEQ_BR_NO.NEXTVAL,
+	  			SEQ_COM_NO.NEXTVAL,
 	  			#{comWriter},
 	  			#{comContent},
 	  			DEFAULT,

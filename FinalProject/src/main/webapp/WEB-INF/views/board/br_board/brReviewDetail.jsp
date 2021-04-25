@@ -35,7 +35,7 @@
 					<a href="${path}/board/br_board/brBoardMain">북리뷰 게시판</a>
 				</div>
 				<div class="brboard-top-menu">
-			            <li><a href="${path}/board/br_board/brBoardMain" style="font-weight:bold">전체</a></li>
+			            <li><a href="${path}/board/br_board/brBoardMain">전체</a></li>
 			            <li><a href="${path}/board/br_board/brBoardMain1">소설</a></li>
 			            <li><a href="${path}/board/br_board/brBoardMain2">어린이/청소년</a></li>
 			            <li><a href="${path}/board/br_board/brBoardMain3">경제/경영</a></li>
@@ -116,7 +116,7 @@
 							<p class="comment_profile" id="loginNname">${user.userNname}</p>
 							<p class="comment_profile" id="loginNo" style="display: none" value="${user.userNo}"></p>
 							<textarea class="comment_body"
-								style="border: 0px; width: auto; outline: none;"
+								style="border: 0px; width: 600px; outline: none;"
 								name="comContent" id="comContent" rows="1"
 								placeholder="댓글을 남겨주세요"></textarea>
 							<div class="write_button_wrap">
@@ -159,6 +159,7 @@
              
              	commentList();	
  				recCount();
+ 				getscrap();
  				$("#btn_scrap").click(function(){
 	 				alert("스크랩버튼")
 	 				scrap();
@@ -167,7 +168,6 @@
 </script>
 <script>
 
-		
 			// 댓글 목록 보기
 			function commentList() {
 				var brNo = document.getElementById("reviewheader-brNo").innerHTML;
@@ -199,10 +199,10 @@
 		function reco(){
 			var csrfToken = $("meta[name='csrf-token']").attr('content');
 		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
-		    $(document).ajaxSend(function (e, xhr, options) {
-		        xhr.setRequestHeader(csrfHeader, csrfToken);
-		    });
-		var brNo = document.getElementById("reviewheader-brNo").innerHTML;
+			    $(document).ajaxSend(function (e, xhr, options) {
+			        xhr.setRequestHeader(csrfHeader, csrfToken);
+			    });
+			var brNo = document.getElementById("reviewheader-brNo").innerHTML;
 			$.ajax({
 				url:	"reco",
 				type:	"POST",
@@ -248,7 +248,6 @@
 			$.ajax({
 				url:	"scrap",
 				type:	"POST",
-				dataType: "json",
 				data:	{'bsIsbn' : ${board.brIsbn}},
 				error: function() {
 					alert("스크랩 error")
@@ -268,6 +267,21 @@
 	            }
 	        });
 	}
+		function getscrap(){
+			$.ajax({
+				url:	"getscrap",
+				type:	"get",
+				data:	{'bsIsbn' : ${board.brIsbn}},
+				success: function(data) {
+	                    if(data.resultcode == 1){
+	                        $("#btn_scrap").attr("src","${ path }/images/scrap_1.png");
+	                    }
+	                    else if (data.resultcode == 0){
+	                        $("#btn_scrap").attr("src","${ path }/images/scrap_0.png");
+	                    }
+					}
+	        	});
+		}
 		
 		function saveComment() {
 			var csrfToken = $("meta[name='csrf-token']").attr('content');
