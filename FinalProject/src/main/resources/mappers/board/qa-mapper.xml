@@ -42,6 +42,7 @@
 	<select id="selectQADetail" parameterType="map"
 		resultMap="qaResultMap">
 		<include refid="qaListSql"></include>
+		AND QA_NO=#{qaNo}
 	</select>
 
 	<select id="qaCount" parameterType="map" resultType="_int">

@@ -87,7 +87,7 @@
        			                        <input id="qaWriter" name="qaWriter" type="hidden" value="${ list.qaWriter }"></a></td>
        			                        <input id="qaNo" name="qaNo" type="hidden" value="${ list.qaNo }"></a></td>
        			                        <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
-		                        <td style="width: 700px; cursor: pointer;"><a href="${path}/board/cs_board/qnaDetail?qaNo=${ list.qaNo }"><c:out value="${ list.qaTitle }"/></a></td>
+		                        <td style="width: 700px; cursor: pointer;"><a href="${path}/board/cs_board/qnaDetail?qaNo=${ list.qaNo }"><span>[${ list.qaItem }] </span>&nbsp;<c:out value="${ list.qaTitle }"/></a></td>
 		                        <td style="width: 90px"><c:out value="${ list.qaWriter }"/></td>
 		                        <td style="width: 150px"><c:out value="${ list.qaEnrollDate }"/></td>
 		                        <td style="width: 90px"><c:out value="${ list.qaViewCount }"/></td>

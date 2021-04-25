@@ -6,22 +6,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
 
-<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QnA 상세보기</title>
     <link rel="stylesheet" href="${ path }/css/board/cs_style/notiQnaDetail.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <script src="js/jquery-3.5.1.js"></script>
-    <script 
-    src="https://kit.fontawesome.com/2d323a629b.js" 
-    crossorigin="anonymous"
-    ></script>
-    
     <style type="text/css">
             * {
             -webkit-font-smoothing: antialiased;
@@ -103,22 +93,22 @@
                 <!-- item으로 북 클럽, 펀딩, 리뷰 간편하게 select box로 만들기 또는 부트스트랩으로 간단하게 구현 -->
                 <h3>${ qa.qaItem } 문의</h3>
                 <div class="_info">
-                    <p><strong>작성자&nbsp;&nbsp;</strong><span style="font-size: 14px;">${ qa.qaWriter }</span></p>
+                    <p><strong>작성자&nbsp;&nbsp;</strong><span style="font-size: 14px;"><c:out value="${ qa.qaWriter }"/></span></p>
                     <ul class="etcArea">
                         <li>
                             <strong>작성일</strong>
-                            <span class="txtNum">${ qa.qaEnrollDate }</span>
+                            <span class="txtNum"><c:out value="${ qa.qaEnrollDate }"/></span>
                         </li>
                         <li>
                             <span style="padding: 0 7px; font-size: 11px; line-height: 1.8em; color: #999;">|</span>
                             <strong>조회수</strong>
-                            <span class="txtNum">${ qa.qaViewCount }</span>
+                            <span class="txtNum"><c:out value="${ qa.qaViewCount }"/></span>
                         </li>
                     </ul>
                 </div>
                 <div class="_detail">
                     <div class="_detail_box">
-                        내용이 들어갑니다
+                        <span><c:out value="${ qa.qaContent }"/></span>
                     </div>
                 </div>
             </div>
@@ -131,9 +121,9 @@
                 </div>
             </div>
             <div class="comment_textarea">
-                <form action="${ path }/board/cs_board/qnaDetail?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form">
+                <form action="${ path }/board/cs_board/qnaDetail?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" style="max-height: 150px;">
                     <div class="custom-textarea">
-                        <textarea class="comment_body" style="border: 0px; outline: none;" name="comment_body" id="comment_body" rows="1" placeholder="댓글을 남겨주세요"></textarea>
+                        <textarea class="comment_body" style="border: 0px; outline: none; max-height: 100px" name="comment_body" id="comment_body" rows="10" cols="80" placeholder="댓글을 남겨주세요"></textarea>
                         <div class="write_button_wrap">
                             <div class="none"></div>
                             <div class="write_button">
@@ -143,10 +133,10 @@
                     </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
                 </form>
-                <div class="list_button_wrap">
+                <div class="list_button_wrap" style="margin-top: 80px;">
                     <div class="none"></div>
                     <div class="write_button">
-                        <a onclick="history.back();"  style="color: #fff;">목록</a>
+                        <a onclick="history.back();"  style="color: #fff; cursor: pointer;">목록</a>
                     </div>
                 </div>
                 <div class="bottom_list_wrap">
