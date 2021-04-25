@@ -96,15 +96,15 @@
 		useGeneratedKeys="true" keyProperty="comNo" keyColumn="COM_NO">
 		INSERT INTO COMMENT_BOARD
 		VALUES(
-		SEQ_BR_NO.NEXTVAL,
+		SEQ_COM_NO.NEXTVAL,
 		#{comWriter},
 		#{comContent},
 		DEFAULT,
 		DEFAULT,
 		'Y',
-		DEFAULT,
-		DEFAULT,
 		#{qaNo},
+		DEFAULT,
+		DEFAULT,
 		DEFAULT
 		)
 	</insert>
@@ -117,9 +117,9 @@
 		CB.COM_CONTENT,
 		CB.COM_CREATE_DATE,
 		CB.COM_STATUS,
-		CB.BR_NO
+		CB.QA_NO
 		FROM COMMENT_BOARD CB
-		WHERE CB.BR_NO = #{qaNo} AND CB.COM_STATUS='Y'
+		WHERE CB.QA_NO = #{qaNo} AND CB.COM_STATUS='Y'
 	</select>
 
 </mapper>
