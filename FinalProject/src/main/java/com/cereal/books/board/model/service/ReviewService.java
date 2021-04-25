@@ -38,11 +38,11 @@ public interface ReviewService {
 
 	int increaseViewcnt(int brNo);
 
-	Map<String, Object> scrapCheck(Map<String, Object> commandMap);
+	List<BookScrap> scrapCheck(String bsIsbn, int userNo);
 
-	Map<String, Object> insertScrap(Map<String, Object> commandMap);
+	List<BookScrap> insertScrap(String bsIsbn, int userNo);
 
-	Map<String, Object> deleteScrap(Map<String, Object> commandMap);
+	List<BookScrap> deleteScrap(String bsIsbn, int userNo);
 
 	List<ReviewBoard> getBoardSortingList(PageInfo pageInfo);
 
@@ -59,4 +59,17 @@ public interface ReviewService {
 	int saveRecommend(int brNo);
 
 	ReviewBoard findBoard(int brNo);
+	
+	//나중에 ajax로 구현해야할 것들
+	List<ReviewBoard> getBoardList1(PageInfo pageInfo);
+	
+	List<ReviewBoard> getBoardList2(PageInfo pageInfo);
+	
+	List<ReviewBoard> getBoardList3(PageInfo pageInfo);
+	
+	List<ReviewBoard> getBoardList4(PageInfo pageInfo);
+	
+	List<ReviewBoard> getBoardList5(PageInfo pageInfo);
+	
+	List<ReviewBoard> getBoardList6(PageInfo pageInfo);
 }

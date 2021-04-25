@@ -126,19 +126,19 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public Map<String, Object> scrapCheck(Map<String, Object> commandMap) {
+	public List<BookScrap> scrapCheck(String bsIsbn, int userNo) {
 		
-		return reviewDao.scrapCheck(commandMap);
+		return reviewDao.scrapCheck(bsIsbn, userNo);
 	}
 
 	@Override
-	public Map<String, Object> insertScrap(Map<String, Object> commandMap) {
-		return reviewDao.insertScrap(commandMap);
+	public List<BookScrap> insertScrap(String bsIsbn, int userNo) {
+		return reviewDao.insertScrap(bsIsbn, userNo);
 	}
 
 	@Override
-	public Map<String, Object> deleteScrap(Map<String, Object> commandMap) {
-		return reviewDao.deleteScrap(commandMap);
+	public List<BookScrap> deleteScrap(String bsIsbn, int userNo) {
+		return reviewDao.deleteScrap(bsIsbn, userNo);
 	}
 
 	@Override
@@ -184,6 +184,49 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public ReviewBoard findBoard(int brNo) {
 		return reviewDao.selectBoardDetail(brNo);
+	}
+	
+	//나중에 ajax로 구현해야할 것들
+	@Override
+	public List<ReviewBoard> getBoardList1(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return reviewDao.selectBoardList1(rowBounds);
+	}
+
+	@Override
+	public List<ReviewBoard> getBoardList2(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return reviewDao.selectBoardList2(rowBounds);
+	}
+
+	@Override
+	public List<ReviewBoard> getBoardList3(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return reviewDao.selectBoardList3(rowBounds);
+	}
+
+	@Override
+	public List<ReviewBoard> getBoardList4(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return reviewDao.selectBoardList4(rowBounds);
+	}
+
+	@Override
+	public List<ReviewBoard> getBoardList5(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return reviewDao.selectBoardList5(rowBounds);
+	}
+
+	@Override
+	public List<ReviewBoard> getBoardList6(PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+		return reviewDao.selectBoardList6(rowBounds);
 	}
 	
 }
