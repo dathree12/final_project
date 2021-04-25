@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cereal.books.board.model.service.ClubService;
 import com.cereal.books.board.model.service.FundService;
 import com.cereal.books.board.model.service.MainBoardService;
+import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.FundBoard;
 import com.cereal.books.board.model.vo.ReviewBoard;
 import com.cereal.books.common.util.PageInfo;
@@ -35,6 +37,9 @@ public class MainController {
 	@Autowired
 	private FundService fundservice;
 	
+	@Autowired
+	private ClubService clubservice;
+	
 	
 	
 	@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
@@ -44,11 +49,13 @@ public class MainController {
 		List<ReviewBoard> mBest = null;
 		List<ReviewBoard> gBest = null;
 		List<FundBoard> bflist = null;
+		List<ClubBoard> clublist = null;
 		int boardCount = boardCount = service.getBoardCount();
 		int userNo = 0;
 		PageInfo pageInfo = new PageInfo(1, 1, boardCount, 3);
 		PageInfo pageInfoGr = new PageInfo(1, 1, boardCount, 4);
 		PageInfo bfpageInfo = new PageInfo(1, 1, 3, 3);
+		PageInfo clubpageInfo = new PageInfo(1, 1, 3, 3);
 		Date time = new Date();
 		SimpleDateFormat format = new SimpleDateFormat ("MM");
 		Calendar cal = Calendar.getInstance();
@@ -62,6 +69,9 @@ public class MainController {
 		fundservice.changeStatus();
 		
 		bflist = fundservice.getBoardList(bfpageInfo);
+
+		clublist = clubservice.getBoardList(clubpageInfo);
+		
 		
 		// 로그인시 추천
 		if (member == null) {
@@ -73,9 +83,9 @@ public class MainController {
 			return model;
 		}else {
 			if(list == null) {
-				list = service.getBoardList(pageInfo);	
-			}else {
 				list = service.getBoardListNo(pageInfo);		
+			}else {
+				list = service.getBoardList(pageInfo);	
 			}
 		}
 		// 월간 베스트
@@ -97,6 +107,7 @@ public class MainController {
 		gBest = service.getBoardGList(pageInfoGr);
 		
 		model.addObject("bflist", bflist);
+		model.addObject("clublist", clublist);
 		model.addObject("gBest", gBest);
 		model.addObject("list", list);
 		model.setViewName("mainpage");
@@ -115,8 +126,4 @@ public class MainController {
 	}
 	
 
-	
-	
-	
-	
 }
