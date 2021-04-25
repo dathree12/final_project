@@ -116,7 +116,7 @@
 							<p class="comment_profile" id="loginNname">${user.userNname}</p>
 							<p class="comment_profile" id="loginNo" style="display: none" value="${user.userNo}"></p>
 							<textarea class="comment_body"
-								style="border: 0px; width: auto; outline: none;"
+								style="border: 0px; width: 600px; outline: none;"
 								name="comContent" id="comContent" rows="1"
 								placeholder="댓글을 남겨주세요"></textarea>
 							<div class="write_button_wrap">
