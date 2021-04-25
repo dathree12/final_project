@@ -302,31 +302,30 @@ public class ReviewController {
 	
 	//스크랩 정보 가져오기
 	@ResponseBody
-	@RequestMapping(value = "/scrapGet", method = {RequestMethod.POST})
-	public Map<String,Object> clickScrap(@RequestParam Map<String,Object> commandMap){
+	@RequestMapping(value = "/scrap", method = {RequestMethod.POST})
+	public Map<String, Object> clickScrap(@RequestParam("bsIsbn")String bsIsbn, @AuthenticationPrincipal Member member){
         int resultCode = 1;
         int likecheck = 1;
-        Map<String,Object> map = new HashMap<>();
-        Map<String,Object> resultMap = new HashMap<>();
-        try {
+        Map<String, Object> resultMap = null;
+//        String bsIsbn = (String) commandMap.get("bsIsbn");
+       int userNo = member.getUserNo();
+        System.out.println("userNo" + userNo);
+        List<BookScrap> scrap = service.scrapCheck(bsIsbn, userNo);;
         	//스크랩 확인
-            map = service.scrapCheck(commandMap);
-            if(map == null) {
-                //처음 좋아요 누른것 likecheck=1, 좋아요 빨간색이 되야됨
-                service.insertScrap(commandMap); //좋아요 테이블 인서트
-                resultCode = 1;
-            }
-            else {
-                //슼크랩 취소한거 likecheck=0, 빈하트 되야됨
+            System.out.println("스크랩정보 : " + scrap);
+            if(scrap != null) {
+            	//슼크랩 취소한거 likecheck=0, 빈하트 되야됨
                 likecheck = 0;
-                commandMap.put("likecheck", likecheck);
-                service.deleteScrap(commandMap);
+                service.deleteScrap(bsIsbn, userNo);
                 resultCode = 0;
             }
-            resultMap.put("likecheck", likecheck);
-        } catch (Exception e) {
-            resultCode = -1;
-        }
+            else {
+                //처음 좋아요 누른것 likecheck=1, 좋아요 빨간색이 되야됨
+            	System.out.println("null값일떄 돌아가는것");
+                service.insertScrap(bsIsbn, userNo); //좋아요 테이블 인서트
+                resultCode = 1;
+            }
+			resultMap.put("likecheck", likecheck);
         
         resultMap.put("resultCode", resultCode);
         //resultCode가 1이면 빨간하트 0이면 빈하트
@@ -467,6 +466,147 @@ public class ReviewController {
 			return reco;
 		}
 		
+		
+		
+		//나중에 수정.... 게시판 북타입별
+		@RequestMapping(value="/brBoardMain1", method = {RequestMethod.GET})
+		public ModelAndView mainView1(
+				ModelAndView model,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+				@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
+			
+			List<ReviewBoard> list = null;
+			
+			int boardCount = service.getBoardCount();
+			PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			
+			System.out.println(boardCount);
+			
+			list = service.getBoardList1(pageInfo);
+			
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("board/br_board/brBoardMain1");
+			
+			System.out.println(list);
+			System.out.println(model);
+			return model;
+		}
+		@RequestMapping(value="/brBoardMain2", method = {RequestMethod.GET})
+		public ModelAndView mainView2(
+				ModelAndView model,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+				@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
+			
+			List<ReviewBoard> list = null;
+			
+			int boardCount = service.getBoardCount();
+			PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			
+			System.out.println(boardCount);
+			
+			list = service.getBoardList2(pageInfo);
+			
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("board/br_board/brBoardMain2");
+			
+			System.out.println(list);
+			System.out.println(model);
+			return model;
+		}
+		@RequestMapping(value="/brBoardMain3", method = {RequestMethod.GET})
+		public ModelAndView mainView3(
+				ModelAndView model,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+				@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
+			
+			List<ReviewBoard> list = null;
+			
+			int boardCount = service.getBoardCount();
+			PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			
+			System.out.println(boardCount);
+			
+			list = service.getBoardList3(pageInfo);
+			
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("board/br_board/brBoardMain3");
+			
+			System.out.println(list);
+			System.out.println(model);
+			return model;
+		}
+		@RequestMapping(value="/brBoardMain4", method = {RequestMethod.GET})
+		public ModelAndView mainView4(
+				ModelAndView model,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+				@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
+			
+			List<ReviewBoard> list = null;
+			
+			int boardCount = service.getBoardCount();
+			PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			
+			System.out.println(boardCount);
+			
+			list = service.getBoardList4(pageInfo);
+			
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("board/br_board/brBoardMain4");
+			
+			System.out.println(list);
+			System.out.println(model);
+			return model;
+		}
+		@RequestMapping(value="/brBoardMain5", method = {RequestMethod.GET})
+		public ModelAndView mainView5(
+				ModelAndView model,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+				@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
+			
+			List<ReviewBoard> list = null;
+			
+			int boardCount = service.getBoardCount();
+			PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			
+			System.out.println(boardCount);
+			
+			list = service.getBoardList5(pageInfo);
+			
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("board/br_board/brBoardMain5");
+			
+			System.out.println(list);
+			System.out.println(model);
+			return model;
+		}
+		@RequestMapping(value="/brBoardMain6", method = {RequestMethod.GET})
+		public ModelAndView mainView6(
+				ModelAndView model,
+				@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+				@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
+			
+			List<ReviewBoard> list = null;
+			
+			int boardCount = service.getBoardCount();
+			PageInfo pageInfo = new PageInfo(page, 5, boardCount, listLimit);
+			
+			System.out.println(boardCount);
+			
+			list = service.getBoardList6(pageInfo);
+			
+			model.addObject("list", list);
+			model.addObject("pageInfo", pageInfo);
+			model.setViewName("board/br_board/brBoardMain6");
+			
+			System.out.println(list);
+			System.out.println(model);
+			return model;
+		}
 		
 	
 }

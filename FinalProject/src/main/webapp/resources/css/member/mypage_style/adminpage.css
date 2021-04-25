@@ -7,7 +7,7 @@ a { text-decoration: none; color: black;}
 .bookclub{ width: 100%; float: left;}
 .club {
     width: 100%;
-    height: 580px;
+    height: 500px;
     border: darkgrey solid 1px;
     border-radius: 5px;
     float: left;
@@ -19,7 +19,7 @@ a { text-decoration: none; color: black;}
 }
 .content {
     margin-bottom: 15px;   
-    height: 470px
+    height: 380px
 }
 .list_table {
     width: 95%;
@@ -42,7 +42,7 @@ td{
 .bookfunding{ width: 100%; float: left; margin-bottom: 50px;}
 .funding {
     width: 100%;
-    height: 600px;
+    height: 520px;
     border: darkgrey solid 1px;
     border-radius: 5px;
     float: left;
@@ -62,7 +62,7 @@ td{
 .user { width: 100%; float: left; margin-bottom: 50px;}
 .user_list {
     width: 100%;
-    height: 600px;
+    height: 520px;
     border: darkgrey solid 1px;
     border-radius: 5px;
     float: left;

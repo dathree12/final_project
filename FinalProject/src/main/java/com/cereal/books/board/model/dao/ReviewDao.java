@@ -48,11 +48,11 @@ public interface ReviewDao {
 
 		int increateViewcnt(int brNo);
 
-		Map<String, Object> scrapCheck(Map<String, Object> commandMap);
+		List<BookScrap> scrapCheck(String bsIsbn, int userNo);
 
-		Map<String, Object> insertScrap(Map<String, Object> commandMap);
+		List<BookScrap> insertScrap(String bsIsbn, int userNo);
 
-		Map<String, Object> deleteScrap(Map<String, Object> commandMap);
+		List<BookScrap> deleteScrap(String bsIsbn, int userNo);
 
 		List<ReviewBoard> selectBoardSortingList(RowBounds rowBounds);
 
@@ -68,4 +68,11 @@ public interface ReviewDao {
 
 		int increaseReco(int brNo);
 		
+		//나중에 ajax로 다시 구현 (북타입별 게시판)
+		List<ReviewBoard> selectBoardList1(RowBounds rowBounds);
+		List<ReviewBoard> selectBoardList2(RowBounds rowBounds);
+		List<ReviewBoard> selectBoardList3(RowBounds rowBounds);
+		List<ReviewBoard> selectBoardList4(RowBounds rowBounds);
+		List<ReviewBoard> selectBoardList5(RowBounds rowBounds);
+		List<ReviewBoard> selectBoardList6(RowBounds rowBounds);
 }

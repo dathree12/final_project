@@ -35,13 +35,13 @@
 					<a href="${path}/board/br_board/brBoardMain">북리뷰 게시판</a>
 				</div>
 				<div class="brboard-top-menu">
-					<li><a href="${path}/board/br_board/brBoardMain">전체</a></li>
-					<li><a href="#">소설</a></li>
-					<li><a href="#">어린이/청소년</a></li>
-					<li><a href="#">경제/경영</a></li>
-					<li><a href="#">인문/사회/역사</a></li>
-					<li><a href="#">종교/역학</a></li>
-					<li><a href="#">자기개발</a></li>
+			            <li><a href="${path}/board/br_board/brBoardMain" style="font-weight:bold">전체</a></li>
+			            <li><a href="${path}/board/br_board/brBoardMain1">소설</a></li>
+			            <li><a href="${path}/board/br_board/brBoardMain2">어린이/청소년</a></li>
+			            <li><a href="${path}/board/br_board/brBoardMain3">경제/경영</a></li>
+			            <li><a href="${path}/board/br_board/brBoardMain4">인문/사회/역사</a></li>
+			            <li><a href="${path}/board/br_board/brBoardMain5">종교/역학</a></li>
+			            <li><a href="${path}/board/br_board/brBoardMain6">자기계발</a></li>
 				</div>
 				<security:authorize access="hasRole('USER')">
 				<div class="brboard-top-button">
@@ -62,19 +62,8 @@
 				<hr>
 				<security:authorize access="hasRole('USER')">
                 <div class="review-book-bookscrap">
-                <form id="scrapForm" name="scrapForm" method="post" class="scrap_form">
-                        <c:choose>
-						    <c:when test="${scrapcheck eq '0' or empty scrapcheck}"> <!-- likecheck가0이면 빈별-->
-						        <img src="${ path }/images/scrap_0.png" 
-						             id="btn_scrap" style="cursor:pointer; width: 20px;">
-						    </c:when>
-						    <c:otherwise> <!-- likecheck가1이면 노란별-->
-						        <img src="${ path }/images/scrap_1.png" 
-						              id="btn_scrap" style="cursor:pointer; width: 20px;">
-						    </c:otherwise>
-						</c:choose>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                </form>
+ 				    <a id="scrap_button"><img src="${ path }/images/scrap_0.png" 
+						             id="btn_scrap" style="cursor:pointer; width: 20px;"></a>
                 </div>
                 </security:authorize>
 				<div class="brboard-review-book">
@@ -83,8 +72,7 @@
 					</div>
 					<div class="review-book-description">
 						<div class="book-description">
-							<p id="review-bookisbn" style="display: none"
-								value="${board.brIsbn}" />
+							<p id="review-bookisbn" style="display: none">${board.brIsbn}</p>
 							<p id="book-description-booktitle">
 								<a href="#"></a>
 							</p>
@@ -126,7 +114,7 @@
 						class="comment_form">
 						<div class="custom-textarea">
 							<p class="comment_profile" id="loginNname">${user.userNname}</p>
-							<p class="comment_profile" id="loginNo" style="display: none">${user.userNo}</p>
+							<p class="comment_profile" id="loginNo" style="display: none" value="${user.userNo}"></p>
 							<textarea class="comment_body"
 								style="border: 0px; width: auto; outline: none;"
 								name="comContent" id="comContent" rows="1"
@@ -168,16 +156,18 @@
                      $("#book-description-bookpublish").append(msg.documents[0].datetime);
                      $("#book-description-bookcontents").append(msg.documents[0].contents);
                  });
+             
+             	commentList();	
+ 				recCount();
+ 				$("#btn_scrap").click(function(){
+	 				alert("스크랩버튼")
+	 				scrap();
+	 				});
      });
 </script>
 <script>
 
-// 게시글 번호 저장
-		$(document).ready(function() {
-			commentList();	
-			recCount();
-			
-		});
+		
 			// 댓글 목록 보기
 			function commentList() {
 				var brNo = document.getElementById("reviewheader-brNo").innerHTML;
@@ -248,6 +238,37 @@
 			})
 		};
 		
+		//스크랩하기
+		function scrap() {
+			var csrfToken = $("meta[name='csrf-token']").attr('content');
+		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+		    $(document).ajaxSend(function (e, xhr, options) {
+		        xhr.setRequestHeader(csrfHeader, csrfToken);
+		    });
+			$.ajax({
+				url:	"scrap",
+				type:	"POST",
+				dataType: "json",
+				data:	{'bsIsbn' : ${board.brIsbn}},
+				error: function() {
+					alert("스크랩 error")
+				},
+				success: function(data) {
+	                if(data.resultCode == -1){
+	                    alert("스크랩 실패하였습니다.","error","확인",function(){});
+	                }
+	                else{
+	                    if(data.likecheck == 1){
+	                        $("#btn_scrap").attr("src","${ path }/images/scrap_1.png");
+	                    }
+	                    else if (data.likecheck == 0){
+	                        $("#btn_scrap").attr("src","${ path }/images/scrap_0.png");
+	                    }
+	                }
+	            }
+	        });
+	}
+		
 		function saveComment() {
 			var csrfToken = $("meta[name='csrf-token']").attr('content');
 		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
@@ -282,41 +303,6 @@
 				});
 			}
 			
-			var btn_scrap = document.getElementById("btn_scrap");
-			btn_scrap.onclick = function(){ scrap(); }
-			
-			function scrap() {
-				var csrfToken = $("meta[name='csrf-token']").attr('content');
-			    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
-			    $(document).ajaxSend(function (e, xhr, options) {
-			        xhr.setRequestHeader(csrfHeader, csrfToken);
-			    });
-			    var userNo = $('#loginNo').html();
-			    var bsIsbn = document.getElementById("reviewbookisbn").innerHTML;
-				$.ajax({
-					url:	"scrapGet",
-					type:	"POST",
-					dataType: "json",
-					data:	{'userNo' : userNo,
-							 'bsIsbn' : bsIsbn},
-					error: function() {
-						alert("스크랩 error")
-					},
-					success: function(data) {
-		                if(data.resultCode == -1){
-		                    alert("스크랩 실패하였습니다.","error","확인",function(){});
-		                }
-		                else{
-		                    if(data.likecheck == 1){
-		                        $("#btn_scrap").attr("src","${ path }/images/scrap_1.png");
-		                    }
-		                    else if (data.likecheck == 0){
-		                        $("#btn_scrap").attr("src","${ path }/images/scrap_0.png");
-		                    }
-		                }
-		            }
-		        });
-		}
 		}; 
 </script>
 
