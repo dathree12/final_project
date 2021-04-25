@@ -33,6 +33,20 @@
 		<result property="qaStatus" column="QA_STATUS" />
 	</resultMap>
 
+	<!-- 댓글 resultmap -->
+	<resultMap type="Comment" id="boardCommentResultMap">
+		<id property="comNo" column="COM_NO" />
+		<result property="comWriter" column="COM_WRITER" />
+		<result property="comContent" column="COM_CONTENT" />
+		<result property="comCreateDate" column="COM_CREATE_DATE" />
+		<result property="comEditDate" column="COM_EDIT_DATE" />
+		<result property="comStatus" column="COM_STATUS" />
+		<result property="qaNo" column="QA_NO" />
+		<result property="bcNo" column="BC_NO" />
+		<result property="brNo" column="BR_NO" />
+		<result property="bfNo" column="BF_NO" />
+	</resultMap>
+
 	<select id="selectQAList" parameterType="map"
 		resultMap="qaResultMap">
 		<include refid="qaListSql"></include>
@@ -51,7 +65,7 @@
 		FROM QA_BOARD
 		WHERE QA_STATUS = 'Y'
 	</select>
-	
+
 	<update id="deleteBoard" parameterType="_int">
 		UPDATE QA_BOARD
 		SET
@@ -77,5 +91,35 @@
 		)
 	</insert>
 
+	<!-- 댓글 집어넣기 -->
+	<insert id="saveComment" parameterType="map"
+		useGeneratedKeys="true" keyProperty="comNo" keyColumn="COM_NO">
+		INSERT INTO COMMENT_BOARD
+		VALUES(
+		SEQ_BR_NO.NEXTVAL,
+		#{comWriter},
+		#{comContent},
+		DEFAULT,
+		DEFAULT,
+		'Y',
+		DEFAULT,
+		DEFAULT,
+		#{qaNo},
+		DEFAULT
+		)
+	</insert>
+
+	<!-- 댓글 불러오기 -->
+	<select id="listComment" parameterType="_int"
+		resultMap="boardCommentResultMap">
+		SELECT CB.COM_NO,
+		CB.COM_WRITER,
+		CB.COM_CONTENT,
+		CB.COM_CREATE_DATE,
+		CB.COM_STATUS,
+		CB.BR_NO
+		FROM COMMENT_BOARD CB
+		WHERE CB.BR_NO = #{qaNo} AND CB.COM_STATUS='Y'
+	</select>
 
 </mapper>

@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cereal.books.board.model.service.QAService;
+import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.QA;
 import com.cereal.books.common.util.PageInfo;
 import com.cereal.books.member.model.vo.Member;
@@ -136,5 +138,41 @@ public class CustomerServiceController {
 		model.setViewName("board/cs_board/qnaDetail");
 
 		return model;
+	}
+	
+	//코멘트 DB저장하기
+	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST})
+	@ResponseBody
+    public int saveComment(@RequestParam("qaNo") int brNo, @RequestParam("comWriter")String comWriter, 
+    		@RequestParam("comContent")String comContent, Comment comment, ModelAndView model) throws Exception{
+
+        int result = 0;
+        
+        System.out.println(comment);
+		
+    	result = service.saveComment(comment);
+    	
+    	System.out.println(result);
+    	
+//    	if(result > 0) {
+//			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
+//			model.addObject("location", "/board/br_board/brBoardMain");
+//		} else {
+//			model.addObject("msg", "게시글 등록을 실패하였습니다.");
+//			model.addObject("location", "/board/list");
+//		}			
+//            
+        
+        return result;
+    }
+	
+	//코멘트 불러오기
+	@RequestMapping(value="/commentList", method = {RequestMethod.GET})
+	@ResponseBody
+	public List<Comment> getCommentList(@RequestParam int qaNo) throws Exception {
+		List<Comment> list = null;
+		list = service.listComment(qaNo);
+		System.out.println(list);
+		return list;
 	}
 }
