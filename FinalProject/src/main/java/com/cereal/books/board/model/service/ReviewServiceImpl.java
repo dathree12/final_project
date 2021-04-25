@@ -175,5 +175,15 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return reviewDao.myScrapCount(userNo);
 	}
+
+	@Override
+	public int saveRecommend(int brNo) {
+		return reviewDao.increaseReco(brNo);
+	}
+
+	@Override
+	public ReviewBoard findBoard(int brNo) {
+		return reviewDao.selectBoardDetail(brNo);
+	}
 	
 }

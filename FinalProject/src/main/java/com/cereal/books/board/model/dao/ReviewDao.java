@@ -65,5 +65,7 @@ public interface ReviewDao {
 		List<BookScrap> myScrapList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
 
 		int myScrapCount(int userNo);
+
+		int increaseReco(int brNo);
 		
 }
