@@ -229,7 +229,7 @@
                         <a><img onclick="location.href='${path}/member/mypage/mypage?cPage=${myClubPageInfo.prvePage}&cListLimit=${myClubPageInfo.listLimit}'" class="btn_img" src="${path}/images/left.png" style="margin-right: 5%;"></a>
 							<c:forEach var="clublist" items="${myClubList}">
 								<div class="book_info" id="book1">
-								<a href="#" name="thumbnailbox"><img onclick="location.href='${path}/board/bc_board/bcBoardDetail?bcNo=${clublist.bcNo}'" class="club_image" value="${clublist.bcNo}" src="${path}/upload/bf_board/${clublist.bcModifyImage}"></a>
+								<a href="#" name="thumbnailbox"><img onclick="location.href='${path}/board/bc_board/bcBoardDetail?bcNo=${clublist.bcNo}'" class="club_image" value="${clublist.bcNo}" src="${path}/upload/bc_board/${clublist.bcModifyImage}"></a>
                            		<p>${clublist.bcOriginTitle}</p>
                            		</div>
 							</c:forEach>

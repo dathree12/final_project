@@ -52,23 +52,20 @@ body { background-color: #eaeaea;}
 }
 
 /* 비밀번호 변경 */
-#updatePwd {
+#pwd_wrap {
 	margin: 0 auto;
 	width: 800px;
     height: 400px;
     background-color: white;
     border-radius: 10px;
-    margin: 0 auto;
     margin-top: 50px;
     text-align: center;
 }
-#update div {
-	height: 30px;
-    background-color: black;
-    color: white;
-    border-style: none;
-    float: center;
+#updatePassword-container {
+	text-align: center;
+    padding: 20px;
 }
+#pwd_div{padding-top: 30px;}
 
 /* 반응형 */
 @media screen and (max-width:768px) {

@@ -1,11 +1,16 @@
 package com.cereal.books.member.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -154,9 +159,10 @@ public class MyPageController {
 	public ModelAndView update(@ModelAttribute Member member,
 			@AuthenticationPrincipal Member loginMember,
 			ModelAndView model) {
-		
-		System.out.println("member : " + member);
-		System.out.println("loginMember : " + loginMember);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(member, auth.getCredentials(), updatedAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
 		
 		int result = 0;
 		
@@ -228,6 +234,7 @@ public class MyPageController {
 			result = service.deleteMember(member.getUserId(), userPwd);
 			
 			if(result > 0) {
+				SecurityContextHolder.clearContext();
 				model.addObject("msg", "정상적으로 탈퇴되었습니다.");
 				model.addObject("location", "/");
 			} else {
