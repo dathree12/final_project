@@ -47,7 +47,7 @@
 			            </div>
 					
 				        <div class="box">
-	                 		<div><span class="bf_th">현재 도달 금액 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />원</span> </div>
+	                 		<div><span class="bf_th">현재 도달 금액 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfReachPrice}" />원</span> </div>
 	                 		<div><span class="bf_th">목표 달성 금액 </span><span class="bf_td"><c:out value="${bfboard.bfTargetPrice}" />원</span> </div>
 	                 		<div><span class="bf_th">달성률 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />%</span> </div>
 				        </div>
