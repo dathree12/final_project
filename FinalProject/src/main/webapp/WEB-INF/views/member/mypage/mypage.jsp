@@ -360,7 +360,7 @@
 	                                <th class="th">Title</th>
 	                                <th class="th">Status</th>
 	                            </tr>
-	                            <c:if test="${empty myAplctFundListl}">
+	                            <c:if test="${empty myAplctFundList}">
 									<tr>
 										<td colspan="6">
 											조회된 펀딩 내역이 없습니다.

@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="${path}/css/member/mypage_style/profile.css">
     <section class="profile_wrap">
 	<h3 style="text-align: center; margin: 50px;">Profile</h3>
+	<hr>
 	<div id="pwd_wrap">
 	<div id="updatePassword-container">
 		<form target="_self" id="updatePwd" action="${path}/member/updatePwd" name="update" method="post">
