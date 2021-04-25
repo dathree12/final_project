@@ -156,12 +156,13 @@ public class CustomerServiceController {
     	
 //    	if(result > 0) {
 //			model.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-//			model.addObject("location", "/board/br_board/brBoardMain");
+//			model.addObject("location", "/board/cs_board/qnaBoardMain");
 //		} else {
 //			model.addObject("msg", "게시글 등록을 실패하였습니다.");
-//			model.addObject("location", "/board/list");
+//			model.addObject("location", "/board/cs_board/qnaBoardMain");
 //		}			
-//            
+//    	
+//    	model.setViewName("common/msg");
         
         return result;
     }
