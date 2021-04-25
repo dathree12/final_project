@@ -51,4 +51,9 @@ public class QAServiceImpl implements QAService {
 		
 		return result;
 	}
+
+	@Override
+	public int deleteBoard(int qaNo) {
+		return dao.deleteBoard(qaNo);
+	}
 }

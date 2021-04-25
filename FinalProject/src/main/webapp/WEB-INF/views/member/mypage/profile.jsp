@@ -76,9 +76,9 @@
 			                value="종교/역학">종교 / 역학</label>&nbsp;<br>
 			                <label><input type="checkbox" name="userGenre" id="Genre5"
 			                	<c:forEach var="checkGenre" items="${genre }">
-	                            	${checkGenre eq '자기개발' ? 'checked':''}
+	                            	${checkGenre eq '자기계발' ? 'checked':''}
                         		</c:forEach>
-			                value="자기개발">자기개발(ex 요리, 뷰티, 여행)</label>&nbsp;<br>
+			                value="자기계발">자기계발(ex 요리, 뷰티, 여행)</label>&nbsp;<br>
                         </td>
                     </tr>
                     <tr><td colspan=2><hr></td></tr>
@@ -171,7 +171,6 @@
        		    var phone3 = $("#phone3").val();
        		    
        			$("#userPhone").val(phone1 + '-' +  phone2 + '-' + phone3);
-         
        	  	});
        		/*핸드폰 유효성*/
     		 $("#phone2").blur((e) => {
@@ -209,11 +208,7 @@
     		function updatePwd(){
  			//1 비밀번호 변경창을 열고
  			//2. 비밀번호수정하기
- 			
- 			const url="${path}/member/newPwd";
- 			const st="left=500px,top=200px,width=300px,height=210px";
- 			
- 			open(url, "_blank", st);
+ 			location.href = "${path}/member/newPwd";
  			}
 	</script>
 <%@ include file="../../../views/common/footer.jsp" %>

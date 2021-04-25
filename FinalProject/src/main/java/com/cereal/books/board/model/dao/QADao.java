@@ -14,7 +14,10 @@ public interface QADao {
 
 	int insertQA(QA qa);
 	
+	int deleteBoard(int qaNo);
+
 	List<QA> selectQAList(RowBounds rowBounds);
 	
 	QA selectQADetail(int qaNo);
+
 }

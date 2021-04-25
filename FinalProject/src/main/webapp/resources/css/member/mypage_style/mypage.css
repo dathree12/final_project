@@ -98,6 +98,7 @@
 .calendar_image {
   width: 100%;
   border: 1px solid darkgray;
+  cursor:pointer;
 }
 
 /* 북클럽 */

@@ -29,27 +29,12 @@
 			</div>
 			<form action="${ path }/board/bc_board/bcExpWrite?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form" enctype="multipart/form-data">
 				<div class="xans-element- xans-board xans-board-write-4 xans-board-write xans-board-4">
-					<div class="ec-base-box typeProduct">
                         <div class="author" style="visibility: hidden;">
 		              		<security:authentication property="principal" var="user"/> 
 		                    <input id="post_subject" class="post_subject" name="userName" value="${ user.name }" type="text" readonly>
-		                    <input type="text" name="userNo" value="${ user.userNo }" readonly>
-		                    <input type="text" name="userId" value="${ user.userId }" readonly>
+		                    <input type="hidden" name="userNo" value="${ user.userNo }" readonly>
+		                    <input type="hidden" name="userId" value="${ user.userId }" readonly>
                        </div>
-						<div class="information">
-							<h3>
-								<a href id="aPrdNameLink">
-									<!-- bcTitle 들어와야함 결제관련 마무리 후 진행 -->
-									<span id="sPrdName"></span>
-								</a>
-							</h3>
-							<!-- 도저히 안되면 생략 
-							<p class="price">
-								<span id="sPrdPrice">24,000원</span>
-							</p>
-							-->
-						</div>
-					</div>
 					<div class="ec-base-table typeWrite">
 						<table border="1" summary style="position: relative; margin: 10px 0 0; border: 1px solid #f1f1f1; border-top: 0; color: #fff; line-height: 1.8em; width: 100%; border-spacing: 0; border-collapse: collapse;">
 							<tbody class=".dropdown" style="display: table-row-group; vertical-align: middle; border-color: inherit; border-color: inherit; border-top: 1px solid #f1f1f1;">
@@ -88,7 +73,7 @@
 				</div>
 				<span class="gRight" style="float: right; text-align: right; margin-top: 10px;">
 					<a id="exp_btn"><input type="submit" class="-cbtn -c-medium -c-black" value="등록"></a>
-					<a href="javascript:;"><span class="-cbtn -c-medium"> 취소 </span></a>
+					<a onclick="history.back();"><span class="-cbtn -c-medium"> 취소 </span></a>
 				</span>
 				<input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
 			</form>

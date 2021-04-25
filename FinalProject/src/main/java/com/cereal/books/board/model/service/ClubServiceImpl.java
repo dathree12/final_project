@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cereal.books.board.model.dao.ClubDao;
+import com.cereal.books.board.model.dao.FundDao;
 import com.cereal.books.board.model.vo.ClubBoard;
-import com.cereal.books.board.model.vo.Exp;
+import com.cereal.books.board.model.vo.Payment;
 import com.cereal.books.common.util.PageInfo;
-
-import lombok.extern.slf4j.Slf4j;
 
 /*
  * 에러내역 : 
@@ -30,11 +29,13 @@ public class ClubServiceImpl implements ClubService {
 		return clubDao.selectCount();
 	}
 	
+	@Transactional
 	@Override
 	public int saveRemainDate() {
 		return clubDao.saveRemainDate();
 	}
 	
+	@Transactional
 	@Override
 	public int noneRemainDate() {
 		return clubDao.noneRemainDate();
@@ -75,16 +76,9 @@ public class ClubServiceImpl implements ClubService {
 	}
 
 	@Override
-	public ClubBoard findClubByNo(int bcNo, PageInfo pageInfo) {
-		/*
-		 * RowBounds (import org.apache.ibatis.session.RowBounds;)
-		 *  1) offset : 데이터를 가져오는 시작점에서 얼마나 떨어진 데이터값인지 의미
-		 *  2) limit : 몇 개의 값을 가져올지를 의미한다.
-		 */
-		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
-		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
+	public ClubBoard findClubByNo(int bcNo) {
 		
-		return clubDao.selectClubDetail(bcNo, rowBounds);
+		return clubDao.selectClubDetail(bcNo);
 	}
 
 	@Override
@@ -119,5 +113,28 @@ public class ClubServiceImpl implements ClubService {
 	@Override
 	public int getMyClubCount(int userNo) {
 		return clubDao.selectMyClubCount(userNo);
+	}
+
+	@Override
+	public ClubBoard findBoardByNo(int bcNo) {
+		return clubDao.findBoardByNo(bcNo);
+	}
+
+	@Transactional
+	@Override
+	public int increaseViewcnt(int bcNo) {
+		return clubDao.increaseViewcnt(bcNo);
+	}
+	
+	@Transactional
+	@Override
+	public int insertPayment(Payment payment) {
+		return clubDao.insertPayment(payment);
+	}
+
+	
+	@Override
+	public int plusReachPrice(ClubBoard clubBoard) {
+		return clubDao.plusReachPrice(clubBoard);
 	}
 }

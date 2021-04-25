@@ -82,6 +82,7 @@
 							  <input type="text" id="brIsbn" name="brIsbn"  style="display:none">
 							  <input id="selectedBookThumb" name="brPresentPic" style="display:none">
 	                    </div>
+	                    <!-- 
 	                    <div id="brboard-write-bookrate">
 	                    	<span>평점</span>
 		                    	<select id="example">
@@ -92,6 +93,7 @@
 									<option value="5">5</option>
 								</select>
 						</div>
+						 -->
 	                </div>
 	                <textarea name="brContent" id="brContent"></textarea>
 	                <script>

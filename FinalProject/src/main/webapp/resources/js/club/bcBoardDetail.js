@@ -30,7 +30,16 @@ function selectBoxCliked () {
 
 // 결제페이지로 이동
 function goPayment() {
-	location.href = "${ path }/board/bc_board/bcBoardPayment";
+	var prdOption0 = document.getElementById('prdOption0');
+	
+	if(prdOption0.style.display === 'none') {
+		alert('일정을 선택해주세요');
+		
+	} else {
+		document.frm.submit();
+	}
+
+	
 }
 
 // 부트스트랩 드롭다운
