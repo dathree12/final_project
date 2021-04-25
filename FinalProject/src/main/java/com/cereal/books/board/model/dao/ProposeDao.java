@@ -35,4 +35,6 @@ public interface ProposeDao {
 
 	// 마이페이지
 	List<Propose> myAplctClubList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
+
+	int increateViewcnt(int proposeNo);
 }

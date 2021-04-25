@@ -86,6 +86,7 @@ public class ProposeServiceImpl implements ProposeService {
 	public int saveComment(Comment comment) {
 		int result = 0;
 		result = dao.saveComment(comment);
+		System.out.println("ServiceImpl");
 		return result;
 	}
 
@@ -93,5 +94,11 @@ public class ProposeServiceImpl implements ProposeService {
 	@Override
 	public List<Comment> listComment(int proposeNo) {
 		return dao.listComment(proposeNo);
+	}
+
+	@Transactional
+	@Override
+	public int increaseViewcnt(int proposeNo) {
+		return dao.increateViewcnt(proposeNo);
 	}
 }

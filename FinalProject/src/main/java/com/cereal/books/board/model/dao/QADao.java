@@ -25,4 +25,6 @@ public interface QADao {
 
 	List<Comment> listComment(int qaNo);
 
+	int increateViewcnt(int qaNo);
+
 }

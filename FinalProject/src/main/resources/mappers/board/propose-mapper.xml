@@ -48,7 +48,7 @@
 		<result property="comEditDate" column="COM_EDIT_DATE" />
 		<result property="comStatus" column="COM_STATUS" />
 		<result property="qaNo" column="QA_NO" />
-		<result property="bcNo" column="BC_NO" />
+		<result property="proposeNo" column="PROPOSE_NO" />
 		<result property="brNo" column="BR_NO" />
 		<result property="bfNo" column="BF_NO" />
 	</resultMap>
@@ -95,6 +95,15 @@
 		'Y'
 		)
 	</insert>
+	
+	<!-- 조회수 증가(반복조회 방지) -->
+	<update id="increateViewcnt" parameterType="ReviewBoard">
+		UPDATE PROPOSE
+		SET 
+			PROPOSE_VIEW_COUNT = (PROPOSE_VIEW_COUNT + 1)
+		WHERE 
+			PROPOSE_NO = #{proposeNo}
+	</update>
 	
 	<!-- 제안하기 게시판 삭제(상태 변화) -->
 	<update id="deleteBoard" parameterType="_int">

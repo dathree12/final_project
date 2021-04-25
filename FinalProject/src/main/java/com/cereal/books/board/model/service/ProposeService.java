@@ -32,4 +32,6 @@ public interface ProposeService {
 
 	List<Comment> listComment(int proposeNo);
 
+	int increaseViewcnt(int proposeNo);
+
 }

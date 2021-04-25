@@ -72,4 +72,10 @@ public class QAServiceImpl implements QAService {
 	public List<Comment> listComment(int qaNo) {
 		return dao.listComment(qaNo);
 	}
+
+	@Transactional
+	@Override
+	public int increaseViewcnt(int qaNo) {
+		return dao.increateViewcnt(qaNo);
+	}
 }

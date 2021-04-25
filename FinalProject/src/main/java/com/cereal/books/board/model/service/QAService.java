@@ -22,4 +22,6 @@ public interface QAService {
 
 	List<Comment> listComment(int qaNo);
 
+	int increaseViewcnt(int qaNo);
+
 }
