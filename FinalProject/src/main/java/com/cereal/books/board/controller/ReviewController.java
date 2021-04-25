@@ -300,7 +300,7 @@ public class ReviewController {
 		
 	}
 	
-	//스크랩 정보 가져오기
+	//스크랩 저장하기 가져오기
 	@ResponseBody
 	@RequestMapping(value = "/scrap", method = {RequestMethod.POST})
 	public Map<String, Object> clickScrap(@RequestParam("bsIsbn")String bsIsbn, @AuthenticationPrincipal Member member){
@@ -309,30 +309,62 @@ public class ReviewController {
         Map<String, Object> resultMap = null;
 //        String bsIsbn = (String) commandMap.get("bsIsbn");
        int userNo = member.getUserNo();
-        System.out.println("userNo" + userNo);
-        List<BookScrap> scrap = service.scrapCheck(bsIsbn, userNo);;
+        System.out.println("userNo : " + userNo);
+        List<BookScrap> scrap = service.scrapCheck(bsIsbn, userNo);
         	//스크랩 확인
             System.out.println("스크랩정보 : " + scrap);
-            if(scrap != null) {
-            	//슼크랩 취소한거 likecheck=0, 빈하트 되야됨
-                likecheck = 0;
-                service.deleteScrap(bsIsbn, userNo);
-                resultCode = 0;
-            }
-            else {
-                //처음 좋아요 누른것 likecheck=1, 좋아요 빨간색이 되야됨
+            try {
+            	if(scrap != null) {
+                	//슼크랩 취소한거 likecheck=0, 빈하트 되야됨
+                    likecheck = 0;
+                    service.deleteScrap(bsIsbn, userNo);
+                    resultCode = 0;
+                }
+                else {
+                    //처음 좋아요 누른것 likecheck=1, 좋아요 빨간색이 되야됨
+                	System.out.println("null값일떄 돌아가는것");
+                    service.insertScrap(bsIsbn, userNo); //좋아요 테이블 인서트
+                    resultCode = 1;
+                }
+            } catch (Exception e) {
+            	//처음 좋아요 누른것 likecheck=1, 좋아요 빨간색이 되야됨
             	System.out.println("null값일떄 돌아가는것");
                 service.insertScrap(bsIsbn, userNo); //좋아요 테이블 인서트
                 resultCode = 1;
-            }
+			}
+            
 			resultMap.put("likecheck", likecheck);
         
         resultMap.put("resultCode", resultCode);
         //resultCode가 1이면 빨간하트 0이면 빈하트
         return resultMap;
     }
-
 	
+	//스크랩 불러오기
+	@RequestMapping(value="/getscrap", method = {RequestMethod.GET})
+	@ResponseBody
+	public Map<String, Object> getscrap(@RequestParam("bsIsbn")String bsIsbn, @AuthenticationPrincipal Member member) throws Exception {
+		int userNo = member.getUserNo();
+		int resultCode = 0;
+		Map<String, Object> resultMap = null;
+		List<BookScrap> scrap = service.scrapCheck(bsIsbn, userNo);
+		System.out.println("scrap :" +scrap);
+		try {
+			if(scrap != null) {
+				resultCode = 1;
+	        }
+	        else {
+	            resultCode = 0;
+	        }
+		} catch (Exception e) {
+			resultCode = 1;
+		}
+
+		System.out.println(resultCode);
+	    resultMap.put("resultCode", resultCode);
+	    //resultCode가 1이면 빨간하트 0이면 빈하트
+    return resultMap;
+	}
 	
 	//코멘트 DB저장하기
 	@RequestMapping(value = "/saveComment" , method = {RequestMethod.POST})

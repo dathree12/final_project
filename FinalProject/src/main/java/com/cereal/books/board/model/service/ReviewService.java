@@ -18,8 +18,6 @@ public interface ReviewService {
 
 	ReviewBoard findBoardByNo(int brNo);
 
-	int saveScrapStatus(BookScrap bookscrap);
-
 	List<Comment> listComment(int brNo);
 
 	int saveComment(Comment comment);
@@ -40,9 +38,9 @@ public interface ReviewService {
 
 	List<BookScrap> scrapCheck(String bsIsbn, int userNo);
 
-	List<BookScrap> insertScrap(String bsIsbn, int userNo);
+	int insertScrap(String bsIsbn, int userNo);
 
-	List<BookScrap> deleteScrap(String bsIsbn, int userNo);
+	int deleteScrap(String bsIsbn, int userNo);
 
 	List<ReviewBoard> getBoardSortingList(PageInfo pageInfo);
 

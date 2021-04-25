@@ -159,6 +159,7 @@
              
              	commentList();	
  				recCount();
+ 				getscrap();
  				$("#btn_scrap").click(function(){
 	 				alert("스크랩버튼")
 	 				scrap();
@@ -167,7 +168,6 @@
 </script>
 <script>
 
-		
 			// 댓글 목록 보기
 			function commentList() {
 				var brNo = document.getElementById("reviewheader-brNo").innerHTML;
@@ -199,10 +199,10 @@
 		function reco(){
 			var csrfToken = $("meta[name='csrf-token']").attr('content');
 		    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
-		    $(document).ajaxSend(function (e, xhr, options) {
-		        xhr.setRequestHeader(csrfHeader, csrfToken);
-		    });
-		var brNo = document.getElementById("reviewheader-brNo").innerHTML;
+			    $(document).ajaxSend(function (e, xhr, options) {
+			        xhr.setRequestHeader(csrfHeader, csrfToken);
+			    });
+			var brNo = document.getElementById("reviewheader-brNo").innerHTML;
 			$.ajax({
 				url:	"reco",
 				type:	"POST",
@@ -248,7 +248,6 @@
 			$.ajax({
 				url:	"scrap",
 				type:	"POST",
-				dataType: "json",
 				data:	{'bsIsbn' : ${board.brIsbn}},
 				error: function() {
 					alert("스크랩 error")
@@ -269,7 +268,19 @@
 	        });
 	}
 		function getscrap(){
-			
+			$.ajax({
+				url:	"getscrap",
+				type:	"get",
+				data:	{'bsIsbn' : ${board.brIsbn}},
+				success: function(data) {
+	                    if(data.resultcode == 1){
+	                        $("#btn_scrap").attr("src","${ path }/images/scrap_1.png");
+	                    }
+	                    else if (data.resultcode == 0){
+	                        $("#btn_scrap").attr("src","${ path }/images/scrap_0.png");
+	                    }
+					}
+	        	});
 		}
 		
 		function saveComment() {
