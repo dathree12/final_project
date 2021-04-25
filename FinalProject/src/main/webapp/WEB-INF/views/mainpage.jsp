@@ -286,7 +286,7 @@
                 <li value="b3"><span >경제/경영</span></li>
                 <li value="b4"><span >인문/사회/역사</span></li>
                 <li value="b5"><span >종교/역학</span></li>
-                <li value="b6"><span >자기개발</span></li>
+                <li value="b6"><span >자기계발</span></li>
             </ul>
 
         </div> 
