@@ -55,18 +55,6 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.selectBoardDetail(brNo);
 	}
 
-	@Override
-	public int saveScrapStatus(BookScrap bookscrap) {
-		int result = 0;
-//		System.out.println("스크랩 돌아간다.");
-//		if(bookscrap.getScrapNo() != 0) {
-//			result = reviewDao.updateBookScrap(bookscrap);
-//		} else {
-//			result = reviewDao.insertBookScrap(bookscrap);
-//		}
-		return result;
-	}
-	
 	@Transactional
 	@Override
 	public List<Comment> listComment(int brNo) {
@@ -132,12 +120,14 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<BookScrap> insertScrap(String bsIsbn, int userNo) {
+	@Transactional
+	public int insertScrap(String bsIsbn, int userNo) {
 		return reviewDao.insertScrap(bsIsbn, userNo);
 	}
 
 	@Override
-	public List<BookScrap> deleteScrap(String bsIsbn, int userNo) {
+	@Transactional
+	public int deleteScrap(String bsIsbn, int userNo) {
 		return reviewDao.deleteScrap(bsIsbn, userNo);
 	}
 
@@ -228,5 +218,5 @@ public class ReviewServiceImpl implements ReviewService {
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
 		return reviewDao.selectBoardList6(rowBounds);
 	}
-	
+
 }

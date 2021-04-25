@@ -22,11 +22,7 @@ public interface ReviewDao {
 
 		int selectCount();
 
-		ReviewBoard selectBoardDetail(int brNo);
-		
-		int updateBookScrap(BookScrap bookscrap);
-		
-		int insertBookScrap(BookScrap bookscrap);
+		ReviewBoard selectBoardDetail(int brNo);		
 		
 		List<Comment> listComment(int brNo);
 
@@ -48,11 +44,11 @@ public interface ReviewDao {
 
 		int increateViewcnt(int brNo);
 
-		List<BookScrap> scrapCheck(String bsIsbn, int userNo);
+		List<BookScrap> scrapCheck(@Param("bsIsbn") String bsIsbn, @Param("userNo") int userNo);
 
-		List<BookScrap> insertScrap(String bsIsbn, int userNo);
+		int insertScrap(@Param("bsIsbn") String bsIsbn, @Param("userNo") int userNo);
 
-		List<BookScrap> deleteScrap(String bsIsbn, int userNo);
+		int deleteScrap(@Param("bsIsbn") String bsIsbn, @Param("userNo") int userNo);
 
 		List<ReviewBoard> selectBoardSortingList(RowBounds rowBounds);
 
