@@ -11,8 +11,10 @@ public interface QAService {
 
 	int saveBoard(QA qa);
 
-	List<QA> findQAByNo(PageInfo pageInfo);
-	
+	int deleteBoard(int qaNo);
+
 	QA findQADetail(int qaNo);
+
+	List<QA> findQAByNo(PageInfo pageInfo);
 
 }

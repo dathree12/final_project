@@ -445,9 +445,27 @@ public class ReviewController {
 			return model;
 		}
 		
+		@RequestMapping(value="/reco", method={RequestMethod.POST})
+		@ResponseBody
+		public int recosave(@RequestParam("brNo") int brNo) {
+			int result = 0;
+			
+			result = service.saveRecommend(brNo);
+			
+			return  result;
+		}
 		
-		
-		
+		@RequestMapping(value="/RecCount", method={RequestMethod.POST})
+		@ResponseBody
+		public Map<String,Object> recoCount(@RequestParam("brNo") int brNo) {
+			Map<String,Object> reco = new HashMap<>();
+			System.out.println(brNo);
+			ReviewBoard reviewboard = service.findBoard(brNo);
+			
+			reco.put("reco", reviewboard.getBrLike());
+			
+			return reco;
+		}
 		
 		
 	

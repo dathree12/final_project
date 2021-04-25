@@ -63,7 +63,7 @@
                                       <label class="en_label"><input type="checkbox" name="userGenre" id="Genre2" value="경제/경영">경제 / 경영</label> <br><br>
                                       <label class="en_label"><input type="checkbox" name="userGenre" id="Genre3" value="인문/사회/역사">인문 / 사회 / 역사</label> &nbsp;&nbsp;
                                       <label class="en_label"><input type="checkbox" name="userGenre" id="Genre4" value="종교/역학">종교 / 역학</label> <br><br> 
-                                      <label class="en_label"><input type="checkbox" name="userGenre" id="Genre5" value="자기개발">자기개발 (요리 / 뷰티 / 자격증 / 여행...)</label> &nbsp;&nbsp;
+                                      <label class="en_label"><input type="checkbox" name="userGenre" id="Genre5" value="자기계발">자기계발 (요리 / 뷰티 / 자격증 / 여행...)</label> &nbsp;&nbsp;
                                    </div>
                                    <div class="genre_text"><span></span></div>
                               </div>

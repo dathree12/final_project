@@ -66,13 +66,30 @@ public class CustomerServiceController {
 
 		return model;
 	}
-
-
-	@RequestMapping(value = "/qnaBoardWrite", method = {RequestMethod.POST})
-	public ModelAndView write(ModelAndView model,
-			@AuthenticationPrincipal Member member,
-			QA qa
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(ModelAndView model,
+			@RequestParam("qaNo") int qaNo
 			) {
+		
+		int result = service.deleteBoard(qaNo);
+		
+		if (result > 0) {
+			model.addObject("msg", "정상적으로 삭제되었습니다.");
+			model.addObject("location", "/board/cs_board/qnaBoardMain");
+		} else {
+			model.addObject("msg", "실패하였습니다.");
+			model.addObject("location", "/board/cs_board/qnaBoardMain");
+		}
+		
+		model.setViewName("common/msg");
+		
+		return model;
+	}
+
+	@RequestMapping(value = "/qnaBoardWrite", method = { RequestMethod.POST })
+	public ModelAndView write(ModelAndView model, QA qa,
+			@AuthenticationPrincipal Member member) {
 
 		if (member.getUserNo() == qa.getUserNo()) {
 			qa.setQaWriter(member.getUsername());
@@ -80,27 +97,26 @@ public class CustomerServiceController {
 			int result = 0;
 
 			result = service.saveBoard(qa);
-			
+
 			System.out.println(result);
 
 			if (result > 0) {
 				model.addObject("msg", "게시글 등록 성공");
-				model.addObject("location", "/board/bc_board/bcBoardMain");
+				model.addObject("location", "/board/cs_board/qnaBoardMain");
 			} else {
 				model.addObject("msg", "게시글 등록 실패");
-				model.addObject("location", "/board/bc_board/bcBoardMain");
+				model.addObject("location", "/board/cs_board/qnaBoardMain");
 			}
-		} 
-	else {
+		} else {
 			model.addObject("msg", "잘못된 접근입니다.");
-			model.addObject("location", "/board/bc_board/bcBoardMain");
+			model.addObject("location", "/board/cs_board/qnaBoardMain");
 		}
 
 		model.setViewName("common/msg");
 
 		return model;
 	}
-	
+
 	@RequestMapping(value = "/qnaBoardWrite")
 	public String qnaWriter() {
 
@@ -108,8 +124,7 @@ public class CustomerServiceController {
 	}
 
 	@RequestMapping(value = "/qnaDetail", method = RequestMethod.GET)
-	public ModelAndView detail(ModelAndView model, @RequestParam(value = "qaNo") int qaNo
-			) {
+	public ModelAndView detail(ModelAndView model, @RequestParam(value = "qaNo") int qaNo) {
 
 		QA qa = null;
 

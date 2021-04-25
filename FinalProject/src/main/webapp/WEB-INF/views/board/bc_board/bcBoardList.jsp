@@ -113,7 +113,7 @@
 		                        <td style="width: 150px"><c:out value="${ proposeList.proposeRegDate }"/></td>
 		                        <td style="width: 90px"><c:out value="${ proposeList.proposeViewCount }"/></td>
 		                        <security:authorize access="hasRole('ADMIN')">
-		                        	<td style="width: 50px; border: none"><input style="background-color: #747474; border: 1px solid #4f4f4f; width: 100%; height: 100%; border-radius: 0px; color: white;" onclick="removeList();" id="removeList" name="removeList" type="button" value="삭제"></td>
+		                        	<td style="width: 50px; border: none"><input style="cursor: pointer; background-color: #747474; border: 1px solid #4f4f4f; width: 100%; height: 100%; border-radius: 0px; color: white;" onclick="removeList();" id="removeList" name="removeList" type="button" value="삭제"></td>
 		                        </security:authorize>
 		                        <script type="text/javascript">
 									function removeList() {

@@ -98,6 +98,7 @@
 .calendar_image {
   width: 100%;
   border: 1px solid darkgray;
+  cursor:pointer;
 }
 
 /* 북클럽 */
@@ -128,7 +129,7 @@
 .bookfunding{ width: 1000px; float: left; margin-bottom: 50px;}
 .funding {
     width: 100%;
-    height: 360px;
+    height: 340px;
     border: darkgrey solid 1px;
     border-radius: 5px;
     float: left;

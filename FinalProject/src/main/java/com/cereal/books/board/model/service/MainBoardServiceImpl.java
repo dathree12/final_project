@@ -73,7 +73,7 @@ public class MainBoardServiceImpl implements MainBoardService {
 				arr[i] = "b4";
 			}else if(arr[i].equals("종교/역학")){
 				arr[i] = "b5";
-			}else if(arr[i].equals("자기개발")){
+			}else if(arr[i].equals("자기계발")){
 				arr[i] = "b6";
 			}else {
 				System.out.println("회원장르 정보가 null입니다.");

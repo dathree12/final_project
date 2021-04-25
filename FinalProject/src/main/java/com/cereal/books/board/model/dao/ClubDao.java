@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.Exp;
+import com.cereal.books.board.model.vo.Payment;
 
 /*
  * 작성 순서
@@ -48,18 +49,28 @@ public interface ClubDao {
 
 	int insertExp(Exp exp);
 
+	int increaseViewcnt(int bcNo);
+
+	int insertPayment(Payment payment);
+
+	int plusReachPrice(ClubBoard clubBoard);
+
 //	int updateClub(ClubBoard clubBoard);
-	
-	ClubBoard selectClubDetail(int bcNo, RowBounds rowBounds);
-	
+
+	ClubBoard selectClubDetail(int bcNo);
+
 	ClubBoard findClubByNo(int bcNo);
-	
+
+	ClubBoard findBoardByNo(int bcNo);
+
 	List<ClubBoard> selectClubList(RowBounds rowBounds);
-	
+
 	List<ClubBoard> selectDlClubList();
+
 	// 관리자 페이지
 	List<ClubBoard> adminClubList(@Param("rowBounds") RowBounds rowBounds, @Param("status") String status);
+
 	// 마이페이지 (참여, 신청)
 	List<ClubBoard> myClubList(@Param("rowBounds") RowBounds rowBounds, @Param("userNo") int userNo);
-	
+
 }

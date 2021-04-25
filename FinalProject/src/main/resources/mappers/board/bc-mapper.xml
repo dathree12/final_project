@@ -13,6 +13,7 @@
       M.USER_NO,
       B.BC_ORIGIN_TITLE,
       B.BC_SUB_TITLE,
+      B.BC_PRICE,
       B.BC_REG_DATE,
       B.BC_DETAIL_DATE,
       B.BC_START_DATE,
@@ -53,6 +54,19 @@
 		BC_AGREEMENT
 		FROM
 		BOOK_CLUB_BOARD
+	</sql>
+	
+	<sql id="payListSql">
+		SELECT PAY_NO,
+			   USER_NO,
+			   PAY_ENROLL_DATE,
+			   PAY_PROGRESS,
+			   PAY_PRICE,
+			   PAY_STATUS,
+			   PAY_ITEM,
+			   BC_NO,
+			   BF_NO
+		FROM PAYMENT
 	</sql>
 	
    <!-- 북 클럽 메인페이지 -->
@@ -130,42 +144,65 @@
       <result property="userModifyDate" column="USER_MODIFY_DATE" />
       <result property="status" column="STATUS" />
    </resultMap>
+   
+   	<resultMap type="Payment" id="paymentResultMap">
+		<id property="payNo" column="PAY_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="payEnrollDate" column="PAY_ENROLL_DATE"/>
+		<result property="payProgress" column="PAY_PROGRESS"/>
+		<result property="payPrice" column="PAY_PRICE"/>
+		<result property="payStatus" column="PAY_STATUS"/>
+		<result property="payItem" column="PAY_ITEM"/>
+		<result property="bcNo" column="BC_NO"/>
+		<result property="bfNo" column="BF_NO"/>
+		<result property="payTitle" column="BF_TITLE"/>
+		<result property="payTitle" column="BC_ORIGIN_TITLE"/>
+	</resultMap>
+   
+   	<resultMap type="Cart" id="cartResultMap">
+		<id property="cartNo" column="CART_NO"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="cartTitle" column="CART_TITLE"/>
+		<result property="cartAmount" column="CART_AMOUNT"/>
+		<result property="cartPrice" column="CART_PRICE"/>
+		<result property="cartStatus" column="CART_STATUS"/>
+		<result property="cartItem" column="CART_ITEM"/>
+		<result property="bcNo" column="BC_NO"/>
+		<result property="bfNo" column="BF_NO"/>
+	</resultMap>
 
    <!-- 북 클럽 상세페이지 조회 / 북 클럽 게시판 번호로 조회 -->
    <select id="selectClubDetail" parameterType="map" resultMap="clubDetailResultMap">
-      SELECT
-      B.BC_NO,
-      M.USER_NO,
-      B.BC_ORIGIN_TITLE,
-      B.BC_SUB_TITLE,
-      B.BC_PRICE,
-      B.BC_REG_DATE,
-      B.BC_DETAIL_DATE,
-      B.BC_START_DATE,
-      B.BC_DL_DATE,
-      B.BC_REMAIN_DATE,
-      B.BC_VIEW_COUNT,
-      B.BC_CONTENT,
-      B.BC_MODIFY_IMAGE,
-      B.BC_STATUS,
-      B.BC_AGREEMENT
-      <choose>
-      	<when test="expNo != null">
-	      ,E.EXP_NO AS E_EXP_NO,
-	      E.EXP_TITLE AS E_EXP_TITLE,
-	      E.USER_NAME AS E_USER_NAME,
-	      E.EXP_ORIGIN_IMAGE AS E_EXP_ORIGIN_IMAGE,
-		  E.EXP_MODIFY_IMAGE AS E_EXP_MODIFY_IMAGE,
-	      E.EXP_REG_DATE AS E_EXP_REG_DATE,
-	      E.EXP_VIEWCOUNT AS E_EXP_VIEWCOUNT,
-	      E.EXP_CONTENT AS E_EXP_CONTENT,
-	      E.BC_NO AS E_BC_NO
-      	</when>
-      </choose>
-      FROM BOOK_CLUB_BOARD B
-      JOIN MEMBER M ON (B.USER_NO= M.USER_NO)
-      JOIN EXP E ON (E.USER_NO = B.USER_NO)
-      WHERE B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
+		SELECT
+		B.BC_NO,
+		M.USER_NO,
+		B.BC_ORIGIN_TITLE,
+		B.BC_SUB_TITLE,
+		B.BC_PRICE,
+		B.BC_REG_DATE,
+		B.BC_DETAIL_DATE,
+		B.BC_START_DATE,
+		B.BC_DL_DATE,
+		B.BC_REMAIN_DATE,
+		B.BC_VIEW_COUNT,
+		B.BC_CONTENT,
+		B.BC_MODIFY_IMAGE,
+		B.BC_STATUS,
+		B.BC_AGREEMENT
+		<if test="exps != null">
+			,E.EXP_NO AS E_EXP_NO,
+			E.EXP_TITLE AS E_EXP_TITLE,
+			E.USER_NAME AS E_USER_NAME,
+			E.EXP_ORIGIN_IMAGE AS E_EXP_ORIGIN_IMAGE,
+			E.EXP_MODIFY_IMAGE AS E_EXP_MODIFY_IMAGE,
+			E.EXP_REG_DATE AS E_EXP_REG_DATE,
+			E.EXP_VIEWCOUNT AS E_EXP_VIEWCOUNT,
+			E.EXP_CONTENT AS E_EXP_CONTENT
+		</if>
+		FROM BOOK_CLUB_BOARD B
+		JOIN MEMBER M ON (B.USER_NO = M.USER_NO)
+		JOIN EXP E ON (E.USER_NO = B.USER_NO)
+		WHERE B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
    </select>
 
    <!-- 메인페이지 클럽 게시판 전체 조회 -->
@@ -211,12 +248,12 @@
       #{bcOriginTitle},
       #{bcSubTitle},
       #{bcPrice},
-      TO_DATE(#{bcRegDate}, 'yy-mm-dd'),
+      TO_DATE(SYSDATE, 'yy-mm-dd'),
       #{bcDetailDate},
       TO_DATE(#{bcStartDate}, 'yy-mm-dd'),
       TO_DATE(#{bcDeadLineDate}, 'yy-mm-dd'),
-      DEFAULT,
-      DEFAULT,
+      0,
+      0,
       #{bcContent},
       DEFAULT,
       #{bcOriginImage},
@@ -233,6 +270,7 @@
       EXP
       VALUES(
       SEQ_EXP_NO.NEXTVAL,
+      #{bcNo},
       #{userNo},
       #{userName},
       #{expOriginImage},
@@ -241,13 +279,12 @@
       DEFAULT,
       #{expContent},
       TO_DATE(SYSDATE, 'yy-mm-dd'),
-      'Y',
-      #{bcNo}
+      'Y'
       )
    </insert>
    
    <!-- 후기 게시글 총 개수 -->
-   <select id="selectExpCount" parameterType="map" resultType="_int">
+   <select id="selectExpCount" parameterType="map" resultMap="clubResultMap">
 		SELECT
 		COUNT(E.EXP_NO)
 		FROM BOOK_CLUB_BOARD B
@@ -255,7 +292,39 @@
 		JOIN EXP E ON (E.USER_NO = B.USER_NO)
 		WHERE B.BC_STATUS='P' AND B.BC_NO=${bcNo}
    </select>
-
+   
+   <select id="findBoardByNo" parameterType="map" resultMap="clubResultMap">
+      SELECT
+      B.BC_NO,
+      M.USER_NO,
+      B.BC_ORIGIN_TITLE,
+      B.BC_SUB_TITLE,
+      B.BC_REG_DATE,
+      B.BC_DETAIL_DATE,
+      B.BC_START_DATE,
+      B.BC_DL_DATE,
+      B.BC_VIEW_COUNT,
+      B.BC_CONTENT,
+      B.BC_ORIGIN_IMAGE,
+      B.BC_MODIFY_IMAGE,
+      B.BC_STATUS,
+      B.BC_AGREEMENT
+      FROM
+      BOOK_CLUB_BOARD B
+      JOIN MEMBER M ON
+      (B.USER_NO = M.USER_NO)
+      WHERE
+      B.BC_STATUS='P' AND B.BC_NO=#{bcNo}
+   </select>
+   
+   	<!-- 조회수 증가(반복조회 방지) -->
+	<update id="increateViewcnt" parameterType="ClubBoard">
+		UPDATE BOOK_CLUB_BOARD
+		SET 
+			BC_VIEW_COUNT = (BC_VIEW_COUNT + 1)
+		WHERE 
+			BC_NO = #{bcNo}
+	</update>
 
    <!-- 클럽 모집 마감 일정 -->
    <update id="saveRemainDate" parameterType="ClubBoard">

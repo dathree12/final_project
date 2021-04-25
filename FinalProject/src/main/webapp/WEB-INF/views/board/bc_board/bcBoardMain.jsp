@@ -51,7 +51,7 @@
                 </div>
                 <!-- noneRemainList -->
                 <c:if test="${ dlList == null }">
-             	   <p style="width: 100%; margin: 100px 100px 100px 43%">조회된 게시글이 없습니다.</p>
+             	   <p style="width: 100%; margin: 100px 100px 100px 43%">진행중인 클럽이 없습니다.</p>
                 </c:if>
 		                <div class="_catelist_best wrapper">
 		                    <h2><span id="deadline_club" style="position: absolute; left: 600px; top: 150px;">진행 중인 클럽</span></h2>
@@ -128,7 +128,7 @@
 		                                                </a>
 		                                            </div>
 		                                        </div>
-		                                        <div class="description">
+		                                        <div class="description" style="padding: 0px; padding-left: 5px;">
 		                                            <strong class="name">
 		                                                <a href="#">
 		                                                    <span style="font-size: 12px; color: #555555;"><c:out value="${ clubBoard.bcOriginTitle }"/></span>
@@ -140,16 +140,19 @@
 		                                                    <span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">가격</span>&nbsp;<fmt:formatNumber value="${ clubBoard.bcPrice }" />원
 		                                                    </strong>
 		                                                </li>
-		                                                <li class="_inline" style="display: block; width: 100%; text-align: left; margin: 0">
+		                                                <li class="_inline" style="display: block; width: 100%; text-align: left; margin: 0; padding: 0;">
 		                                                    <strong class="title">
 		                                                        <p style="font-size: 11px; color: #000;">
 		                                                        	<span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">등록</span>&nbsp;<c:out value="${ clubBoard.bcRegDate }"/>
-		                                                        	<br/><span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">세부일정</span>&nbsp;<c:out value="${ clubBoard.bcDetailDate }"/>
+		                                                        	<br/>
+		                                                        	<span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">세부일정</span>&nbsp;<c:out value="${ clubBoard.bcDetailDate }"/>
+		                                                        	<br/>
+		                                                        	<span style="font-size: 10px; background: #000; color: #fff; margin: 0; padding: 0px 1px">조회수</span>&nbsp;<c:out value="${ clubBoard.bcViewCount }"/>
 		                                                            <!--  
 		                                                            2021-03-08 / 11:30 AM / 매주2회
 		                                                            -->
 		                                                        </p>
-		                                                        <span style="font-size: 11px; color: #999999; float: left; margin: 0">
+		                                                        <span style="font-size: 11px; color: #999999; float: left; margin: 0;">
 		                                                            <c:out value="${ clubBoard.bcSubTitle }"/>
 		                                                        </span>
 		                                                    </strong>

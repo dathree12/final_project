@@ -45,34 +45,25 @@ public class ClubController {
 	private ClubService service;
 
 	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
-	public ModelAndView detail(ModelAndView model, 
-			@RequestParam("bcNo") int bcNo,
+	public ModelAndView detail(ModelAndView model, HttpServletRequest request, HttpServletResponse response, @RequestParam("bcNo") int bcNo,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit
-			) {
-		
+			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit) {
+
 		ClubBoard clubBoard = null;
-		PageInfo pageInfo = null;
-		
-		int count = service.selectExpCount(bcNo);
-		pageInfo = new PageInfo(page, 5, count, listLimit);
-		clubBoard = service.findClubByNo(bcNo, pageInfo);
-		
+
+		clubBoard = service.findClubByNo(bcNo);
+
 		System.out.println("clubBoard : " + clubBoard);
-		System.out.println("pageInfo : " + pageInfo);
-		System.out.println("count : " + count);
-		
-		model.addObject("pageInfo", pageInfo);
+
 		model.addObject("clubBoard", clubBoard);
 		model.setViewName("board/bc_board/bcBoardDetail");
-		
+
 		return model;
 	}
 
 	// CKEDITOR
 	@RequestMapping(value = "/imageUpload", method = RequestMethod.POST)
-	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload)
-			throws Exception {
+	public void uploadimg(HttpServletRequest request, HttpServletResponse response, MultipartFile upload) throws Exception {
 
 		String fileName = null;
 		String uploadPath = null;
@@ -80,7 +71,7 @@ public class ClubController {
 		String fileUrl = null;
 		PrintWriter printWriter = null;
 		OutputStream out = null;
-		
+
 		log.info("upload 들어온다! ");
 
 		response.setCharacterEncoding("utf-8");
@@ -105,7 +96,7 @@ public class ClubController {
 		// 클라이언트에 이벤트 추가 (자바스크립트 실행)
 		printWriter = response.getWriter(); // 자바스크립트 쓰기위한 도구
 
-        // String fileUrl = "http://localhost:8088/books/resources/upload/" + fileName;
+		// String fileUrl = "http://localhost:8088/books/resources/upload/" + fileName;
 		fileUrl = request.getContextPath() + "/upload/" + fileName;
 
 		if (!callback.equals("1")) { // callback이 1일 경우만 성공한 것
@@ -114,16 +105,14 @@ public class ClubController {
 		} else {
 			log.info("upload img 들어온다! " + fileUrl);
 
-			printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl
-					+ "','이미지가 업로드되었습니다.')" + "</script>");
+			printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl + "','이미지가 업로드되었습니다.')" + "</script>");
 		}
 		printWriter.flush();
 	}
 
 	// 북 클럽 메인페이지
 	@RequestMapping(value = "/bcBoardMain", method = RequestMethod.GET)
-	public ModelAndView list(ModelAndView model,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+	public ModelAndView list(ModelAndView model, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "listLimit", required = false, defaultValue = "12") int listLimit) {
 
 		List<ClubBoard> list = null;
@@ -138,6 +127,9 @@ public class ClubController {
 
 		list = service.getBoardList(pageInfo);
 		dlList = service.getDlBoardList();
+		
+		System.out.println("list" + list);
+		System.out.println("dlList" + dlList);
 
 		model.addObject("list", list);
 		model.addObject("dlList", dlList);
@@ -151,18 +143,17 @@ public class ClubController {
 	// 북 클럽 메인페이지(관리자), 대표이미지
 	@RequestMapping(value = "/bcAdminWrite", method = RequestMethod.POST)
 	public ModelAndView adminWrite(ModelAndView model, Principal user, ClubBoard clubBoard, HttpServletRequest request,
-			@RequestParam("upfile") MultipartFile upfile
-			) throws Exception {
+			@RequestParam("upfile") MultipartFile upfile) throws Exception {
 		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
 
 		if (user.getName().equals(clubBoard.getUserId())) {
 			clubBoard.setUserId(user.getName());
 
 			int result = 0;
-			
+
 			String renameFileName = saveFile(upfile, request);
-			
-			if(renameFileName != null) {
+
+			if (renameFileName != null) {
 				clubBoard.setBcOriginImage(upfile.getOriginalFilename());
 				clubBoard.setBcModifyImage(renameFileName);
 			}
@@ -185,36 +176,34 @@ public class ClubController {
 
 		return model;
 	}
-	
+
 	// 대표사진 저장할 수 있는 메소드
 	private String saveFile(MultipartFile upfile, HttpServletRequest request) {
 		// file 이름 뒤에 등록하는 시간 붙여서 rename에 넣기
 		String renamePath = null;
 		String originalFileName = null;
 		String renameFileName = null;
-		
+
 		// 저장되는 경로
 		String rootPath = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = rootPath + "/upload/bc_board";
-		
+
 		log.debug("Root Path : " + rootPath);
 		log.debug("Save Path : " + savePath);
-		
+
 		// savePath가 실제로 존재하지 않으면 폴더를 생성하는 로직
 		File folder = new File(savePath);
-		
+
 		// folder가 존재하지 않으면 false, !붙이면 true로 바뀌면서 로직실행
-		if(!folder.exists()) {
+		if (!folder.exists()) {
 			folder.mkdir();
 		}
-		
+
 		originalFileName = upfile.getOriginalFilename();
 		String ext = (originalFileName.lastIndexOf(".") == -1) ? "" : originalFileName.substring(originalFileName.lastIndexOf("."));
-		renameFileName = 
-				LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) +
-				ext;
+		renameFileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmssSSS")) + ext;
 		renamePath = savePath + "/" + renameFileName;
-		
+
 		try {
 			// 업로드한 파일데이터를 지정한 파일에 저장한다.
 			upfile.transferTo(new File(renamePath));
@@ -222,82 +211,80 @@ public class ClubController {
 			System.out.println("파일전송 에러 : " + e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 		return renameFileName;
 	}
-	
+
 	// 펀딩 프로젝트 일반회원 상세조회 페이지 수정하기 내에서 새롭게 대표이미지 파일 등록되면 기존파일 삭제
 	private void deleteFile(String fileName, HttpServletRequest request) {
 		String rootPath = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = rootPath + "/upload/bc_board";
-		
+
 		log.debug("Root Path : " + rootPath);
 		log.debug("Save Path : " + savePath);
-		
+
 		File file = new File(savePath + "/" + fileName);
-		
-		if(file.exists()) {
+
+		if (file.exists()) {
 			file.delete();
 		}
-	}	
+	}
 
 	// 북 클럽 상세페이지
 	@RequestMapping("/bcBoardDetail")
 	public String clubDetail() {
-		
+
 		return "board/bc_board/bcBoardDetail";
 	}
-	
+
 	// 북 클럽 메인페이지
 	@RequestMapping("/bcBoardMain")
 	public String clubMain() {
-		
+
 		return "board/bc_board/bcBoardMain";
 	}
-	
+
 	// 북 클럽 메인페이지
 	@RequestMapping("/bcReviewWrite")
 	public String clubReview() {
-		
+
 		return "board/bc_board/bcReviewWrite";
 	}
-	
+
 	// 북 클럽 메인페이지(관리자)
 	@RequestMapping("/bcAdminWrite")
 	public String adminWrite() {
 		// 리턴 타입이 void 일 경우 Mapping URL을 유추해서 View를 찾는다.
-		
+
 		return "board/bc_board/bcAdminWrite";
 	}
-	
+
 	// 북 클럽 제안페이지
 	@RequestMapping("/bcBoardPropose")
 	public String clubPropose() {
-		
+
 		return "board/bc_board/bcBoardPropose";
 	}
-	
+
 	// 북 클럽 글쓰기페이지
 	@RequestMapping("/bcBoardWrite")
 	public String clubWrite() {
-		
+
 		return "board/bc_board/bcBoardWrite";
 	}
-	
+
 	// 북 클럽 결제페이지
 	@RequestMapping("/bcBoardPayment")
 	public String clubPayment() {
-		
+
 		return "board/bc_board/bcBoardPayment";
 	}
-	
+
 	// 북 클럽 결제페이지
 	@RequestMapping("/bcExpWrite")
 	public String expWrite() {
-		
+
 		return "board/bc_board/bcExpWrite";
 	}
-	
+
 }
-
-

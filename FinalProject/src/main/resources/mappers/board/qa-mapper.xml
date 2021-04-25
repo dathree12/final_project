@@ -7,7 +7,7 @@
 		SELECT
 		Q.QA_NO,
 		M.USER_NO,
-		QA_WRITER,
+		Q.QA_WRITER,
 		Q.QA_ITEM,
 		Q.QA_TITLE,
 		Q.QA_CONTENT,
@@ -16,10 +16,8 @@
 		Q.QA_MODIFY_DATE,
 		Q.QA_STATUS
 		FROM QA_BOARD Q
-		JOIN MEMBER M ON(Q.USER_NO
-		= M.USER_NO)
-		WHERE
-		QA_STATUS = 'Y'
+		JOIN MEMBER M ON(Q.USER_NO = M.USER_NO)
+		WHERE QA_STATUS = 'Y'
 	</sql>
 
 	<resultMap type="QA" id="qaResultMap">
@@ -41,9 +39,10 @@
 		ORDER BY Q.QA_NO DESC
 	</select>
 
-	<select id="selectQADetail" parameterType="_int"
+	<select id="selectQADetail" parameterType="map"
 		resultMap="qaResultMap">
 		<include refid="qaListSql"></include>
+		AND QA_NO=#{qaNo}
 	</select>
 
 	<select id="qaCount" parameterType="map" resultType="_int">
@@ -52,6 +51,13 @@
 		FROM QA_BOARD
 		WHERE QA_STATUS = 'Y'
 	</select>
+	
+	<update id="deleteBoard" parameterType="_int">
+		UPDATE QA_BOARD
+		SET
+		QA_STATUS='N'
+		WHERE QA_NO=#{qaNo}
+	</update>
 
 	<insert id="insertQA" parameterType="map"
 		useGeneratedKeys="true" keyProperty="qaNo" keyColumn="QA_NO">

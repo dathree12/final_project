@@ -38,6 +38,7 @@ public class MemberController {
 		
 		return "member/login";
 	}
+
 	
 	/*회원가입 약관*/
 	@RequestMapping("member/enrollTerms")
