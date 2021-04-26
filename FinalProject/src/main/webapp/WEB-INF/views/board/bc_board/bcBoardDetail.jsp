@@ -251,6 +251,7 @@
             -->
             <div class="bcboard_mid_bottom" style="/*border: 1px solid black;*/ text-align: center;">
 		      	<div class="bcboard_mid_pageCount">
+					<!--  
 		            <a href="${path}/board/bc_board/bcBoardMain?page=1">&lt;&lt;</a> &nbsp; &nbsp;
 		            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.prvePage}">&lt;</a> &nbsp; &nbsp;
 					<c:forEach begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="status">
@@ -262,9 +263,18 @@
 							&nbsp; &nbsp;
 		   				</c:if>
 					</c:forEach>            
+					<a href="${path}/board/bc_board/bcBoardMain?page=${status.current}">1</a> 
 		            
 		            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.nextPage}">&gt;</a> &nbsp; &nbsp;
 		            <a href="${path}/board/bc_board/bcBoardMain?page=${pageInfo.maxPage}">&gt;&gt;</a>
+					-->
+					<div class="pageBar" style="padding: 30px 0; text-align: center; line-height: 0;">
+					<a href="#" class="first">«</a>
+					<a href="#" class="prev">‹</a>
+					<a href="#" class="p_number">1</a>
+					<a href="#" class="next">›</a>
+					<a href="#" class="last">»</a>
+            </div>
 		        </div>
 		    </div>	
         </article>

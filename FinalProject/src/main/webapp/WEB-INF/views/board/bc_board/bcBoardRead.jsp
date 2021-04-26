@@ -36,6 +36,13 @@
                 <div class="board_txt_area" style="padding: 10px">
                 	<c:out value="${ propose.proposeContent }" escapeXml="false"/>
                 </div>
+				<hr>
+				<div class="container">
+					<form id="commentListForm" name="commentListForm" method="post">
+						<div id="commentList"></div>
+					</form>
+				</div>
+				<!--  
                 <div class="comment_section">
                     <div class="comment-block">
                         <div class="btn-group-wrap">
@@ -44,21 +51,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="comment_textarea">
-                    <form id="commentForm" method="post" name="commentForm" class="comment_form">
-                        <div class="custom-textarea">
+				-->
+				<div class="comment_textarea">
+					<form id="commentForm" name="commentForm" method="post"
+						class="comment_form">
+						<div class="custom-textarea">
 							<p class="comment_profile" id="loginNname">${user.userNname}</p>
 							<p class="comment_profile" id="loginNo" style="display: none" value="${user.userNo}"></p>
-                            <textarea class="comment_body" style="border: 0px; outline: none;" name="comContent" id="comContent" rows="1" placeholder="댓글을 남겨주세요"></textarea>
-                            <div class="write_button_wrap">
-                                <div class="none"></div>
-                                <div class="write_button">
-                                    <a onclick="saveComment();" id="commentBtn" class="btn pull-right btn-success" style="color: #fff; cursor: pointer;">작성</a>
-                                </div>
-                            </div>
-                         </div>
-                         <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
-                    </form>
+							<textarea class="comment_body"
+								style="border: 0px; width:600px; outline: none;"
+								name="comContent" id="comContent" rows="1"
+								placeholder="댓글을 남겨주세요"></textarea>
+							<div class="write_button_wrap">
+								<div class="none"></div>
+								<div class="write_button">
+									<a onclick="saveComment();" id="commentBtn" class="btn pull-right btn-success" style="cursor: pointer;">등록</a>
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								</div>
+							</div>
+						</div>
+					</form>
                     <div class="list_button_wrap">
                         <div class="none"></div>
                         <div class="write_button">
@@ -102,7 +114,7 @@ function commentList() {
 	$.ajax({
 		url:	"commentList",
 		type:	"get",
-		data:	{proposeNo: ${propose.proposeNo}},
+		data:	{proposeNo: ${ propose.proposeNo }},
 		success: function(data) {
 			var str = '';
 			$.each(data, function(key, value){ 

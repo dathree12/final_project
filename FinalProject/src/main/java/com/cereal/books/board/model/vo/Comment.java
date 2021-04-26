@@ -29,4 +29,12 @@ public class Comment {
 	
 	private int bfNo;
 
+	public Comment(String comWriter, String comContent, int proposeNo) {
+		this.comWriter = comWriter;
+		this.comContent = comContent;
+		this.proposeNo = proposeNo;
+	}
+	
+	
+
 }

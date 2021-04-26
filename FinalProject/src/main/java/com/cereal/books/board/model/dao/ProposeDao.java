@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
-import com.cereal.books.board.model.vo.ClubBoard;
 import com.cereal.books.board.model.vo.Comment;
 import com.cereal.books.board.model.vo.Propose;
 
