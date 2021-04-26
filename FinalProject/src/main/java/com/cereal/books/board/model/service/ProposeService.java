@@ -22,6 +22,8 @@ public interface ProposeService {
 
 	int saveComment(Comment comment);
 
+	int increaseViewcnt(int proposeNo);
+
 	Propose findProposeByNo(int proposeNo);
 
 	Propose comparePwd(@Param("proposeNo") int proposeNo, @Param("proposePwd") int proposePwd);
@@ -32,6 +34,5 @@ public interface ProposeService {
 
 	List<Comment> listComment(int proposeNo);
 
-	int increaseViewcnt(int proposeNo);
 
 }

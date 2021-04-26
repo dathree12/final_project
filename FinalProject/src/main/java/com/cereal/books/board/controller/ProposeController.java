@@ -206,15 +206,17 @@ public class ProposeController {
 	@RequestMapping(value = "/saveComment", method = { RequestMethod.POST })
 	@ResponseBody
 	public int saveComment(@RequestParam("proposeNo") int proposeNo, @RequestParam("comWriter") String comWriter, @RequestParam("comContent") String comContent,
-			Comment comment, ModelAndView model) throws Exception {
+			ModelAndView model) throws Exception {
 
 		int result = 0;
-
+		
+		Comment comment = new Comment(comWriter, comContent, proposeNo);
+		
 		System.out.println(comment);
 
 		result = service.saveComment(comment);
 
-		System.out.println(result);
+		System.out.println("result : " + result);
 
 		return result;
 	}

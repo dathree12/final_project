@@ -16,6 +16,77 @@
     src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"
     ></script>
+    <style type="text/css">
+            * {
+            -webkit-font-smoothing: antialiased;
+            box-sizing: border-box
+        }
+        div {
+            display: block;
+        }
+        .-board-free-view {
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .-board-free-view h3 {
+            font-size: 20px;
+            line-height: 2em;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        ._info {
+            /* border: 1px solid black; */
+            display: flex;
+            justify-content: space-between;
+        }
+        .etcArea {
+            margin-right: 20px;
+        }
+
+        ._info {
+            margin-left: 20px;
+        }
+
+        .etcArea li {
+            float: left;
+            list-style: none;
+        }
+
+        .-board-free-view ._detail {
+            line-height: 2em;
+            padding: 20px 20px 50px;
+        }
+        .-board-free-view ._detail ._detail_box {
+            margin: 10px 0 0;
+        }
+        
+        li { cursor: pointer; }
+        
+        .bottom_list_wrap li {
+        	display: flex;
+        	margin: 0;
+        	overflow: hidden;
+        	border-top: 1px solid #e7e7e7;
+        	border-bottom: 1px solid #e7e7e7;
+        	line-height: 140%;
+        	list-style: none;
+        }
+        .bottom_list_wrap #next_title {
+        	width: 100%;
+        	text-align: left;
+        }
+        .bottom_list_wrap a {
+        	float: left;
+        	padding: 10px;
+        	color: #353535;
+        	text-decoration: none;
+        }
+        
+        a {
+        	font-size: 10px;
+        	font-weight: normal;
+        }
+    </style>
 </head>
 <body>
 <security:authentication property="principal" var="user" />
@@ -36,6 +107,13 @@
                 <div class="board_txt_area" style="padding: 10px">
                 	<c:out value="${ propose.proposeContent }" escapeXml="false"/>
                 </div>
+				<hr>
+				<div class="container">
+					<form id="commentListForm" name="commentListForm" method="post">
+						<div id="commentList"></div>
+					</form>
+				</div>
+				<!--  
                 <div class="comment_section">
                     <div class="comment-block">
                         <div class="btn-group-wrap">
@@ -44,21 +122,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="comment_textarea">
-                    <form id="commentForm" method="post" name="commentForm" class="comment_form">
-                        <div class="custom-textarea">
+				-->
+				<div class="comment_textarea">
+					<form id="commentForm" name="commentForm" method="post"
+						class="comment_form">
+						<div class="custom-textarea">
 							<p class="comment_profile" id="loginNname">${user.userNname}</p>
 							<p class="comment_profile" id="loginNo" style="display: none" value="${user.userNo}"></p>
-                            <textarea class="comment_body" style="border: 0px; outline: none;" name="comContent" id="comContent" rows="1" placeholder="댓글을 남겨주세요"></textarea>
-                            <div class="write_button_wrap">
-                                <div class="none"></div>
-                                <div class="write_button">
-                                    <a onclick="saveComment();" id="commentBtn" class="btn pull-right btn-success" style="color: #fff; cursor: pointer;">작성</a>
-                                </div>
-                            </div>
-                         </div>
-                         <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
-                    </form>
+							<textarea class="comment_body"
+								style="border: 0px; width:600px; outline: none;"
+								name="comContent" id="comContent" rows="1"
+								placeholder="댓글을 남겨주세요"></textarea>
+							<div class="write_button_wrap">
+								<div class="none"></div>
+								<div class="write_button">
+									<a onclick="saveComment();" id="commentBtn" class="btn pull-right btn-success" style="cursor: pointer;">등록</a>
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								</div>
+							</div>
+						</div>
+					</form>
                     <div class="list_button_wrap">
                         <div class="none"></div>
                         <div class="write_button">

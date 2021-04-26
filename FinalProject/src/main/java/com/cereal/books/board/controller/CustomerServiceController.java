@@ -155,7 +155,7 @@ public class CustomerServiceController {
 		if (qa != null) {
 			System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
 
-			model.addObject("propose", qa);
+			model.addObject("qa", qa);
 
 			// 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
 			if (viewCookie == null) {

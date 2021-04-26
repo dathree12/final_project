@@ -76,6 +76,7 @@ public class ProposeServiceImpl implements ProposeService {
 		return dao.comparePwd(proposeNo, proposePwd);
 	}
 
+	@Transactional
 	@Override
 	public int deleteBoard(int proposeNo) {
 		return dao.deleteBoard(proposeNo);

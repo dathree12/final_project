@@ -2,35 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<!-- 
-	에러내역
-	 : invalid host/bind variable name -> (,) 안넣어서.. 
--->
+<!-- 에러내역 : invalid host/bind variable name -> (,) 안넣어서.. -->
 
 <mapper namespace="com.cereal.books.board.model.dao.ProposeDao">
 	<!-- 반복되는 쿼리문 -->
 	<sql id="proposeListSql">
-		SELECT 
-		P.PROPOSE_NO, 
-		M.USER_NO, 
-		M.USER_NAME, 
-		P.PROPOSE_TITLE, 
-		P.PROPOSE_PWD, 
-		P.PROPOSE_REG_DATE, 
-		P.PROPOSE_VIEW_COUNT, 
-		P.PROPOSE_CONTENT, 
+		SELECT
+		P.PROPOSE_NO,
+		M.USER_NO,
+		M.USER_NAME,
+		P.PROPOSE_TITLE,
+		P.PROPOSE_PWD,
+		P.PROPOSE_REG_DATE,
+		P.PROPOSE_VIEW_COUNT,
+		P.PROPOSE_CONTENT,
 		P.PROPOSE_STATUS
 		FROM PROPOSE P
 		JOIN MEMBER M ON(P.USER_NO = M.USER_NO)
-		WHERE P.PROPOSE_STATUS = 'Y'
+		WHERE
+		P.PROPOSE_STATUS = 'Y'
 	</sql>
-	
+
 	<!-- 제안하기 맵 -->
 	<resultMap type="Propose" id="proposeResultMap">
 		<id property="proposeNo" column="PROPOSE_NO" />
-		<result property="userNo" column="USER_NO"/>
-		<result property="userId" column="USER_ID"/>
-		<result property="userName" column="USER_NAME"/>
+		<result property="userNo" column="USER_NO" />
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USER_NAME" />
 		<result property="proposePwd" column="PROPOSE_PWD" />
 		<result property="proposeTitle" column="PROPOSE_TITLE" />
 		<result property="proposeRegDate" column="PROPOSE_REG_DATE" />
@@ -38,7 +36,7 @@
 		<result property="proposeContent" column="PROPOSE_CONTENT" />
 		<result property="proposeStatus" column="PROPOSE_STATUS" />
 	</resultMap>
-	
+
 	<!-- 댓글 resultmap -->
 	<resultMap type="Comment" id="boardCommentResultMap">
 		<id property="comNo" column="COM_NO" />
@@ -54,34 +52,39 @@
 	</resultMap>
 
 	<!-- 제안하기 리스트 -->
-	<select id="selectProposeList" parameterType="map" resultMap="proposeResultMap">
+	<select id="selectProposeList" parameterType="map"
+		resultMap="proposeResultMap">
 		<include refid="proposeListSql"></include>
 		ORDER BY P.PROPOSE_NO DESC
 	</select>
 
 	<!-- 제안하기 총 개수 -->
 	<select id="proposeCount" parameterType="map" resultType="_int">
-		SELECT COUNT(*)
+		SELECT
+		COUNT(*)
 		FROM PROPOSE
 		WHERE PROPOSE_STATUS = 'Y'
 	</select>
-	
+
 	<!-- 비밀번호 비교 -->
-	<select id="comparePwd" parameterType="_int" resultMap="proposeResultMap">
-		SELECT 
-		P.PROPOSE_NO, 
-		M.USER_NO, 
-		M.USER_NAME, 
-		P.PROPOSE_PWD 
+	<select id="comparePwd" parameterType="_int"
+		resultMap="proposeResultMap">
+		SELECT
+		P.PROPOSE_NO,
+		M.USER_NO,
+		M.USER_NAME,
+		P.PROPOSE_PWD
 		FROM PROPOSE P
 		JOIN MEMBER M ON(P.USER_NO = M.USER_NO)
-		WHERE P.PROPOSE_NO=#{proposeNo} AND P.PROPOSE_PWD=#{proposePwd}
+		WHERE
+		P.PROPOSE_NO=#{proposeNo} AND P.PROPOSE_PWD=#{proposePwd}
 	</select>
 
 	<!-- 제안하기 게시판 추가 -->
-	<insert id="insertPropose" parameterType="map" useGeneratedKeys="true" keyProperty="proposeNo" keyColumn="PROPOSE_NO">
-		INSERT INTO 
-		PROPOSE 
+	<insert id="insertPropose" parameterType="map"
+		useGeneratedKeys="true" keyProperty="proposeNo" keyColumn="PROPOSE_NO">
+		INSERT INTO
+		PROPOSE
 		VALUES(
 		SEQ_PROPOSE_NO.NEXTVAL,
 		#{userNo},
@@ -90,21 +93,21 @@
 		#{proposePwd},
 		#{proposeTitle},
 		TO_DATE(SYSDATE, 'yy-mm-dd'),
-		DEFAULT, 
+		DEFAULT,
 		#{proposeContent},
 		'Y'
 		)
 	</insert>
-	
+
 	<!-- 조회수 증가(반복조회 방지) -->
 	<update id="increateViewcnt" parameterType="ReviewBoard">
 		UPDATE PROPOSE
-		SET 
-			PROPOSE_VIEW_COUNT = (PROPOSE_VIEW_COUNT + 1)
-		WHERE 
-			PROPOSE_NO = #{proposeNo}
+		SET
+		PROPOSE_VIEW_COUNT = (PROPOSE_VIEW_COUNT + 1)
+		WHERE
+		PROPOSE_NO = #{proposeNo}
 	</update>
-	
+
 	<!-- 제안하기 게시판 삭제(상태 변화) -->
 	<update id="deleteBoard" parameterType="_int">
 		UPDATE PROPOSE
@@ -112,45 +115,49 @@
 		PROPOSE_STATUS='N'
 		WHERE PROPOSE_NO=#{proposeNo}
 	</update>
-	
+
 	<!-- 마이페이지 -->
 	<!-- 내가 제안한 클럽 조회 -->
-	<select id="myAplctClubList" parameterType="map" resultMap="proposeResultMap">
-		SELECT 
-			PROPOSE_NO, 
-			PROPOSE_TITLE, 
-			PROPOSE_STATUS
+	<select id="myAplctClubList" parameterType="map"
+		resultMap="proposeResultMap">
+		SELECT
+		PROPOSE_NO,
+		PROPOSE_TITLE,
+		PROPOSE_STATUS
 		FROM PROPOSE
 		WHERE USER_NO = #{userNo}
-  		ORDER BY PROPOSE_NO DESC
-  	</select>
-  	
-  	<select id="selectMyAplcClubCount" parameterType="_int" resultType="_int">
+		ORDER BY PROPOSE_NO DESC
+	</select>
+
+	<select id="selectMyAplcClubCount" parameterType="_int"
+		resultType="_int">
 		SELECT COUNT(*)
 		FROM PROPOSE
 		WHERE USER_NO = #{userNo}
 	</select>
-	
-  	<select id="selectPropose" parameterType="map" resultMap="proposeResultMap">
+
+	<select id="selectPropose" parameterType="map"
+		resultMap="proposeResultMap">
 		<include refid="proposeListSql"></include>
 		AND P.PROPOSE_NO=#{proposeNo}
 	</select>
-	
-		<!-- 댓글 집어넣기 -->
+
+	<!-- 댓글 집어넣기 -->
 	<insert id="saveComment" parameterType="map"
 		useGeneratedKeys="true" keyProperty="comNo" keyColumn="COM_NO">
-		INSERT INTO COMMENT_BOARD
-		VALUES(
-		SEQ_COM_NO.NEXTVAL,
-		#{comWriter},
+
+		insert into
+		comment_board values(
+		seq_com_no.nextval, 
+		#{comWriter}, 
 		#{comContent},
-		DEFAULT,
-		DEFAULT,
-		'Y',
-		DEFAULT,
-		#{proposeNo},
-		DEFAULT,
-		DEFAULT
+		default, 
+		default, 
+		default, 
+		default, 
+		#{proposeNo}, 
+		default, 
+		default
 		)
 	</insert>
 
@@ -164,6 +171,7 @@
 		CB.COM_STATUS,
 		CB.QA_NO
 		FROM COMMENT_BOARD CB
-		WHERE CB.QA_NO = #{proposeNo} AND CB.COM_STATUS='Y'
+		WHERE
+		CB.QA_NO = #{proposeNo} AND CB.COM_STATUS='Y'
 	</select>
 </mapper>
