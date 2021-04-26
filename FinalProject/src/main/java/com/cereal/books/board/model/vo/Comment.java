@@ -1,7 +1,5 @@
 package com.cereal.books.board.model.vo;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,10 +23,18 @@ public class Comment {
 	
 	private int qaNo;
 	
-	private int bcNo;
+	private int proposeNo;
 	
 	private int brNo;
 	
 	private int bfNo;
+
+	public Comment(String comWriter, String comContent, int proposeNo) {
+		this.comWriter = comWriter;
+		this.comContent = comContent;
+		this.proposeNo = proposeNo;
+	}
+	
+	
 
 }
