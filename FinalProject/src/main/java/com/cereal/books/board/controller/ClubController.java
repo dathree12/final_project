@@ -182,9 +182,6 @@ public class ClubController {
 		list = service.getBoardList(pageInfo);
 		dlList = service.getDlBoardList();
 
-		System.out.println("list" + list);
-		System.out.println("dlList" + dlList);
-
 		model.addObject("list", list);
 		model.addObject("dlList", dlList);
 		model.addObject("pageInfo", pageInfo);
