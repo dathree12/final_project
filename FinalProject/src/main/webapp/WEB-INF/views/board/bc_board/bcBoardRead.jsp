@@ -16,77 +16,6 @@
     src="https://kit.fontawesome.com/2d323a629b.js" 
     crossorigin="anonymous"
     ></script>
-    <style type="text/css">
-            * {
-            -webkit-font-smoothing: antialiased;
-            box-sizing: border-box
-        }
-        div {
-            display: block;
-        }
-        .-board-free-view {
-            border-bottom: 1px solid #f1f1f1;
-        }
-        .-board-free-view h3 {
-            font-size: 20px;
-            line-height: 2em;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #f1f1f1;
-        }
-        ._info {
-            /* border: 1px solid black; */
-            display: flex;
-            justify-content: space-between;
-        }
-        .etcArea {
-            margin-right: 20px;
-        }
-
-        ._info {
-            margin-left: 20px;
-        }
-
-        .etcArea li {
-            float: left;
-            list-style: none;
-        }
-
-        .-board-free-view ._detail {
-            line-height: 2em;
-            padding: 20px 20px 50px;
-        }
-        .-board-free-view ._detail ._detail_box {
-            margin: 10px 0 0;
-        }
-        
-        li { cursor: pointer; }
-        
-        .bottom_list_wrap li {
-        	display: flex;
-        	margin: 0;
-        	overflow: hidden;
-        	border-top: 1px solid #e7e7e7;
-        	border-bottom: 1px solid #e7e7e7;
-        	line-height: 140%;
-        	list-style: none;
-        }
-        .bottom_list_wrap #next_title {
-        	width: 100%;
-        	text-align: left;
-        }
-        .bottom_list_wrap a {
-        	float: left;
-        	padding: 10px;
-        	color: #353535;
-        	text-decoration: none;
-        }
-        
-        a {
-        	font-size: 10px;
-        	font-weight: normal;
-        }
-    </style>
 </head>
 <body>
 <security:authentication property="principal" var="user" />
@@ -185,7 +114,7 @@ function commentList() {
 	$.ajax({
 		url:	"commentList",
 		type:	"get",
-		data:	{proposeNo: ${propose.proposeNo}},
+		data:	{proposeNo: ${ propose.proposeNo }},
 		success: function(data) {
 			var str = '';
 			$.each(data, function(key, value){ 

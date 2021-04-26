@@ -91,7 +91,6 @@ public class ProposeServiceImpl implements ProposeService {
 		return result;
 	}
 
-	@Transactional
 	@Override
 	public List<Comment> listComment(int proposeNo) {
 		return dao.listComment(proposeNo);
