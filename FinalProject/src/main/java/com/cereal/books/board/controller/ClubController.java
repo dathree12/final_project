@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -45,20 +46,19 @@ public class ClubController {
 	private ClubService service;
 
 	@RequestMapping(value = "/bcBoardDetail", method = RequestMethod.GET)
-	public ModelAndView detail(ModelAndView model, HttpServletRequest request, HttpServletResponse response, @RequestParam("bcNo") int bcNo,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "listLimit", required = false, defaultValue = "3") int listLimit) {
+	public ModelAndView detail(ModelAndView model, HttpServletRequest request, HttpServletResponse response, @RequestParam("bcNo") int bcNo
+			) {
 
 		ClubBoard clubBoard = null;
 
 		clubBoard = service.findClubByNo(bcNo);
-
-		System.out.println("clubBoard : " + clubBoard);
-
+		
 		model.addObject("clubBoard", clubBoard);
+		
 		model.setViewName("board/bc_board/bcBoardDetail");
-
+		
 		return model;
+
 	}
 
 	// CKEDITOR
@@ -127,7 +127,7 @@ public class ClubController {
 
 		list = service.getBoardList(pageInfo);
 		dlList = service.getDlBoardList();
-		
+
 		System.out.println("list" + list);
 		System.out.println("dlList" + dlList);
 

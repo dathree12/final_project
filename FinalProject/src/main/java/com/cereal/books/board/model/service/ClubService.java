@@ -23,6 +23,12 @@ public interface ClubService {
 	// 마이페이지
 	int getMyClubCount(int userNo);
 
+	int increaseViewcnt(int bcNo);
+
+	int plusReachPrice(ClubBoard clubBoard);
+
+	int insertPayment(Payment payment);
+
 	List<ClubBoard> getBoardList(PageInfo pageInfo);
 
 	List<ClubBoard> getDlBoardList();
@@ -35,11 +41,5 @@ public interface ClubService {
 	ClubBoard findClubByNo(int bcNo);
 
 	ClubBoard findBoardByNo(int bcNo);
-
-	int increaseViewcnt(int bcNo);
-
-	int plusReachPrice(ClubBoard clubBoard);
-
-	int insertPayment(Payment payment);
 
 }

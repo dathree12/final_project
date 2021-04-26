@@ -67,9 +67,14 @@ public class QAServiceImpl implements QAService {
 		return result;
 	}
 
-	@Transactional
 	@Override
 	public List<Comment> listComment(int qaNo) {
 		return dao.listComment(qaNo);
+	}
+
+	@Transactional
+	@Override
+	public int increaseViewcnt(int qaNo) {
+		return dao.increateViewcnt(qaNo);
 	}
 }

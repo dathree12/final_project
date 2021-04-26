@@ -94,20 +94,30 @@
 	<!-- 댓글 집어넣기 -->
 	<insert id="saveComment" parameterType="map"
 		useGeneratedKeys="true" keyProperty="comNo" keyColumn="COM_NO">
-		INSERT INTO COMMENT_BOARD
-		VALUES(
-		SEQ_COM_NO.NEXTVAL,
-		#{comWriter},
+		insert into
+		comment_board values(
+		seq_com_no.nextval, 
+		#{comWriter}, 
 		#{comContent},
-		DEFAULT,
-		DEFAULT,
-		'Y',
-		#{qaNo},
-		DEFAULT,
-		DEFAULT,
-		DEFAULT
+		default, 
+		default, 
+		default, 
+		#{qaNo}, 
+		default, 
+		default, 
+		default
 		)
 	</insert>
+
+	<!-- 조회수 증가(반복조회 방지) -->
+	<update id="increateViewcnt" parameterType="map">
+		UPDATE QA_BOARD
+		SET 
+			QA_VIEWCOUNT = (QA_VIEWCOUNT + 1)
+		WHERE 
+			QA_NO = #{qaNo}
+	</update>
+
 
 	<!-- 댓글 불러오기 -->
 	<select id="listComment" parameterType="_int"

@@ -6,8 +6,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
 <%@ include file="../../common/header.jsp" %>
-<!DOCTYPE html>
-<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -20,6 +18,7 @@
     ></script>
 </head>
 <body>
+<security:authentication property="principal" var="user" />
     <section class="propose-read-section-1th">
         <article class="propose-read-article-1th">
             <div class="board_title">
@@ -37,6 +36,13 @@
                 <div class="board_txt_area" style="padding: 10px">
                 	<c:out value="${ propose.proposeContent }" escapeXml="false"/>
                 </div>
+				<hr>
+				<div class="container">
+					<form id="commentListForm" name="commentListForm" method="post">
+						<div id="commentList"></div>
+					</form>
+				</div>
+				<!--  
                 <div class="comment_section">
                     <div class="comment-block">
                         <div class="btn-group-wrap">
@@ -45,23 +51,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="comment_textarea">
-                    <form action="${ path }/board/bc_board/bcBoardRead?${_csrf.parameterName}=${_csrf.token}" method="post" id="post_form">
-                        <div class="custom-textarea">
-                            <textarea class="comment_body" style="border: 0px; outline: none;" name="comment_body" id="comment_body" rows="1" placeholder="댓글을 남겨주세요"></textarea>
-                            <div class="write_button_wrap">
-                                <div class="none"></div>
-                                <div class="write_button">
-                                    <a href="#" style="color: #fff;">작성</a>
-                                </div>
-                            </div>
-                         </div>
-                         <input type="hidden" name="_csrf" value="${_csrf.token}" name="${_csrf.parameterName}" />
-                    </form>
+				-->
+				<div class="comment_textarea">
+					<form id="commentForm" name="commentForm" method="post"
+						class="comment_form">
+						<div class="custom-textarea">
+							<p class="comment_profile" id="loginNname">${user.userNname}</p>
+							<p class="comment_profile" id="loginNo" style="display: none" value="${user.userNo}"></p>
+							<textarea class="comment_body"
+								style="border: 0px; width:600px; outline: none;"
+								name="comContent" id="comContent" rows="1"
+								placeholder="댓글을 남겨주세요"></textarea>
+							<div class="write_button_wrap">
+								<div class="none"></div>
+								<div class="write_button">
+									<a onclick="saveComment();" id="commentBtn" class="btn pull-right btn-success" style="cursor: pointer;">등록</a>
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								</div>
+							</div>
+						</div>
+					</form>
                     <div class="list_button_wrap">
                         <div class="none"></div>
                         <div class="write_button">
-                            <a href="${ path }/board/bc_board/bcBoardList" style="color: #fff;">목록</a>
+                            <a onclick="history.back();" style="color: #fff;">목록</a>
                         </div>
                     </div>
                     <div class="bottom_list_wrap">
@@ -95,4 +108,72 @@
         </article>
     </section>
     <script src="${ path }/js/club/bcBoardRead.js"></script>
+    <script>
+// 댓글 목록 보기
+function commentList() {
+	$.ajax({
+		url:	"commentList",
+		type:	"get",
+		data:	{proposeNo: ${ propose.proposeNo }},
+		success: function(data) {
+			var str = '';
+			$.each(data, function(key, value){ 
+				if (key == 0) {
+					str += '<div class="col-sm-12" style="padding-top: 5px; font-size: 11px;">';
+				} else {
+					str += '<div class="col-sm-12" style="border-top: 1px solid #dddddd; margin-top: 15px; padding-top: 15px; font-size: 11px;">';
+				}
+				str += '<div class="col-sm-2">' + value.comWriter + '</div>';
+				str += '<div class="col-sm-7 commentContent' + value.comNo + '" align="left"><p>' + value.comContent +'</div>';				
+				str += '<div class="col-sm-3">';
+				str += '</div></div>';
+			});
+			$("#commentList").html(str);
+		}
+	});
+}
+function saveComment() {
+	var csrfToken = $("meta[name='csrf-token']").attr('content');
+    var csrfHeader = $("meta[name='csrf-headerName']").attr('content');
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(csrfHeader, csrfToken);
+    });
+	var comContent = document.getElementById("comContent").value;//댓글 내용 저장
+	var comWriter = document.getElementById("loginNname").innerHTML;//댓글 작성자 저장
+	
+	if(comContent.trim().length < 5) {
+		alert("댓글 내용을 5자 이상 입력해주세요")
+	}
+	else if(comContent.trim().length > 1000) {
+		alert("현재 타이핑수: " + comContent.trim().length + " 최대 타이핑 수는 1000입니다.");
+		return;
+	}
+	else {
+		$.ajax({
+			url:	"saveComment",
+			type:	"post",
+			data:	{'proposeNo': ${ propose.proposeNo },
+					 'comWriter': comWriter,
+					 'comContent': comContent},
+			success: function(data) {
+				alert("댓글 등록 성공");
+						commentList();
+									},
+			error: function(data) {
+				alert("댓글 등록 실패")
+			}
+		});
+	}
+	
+}; 
+</script>
+<script>
+	$(document).ready(function() {
+	    $('.comment_body').on('keyup', function(e) {
+	        $(this).css('height', 'auto');
+	        $(this).height(this.scrollHeight);
+	    });
+	    $('.comment_body').keyup();
+	})
+</script>
 <%@ include file="../../common/footer.jsp" %>

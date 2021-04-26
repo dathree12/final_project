@@ -28,13 +28,13 @@ public class ClubServiceImpl implements ClubService {
 	public int getBoardCount() {
 		return clubDao.selectCount();
 	}
-	
+
 	@Transactional
 	@Override
 	public int saveRemainDate() {
 		return clubDao.saveRemainDate();
 	}
-	
+
 	@Transactional
 	@Override
 	public int noneRemainDate() {
@@ -47,26 +47,25 @@ public class ClubServiceImpl implements ClubService {
 
 		int result = 0;
 
-		if(clubBoard.getBcNo() != 0) {
+		if (clubBoard.getBcNo() != 0) {
 //			result = clubDao.updateClub(clubBoard);
 			System.out.println("updateClub");
 		} else {
 			result = clubDao.insertClub(clubBoard);
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public List<ClubBoard> getBoardList(PageInfo pageInfo) {
 		/*
-		 * RowBounds (import org.apache.ibatis.session.RowBounds;)
-		 *  1) offset : 데이터를 가져오는 시작점에서 얼마나 떨어진 데이터값인지 의미
-		 *  2) limit : 몇 개의 값을 가져올지를 의미한다.
+		 * RowBounds (import org.apache.ibatis.session.RowBounds;) 1) offset : 데이터를 가져오는
+		 * 시작점에서 얼마나 떨어진 데이터값인지 의미 2) limit : 몇 개의 값을 가져올지를 의미한다.
 		 */
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-		
+
 		return clubDao.selectClubList(rowBounds);
 	}
 
@@ -77,7 +76,7 @@ public class ClubServiceImpl implements ClubService {
 
 	@Override
 	public ClubBoard findClubByNo(int bcNo) {
-		
+
 		return clubDao.selectClubDetail(bcNo);
 	}
 
@@ -85,13 +84,13 @@ public class ClubServiceImpl implements ClubService {
 	public int selectExpCount(int bcNo) {
 		return clubDao.selectExpCount(bcNo);
 	}
-	
+
 	// 관리자 페이지
 	@Override
 	public List<ClubBoard> getAdminClubList(PageInfo pageInfo, String status) {
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getListLimit());
-		
+
 		return clubDao.adminClubList(rowBounds, status);
 	}
 
@@ -106,10 +105,10 @@ public class ClubServiceImpl implements ClubService {
 	public List<ClubBoard> getMyClubList(PageInfo myClubPageInfo, int userNo) {
 		int offset = (myClubPageInfo.getCurrentPage() - 1) * myClubPageInfo.getListLimit();
 		RowBounds rowBounds = new RowBounds(offset, myClubPageInfo.getListLimit());
-		
+
 		return clubDao.myClubList(rowBounds, userNo);
 	}
-	
+
 	@Override
 	public int getMyClubCount(int userNo) {
 		return clubDao.selectMyClubCount(userNo);
@@ -125,14 +124,13 @@ public class ClubServiceImpl implements ClubService {
 	public int increaseViewcnt(int bcNo) {
 		return clubDao.increaseViewcnt(bcNo);
 	}
-	
+
 	@Transactional
 	@Override
 	public int insertPayment(Payment payment) {
 		return clubDao.insertPayment(payment);
 	}
 
-	
 	@Override
 	public int plusReachPrice(ClubBoard clubBoard) {
 		return clubDao.plusReachPrice(clubBoard);

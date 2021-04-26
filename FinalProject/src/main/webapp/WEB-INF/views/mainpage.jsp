@@ -24,6 +24,8 @@
             <c:if test="${bflist != null}">
         		<c:forEach var="bfboard" items="${bflist}" varStatus="index">
 	        		<div id="bfindex${index.count}">
+			           		<h2 class="bookh2">Funding</h2>
+			    
 			            <div class="bf_div">
 				            <div class="bf_img">
 				            	<img alt="" src="${ path }/upload/bf_board/${ bfboard.bfReImgName }" id="bf_image">
@@ -65,83 +67,51 @@
 					        </div>
 					    </security:authorize>
 				     </div>
-
-				    
-<%--         			<c:if test="${index.count == 2}"> --%>
-<!-- 	        		<div id="bfindex2" style="display: none;"> -->
-<!-- 			            <div class="bf_div"> -->
-<!-- 				            <div class="bf_img"> -->
-<%-- 				            	<img alt="" src="${ path }/upload/bf_board/${ bfboard.bfReImgName }" id="bf_image"> --%>
-<!-- 				            </div> -->
-<!-- 				            <div class="bf_info"> -->
-<!-- 					            <div class="bf_title"> -->
-<%-- 					               <h3>${bfboard.bfTitle }</h3> --%>
-<!-- 					            </div> -->
-<!-- 					            <div class="bf_date"> -->
-<%-- 					               <c:if test="${bfboard.bfRemainDate >= 0}"> --%>
-<%-- 	                        		<h4 id="_deadline"><span><c:out value="${bfboard.bfRemainDate}"/> </span> 일 남음</h4> --%>
-<%-- 	                        	</c:if> --%>
-<%-- 	                        	<c:if test="${bfboard.bfRemainDate < 0}"> --%>
-<%-- 	                        		<h4 id="_deadline"><span><c:out value="${-bfboard.bfRemainDate}"/> </span> 일 지남</h4> --%>
-<%-- 	                        	</c:if> --%>
-<!-- 					            </div> -->
-<!-- 					            <div class="bf_text"> -->
-<%-- 				               	 <p> ${bfboard.bfContent } </p> --%>
-<!-- 				            	</div> -->
-<!-- 				            </div> -->
-<!-- 			            </div> -->
-					
-<!-- 				        <div class="box"> -->
-<%-- 	                 		<div><span class="bf_th">현재 도달 금액 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />원</span> </div> --%>
-<%-- 	                 		<div><span class="bf_th">목표 달성 금액 </span><span class="bf_td"><c:out value="${bfboard.bfTargetPrice}" />원</span> </div> --%>
-<%-- 	                 		<div><span class="bf_th">달성률 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />%</span> </div> --%>
-<!-- 				        </div> -->
-<!-- 				            <br> -->
-<!-- 							<br> -->
-<!-- 				        <div class="bf_bt"> -->
-<%-- 				        	<button class="bf_btn"  type="button" onclick="location.href=('${path}/board/bf_board/bf_viewDetail?bfNo=${bfboard.bfNo}')">신청하러 가기</button> --%>
-<!-- 				        </div> -->
-<!-- 				     </div> -->
-<%-- 				    </c:if>   --%>
-<%--         			<c:if test="${index.count == 3}"> --%>
-<!-- 	        		<div id="bfindex3" style="display: none;"> -->
-<!-- 			            <div class="bf_div"> -->
-<!-- 				            <div class="bf_img"> -->
-<%-- 				            	<img alt="" src="${ path }/upload/bf_board/${ bfboard.bfReImgName }" id="bf_image"> --%>
-<!-- 				            </div> -->
-<!-- 				            <div class="bf_info"> -->
-<!-- 					            <div class="bf_title"> -->
-<%-- 					               <h3>${bfboard.bfTitle }</h3> --%>
-<!-- 					            </div> -->
-<!-- 					            <div class="bf_date"> -->
-<%-- 					               <c:if test="${bfboard.bfRemainDate >= 0}"> --%>
-<%-- 	                        		<h4 id="_deadline"><span><c:out value="${bfboard.bfRemainDate}"/> </span> 일 남음</h4> --%>
-<%-- 	                        	</c:if> --%>
-<%-- 	                        	<c:if test="${bfboard.bfRemainDate < 0}"> --%>
-<%-- 	                        		<h4 id="_deadline"><span><c:out value="${-bfboard.bfRemainDate}"/> </span> 일 지남</h4> --%>
-<%-- 	                        	</c:if> --%>
-<!-- 					            </div> -->
-<!-- 					            <div class="bf_text"> -->
-<%-- 				               	 <p> ${bfboard.bfContent } </p> --%>
-<!-- 				            	</div> -->
-<!-- 				            </div> -->
-<!-- 			            </div> -->
-					
-<!-- 				        <div class="box"> -->
-<%-- 	                 		<div><span class="bf_th">현재 도달 금액 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />원</span> </div> --%>
-<%-- 	                 		<div><span class="bf_th">목표 달성 금액 </span><span class="bf_td"><c:out value="${bfboard.bfTargetPrice}" />원</span> </div> --%>
-<%-- 	                 		<div><span class="bf_th">달성률 </span><span class="bf_td"><fmt:formatNumber value="${bfboard.bfAttainRate}" />%</span> </div> --%>
-<!-- 				        </div> -->
-<!-- 				            <br> -->
-<!-- 							<br> -->
-<!-- 				        <div class="bf_bt"> -->
-<%-- 				        	<button class="bf_btn"  type="button" onclick="location.href=('${path}/board/bf_board/bf_viewDetail?bfNo=${bfboard.bfNo}')">신청하러 가기</button> --%>
-<!-- 				        </div> -->
-<!-- 				     </div> -->
-<%-- 				    </c:if>   --%>
 	        		
 		      	</c:forEach>								
         	</c:if>  
+            <c:if test="${clublist != null}">
+        		<c:forEach var="bcboard" items="${clublist}" varStatus="ind">
+	        		<div id="clind${ind.count}">
+			           	<h2 class="bookh2">Clubs</h2>
+			            <div class="bf_div">
+				            <div class="bf_img">
+				            	<img alt="" src="${ path }/upload/bc_board/${ bcboard.bcModifyImage }" id="bf_image">
+				            </div>
+				            <div class="bf_info">
+					            <div class="bf_title">
+					               <h3>${bcboard.bcOriginTitle }</h3>
+					            </div>
+					      
+					            <div class="bf_text">
+				               	 <p> ${bcboard.bcContent } </p>
+				            	</div>
+				            </div>
+			            </div>
+						<div class="box">
+		                 		<div><span class="bf_th">모임비 </span><span class="bf_td"><fmt:formatNumber value="${bcboard.bcPrice}" />원</span> </div>
+		                 		<div><span class="bf_th">댓글수 </span><span class="bf_td"><c:out value="${bcboard.bcCommentCount}" />원</span> </div>
+		                 		<div><span class="bf_th">조회수 </span><span class="bf_td"><fmt:formatNumber value="${bcboard.bcViewCount}" /></span> </div>
+				        </div>
+				        
+				            <br>
+							<br>
+							
+						<security:authorize access="isAnonymous()">
+					        <div class="bf_bt">
+					        	<button class="bf_btn"  type="button" id="bf_button">신청하러 가기</button>
+					        </div>
+					    </security:authorize>
+						<security:authorize access="hasRole('USER')">
+					        <div class="bf_bt">
+					        	<button class="bf_btn"  type="button" onclick="location.href=('${path}/board/bf_board/bf_viewDetail?bfNo=${bfboard.bfNo}')">신청하러 가기</button>
+					        </div>
+					    </security:authorize>
+				     </div>
+	        		
+		      	</c:forEach>								
+        	</c:if>  
+          
         	
         	<br>
         	<div class="pageBar">
@@ -307,11 +277,7 @@
 	 				</c:forEach>	      
                  </div>
             </div> 
-            <div id="genre_btn">
-                <a href="" id="genre_btn_a">
-                    <span>인문 / 사회 / 역사 게시판 가기</span>
-                </a>  
-            </div>    
+            
         </div>
          <br>
     </section>
@@ -322,6 +288,9 @@
 	 $(document).ready(function () {
 		 $('#bfindex2').css('display','none');
 		 $('#bfindex3').css('display','none');
+		 $('#clind1').css('display','none');
+		 $('#clind2').css('display','none');
+		 $('#clind3').css('display','none');
 		 
 		 
 		 	<c:forEach var="board" items="${list}">
@@ -433,19 +402,44 @@
              // 북클럽/북펀딩 보여주기.
              $('#prev').on('click',() => {
             	 if($('#bfindex3').css('display') != 'none'){	 		
-    				 $('#bfindex2').css('display','');
-    				 $('#bfindex1').css('display','none');
-    				 $('#bfindex3').css('display','none');
+	    				 $('#bfindex1').css('display','none');
+	    				 $('#bfindex2').css('display','');
+	    				 $('#bfindex3').css('display','none');
     	
     			 }else if($('#bfindex2').css('display') != 'none'){
     			 		
-    			 	 $('#bfindex1').css('display','');
-       				 $('#bfindex2').css('display','none');
-       				 $('#bfindex3').css('display','none');
+	    			 	 $('#bfindex1').css('display','');
+	       				 $('#bfindex2').css('display','none');
+	       				 $('#bfindex3').css('display','none');
     			 		
-    			 	}							
-    		
+    			 	}else if($('#clind3').css('display') != 'none'){
+	   			 		 $('#clind1').css('display','none');
+	    				 $('#clind2').css('display','');	
+	    				 $('#clind3').css('display','none');
+    				 
+    			 	}else if($('#clind2').css('display') != 'none'){
+	    				 $('#clind1').css('display','');
+	   			 		 $('#clind2').css('display','none');
+	    				 $('#clind3').css('display','none');
+    				 
+    			 	}else if($('#clind1').css('display') != 'none'){
+        			 	
+	       				 $('#bfindex3').css('display','');
+	       				 $('#clind1').css('display','none');
+	    				 $('#clind2').css('display','none');
+            	 
+    				
+    			 	}else if($('#bfindex1').css('display') != 'none'){
+    
+	       				 $('#clind3').css('display','');
+	       				 $('#bfindex1').css('display','none');
+	    
+            	 
+    				}
     		});
+             
+             
+             
     		 $('#next').on('click',() => {
     			 	if($('#bfindex1').css('display') != 'none'){	 		
 	    				 $('#bfindex2').css('display','');
@@ -453,11 +447,40 @@
     	
     			 	}else if($('#bfindex2').css('display') != 'none'){
     			 		
-	    			 	 $('#bfindex3').css('display','');
 	       				 $('#bfindex1').css('display','none');
 	       				 $('#bfindex2').css('display','none');
+	    			 	 $('#bfindex3').css('display','');
 	    			 		
-    			 	}							
+    			 	}else if($('#bfindex3').css('display') != 'none'){
+    			 	
+	       				 $('#bfindex3').css('display','none');
+	       				 $('#clind1').css('display','');
+	    				 $('#clind2').css('display','none');
+	    				 
+    			 	}else if($('#clind1').css('display') != 'none'){
+    			 		 $('#clind1').css('display','none');
+	    				 $('#clind2').css('display','');
+	    				 $('#clind3').css('display','none');
+    			 		
+    			 		
+    			 	}else if($('#clind2').css('display') != 'none'){
+    			 		 $('#clind1').css('display','none');
+	    				 $('#clind2').css('display','none');
+	    				 $('#clind3').css('display','');
+    			 		
+    			 		
+    			 	}else if($('#clind3').css('display') != 'none'){
+    			 		 $('#clind1').css('display','none');
+	    				 $('#clind3').css('display','none');
+	    				 $('#bfindex1').css('display','');
+    			 		
+    			 		
+    			 	}
+    			 	
+    				 
+    			 	
+		 	
+    			 	
     		});
     		 $('#bf_button').on('click',() => {
  						

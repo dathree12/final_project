@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <c:set var="path" value="${ pageContext.request.contextPath }"/>    
-
+<%@ include file="../../common/header.jsp" %>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -86,7 +86,6 @@
 </head>
 </style>
 <body>
-<%@ include file="../../common/header.jsp" %>
 <security:authentication property="principal" var="user" />
 <div class="wrap" style="width: 1280px; margin: auto;">
         <!-- input type:hidden 으로 정보 가져오기 -->
@@ -113,22 +112,8 @@
 				<div class="brboard-review-content">
 					<c:out value="${ qa.qaContent }" escapeXml="false" />
 				</div>
-				<div class="brboard-review-contentlower">
-					<span id="review-recommend-btn"> 
-					<!--  
-						<a onclick="reco();" class="recommend-button"><img src="${ path }/images/heart.png"	class="recoicon" id="recommend-icon1"></a> 
-						<span id="review-recommend-btn2"></span>
-					-->
-					</span>
-					
-					<span id="review-edit-btn">
-						<a href="${path}/board/br_board/brBoardWrite" id="edit-button">수정</a>
-						<a href="${path}/board/br_board/brBoardDelete?brNo=${board.brNo}" id="delete-button">삭제</a>
-					</span>
-					</form>
-				</div>
 				<hr>
-				<div class="container">
+  				<div class="container">
 					<form id="commentListForm" name="commentListForm" method="post">
 						<div id="commentList"></div>
 					</form>
@@ -136,7 +121,6 @@
 				<div class="comment_textarea">
 					<form id="commentForm" name="commentForm" method="post"
 						class="comment_form">
-						<input type="hidden" value="${ qa.qaWriter }">
 						<div class="custom-textarea">
 							<p class="comment_profile" id="loginNname">${user.userNname}</p>
 							<p class="comment_profile" id="loginNo" style="display: none" value="${user.userNo}"></p>
@@ -153,14 +137,46 @@
 							</div>
 						</div>
 					</form>
-				</div>
+                    <div class="list_button_wrap">
+                        <div class="none"></div>
+                        <div class="write_button">
+                            <a onclick="history.back();" style="color: #fff;">목록</a>
+                        </div>
+                    </div>
+                    <div class="bottom_list_wrap">
+                        <ul>
+					        <input id="qaNo" name="qaNo" style="visibility: hidden;" type="text" value="${ qa.qaNo }">
+					        <!-- 고민중 -->
+                            <li class="next">
+                                <span><a><i class="fas fa-chevron-down"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;다음글</a></span>
+                                <span><a id="next_title" onclick="nextBoard();">비밀글</a></span>
+                                <!--  
+                                	<script type="text/javascript" src="${ path }/js/club/bcBoardRead.js"></script>
+                                -->
+                                <script type="text/javascript">
+	                            	 // 다음글
+	                                function nextBoard() {
+	                                	var qaNo = document.querySelector('#qaNo').value;
+	                                	var nextNo = 1;
+	                                	
+	                                	if ((qaNo * nextNo + 1) == 1) {
+	                                		alert('다음 글이 없습니다.');
+	                                	} else {
+	                                		location.href="bcBoardRead?qaNo=" + (qaNo * nextNo + 1) + "";
+	                                	}
+	                                }
+                             	</script>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
+        </article>
+    </section>
 </div>
 <script>
 // 댓글 목록 보기
 function commentList() {
-	var qaNo = document.getElementById("reviewheader-qaNo").innerHTML;
 	$.ajax({
 		url:	"commentList",
 		type:	"get",
