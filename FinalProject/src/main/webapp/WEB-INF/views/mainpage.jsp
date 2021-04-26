@@ -104,7 +104,7 @@
 					    </security:authorize>
 						<security:authorize access="hasRole('USER')">
 					        <div class="bf_bt">
-					        	<button class="bf_btn"  type="button" onclick="location.href=('${path}/board/bf_board/bf_viewDetail?bfNo=${bfboard.bfNo}')">신청하러 가기</button>
+					        	<button class="bf_btn"  type="button" onclick="location.href=('${ path }/board/bc_board/bcBoardDetail?bcNo=${bcboard.bcNo}')">신청하러 가기</button>
 					        </div>
 					    </security:authorize>
 				     </div>

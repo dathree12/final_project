@@ -106,7 +106,7 @@
 	                            <div class="_d_btn_1th"> 
 	                            	<!-- bcNo 넘겨주기 -->
 	                                <input type="hidden" name="bcNo" id="bcNo" value="${ clubBoard.bcNo }">
-	                                <input type="button" value="바로구매하기">
+	                                <input type="button" value="신청하기">
 	                            </div>
 	                            <div class="_d_btn_2th">
 	                                <input type="submit" value="장바구니" id="_btn_cart">
