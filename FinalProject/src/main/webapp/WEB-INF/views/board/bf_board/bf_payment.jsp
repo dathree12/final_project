@@ -104,7 +104,7 @@
                                     <p class="text-gray">상품</p>
                                 </div>
                                 <div class="col_ctr">
-                                    <p class="text-right">책이름</p>
+                                    <p class="text-right"><c:out value="${board.bfTitle}"/></p>
                                 </div>
                             </div>
                             <div class="pay_row">
@@ -161,7 +161,7 @@
 				return false;
 			} else {
 				//가맹점 식별코드
-	    		IMP.init('imp63746660');
+	    		IMP.init('imp48029222');
 	    		IMP.request_pay({
 	    		    pg : 'kakao',
 	    		    pay_method : 'card',
