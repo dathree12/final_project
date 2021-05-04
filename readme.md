@@ -25,7 +25,7 @@
 ### 3. 상세설명
    #### [메인페이지]
    ##### by. 문성준
-   추후 추가
+   ![ex_screenshot2](mainpage.png)
   
     
     
