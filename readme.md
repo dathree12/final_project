@@ -51,9 +51,8 @@
 
    + 이메일로 찾기/핸드폰 번호로 찾기를 선택할 수 있게 구현했습니다.
          
-   +  
   
-![ex_screenshot2](pwdUpdate.png)
+![ex_screenshot2](pwdUpdate.jpg)
 
  > 비밀번호 찾기
 
