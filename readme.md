@@ -53,7 +53,7 @@
          
    +  
   
-![ex_screenshot2](pdUpdate.png)
+![ex_screenshot2](pwdUpdate.png)
 
  > 비밀번호 찾기
 
