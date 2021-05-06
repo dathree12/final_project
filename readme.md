@@ -146,8 +146,41 @@
 
 #### [북클럽 게시판]
    ##### by. 김동민
-   추후 추가
+   ![ex_screenshot2](club1.PNG)
+   > 북클럽 게시판 메인화면
 
+   + 전체 클럽 조회 시 진행중인(모집 마감 && bcRemainDate<0 && Status='Q')클럽 클릭 시 alert('마감된 클럽입니다.')
+   + 모집 진행중인 클럽 조회(모집 진행중 && bcRemainDate && Status='Y')하면, 상세페이지(bcBoardDetail.jsp)로 이동
+   + 진행중인(모집 마감된)클럽은 BootStrap.js을 사용하여 4개의 게시물 AutoSlide 기능을 추가
+   + 모집 진행중인 게시물(listLimit=12) 페이징 처리
+
+   ![ex_screenshot2](club10.png)
+   > 북클럽 게시판 작성하기
+
+   + 게시판 작성은 관리자만 가능하게 설정
+   
+   ![ex_screenshot2](club2.PNG)
+   > 북클럽 게시판 상세페이지
+   
+   + 상세페이지 구매하기 전 선택 필수(dragdrop.js) 선택 안하고 구매하기 시 alert('일정을 선택해주세요') 
+     같은 일정 선택 시 alert('이미 선택된 일정입니다.')
+   ![ex_screenshot2](club3.PNG)
+   > 북클럽 게시판 상세페이지 후기작성
+   
+   + 후기 작성은 일반 게시판 형태에 섬네일 이미지, 제목, 내용만 넣을 수 있게 구현
+   
+   ![ex_screenshot2](club4.png) ![ex_screenshot2](club6.PNG) ![ex_screenshot2](club5.PNG) ![ex_screenshot2](club7.PNG)
+   > 북클럽 제안하기
+
+   + (관리자 || 작성자)를 제외한 사용자는 비밀글로 설정해놓고, secret.jsp(자식 창)에서 비밀번호를 대조하여 일치하면 
+     alert('비밀번호가 일치합니다.') 이후 상세페이지(bcBoardDetail.jsp)로 이동
+   + 제안하기 게시글 등록 후 관리자가 댓글을 다는 순서로 구성
+   
+   ![ex_screenshot2](club8.PNG) ![ex_screenshot2](club9.PNG)
+   > 북클럽 결제하기
+   
+   + 북펀딩과 동일한 원리로 작동
+   
 #### [마이페이지]
    ##### by. 정수현
    추후 추가
